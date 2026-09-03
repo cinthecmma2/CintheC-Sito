@@ -71,31 +71,43 @@
             display: inline-block;
         }
 
-        /* MENU A TENDINA DESKTOP */
+        /* STILE BOTTONI A TENDINA CENTRALI */
+        .nav-dropdown-btn {
+            background-color: rgba(18, 18, 20, 0.85);
+            border: 1px solid rgba(0, 255, 102, 0.35);
+            color: #ffffff;
+            padding: 8px 16px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        .nav-dropdown-btn:hover {
+            border-color: #00ff66;
+            background-color: rgba(0, 0, 0, 0.95);
+        }
+
+        /* MENU A TENDINA */
         .dropdown { position: relative; display: inline-block; }
         
         .dropdown-content {
             display: none;
             position: absolute;
-            background-color: #18181b;
-            min-width: 160px;
-            box-shadow: 0px 12px 24px 0px rgba(0,0,0,0.5);
+            background-color: #121214;
+            min-width: 180px;
+            box-shadow: 0px 12px 28px 0px rgba(0,0,0,0.7);
             z-index: 100;
             border-radius: 0px !important;
             overflow: hidden;
-            border: 1px solid #27272a;
+            border: 1px solid rgba(0, 255, 102, 0.3);
             top: 100%;
             left: 0;
-            padding-top: 4px;
-        }
-
-        .dropdown-content::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 0;
-            width: 100%;
-            height: 10px;
+            margin-top: 4px;
         }
 
         .dropdown-content a {
@@ -107,7 +119,9 @@
             font-weight: 700;
             text-transform: uppercase;
             transition: background 0.2s, color 0.2s;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
+        .dropdown-content a:last-child { border-bottom: none; }
         .dropdown-content a:hover { background-color: #00ff66; color: black; }
         .dropdown:hover .dropdown-content { display: block; }
 
@@ -171,68 +185,84 @@
     <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-22 flex items-center">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full flex justify-between items-center relative z-10">
             
-            <div class="flex items-center gap-4 sm:gap-6">
+            <!-- LOGO SINISTRA -->
+            <div class="flex items-center">
                 <a href="index.html">
                     <img src="Immagini/Logo.png" alt="CintheC Logo" class="h-16 sm:h-28 w-auto object-contain py-1" onerror="this.onerror=null; this.src='Immagini/logo.png';">
                 </a>
-                
-                <!-- MENU DESKTOP -->
-                <nav class="hidden lg:flex items-center gap-6 text-white font-black text-xs uppercase tracking-wider">
-                    <a href="index.html" class="text-[#00ff66] transition">Home</a>
-                    
-                    <div class="dropdown">
-                        <a href="#" class="hover:text-[#00ff66] transition py-3 flex items-center gap-1">
-                            Eventi <i class="fa-solid fa-chevron-down text-[9px]"></i>
-                        </a>
-                        <div class="dropdown-content">
-                            <a href="cinthec8.html">CintheC 8</a>
-                            <a href="cinthec9.html">CintheC 9</a>
-                            <a href="cinthec10.html">CintheC 10</a>
-                        </div>
-                    </div>
-
-                    <a href="classifiche.html" class="hover:text-[#00ff66] transition">Ranking</a>
-                    <a href="galleria.html" class="hover:text-[#00ff66] transition">Shop</a>
-                    <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="hover:text-[#00ff66] transition">Ticket</a>
-                    <a href="iscrizione.html" class="hover:text-[#00ff66] transition">Iscrizioni</a>
-                </nav>
             </div>
 
-            <!-- LOGO DESTRA + PULSANTE MENU MOBILE -->
+            <!-- DUE BOTTONI A TENDINA CENTRALI (EVENTI & MENU) -->
+            <div class="hidden md:flex items-center gap-3">
+                <!-- Bottone Eventi -->
+                <div class="dropdown">
+                    <button class="nav-dropdown-btn">
+                        <i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC <i class="fa-solid fa-chevron-down text-[9px] ml-1"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="index.html">Home</a>
+                        <a href="cinthec8.html">CintheC 8</a>
+                        <a href="cinthec9.html">CintheC 9</a>
+                        <a href="cinthec10.html">CintheC 10</a>
+                    </div>
+                </div>
+
+                <!-- Bottone Menu Generale -->
+                <div class="dropdown">
+                    <button class="nav-dropdown-btn">
+                        <i class="fa-solid fa-bars text-[#00ff66]"></i> Menu <i class="fa-solid fa-chevron-down text-[9px] ml-1"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="classifiche.html">Ranking</a>
+                        <a href="galleria.html">Shop</a>
+                        <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank">Ticket</a>
+                        <a href="iscrizione.html">Iscrizioni</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LOGO DESTRA + PULSANTE MOBILE -->
             <div class="flex items-center gap-3">
                 <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank">
                     <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="h-20 sm:h-44 w-auto object-contain transform translate-y-1.5" onerror="this.style.display='none';">
                 </a>
                 
                 <!-- PULSANTE APRI/CHIUDI MENU MOBILE -->
-                <button onclick="toggleMobileMenu()" class="lg:hidden text-white bg-zinc-900 border border-zinc-700 p-2.5 rounded-none text-sm focus:outline-none cursor-pointer">
+                <button onclick="toggleMobileMenu()" class="md:hidden text-white bg-zinc-900 border border-zinc-700 p-2.5 rounded-none text-sm focus:outline-none cursor-pointer">
                     <i class="fa-solid fa-bars text-[#00ff66]" id="menuIcon"></i>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- PANNELLO MENU MOBILE A SCOMPARSA CON TUTTE LE VOCI E I SOTTOMENU -->
-    <div id="mobileMenu" class="hidden lg:hidden bg-zinc-950 border-b border-zinc-800 text-white px-6 py-4 space-y-3 sticky top-20 z-40 shadow-2xl">
+    <!-- PANNELLO MENU MOBILE A SCOMPARSA -->
+    <div id="mobileMenu" class="hidden md:hidden bg-zinc-950 border-b border-zinc-800 text-white px-6 py-4 space-y-3 sticky top-20 z-40 shadow-2xl">
         <a href="index.html" class="block text-xs font-black uppercase tracking-wider text-[#00ff66] py-2 border-b border-zinc-900">Home</a>
         
-        <!-- SOTTOMENU EVENTI PER MOBILE -->
         <div>
-            <button onclick="toggleMobileSubmenu()" class="w-full flex justify-between items-center text-xs font-black uppercase tracking-wider py-2 border-b border-zinc-900 text-left focus:outline-none">
-                <span>Eventi</span>
-                <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200" id="submenuIcon"></i>
+            <button onclick="toggleMobileSubmenu('mobileEventsSub', 'subIcon1')" class="w-full flex justify-between items-center text-xs font-black uppercase tracking-wider py-2 border-b border-zinc-900 text-left focus:outline-none">
+                <span>Eventi CintheC</span>
+                <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200" id="subIcon1"></i>
             </button>
-            <div id="mobileSubmenu" class="hidden pl-4 py-2 space-y-2 bg-zinc-900/50 mt-1 border-l-2 border-[#00ff66]">
+            <div id="mobileEventsSub" class="hidden pl-4 py-2 space-y-2 bg-zinc-900/50 mt-1 border-l-2 border-[#00ff66]">
                 <a href="cinthec8.html" class="block text-[11px] font-bold uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-1">CintheC 8</a>
                 <a href="cinthec9.html" class="block text-[11px] font-bold uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-1">CintheC 9</a>
                 <a href="cinthec10.html" class="block text-[11px] font-bold uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-1">CintheC 10</a>
             </div>
         </div>
 
-        <a href="classifiche.html" class="block text-xs font-black uppercase tracking-wider py-2 border-b border-zinc-900 hover:text-[#00ff66]">Ranking</a>
-        <a href="galleria.html" class="block text-xs font-black uppercase tracking-wider py-2 border-b border-zinc-900 hover:text-[#00ff66]">Shop</a>
-        <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="block text-xs font-black uppercase tracking-wider py-2 border-b border-zinc-900 hover:text-[#00ff66]">Ticket</a>
-        <a href="iscrizione.html" class="block text-xs font-black uppercase tracking-wider py-2 hover:text-[#00ff66]">Iscrizioni</a>
+        <div>
+            <button onclick="toggleMobileSubmenu('mobileMenuSub', 'subIcon2')" class="w-full flex justify-between items-center text-xs font-black uppercase tracking-wider py-2 border-b border-zinc-900 text-left focus:outline-none">
+                <span>Navigazione Menu</span>
+                <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200" id="subIcon2"></i>
+            </button>
+            <div id="mobileMenuSub" class="hidden pl-4 py-2 space-y-2 bg-zinc-900/50 mt-1 border-l-2 border-[#00ff66]">
+                <a href="classifiche.html" class="block text-[11px] font-bold uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-1">Ranking</a>
+                <a href="galleria.html" class="block text-[11px] font-bold uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-1">Shop</a>
+                <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="block text-[11px] font-bold uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-1">Ticket</a>
+                <a href="iscrizione.html" class="block text-[11px] font-bold uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-1">Iscrizioni</a>
+            </div>
+        </div>
     </div>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 w-full flex-grow">
@@ -250,7 +280,7 @@
                 <div class="w-full">
                     <div class="bg-zinc-950 rounded-none h-48 sm:h-60 flex items-center justify-center border border-zinc-300 overflow-hidden relative video-container shadow-md">
                         <video autoplay loop muted playsinline class="background-video">
-                            <source src="video/cinthec-home.mp4" type="video/mp4">
+                            <source src="video/Cinthec-Home.mp4" type="video/mp4">
                             Il tuo browser non supporta il tag video.
                         </video>
                     </div>
@@ -407,7 +437,7 @@
                 <div class="space-y-3">
                     <div class="bg-zinc-950 rounded-none h-56 sm:h-64 flex items-center justify-center border-2 border-zinc-600 overflow-hidden relative shadow-md">
                         <video id="sequentialVideo" autoplay loop muted playsinline class="w-full h-full object-cover rounded-none">
-                            <source src="video/spettacolo-1.mp4" type="video/mp4">
+                            <source src="video/Spettacolo-1.mp4" type="video/mp4">
                             Il tuo browser non supporta il tag video.
                         </video>
                     </div>
@@ -492,12 +522,14 @@
 
     </main>
 
-    <footer class="relative z-10 py-2 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-2 items-center text-center md:text-left">
+    <!-- FOOTER OTTIMIZZATO IN ORIZZONTALE (STILE PC) -->
+    <footer class="relative z-10 py-5 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
             
-            <div class="flex flex-col items-center md:items-start gap-0.5">
-                <h4 class="text-white font-bold text-[9px] uppercase tracking-wider mb-0.5">Seguici</h4>
-                <div class="flex flex-col gap-0.5 text-[11px]">
+            <!-- SEGUICI A SINISTRA -->
+            <div class="flex flex-col items-center md:items-start gap-1">
+                <h4 class="text-white font-bold text-[10px] uppercase tracking-wider mb-1">Seguici</h4>
+                <div class="flex flex-col gap-1 text-[11px]">
                     <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
                         <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> CintheC MMA
                     </a>
@@ -510,19 +542,21 @@
                 </div>
             </div>
 
+            <!-- NOTE LEGALI AL CENTRO -->
             <div class="flex flex-col items-center text-center">
-                <h4 class="text-white font-bold text-[9px] mb-0.5 uppercase tracking-wider">Note Legali & Policy</h4>
-                <ul class="space-y-0.5 text-[11px] text-zinc-300">
+                <h4 class="text-white font-bold text-[10px] mb-1 uppercase tracking-wider">Note Legali & Policy</h4>
+                <ul class="space-y-1 text-[11px] text-zinc-300">
                     <li><button onclick="openModal('privacyModal')" class="hover:text-[#00ff66] transition cursor-pointer">Privacy Policy</button></li>
                     <li><button onclick="openModal('termsModal')" class="hover:text-[#00ff66] transition cursor-pointer">Termini e Condizioni</button></li>
                     <li><button onclick="openModal('cookieModal')" class="hover:text-[#00ff66] transition cursor-pointer">Cookie Policy</button></li>
                 </ul>
             </div>
 
+            <!-- PAGAMENTI A DESTRA -->
             <div class="flex flex-col items-center md:items-end">
-                <h4 class="text-white font-bold text-[9px] mb-0.5 uppercase tracking-wider">Pagamenti Sicuri</h4>
-                <p class="text-[9px] text-zinc-400 mb-0.5">Powered by Lemon Squeezy</p>
-                <div class="flex gap-2 text-base text-zinc-300">
+                <h4 class="text-white font-bold text-[10px] mb-1 uppercase tracking-wider">Pagamenti Sicuri</h4>
+                <p class="text-[9px] text-zinc-400 mb-1">Powered by Lemon Squeezy</p>
+                <div class="flex gap-2 text-lg text-zinc-300">
                     <i class="fa-brands fa-cc-visa" title="Visa"></i>
                     <i class="fa-brands fa-cc-mastercard" title="Mastercard"></i>
                     <i class="fa-brands fa-cc-amex" title="American Express"></i>
@@ -533,7 +567,7 @@
             </div>
 
         </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-1 border-t border-zinc-900/80 text-center text-[9px] text-zinc-500 mt-1">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-3 border-t border-zinc-900/80 text-center text-[10px] text-zinc-500 mt-4">
             <p>© 2026 CintheC & Leoni di San Marco. Tutti i diritti riservati.</p>
         </div>
     </footer>
@@ -591,7 +625,7 @@
             document.body.style.overflow = 'auto'; 
         }
 
-        /* FUNZIONI PER APRIRE/CHIUDERE IL MENU MOBILE E IL SOTTOMENU EVENTI */
+        /* FUNZIONI PER APRIRE/CHIUDERE IL MENU MOBILE E I SOTTOMENU */
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
             const icon = document.getElementById('menuIcon');
@@ -605,9 +639,9 @@
             }
         }
 
-        function toggleMobileSubmenu() {
-            const submenu = document.getElementById('mobileSubmenu');
-            const subIcon = document.getElementById('submenuIcon');
+        function toggleMobileSubmenu(submenuId, iconId) {
+            const submenu = document.getElementById(submenuId);
+            const subIcon = document.getElementById(iconId);
             submenu.classList.toggle('hidden');
             subIcon.classList.toggle('rotate-180');
         }
@@ -621,7 +655,8 @@
             });
         }
 
-        const videoList = ["video/spettacolo-1.mp4", "video/spettacolo-2.mp4"];
+        /* LOGICA VIDEO SEQUENZIALE CON NOMI CORRETTI (MAIUSCOLE) */
+        const videoList = ["video/Spettacolo-1.mp4", "video/Spettacolo-2.mp4"];
         let videoIndex = 0;
         const sequentialVideo = document.getElementById('sequentialVideo');
 
