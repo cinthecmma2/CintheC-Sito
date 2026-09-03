@@ -33,7 +33,7 @@
             background-position: center;
         }
 
-        /* TUTTI I RIQUADRI/TABELLE: EFFETTO TRIDIMENSIONALE E OMBRA STaccata */
+        /* TUTTI I RIQUADRI/TABELLE: EFFETTO TRIDIMENSIONALE E OMBRA STACCATA */
         .light-lightning-card {
             background-color: #ffffff;
             background-image: 
@@ -71,7 +71,7 @@
             display: inline-block;
         }
 
-        /* MENU A TENDINA */
+        /* MENU A TENDINA DESKTOP */
         .dropdown { position: relative; display: inline-block; }
         
         .dropdown-content {
@@ -171,10 +171,12 @@
     <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-22 flex items-center">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full flex justify-between items-center relative z-10">
             
-            <div class="flex items-center gap-6">
+            <div class="flex items-center gap-4 sm:gap-6">
                 <a href="index.html">
-                    <img src="Immagini/Logo.png" alt="CintheC Logo" class="h-20 sm:h-28 w-auto object-contain py-1" onerror="this.onerror=null; this.src='Immagini/logo.png';">
+                    <img src="Immagini/Logo.png" alt="CintheC Logo" class="h-16 sm:h-28 w-auto object-contain py-1" onerror="this.onerror=null; this.src='Immagini/logo.png';">
                 </a>
+                
+                <!-- MENU DESKTOP -->
                 <nav class="hidden lg:flex items-center gap-6 text-white font-black text-xs uppercase tracking-wider">
                     <a href="index.html" class="text-[#00ff66] transition">Home</a>
                     
@@ -196,13 +198,42 @@
                 </nav>
             </div>
 
-            <div class="flex items-center">
+            <!-- LOGO DESTRA + PULSANTE MENU MOBILE -->
+            <div class="flex items-center gap-3">
                 <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank">
-                    <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="h-28 sm:h-44 w-auto object-contain transform translate-y-1.5" onerror="this.style.display='none';">
+                    <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="h-20 sm:h-44 w-auto object-contain transform translate-y-1.5" onerror="this.style.display='none';">
                 </a>
+                
+                <!-- PULSANTE APRI/CHIUDI MENU MOBILE -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden text-white bg-zinc-900 border border-zinc-700 p-2.5 rounded-none text-sm focus:outline-none cursor-pointer">
+                    <i class="fa-solid fa-bars text-[#00ff66]" id="menuIcon"></i>
+                </button>
             </div>
         </div>
     </header>
+
+    <!-- PANNELLO MENU MOBILE A SCOMPARSA CON TUTTE LE VOCI E I SOTTOMENU -->
+    <div id="mobileMenu" class="hidden lg:hidden bg-zinc-950 border-b border-zinc-800 text-white px-6 py-4 space-y-3 sticky top-20 z-40 shadow-2xl">
+        <a href="index.html" class="block text-xs font-black uppercase tracking-wider text-[#00ff66] py-2 border-b border-zinc-900">Home</a>
+        
+        <!-- SOTTOMENU EVENTI PER MOBILE -->
+        <div>
+            <button onclick="toggleMobileSubmenu()" class="w-full flex justify-between items-center text-xs font-black uppercase tracking-wider py-2 border-b border-zinc-900 text-left focus:outline-none">
+                <span>Eventi</span>
+                <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200" id="submenuIcon"></i>
+            </button>
+            <div id="mobileSubmenu" class="hidden pl-4 py-2 space-y-2 bg-zinc-900/50 mt-1 border-l-2 border-[#00ff66]">
+                <a href="cinthec8.html" class="block text-[11px] font-bold uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-1">CintheC 8</a>
+                <a href="cinthec9.html" class="block text-[11px] font-bold uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-1">CintheC 9</a>
+                <a href="cinthec10.html" class="block text-[11px] font-bold uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-1">CintheC 10</a>
+            </div>
+        </div>
+
+        <a href="classifiche.html" class="block text-xs font-black uppercase tracking-wider py-2 border-b border-zinc-900 hover:text-[#00ff66]">Ranking</a>
+        <a href="galleria.html" class="block text-xs font-black uppercase tracking-wider py-2 border-b border-zinc-900 hover:text-[#00ff66]">Shop</a>
+        <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="block text-xs font-black uppercase tracking-wider py-2 border-b border-zinc-900 hover:text-[#00ff66]">Ticket</a>
+        <a href="iscrizione.html" class="block text-xs font-black uppercase tracking-wider py-2 hover:text-[#00ff66]">Iscrizioni</a>
+    </div>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 w-full flex-grow">
         
@@ -558,6 +589,27 @@
         function closeModal(modalId) {
             document.getElementById(modalId).classList.add('hidden');
             document.body.style.overflow = 'auto'; 
+        }
+
+        /* FUNZIONI PER APRIRE/CHIUDERE IL MENU MOBILE E IL SOTTOMENU EVENTI */
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.getElementById('menuIcon');
+            menu.classList.toggle('hidden');
+            if(menu.classList.contains('hidden')) {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            }
+        }
+
+        function toggleMobileSubmenu() {
+            const submenu = document.getElementById('mobileSubmenu');
+            const subIcon = document.getElementById('submenuIcon');
+            submenu.classList.toggle('hidden');
+            subIcon.classList.toggle('rotate-180');
         }
 
         window.onclick = function(event) {
