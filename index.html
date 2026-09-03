@@ -375,7 +375,7 @@
 
                 <div class="space-y-3">
                     <div class="bg-zinc-950 rounded-none h-56 sm:h-64 flex items-center justify-center border-2 border-zinc-600 overflow-hidden relative shadow-md">
-                        <video id="sequentialVideo" autoplay muted playsinline class="w-full h-full object-cover rounded-none">
+                        <video id="sequentialVideo" autoplay loop muted playsinline class="w-full h-full object-cover rounded-none">
                             <source src="video/spettacolo-1.mp4" type="video/mp4">
                             Il tuo browser non supporta il tag video.
                         </video>
@@ -574,7 +574,6 @@
         const sequentialVideo = document.getElementById('sequentialVideo');
 
         if (sequentialVideo) {
-            sequentialVideo.connectedCallback = function() {};
             sequentialVideo.addEventListener('ended', function() {
                 videoIndex = (videoIndex + 1) % videoList.length;
                 sequentialVideo.src = videoList[videoIndex];
