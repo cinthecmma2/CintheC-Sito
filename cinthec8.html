@@ -10,6 +10,14 @@
     <style>
         body { font-family: 'Montserrat', sans-serif; }
         
+        button, a, .pc-nav-link, .nav-dropdown-btn, .mobile-dropdown-btn {
+            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+        }
+        button:active, a.inline-flex:active, .pc-nav-link:active {
+            transform: scale(0.95) !important;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.6) !important;
+        }
+
         /* SFONDO GENERALE CON TAGLI DIAGONALI */
         .site-bg-cuts {
             background-color: #fafafc;
@@ -70,22 +78,121 @@
         .btn-next { right: -15px; }
         .scroll-mask-r { mask-image: linear-gradient(to right, black 90%, transparent 100%); }
         
-        /* MENU A TENDINA */
-        .dropdown { position: relative; display: inline-block; }
+        /* MENU DI NAVIGAZIONE PC & MOBILE */
+        .pc-nav-link {
+            color: #ffffff !important;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 6px 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none !important;
+            cursor: pointer;
+            position: relative;
+            z-index: 60;
+        }
+        .pc-nav-link:hover {
+            color: #00ff66 !important;
+        }
+
+        .nav-dropdown-btn {
+            background-color: rgba(18, 18, 20, 0.85);
+            border: 1px solid rgba(0, 255, 102, 0.35);
+            color: #ffffff;
+            padding: 6px 12px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border-radius: 0px !important;
+            cursor: pointer;
+            position: relative;
+            z-index: 60;
+        }
+        .nav-dropdown-btn:hover {
+            border-color: #00ff66;
+            background-color: rgba(0, 0, 0, 0.95);
+            color: #00ff66;
+        }
+
+        .dropdown { 
+            position: relative; 
+            display: inline-block; 
+            z-index: 100; 
+        }
+        
         .dropdown-content {
             display: none;
             position: absolute;
-            background-color: #18181b;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
-            z-index: 50;
-            border-radius: 12px;
+            background-color: #121214;
+            min-width: 180px;
+            box-shadow: 0px 12px 28px 0px rgba(0,0,0,0.8);
+            z-index: 150;
+            border-radius: 0px !important;
             overflow: hidden;
-            border: 1px solid #27272a;
+            border: 1px solid rgba(0, 255, 102, 0.3);
             top: 100%;
             left: 0;
+            padding-top: 8px;
+            margin-top: 0px;
         }
-        .dropdown-content a {
+        
+        .dropdown-inner {
+            background-color: #121214;
+            border-top: 1px solid rgba(0, 255, 102, 0.2);
+        }
+
+        .dropdown-content.show, .mobile-dropdown-content.show {
+            display: block !important;
+        }
+
+        .mobile-dropdown-btn {
+            background-color: rgba(20, 20, 24, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            padding: 5px 10px;
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border-radius: 0px !important;
+            cursor: pointer;
+            position: relative;
+            z-index: 60;
+        }
+        .mobile-dropdown-btn:hover {
+            border-color: #ffffff;
+            background-color: rgba(0, 0, 0, 1);
+        }
+
+        .mobile-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #121214;
+            min-width: 160px;
+            box-shadow: 0px 12px 28px 0px rgba(0,0,0,0.8);
+            z-index: 150;
+            border-radius: 0px !important;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            top: 100%;
+            left: 0;
+            padding-top: 8px;
+            margin-top: 0px;
+        }
+
+        .dropdown-content a, .mobile-dropdown-content a {
             color: white;
             padding: 10px 16px;
             text-decoration: none;
@@ -93,43 +200,103 @@
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            transition: background 0.2s;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 0px !important;
         }
+        .dropdown-content a:last-child, .mobile-dropdown-content a:last-child { border-bottom: none; }
         .dropdown-content a:hover { background-color: #00ff66; color: black; }
-        .dropdown:hover .dropdown-content { display: block; }
+        .mobile-dropdown-content a:hover { background-color: #ffffff; color: black; }
+
+        /* DIMENSIONI E PROPORZIONI ESATTE DEI LOGHI */
+        .logo-left-cinthec {
+            width: 180px !important;
+            height: 78px !important;
+            max-height: 78px !important;
+            object-fit: contain !important;
+            margin-left: -10px !important;
+            position: relative;
+            z-index: 60;
+        }
+        .logo-right-leoni {
+            width: 46px !important;
+            height: 46px !important;
+            max-height: 46px !important;
+            object-fit: contain !important;
+            margin-right: 14px !important;
+            position: relative;
+            z-index: 60;
+        }
     </style>
 </head>
 <body class="site-bg-cuts text-zinc-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
 
-    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-22 flex items-center">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full flex justify-between items-center relative z-10">
-            <div class="flex items-center gap-6">
-                <a href="index.html">
-                    <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="h-20 sm:h-28 w-auto object-contain py-1" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center">
+        <div class="max-w-7xl mx-auto px-1 sm:px-6 w-full grid grid-cols-3 items-center relative z-50">
+            
+            <!-- LOGO CINTHEC SINISTRA -->
+            <div class="flex items-center justify-start">
+                <a href="index.html" class="flex items-center">
+                    <img src="Immagini/Logo.jpeg" alt="CintheC Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                 </a>
-                <nav class="hidden lg:flex items-center gap-6 text-white font-black text-xs uppercase tracking-wider">
-                    <a href="index.html" class="hover:text-[#00ff66] transition">Home</a>
-                    
-                    <div class="dropdown">
-                        <a href="#" class="hover:text-[#00ff66] transition py-3 flex items-center gap-1">
-                            Eventi <i class="fa-solid fa-chevron-down text-[9px]"></i>
-                        </a>
-                        <div class="dropdown-content">
+            </div>
+
+            <!-- BOTTONI / MENU CENTRALI (MOBILE + PC) -->
+            <div class="flex items-center justify-center gap-1.5 w-full relative z-50">
+                <!-- Bottoni Mobile -->
+                <div class="dropdown md:hidden">
+                    <button class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileEventsDropdown')">
+                        <i class="fa-solid fa-trophy text-white"></i> Eventi <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
+                    </button>
+                    <div id="mobileEventsDropdown" class="mobile-dropdown-content">
+                        <div class="dropdown-inner">
                             <a href="cinthec8.html">CintheC 8</a>
                             <a href="cinthec9.html">CintheC 9</a>
-                            <a href="cinthec10foto.html">CintheC 10</a>
+                            <a href="cinthec10.html">CintheC 10</a>
                         </div>
                     </div>
+                </div>
 
-                    <a href="classifiche.html" class="hover:text-[#00ff66] transition">Ranking</a>
-                    <a href="galleria.html" class="hover:text-[#00ff66] transition">Shop</a>
-                    <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="hover:text-[#00ff66] transition">Ticket</a>
-                    <a href="iscrizione.html" class="hover:text-[#00ff66] transition">Iscrizioni</a>
-                </nav>
+                <div class="dropdown md:hidden">
+                    <button class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileMenuDropdown')">
+                        <i class="fa-solid fa-bars text-white"></i> Menu <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
+                    </button>
+                    <div id="mobileMenuDropdown" class="mobile-dropdown-content">
+                        <div class="dropdown-inner">
+                            <a href="index.html">Home</a>
+                            <a href="classifiche.html">Ranking</a>
+                            <a href="galleria.html">Shop</a>
+                            <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank">Ticket</a>
+                            <a href="iscrizione.html">Iscrizioni</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Menu PC (TUTTE LE SCRITTE BIANCHE CON ICONE) -->
+                <div class="hidden md:flex items-center gap-3">
+                    <a href="index.html" class="pc-nav-link"><i class="fa-solid fa-house text-[#00ff66]"></i> Home</a>
+                    <div class="dropdown">
+                        <button class="nav-dropdown-btn" onclick="toggleDropdown(event, 'pcEventsDropdown')">
+                            <i class="fa-solid fa-trophy text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[9px] ml-1"></i>
+                        </button>
+                        <div id="pcEventsDropdown" class="dropdown-content">
+                            <div class="dropdown-inner">
+                                <a href="cinthec8.html">CintheC 8</a>
+                                <a href="cinthec9.html">CintheC 9</a>
+                                <a href="cinthec10.html">CintheC 10</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="classifiche.html" class="pc-nav-link"><i class="fa-solid fa-ranking-star text-[#00ff66]"></i> Ranking</a>
+                    <a href="galleria.html" class="pc-nav-link"><i class="fa-solid fa-store text-[#00ff66]"></i> Shop</a>
+                    <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="pc-nav-link"><i class="fa-solid fa-ticket text-[#00ff66]"></i> Ticket</a>
+                    <a href="iscrizione.html" class="pc-nav-link"><i class="fa-solid fa-user-pen text-[#00ff66]"></i> Iscrizioni</a>
+                </div>
             </div>
-            <div class="flex items-center">
-                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank">
-                    <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="h-28 sm:h-44 w-auto object-contain transform translate-y-1.5" onerror="this.style.display='none';">
+
+            <!-- LOGO LEONI DI SAN MARCO DESTRA -->
+            <div class="flex items-center justify-end">
+                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="flex items-center">
+                    <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="logo-right-leoni" onerror="this.style.display='none';">
                 </a>
             </div>
         </div>
@@ -424,42 +591,6 @@
                         <div class="w-full bg-zinc-100 text-zinc-700 text-center py-2.5 rounded-xl font-bold text-xs border border-zinc-200">Vince Nicolussi (Dec. unanime)</div>
                     </div>
 
-                    <div class="flex-none w-[280px] sm:w-[320px] bg-white rounded-2xl p-5 card-3d flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-center mb-4"><span class="text-[10px] font-black uppercase bg-zinc-100 text-zinc-700 px-2.5 py-1 rounded">Preserale</span><span class="text-xs font-bold text-white bg-black px-2 py-0.5 rounded">Welterweight</span></div>
-                            <div class="flex items-center justify-between mb-4 text-center">
-                                <div class="w-1/2 pr-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/yuriv.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Yuriv</h4></div>
-                                <span class="text-xs font-black text-zinc-400 uppercase italic">VS</span>
-                                <div class="w-1/2 pl-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/tambascia.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Tambascia</h4></div>
-                            </div>
-                        </div>
-                        <div class="w-full bg-zinc-100 text-zinc-700 text-center py-2.5 rounded-xl font-bold text-xs border border-zinc-200">Vince Tambascia (Dec. unanime)</div>
-                    </div>
-
-                    <div class="flex-none w-[280px] sm:w-[320px] bg-white rounded-2xl p-5 card-3d flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-center mb-4"><span class="text-[10px] font-black uppercase bg-zinc-100 text-zinc-700 px-2.5 py-1 rounded">Preserale</span><span class="text-xs font-bold text-white bg-black px-2 py-0.5 rounded">Catchweight</span></div>
-                            <div class="flex items-center justify-between mb-4 text-center">
-                                <div class="w-1/2 pr-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/cappon.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Cappon</h4></div>
-                                <span class="text-xs font-black text-zinc-400 uppercase italic">VS</span>
-                                <div class="w-1/2 pl-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/mihalas.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Mihalas</h4></div>
-                            </div>
-                        </div>
-                        <div class="w-full bg-zinc-100 text-zinc-700 text-center py-2.5 rounded-xl font-bold text-xs border border-zinc-200">Vince Mihalas (Stop medico)</div>
-                    </div>
-
-                    <div class="flex-none w-[280px] sm:w-[320px] bg-white rounded-2xl p-5 card-3d flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-center mb-4"><span class="text-[10px] font-black uppercase bg-zinc-100 text-zinc-700 px-2.5 py-1 rounded">Preserale</span><span class="text-xs font-bold text-white bg-black px-2 py-0.5 rounded">Middleweight</span></div>
-                            <div class="flex items-center justify-between mb-4 text-center">
-                                <div class="w-1/2 pr-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/tiozzo1.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Tiozzo</h4></div>
-                                <span class="text-xs font-black text-zinc-400 uppercase italic">VS</span>
-                                <div class="w-1/2 pl-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/tuscano.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Tuscano</h4></div>
-                            </div>
-                        </div>
-                        <div class="w-full bg-zinc-100 text-zinc-700 text-center py-2.5 rounded-xl font-bold text-xs border border-zinc-200">Vince Tiozzo (Dec. unanime)</div>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -552,6 +683,27 @@
             const container = document.getElementById(carouselId);
             container.scrollBy({ left: distance, behavior: 'smooth' });
         }
+
+        /* GESTIONE APERTURA/CHIUSURA MENU A TENDINA AL CLIC (TOGGLE) */
+        function toggleDropdown(event, dropdownId) {
+            event.stopPropagation();
+            const targetDropdown = document.getElementById(dropdownId);
+            const isOpen = targetDropdown.classList.contains('show');
+
+            document.querySelectorAll('.dropdown-content, .mobile-dropdown-content').forEach(el => {
+                el.classList.remove('show');
+            });
+
+            if (!isOpen) {
+                targetDropdown.classList.add('show');
+            }
+        }
+
+        window.addEventListener('click', function() {
+            document.querySelectorAll('.dropdown-content, .mobile-dropdown-content').forEach(el => {
+                el.classList.remove('show');
+            });
+        });
 
         function openModal(modalId) {
             document.getElementById(modalId).classList.remove('hidden');

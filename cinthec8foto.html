@@ -10,6 +10,14 @@
     <style>
         body { font-family: 'Montserrat', sans-serif; }
         
+        button, a, .pc-nav-link, .nav-square-btn {
+            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+        }
+        button:active, a.inline-flex:active {
+            transform: scale(0.95) !important;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.6) !important;
+        }
+
         /* SFONDO GENERALE CON FULMINI FISSI */
         .neon-lightning-bg {
             background-color: #020503;
@@ -37,28 +45,31 @@
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.7), 0 2px 6px rgba(0, 0, 0, 1);
         }
 
-        /* PULSANTI HEADER SIMMETRICI E QUADRATI */
-        .nav-square-btn {
-            width: 130px;
-            height: 40px;
-            background-color: #18181b;
+        /* STILE PULSANTI CENTRALI NELL'HEADER */
+        .nav-center-btn {
+            background-color: rgba(24, 24, 27, 0.85);
             border: 1px solid rgba(0, 255, 102, 0.4);
-            color: #00ff66;
+            color: #ffffff;
+            padding: 6px 14px;
             font-size: 11px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
-            border-radius: 0px !important;
+            gap: 6px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            transition: all 0.2s ease;
+            border-radius: 0px !important;
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            z-index: 60;
+            white-space: nowrap;
         }
-        .nav-square-btn:hover {
+        .nav-center-btn:hover {
             border-color: #00ff66;
             background-color: #000000;
+            color: #00ff66;
         }
 
         /* MENU A TENDINA STABILE CON BORDI SQUADRATI */
@@ -68,11 +79,11 @@
             display: none;
             position: absolute;
             background-color: transparent;
-            min-width: 200px;
+            min-width: 190px;
             z-index: 9999;
             left: 50%;
             transform: translateX(-50%);
-            padding-top: 10px;
+            padding-top: 8px;
         }
 
         header .dropdown-content {
@@ -90,7 +101,7 @@
 
         .dropdown-content a {
             color: white;
-            padding: 12px 16px;
+            padding: 10px 14px;
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -132,7 +143,6 @@
         body.site-locked .match-card {
             position: relative;
         }
-        /* Overlay lucchetto sulle card quando bloccato */
         body.site-locked .match-card::after {
             content: "\f023";
             font-family: "Font Awesome 6 Free";
@@ -154,9 +164,28 @@
             z-index: 10;
         }
 
-        /* NASCONDI LA BARRA DI SCORRIMENTO DEL CAROSELLO */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* DIMENSIONI E PROPORZIONI ESATTE DEI LOGHI */
+        .logo-left-cinthec {
+            width: 160px !important;
+            height: 70px !important;
+            max-height: 70px !important;
+            object-fit: contain !important;
+            margin-left: -10px !important;
+            position: relative;
+            z-index: 60;
+        }
+        .logo-right-leoni {
+            width: 44px !important;
+            height: 44px !important;
+            max-height: 44px !important;
+            object-fit: contain !important;
+            margin-right: 10px !important;
+            position: relative;
+            z-index: 60;
+        }
     </style>
 </head>
 <body class="neon-lightning-bg text-zinc-100 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black site-locked">
@@ -165,47 +194,45 @@
         <i class="fa-solid fa-lock text-sm"></i> Pagina in Modalità Anteprima - Gli acquisti e i download saranno disponibili a breve
     </div>
 
-    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-16 flex items-center">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full flex justify-between items-center relative z-10">
-            <div class="flex items-center gap-3">
-                <a href="galleria.html">
-                    <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="h-20 sm:h-28 w-auto object-contain" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 w-full grid grid-cols-3 items-center relative z-50">
+            
+            <!-- LOGO CINTHEC SINISTRA + SCRITTA PIÙ GRANDE -->
+            <div class="flex items-center justify-start gap-2 sm:gap-3">
+                <a href="galleria.html" class="flex items-center">
+                    <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                 </a>
-                <span class="text-[#00ff66] font-black text-xs sm:text-sm tracking-wider uppercase bg-zinc-900/80 px-3 py-1.5 rounded-none border border-[#00ff66]/30 hidden md:inline-block shadow-md">
+                <span class="text-[#00ff66] font-black text-xs sm:text-sm tracking-wider uppercase bg-zinc-900/90 px-3.5 py-2 rounded-none border border-[#00ff66]/40 inline-block shadow-lg">
                     C I N T H E C  8
                 </span>
             </div>
 
-            <div class="flex items-center gap-3 sm:gap-4 absolute left-1/2 transform -translate-x-1/2">
+            <!-- DUE BOTTONI CENTRALI (EVENTI CON MENU A TENDINA + TORNA ALLA HOME) -->
+            <div class="flex items-center justify-center gap-2 relative z-50">
+                <!-- Bottone Eventi con menu a tendina -->
                 <div class="dropdown">
-                    <button class="nav-square-btn cursor-pointer">
-                        <i class="fa-solid fa-trophy"></i> CintheC <i class="fa-solid fa-chevron-down text-[9px]"></i>
+                    <button class="nav-center-btn">
+                        <i class="fa-solid fa-calendar-days text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[9px] ml-1"></i>
                     </button>
                     <div class="dropdown-content">
                         <div class="dropdown-inner">
-                            <a href="cinthec8foto.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 8</a>
-                            <a href="evento.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 9</a>
-                            <a href="cinthec10foto.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 10</a>
+                            <a href="cinthec8foto.html"><i class="fa-solid fa-bolt text-[#00ff66]"></i> CintheC 8</a>
+                            <a href="evento.html"><i class="fa-solid fa-bolt text-[#00ff66]"></i> CintheC 9</a>
+                            <a href="cinthec10foto.html"><i class="fa-solid fa-bolt text-[#00ff66]"></i> CintheC 10</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="dropdown">
-                    <button class="nav-square-btn cursor-pointer">
-                        <i class="fa-solid fa-bars"></i> Menu <i class="fa-solid fa-chevron-down text-[9px]"></i>
-                    </button>
-                    <div class="dropdown-content">
-                        <div class="dropdown-inner">
-                            <a href="galleria.html"><i class="fa-solid fa-house text-[#00ff66]"></i> Torna alla Home</a>
-                            <a href="galleria.html#pacchetti"><i class="fa-solid fa-tags text-[#00ff66]"></i> Listino</a>
-                        </div>
-                    </div>
-                </div>
+                <!-- Bottone Torna alla home -->
+                <a href="galleria.html" class="nav-center-btn">
+                    <i class="fa-solid fa-house text-[#00ff66]"></i> Torna alla home
+                </a>
             </div>
 
-            <div class="flex items-center">
-                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank">
-                    <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="h-28 sm:h-40 w-auto object-contain transform translate-y-1" onerror="this.style.display='none';">
+            <!-- LOGO LEONI DI SAN MARCO DESTRA -->
+            <div class="flex items-center justify-end">
+                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="flex items-center">
+                    <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="logo-right-leoni" onerror="this.style.display='none';">
                 </a>
             </div>
         </div>
@@ -228,6 +255,7 @@
 
         <div id="matchesContainer" class="space-y-12">
             
+            <!-- MAIN CARD & MAIN EVENT -->
             <section class="relative">
                 <div class="flex justify-between items-end mb-4 px-2">
                     <div class="border-l-4 border-[#00ff66] pl-4">
@@ -385,6 +413,7 @@
                 </div>
             </section>
 
+            <!-- PRELIMINARY CARD -->
             <section class="relative">
                 <div class="flex justify-between items-end mb-4 px-2">
                     <div class="border-l-4 border-zinc-400 pl-4">
@@ -542,6 +571,7 @@
                 </div>
             </section>
 
+            <!-- CARD PRESERALE -->
             <section class="relative">
                 <div class="flex justify-between items-end mb-4 px-2">
                     <div class="border-l-4 border-amber-500 pl-4">
@@ -822,6 +852,7 @@
         </div>
     </footer>
 
+    <!-- MODALI -->
     <div id="privacyModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
         <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
             <button onclick="closeModal('privacyModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-full flex items-center justify-center border border-zinc-800 cursor-pointer">

@@ -10,6 +10,14 @@
     <style>
         body { font-family: 'Montserrat', sans-serif; }
         
+        button, a, .pc-nav-link, .nav-square-btn {
+            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+        }
+        button:active, a.inline-flex:active {
+            transform: scale(0.95) !important;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.6) !important;
+        }
+
         /* SFONDO GENERALE CON FULMINI FISSI */
         .neon-lightning-bg {
             background-color: #020503;
@@ -37,28 +45,30 @@
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.7), 0 2px 6px rgba(0, 0, 0, 1);
         }
 
-        /* PULSANTI HEADER SIMMETRICI E QUADRATI */
-        .nav-square-btn {
-            width: 130px;
-            height: 40px;
-            background-color: #18181b;
+        /* PULSANTE UNICO "TORNA ALLA HOME" PIÙ PICCOLO E PULITO */
+        .nav-home-btn {
+            background-color: rgba(24, 24, 27, 0.85);
             border: 1px solid rgba(0, 255, 102, 0.4);
-            color: #00ff66;
-            font-size: 11px;
+            color: #ffffff;
+            padding: 5px 12px;
+            font-size: 10px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
-            border-radius: 0px !important;
+            gap: 6px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            transition: all 0.2s ease;
+            border-radius: 0px !important;
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            z-index: 60;
         }
-        .nav-square-btn:hover {
+        .nav-home-btn:hover {
             border-color: #00ff66;
             background-color: #000000;
+            color: #00ff66;
         }
 
         /* MENU A TENDINA STABILE CON BORDI SQUADRATI */
@@ -134,48 +144,51 @@
             flex: 0 0 300px;
             width: 300px;
         }
+
+        /* DIMENSIONI E PROPORZIONI ESATTE DEI LOGHI */
+        .logo-left-cinthec {
+            width: 180px !important;
+            height: 78px !important;
+            max-height: 78px !important;
+            object-fit: contain !important;
+            margin-left: -10px !important;
+            position: relative;
+            z-index: 60;
+        }
+        .logo-right-leoni {
+            width: 46px !important;
+            height: 46px !important;
+            max-height: 46px !important;
+            object-fit: contain !important;
+            margin-right: 14px !important;
+            position: relative;
+            z-index: 60;
+        }
     </style>
 </head>
 <body class="neon-lightning-bg text-zinc-100 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
 
-    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-16 flex items-center">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full flex justify-between items-center relative z-10">
-            <div class="flex items-center">
-                <a href="index.html">
-                    <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="h-20 sm:h-28 w-auto object-contain" onerror="this.onerror=null; this.src='Immagini/logo.png';">
+    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center">
+        <div class="max-w-7xl mx-auto px-1 sm:px-6 w-full grid grid-cols-3 items-center relative z-50">
+            
+            <!-- LOGO CINTHEC SINISTRA -->
+            <div class="flex items-center justify-start">
+                <a href="index.html" class="flex items-center">
+                    <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/logo.png';">
                 </a>
             </div>
 
-            <div class="flex items-center gap-3 sm:gap-4 absolute left-1/2 transform -translate-x-1/2">
-                <div class="dropdown">
-                    <button class="nav-square-btn cursor-pointer">
-                        <i class="fa-solid fa-trophy"></i> CintheC <i class="fa-solid fa-chevron-down text-[9px]"></i>
-                    </button>
-                    <div class="dropdown-content">
-                        <div class="dropdown-inner">
-                            <a href="cinthec8foto.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 8</a>
-                            <a href="evento.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 9</a>
-                            <a href="cinthec10foto.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 10</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="dropdown">
-                    <button class="nav-square-btn cursor-pointer">
-                        <i class="fa-solid fa-bars"></i> Menu <i class="fa-solid fa-chevron-down text-[9px]"></i>
-                    </button>
-                    <div class="dropdown-content">
-                        <div class="dropdown-inner">
-                            <a href="index.html"><i class="fa-solid fa-house text-[#00ff66]"></i> Torna alla Home</a>
-                            <a href="#pacchetti"><i class="fa-solid fa-tags text-[#00ff66]"></i> Listino</a>
-                        </div>
-                    </div>
-                </div>
+            <!-- PULSANTE CENTRALE UNICO "TORNA ALLA HOME" -->
+            <div class="flex items-center justify-center w-full relative z-50">
+                <a href="index.html" class="nav-home-btn">
+                    <i class="fa-solid fa-house text-[#00ff66]"></i> Torna alla Home
+                </a>
             </div>
 
-            <div class="flex items-center">
-                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank">
-                    <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="h-28 sm:h-40 w-auto object-contain transform translate-y-1" onerror="this.style.display='none';">
+            <!-- LOGO LEONI DI SAN MARCO DESTRA -->
+            <div class="flex items-center justify-end">
+                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="flex items-center">
+                    <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="logo-right-leoni" onerror="this.style.display='none';">
                 </a>
             </div>
         </div>

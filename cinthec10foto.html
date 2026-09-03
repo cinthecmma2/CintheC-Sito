@@ -9,6 +9,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Montserrat', sans-serif; }
+        
+        button, a, .pc-nav-link, .nav-square-btn {
+            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+        }
+        button:active, a.inline-flex:active {
+            transform: scale(0.95) !important;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.6) !important;
+        }
+
+        /* SFONDO GENERALE CON FULMINI FISSI */
         .neon-lightning-bg {
             background-color: #020503;
             background-image: 
@@ -19,6 +29,8 @@
             background-attachment: fixed;
             position: relative;
         }
+
+        /* SFONDO DELICATO PER HEADER E FOOTER CON FULMINI-BARRA */
         .bar-lightning-bg {
             background-color: #000000;
             background-image: 
@@ -27,28 +39,183 @@
             background-size: cover;
             background-position: center;
         }
+
         .white-glow-text {
             color: #ffffff;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.7), 0 2px 6px rgba(0, 0, 0, 1);
+        }
+
+        /* STILE PULSANTI CENTRALI NELL'HEADER */
+        .nav-center-btn {
+            background-color: rgba(24, 24, 27, 0.85);
+            border: 1px solid rgba(0, 255, 102, 0.4);
+            color: #ffffff;
+            padding: 6px 14px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border-radius: 0px !important;
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            z-index: 60;
+            white-space: nowrap;
+        }
+        .nav-center-btn:hover {
+            border-color: #00ff66;
+            background-color: #000000;
+            color: #00ff66;
+        }
+
+        /* MENU A TENDINA STABILE CON BORDI SQUADRATI */
+        .dropdown { position: relative; display: inline-block; }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: transparent;
+            min-width: 190px;
+            z-index: 9999;
+            left: 50%;
+            transform: translateX(-50%);
+            padding-top: 8px;
+        }
+
+        header .dropdown-content {
+            top: 100%;
+            bottom: auto;
+        }
+
+        .dropdown-inner {
+            background-color: #18181b;
+            border-radius: 0px !important;
+            overflow: hidden;
+            box-shadow: 0px 15px 30px 0px rgba(0,0,0,0.8);
+            border: 1px solid rgba(0, 255, 102, 0.3);
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 10px 14px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 0px !important;
+            transition: background 0.2s, color 0.2s;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .dropdown-content a:last-child { border-bottom: none; }
+        .dropdown-content a:hover { background-color: #00ff66; color: black; }
+        .dropdown:hover .dropdown-content { display: block; }
+
+        /* DIMENSIONI E PROPORZIONI ESATTE DEI LOGHI */
+        .logo-left-cinthec {
+            width: 160px !important;
+            height: 70px !important;
+            max-height: 70px !important;
+            object-fit: contain !important;
+            margin-left: -10px !important;
+            position: relative;
+            z-index: 60;
+        }
+        .logo-right-leoni {
+            width: 44px !important;
+            height: 44px !important;
+            max-height: 44px !important;
+            object-fit: contain !important;
+            margin-right: 10px !important;
+            position: relative;
+            z-index: 60;
+        }
+
+        /* EFFETTO TICKER TECNOLOGICO SCORREVOLE */
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .ticker-wrap {
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            border-top: 1px solid rgba(0, 255, 102, 0.2);
+            border-bottom: 1px solid rgba(0, 255, 102, 0.2);
+            padding: 3px 0;
+        }
+        .ticker-move {
+            display: inline-block;
+            animation: ticker 25s linear infinite;
+        }
+        .ticker-move:hover {
+            animation-play-state: paused;
         }
     </style>
 </head>
 <body class="neon-lightning-bg text-zinc-100 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
 
-    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-16 flex items-center">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full flex justify-between items-center relative z-10">
-            <div class="flex items-center">
-                <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="h-28 sm:h-40 w-auto object-contain transform translate-y-2 sm:translate-y-4" onerror="this.onerror=null; this.src='Immagini/logo.png';">
+    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md flex flex-col">
+        
+        <div class="ticker-wrap text-[10px] font-mono tracking-wider text-zinc-400">
+            <div class="ticker-move">
+                <span class="text-[#00ff66] mx-3"><i class="fa-solid fa-satellite-dish animate-pulse"></i> CINTHEC MEDIA SECURE STREAM</span> &bull; 
+                <span class="text-white mx-3">SERVER STATUS: <strong class="text-[#00ff66]">ONLINE [SECURE_NODE_10]</strong></span> &bull; 
+                <span class="text-zinc-300 mx-3"><i class="fa-solid fa-microchip text-[#00ff66]"></i> ENCRYPTION: AES-256-GCM ACTIVE</span> &bull; 
+                <span class="text-amber-400 mx-3"><i class="fa-solid fa-clock"></i> EVENT SYNC: CINTHEC 10 PREVIEW MODE</span> &bull; 
+                <span class="text-[#00ff66] mx-3"><i class="fa-solid fa-satellite-dish animate-pulse"></i> CINTHEC MEDIA SECURE STREAM</span> &bull; 
+                <span class="text-white mx-3">SERVER STATUS: <strong class="text-[#00ff66]">ONLINE [SECURE_NODE_10]</strong></span> &bull; 
+                <span class="text-zinc-300 mx-3"><i class="fa-solid fa-microchip text-[#00ff66]"></i> ENCRYPTION: AES-256-GCM ACTIVE</span> &bull; 
+                <span class="text-amber-400 mx-3"><i class="fa-solid fa-clock"></i> EVENT SYNC: CINTHEC 10 PREVIEW MODE</span>
             </div>
-            <div class="flex items-center gap-3">
-                <a href="index.html" class="bg-zinc-900 hover:bg-zinc-800 text-[#00ff66] border border-[#00ff66]/40 text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
-                    <i class="fa-solid fa-arrow-left"></i> Torna a CintheC 9
+        </div>
+
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 w-full grid grid-cols-3 items-center relative z-50 py-2 sm:py-3">
+            
+            <div class="flex items-center justify-start gap-2 sm:gap-3">
+                <a href="galleria.html" class="flex items-center">
+                    <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                </a>
+                <span class="text-[#00ff66] font-black text-xs sm:text-sm tracking-wider uppercase bg-zinc-900/90 px-3.5 py-2 rounded-none border border-[#00ff66]/40 inline-block shadow-lg">
+                    C I N T H E C  10
+                </span>
+            </div>
+
+            <div class="flex items-center justify-center gap-2 relative z-50">
+                <div class="dropdown">
+                    <button class="nav-center-btn">
+                        <i class="fa-solid fa-calendar-days text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[9px] ml-1"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="dropdown-inner">
+                            <a href="cinthec8foto.html"><i class="fa-solid fa-bolt text-[#00ff66]"></i> CintheC 8</a>
+                            <a href="evento.html"><i class="fa-solid fa-bolt text-[#00ff66]"></i> CintheC 9</a>
+                            <a href="cinthec10foto.html"><i class="fa-solid fa-bolt text-[#00ff66]"></i> CintheC 10</a>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="galleria.html" class="nav-center-btn">
+                    <i class="fa-solid fa-house text-[#00ff66]"></i> Torna alla home
+                </a>
+            </div>
+
+            <div class="flex items-center justify-end">
+                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="flex items-center">
+                    <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="logo-right-leoni" onerror="this.style.display='none';">
                 </a>
             </div>
         </div>
     </header>
 
-    <section class="relative z-10 py-16 px-4 max-w-4xl mx-auto w-full text-center">
+    <section class="relative z-10 py-16 px-4 max-w-4xl mx-auto w-full text-center flex-grow">
         <div class="bg-zinc-950/90 border border-zinc-800 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-md">
             <span class="bg-[#00ff66]/20 text-[#00ff66] text-xs font-black uppercase px-3.5 py-1.5 rounded-full border border-[#00ff66]/30 inline-block mb-4 shadow-md">Prossimo Evento • Ottobre</span>
             <h1 class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white mb-4">
@@ -63,16 +230,23 @@
             </div>
 
             <div class="mt-8">
-                <a href="index.html" class="inline-flex items-center gap-2 bg-[#00ff66] hover:bg-[#00cc52] text-black font-black text-sm px-6 py-3 rounded-2xl transition shadow-lg shadow-[#00ff66]/20">
+                <a href="galleria.html" class="inline-flex items-center gap-2 bg-[#00ff66] hover:bg-[#00cc52] text-black font-black text-sm px-6 py-3 rounded-2xl transition shadow-lg shadow-[#00ff66]/20">
                     <i class="fa-solid fa-house"></i> Torna alla Home principale
                 </a>
             </div>
         </div>
     </section>
 
-    <footer class="relative z-10 py-8 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-12 text-center">
-        <p>© 2026 CINtheC Media. Tutti i diritti riservati.</p>
-    </footer>
-
-</body>
-</html>
+    <footer class="relative z-10 py-4 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
+            
+            <div class="flex flex-col items-center md:items-start space-y-1">
+                <span class="text-white font-bold text-[11px] uppercase tracking-wider mb-0.5">Seguici:</span>
+                <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] text-xs font-semibold transition">
+                    <i class="fa-brands fa-instagram text-xs text-pink-500"></i> Cinthec MMA
+                </a>
+                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] text-xs font-semibold transition">
+                    <i class="fa-brands fa-instagram text-xs text-pink-500"></i> Leoni di San Marco
+                </a>
+                <a href="https://www.instagram.com/labirinthknockout?igsi=dGlwMGZ1amwyMjJr" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] text-xs font-semibold transition">
+                    <i class="fa-brands

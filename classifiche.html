@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,15 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Montserrat', sans-serif; }
+        body { font-family: 'Montserrat', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
+        
+        button, a, .pc-nav-link, .nav-dropdown-btn, .mobile-dropdown-btn {
+            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+        }
+        button:active, a.inline-flex:active, .pc-nav-link:active {
+            transform: scale(0.95) !important;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.6) !important;
+        }
         
         /* SFONDO GENERALE CON TAGLI DIAGONALI LEGGERI */
         .site-bg-cuts {
@@ -39,22 +47,110 @@
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
         }
 
-        /* MENU A TENDINA */
-        .dropdown { position: relative; display: inline-block; }
+        .pc-nav-link {
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 6px 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .pc-nav-link:hover {
+            color: #00ff66;
+        }
+
+        .nav-dropdown-btn {
+            background-color: rgba(18, 18, 20, 0.85);
+            border: 1px solid rgba(0, 255, 102, 0.35);
+            color: #ffffff;
+            padding: 6px 12px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border-radius: 0px !important;
+        }
+        .nav-dropdown-btn:hover {
+            border-color: #00ff66;
+            background-color: rgba(0, 0, 0, 0.95);
+        }
+
+        .dropdown { 
+            position: relative; 
+            display: inline-block; 
+            z-index: 100; 
+        }
+        
         .dropdown-content {
             display: none;
             position: absolute;
-            background-color: #18181b;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
-            z-index: 50;
-            border-radius: 12px;
+            background-color: #121214;
+            min-width: 180px;
+            box-shadow: 0px 12px 28px 0px rgba(0,0,0,0.8);
+            z-index: 150;
+            border-radius: 0px !important;
             overflow: hidden;
-            border: 1px solid #27272a;
+            border: 1px solid rgba(0, 255, 102, 0.3);
             top: 100%;
             left: 0;
+            padding-top: 8px;
+            margin-top: 0px;
         }
-        .dropdown-content a {
+        
+        .dropdown-inner {
+            background-color: #121214;
+            border-top: 1px solid rgba(0, 255, 102, 0.2);
+        }
+
+        .dropdown-content.show, .mobile-dropdown-content.show {
+            display: block !important;
+        }
+
+        .mobile-dropdown-btn {
+            background-color: rgba(20, 20, 24, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            padding: 5px 10px;
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border-radius: 0px !important;
+            cursor: pointer;
+        }
+        .mobile-dropdown-btn:hover {
+            border-color: #ffffff;
+            background-color: rgba(0, 0, 0, 1);
+        }
+
+        .mobile-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #121214;
+            min-width: 160px;
+            box-shadow: 0px 12px 28px 0px rgba(0,0,0,0.8);
+            z-index: 150;
+            border-radius: 0px !important;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            top: 100%;
+            left: 0;
+            padding-top: 8px;
+            margin-top: 0px;
+        }
+
+        .dropdown-content a, .mobile-dropdown-content a {
             color: white;
             padding: 10px 16px;
             text-decoration: none;
@@ -62,43 +158,99 @@
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            transition: background 0.2s;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 0px !important;
         }
+        .dropdown-content a:last-child, .mobile-dropdown-content a:last-child { border-bottom: none; }
         .dropdown-content a:hover { background-color: #00ff66; color: black; }
-        .dropdown:hover .dropdown-content { display: block; }
+        .mobile-dropdown-content a:hover { background-color: #ffffff; color: black; }
+
+        /* MISURE E PROPORZIONI ESATTE DEI LOGHI */
+        .logo-left-cinthec {
+            width: 180px !important;
+            height: 78px !important;
+            max-height: 78px !important;
+            object-fit: contain !important;
+            margin-left: -10px !important;
+        }
+        .logo-right-leoni {
+            width: 46px !important;
+            height: 46px !important;
+            max-height: 46px !important;
+            object-fit: contain !important;
+            margin-right: 14px !important;
+        }
     </style>
 </head>
 <body class="site-bg-cuts text-zinc-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
 
-    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-22 flex items-center">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full flex justify-between items-center relative z-10">
-            <div class="flex items-center gap-6">
-                <a href="index.html">
-                    <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="h-20 sm:h-28 w-auto object-contain py-1" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center">
+        <div class="max-w-7xl mx-auto px-1 sm:px-6 w-full grid grid-cols-3 items-center relative z-50">
+            
+            <!-- LOGO CINTHEC SINISTRA -->
+            <div class="flex items-center justify-start">
+                <a href="index.html" class="flex items-center">
+                    <img src="Immagini/Logo.jpeg" alt="CintheC Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                 </a>
-                <nav class="hidden lg:flex items-center gap-6 text-white font-black text-xs uppercase tracking-wider">
-                    <a href="index.html" class="hover:text-[#00ff66] transition">Home</a>
-                    
-                    <div class="dropdown">
-                        <a href="#" class="hover:text-[#00ff66] transition py-3 flex items-center gap-1">
-                            Eventi <i class="fa-solid fa-chevron-down text-[9px]"></i>
-                        </a>
-                        <div class="dropdown-content">
+            </div>
+
+            <!-- BOTTONI / MENU CENTRALI (MOBILE + PC) -->
+            <div class="flex items-center justify-center gap-1.5 w-full">
+                <!-- Bottoni Mobile -->
+                <div class="dropdown md:hidden">
+                    <button class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileEventsDropdown')">
+                        <i class="fa-solid fa-trophy text-white"></i> Eventi <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
+                    </button>
+                    <div id="mobileEventsDropdown" class="mobile-dropdown-content">
+                        <div class="dropdown-inner">
                             <a href="cinthec8.html">CintheC 8</a>
                             <a href="cinthec9.html">CintheC 9</a>
-                            <a href="cinthec10foto.html">CintheC 10</a>
+                            <a href="cinthec10.html">CintheC 10</a>
                         </div>
                     </div>
+                </div>
 
-                    <a href="classifiche.html" class="text-[#00ff66] transition">Ranking</a>
-                    <a href="galleria.html" class="hover:text-[#00ff66] transition">Shop</a>
-                    <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="hover:text-[#00ff66] transition">Ticket</a>
-                    <a href="iscrizione.html" class="hover:text-[#00ff66] transition">Iscrizioni</a>
-                </nav>
+                <div class="dropdown md:hidden">
+                    <button class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileMenuDropdown')">
+                        <i class="fa-solid fa-bars text-white"></i> Menu <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
+                    </button>
+                    <div id="mobileMenuDropdown" class="mobile-dropdown-content">
+                        <div class="dropdown-inner">
+                            <a href="index.html">Home</a>
+                            <a href="classifiche.html">Ranking</a>
+                            <a href="galleria.html">Shop</a>
+                            <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank">Ticket</a>
+                            <a href="iscrizione.html">Iscrizioni</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Menu PC -->
+                <div class="hidden md:flex items-center gap-3">
+                    <a href="index.html" class="pc-nav-link"><i class="fa-solid fa-house text-[#00ff66]"></i> Home</a>
+                    <div class="dropdown">
+                        <button class="nav-dropdown-btn" onclick="toggleDropdown(event, 'pcEventsDropdown')">
+                            <i class="fa-solid fa-trophy text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[9px] ml-1"></i>
+                        </button>
+                        <div id="pcEventsDropdown" class="dropdown-content">
+                            <div class="dropdown-inner">
+                                <a href="cinthec8.html">CintheC 8</a>
+                                <a href="cinthec9.html">CintheC 9</a>
+                                <a href="cinthec10.html">CintheC 10</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="classifiche.html" class="pc-nav-link"><i class="fa-solid fa-ranking-star text-[#00ff66]"></i> Ranking</a>
+                    <a href="galleria.html" class="pc-nav-link"><i class="fa-solid fa-store text-[#00ff66]"></i> Shop</a>
+                    <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="pc-nav-link"><i class="fa-solid fa-ticket text-[#00ff66]"></i> Ticket</a>
+                    <a href="iscrizione.html" class="pc-nav-link"><i class="fa-solid fa-user-pen text-[#00ff66]"></i> Iscrizioni</a>
+                </div>
             </div>
-            <div class="flex items-center">
-                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank">
-                    <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="h-28 sm:h-44 w-auto object-contain transform translate-y-1.5" onerror="this.style.display='none';">
+
+            <!-- LOGO LEONI DI SAN MARCO DESTRA -->
+            <div class="flex items-center justify-end">
+                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="flex items-center">
+                    <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="logo-right-leoni" onerror="this.style.display='none';">
                 </a>
             </div>
         </div>
@@ -149,35 +301,35 @@
     </main>
 
     <footer class="relative z-10 py-2 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-2 items-center text-center md:text-left">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-3 items-start gap-2 text-left">
             
-            <div class="flex flex-col items-center md:items-start gap-0.5">
+            <div class="flex flex-col items-start gap-0.5">
                 <h4 class="text-white font-bold text-[9px] uppercase tracking-wider mb-0.5">Seguici</h4>
-                <div class="flex flex-col gap-0.5 text-[11px]">
-                    <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
+                <div class="flex flex-col gap-0.5 text-[10px]">
+                    <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
                         <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> CintheC MMA
                     </a>
-                    <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
+                    <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
                         <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> Leoni di San Marco
                     </a>
-                    <a href="https://www.instagram.com/labirinthknockout?igsi=dGlwMGZ1amwyMjJr" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
+                    <a href="https://www.instagram.com/labirinthknockout?igsi=dGlwMGZ1amwyMjJr" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
                         <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> Labirinth Knockout
                     </a>
                 </div>
             </div>
 
             <div class="flex flex-col items-center text-center">
-                <h4 class="text-white font-bold text-[9px] mb-0.5 uppercase tracking-wider">Note Legali & Policy</h4>
-                <ul class="space-y-0.5 text-[11px] text-zinc-300">
+                <h4 class="text-white font-bold text-[9px] mb-0.5 uppercase tracking-wider">Note Legali</h4>
+                <ul class="flex flex-col gap-0.5 text-[10px] text-zinc-300">
                     <li><button onclick="openModal('privacyModal')" class="hover:text-[#00ff66] transition cursor-pointer">Privacy Policy</button></li>
                     <li><button onclick="openModal('termsModal')" class="hover:text-[#00ff66] transition cursor-pointer">Termini e Condizioni</button></li>
                     <li><button onclick="openModal('cookieModal')" class="hover:text-[#00ff66] transition cursor-pointer">Cookie Policy</button></li>
                 </ul>
             </div>
 
-            <div class="flex flex-col items-center md:items-end">
-                <h4 class="text-white font-bold text-[9px] mb-0.5 uppercase tracking-wider">Pagamenti Sicuri</h4>
-                <div class="flex gap-2 text-base text-zinc-300">
+            <div class="flex flex-col items-end text-right">
+                <h4 class="text-white font-bold text-[9px] mb-1 uppercase tracking-wider">Pagamenti Sicuri</h4>
+                <div class="flex gap-1.5 text-sm sm:text-base text-zinc-300 justify-end flex-wrap">
                     <i class="fa-brands fa-cc-visa" title="Visa"></i>
                     <i class="fa-brands fa-cc-mastercard" title="Mastercard"></i>
                     <i class="fa-brands fa-cc-amex" title="American Express"></i>
@@ -188,30 +340,45 @@
             </div>
 
         </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-1 border-t border-zinc-900/80 text-center text-[9px] text-zinc-500 mt-1">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-1 border-t border-zinc-900/80 text-center text-[8px] text-zinc-500 mt-1">
             <p>© 2026 CintheC & Leoni di San Marco. Tutti i diritti riservati.</p>
         </div>
     </footer>
 
+    <!-- MODALI -->
     <div id="privacyModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
         <div class="bg-zinc-950 border border-zinc-800 rounded-none max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
-            <button onclick="closeModal('privacyModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-none flex items-center justify-center border border-zinc-800 cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+            <button onclick="closeModal('privacyModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-none flex items-center justify-center border border-zinc-800 cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
             <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Privacy Policy</h3>
-            <p class="text-xs sm:text-sm text-zinc-300">La presente Privacy Policy descrive le modalità di raccolta dei dati personali.</p>
+            <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                <p>La presente Privacy Policy descrive le modalità di raccolta, utilizzo e protezione dei dati personali degli utenti.</p>
+            </div>
         </div>
     </div>
+
     <div id="termsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
         <div class="bg-zinc-950 border border-zinc-800 rounded-none max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
-            <button onclick="closeModal('termsModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-none flex items-center justify-center border border-zinc-800 cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+            <button onclick="closeModal('termsModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-none flex items-center justify-center border border-zinc-800 cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
             <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Termini e Condizioni</h3>
-            <p class="text-xs sm:text-sm text-zinc-300">L'utilizzo del sito implica l'accettazione dei termini di servizio.</p>
+            <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                <p>L'utilizzo del sito e l'acquisto di contenuti multimediali o ticket comportano l'accettazione automatica dei termini di servizio.</p>
+            </div>
         </div>
     </div>
+
     <div id="cookieModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
         <div class="bg-zinc-950 border border-zinc-800 rounded-none max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
-            <button onclick="closeModal('cookieModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-none flex items-center justify-center border border-zinc-800 cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+            <button onclick="closeModal('cookieModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-none flex items-center justify-center border border-zinc-800 cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
             <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Cookie Policy</h3>
-            <p class="text-xs sm:text-sm text-zinc-300">Il nostro sito utilizza cookie tecnici essenziali.</p>
+            <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                <p>Il nostro sito utilizza cookie tecnici essenziali per garantire una navigazione sicura e ottimale.</p>
+            </div>
         </div>
     </div>
 
@@ -330,6 +497,27 @@
 
         generateRankings();
 
+        /* GESTIONE APERTURA/CHIUSURA MENU A TENDINA AL CLIC (TOGGLE) */
+        function toggleDropdown(event, dropdownId) {
+            event.stopPropagation();
+            const targetDropdown = document.getElementById(dropdownId);
+            const isOpen = targetDropdown.classList.contains('show');
+
+            document.querySelectorAll('.dropdown-content, .mobile-dropdown-content').forEach(el => {
+                el.classList.remove('show');
+            });
+
+            if (!isOpen) {
+                targetDropdown.classList.add('show');
+            }
+        }
+
+        window.addEventListener('click', function() {
+            document.querySelectorAll('.dropdown-content, .mobile-dropdown-content').forEach(el => {
+                el.classList.remove('show');
+            });
+        });
+
         function openModal(modalId) {
             document.getElementById(modalId).classList.remove('hidden');
             document.body.style.overflow = 'hidden'; 
@@ -337,12 +525,6 @@
         function closeModal(modalId) {
             document.getElementById(modalId).classList.add('hidden');
             document.body.style.overflow = 'auto'; 
-        }
-        window.onclick = function(event) {
-            ['privacyModal', 'termsModal', 'cookieModal'].forEach(modalId => {
-                let modal = document.getElementById(modalId);
-                if (event.target === modal) { closeModal(modalId); }
-            });
         }
     </script>
 </body>

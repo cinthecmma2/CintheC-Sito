@@ -10,7 +10,6 @@
     <style>
         body { font-family: 'Montserrat', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
         
-        /* ANIMAZIONE E EFFETTO DINAMICO SU TUTTI I BOTTONI E TABELLE INTERATTIVE */
         button, a, .pc-nav-link, .nav-dropdown-btn, .mobile-dropdown-btn, .light-lightning-card a {
             transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
         }
@@ -44,7 +43,7 @@
         .dark-mode .light-lightning-card {
             background-color: #121214 !important;
             background-image: linear-gradient(to bottom, rgba(25, 25, 28, 0.9), rgba(15, 15, 18, 0.95)), url('Immagini/fulmini-bg.jpeg') !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
             color: #ffffff !important;
         }
         .dark-mode .light-lightning-card h1, 
@@ -65,6 +64,7 @@
             background-position: center;
         }
 
+        /* CORNICINA ATTORNO ALLE TABELLE/CARD */
         .light-lightning-card {
             background-color: #ffffff;
             background-image: 
@@ -72,16 +72,16 @@
                 url('Immagini/fulmini-bg.jpeg');
             background-size: cover;
             background-position: center;
-            border: 1px solid rgba(0, 0, 0, 0.12);
-            border-top: 2px solid rgba(255, 255, 255, 0.9);
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border: 1.5px solid #18181b;
+            border-top: 2.5px solid #18181b;
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.04);
             color: #18181b;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .light-lightning-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 25px 40px -10px rgba(0, 0, 0, 0.2), 0 6px 8px -2px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.18), 0 5px 7px -2px rgba(0, 0, 0, 0.06);
         }
 
         .light-lightning-card h1, 
@@ -102,8 +102,9 @@
             display: inline-block;
         }
 
+        /* CLASSE PC-NAV-LINK CORRETTA E CLICCABILE AL 100% */
         .pc-nav-link {
-            color: #ffffff;
+            color: #ffffff !important;
             font-size: 11px;
             font-weight: 800;
             text-transform: uppercase;
@@ -112,9 +113,13 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
+            text-decoration: none !important;
+            cursor: pointer;
+            position: relative;
+            z-index: 60;
         }
         .pc-nav-link:hover {
-            color: #00ff66;
+            color: #00ff66 !important;
         }
 
         .nav-dropdown-btn {
@@ -131,16 +136,20 @@
             gap: 6px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             border-radius: 0px !important;
+            cursor: pointer;
+            position: relative;
+            z-index: 60;
         }
         .nav-dropdown-btn:hover {
             border-color: #00ff66;
             background-color: rgba(0, 0, 0, 0.95);
+            color: #00ff66;
         }
 
         .dropdown { 
             position: relative; 
             display: inline-block; 
-            z-index: 40; 
+            z-index: 100; 
         }
         
         .dropdown-content {
@@ -149,7 +158,7 @@
             background-color: #121214;
             min-width: 180px;
             box-shadow: 0px 12px 28px 0px rgba(0,0,0,0.8);
-            z-index: 50;
+            z-index: 150;
             border-radius: 0px !important;
             overflow: hidden;
             border: 1px solid rgba(0, 255, 102, 0.3);
@@ -164,24 +173,27 @@
             border-top: 1px solid rgba(0, 255, 102, 0.2);
         }
 
-        .dropdown:hover .dropdown-content { 
-            display: block; 
+        .dropdown-content.show, .mobile-dropdown-content.show {
+            display: block !important;
         }
 
         .mobile-dropdown-btn {
             background-color: rgba(20, 20, 24, 0.9);
             border: 1px solid rgba(255, 255, 255, 0.25);
             color: #ffffff;
-            padding: 6px 14px;
-            font-size: 10px;
+            padding: 5px 10px;
+            font-size: 9px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             border-radius: 0px !important;
+            cursor: pointer;
+            position: relative;
+            z-index: 60;
         }
         .mobile-dropdown-btn:hover {
             border-color: #ffffff;
@@ -194,7 +206,7 @@
             background-color: #121214;
             min-width: 160px;
             box-shadow: 0px 12px 28px 0px rgba(0,0,0,0.8);
-            z-index: 50;
+            z-index: 150;
             border-radius: 0px !important;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.15);
@@ -218,8 +230,6 @@
         .dropdown-content a:last-child, .mobile-dropdown-content a:last-child { border-bottom: none; }
         .dropdown-content a:hover { background-color: #00ff66; color: black; }
         .mobile-dropdown-content a:hover { background-color: #ffffff; color: black; }
-        
-        .dropdown:hover .mobile-dropdown-content { display: block; }
 
         .news-ticker-container {
             background: #000000;
@@ -321,6 +331,26 @@
             object-fit: cover;
             z-index: 2;
         }
+
+        /* DIMENSIONI E DISTANZE OTTIMIZZATE (LOGHI BILANCIATI) */
+        .logo-left-cinthec {
+            width: 180px !important;
+            height: 78px !important;
+            max-height: 78px !important;
+            object-fit: contain !important;
+            margin-left: -10px !important;
+            position: relative;
+            z-index: 60;
+        }
+        .logo-right-leoni {
+            width: 46px !important;
+            height: 46px !important;
+            max-height: 46px !important;
+            object-fit: contain !important;
+            margin-right: 14px !important;
+            position: relative;
+            z-index: 60;
+        }
     </style>
 </head>
 <body class="site-bg-cuts text-zinc-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
@@ -332,43 +362,25 @@
         </div>
     </div>
 
-    <!-- NAVBAR / FOOTER SUPERIORE -->
-    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-22 flex items-center">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full flex justify-between items-center relative z-10">
+    <!-- NAVBAR / HEADER SUPERIORE -->
+    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center">
+        <div class="max-w-7xl mx-auto px-1 sm:px-6 w-full grid grid-cols-3 items-center relative z-50">
             
-            <div class="flex items-center">
-                <a href="index.html">
-                    <img src="Immagini/Logo.png" alt="CintheC Logo" class="h-14 sm:h-28 w-auto object-contain py-1" onerror="this.onerror=null; this.src='Immagini/logo.png';">
+            <!-- LOGO CINTHEC SINISTRA -->
+            <div class="flex items-center justify-start">
+                <a href="index.html" class="flex items-center">
+                    <img src="Immagini/Logo.jpeg" alt="CintheC Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/logo.png';">
                 </a>
             </div>
 
-            <!-- MENU PC -->
-            <div class="hidden md:flex items-center gap-4">
-                <div class="dropdown">
-                    <button class="nav-dropdown-btn">
-                        <i class="fa-solid fa-trophy text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[9px] ml-1"></i>
-                    </button>
-                    <div class="dropdown-content">
-                        <div class="dropdown-inner">
-                            <a href="cinthec8.html">CintheC 8</a>
-                            <a href="cinthec9.html">CintheC 9</a>
-                            <a href="cinthec10.html">CintheC 10</a>
-                        </div>
-                    </div>
-                </div>
-                <a href="classifiche.html" class="pc-nav-link"><i class="fa-solid fa-ranking-star text-[#00ff66]"></i> Ranking</a>
-                <a href="galleria.html" class="pc-nav-link"><i class="fa-solid fa-store text-[#00ff66]"></i> Shop</a>
-                <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="pc-nav-link"><i class="fa-solid fa-ticket text-[#00ff66]"></i> Ticket</a>
-                <a href="iscrizione.html" class="pc-nav-link"><i class="fa-solid fa-user-pen text-[#00ff66]"></i> Iscrizioni</a>
-            </div>
-
-            <!-- BOTTONI CENTRALI (MOBILE) -->
-            <div class="flex md:hidden items-center gap-2">
-                <div class="dropdown">
-                    <button class="mobile-dropdown-btn">
+            <!-- BOTTONI / MENU CENTRALI (MOBILE + PC) -->
+            <div class="flex items-center justify-center gap-1.5 w-full relative z-50">
+                <!-- Bottoni Mobile -->
+                <div class="dropdown md:hidden">
+                    <button class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileEventsDropdown')">
                         <i class="fa-solid fa-trophy text-white"></i> Eventi <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
                     </button>
-                    <div class="mobile-dropdown-content">
+                    <div id="mobileEventsDropdown" class="mobile-dropdown-content">
                         <div class="dropdown-inner">
                             <a href="cinthec8.html">CintheC 8</a>
                             <a href="cinthec9.html">CintheC 9</a>
@@ -377,12 +389,13 @@
                     </div>
                 </div>
 
-                <div class="dropdown">
-                    <button class="mobile-dropdown-btn">
+                <div class="dropdown md:hidden">
+                    <button class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileMenuDropdown')">
                         <i class="fa-solid fa-bars text-white"></i> Menu <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
                     </button>
-                    <div class="mobile-dropdown-content">
+                    <div id="mobileMenuDropdown" class="mobile-dropdown-content">
                         <div class="dropdown-inner">
+                            <a href="index.html">Home</a>
                             <a href="classifiche.html">Ranking</a>
                             <a href="galleria.html">Shop</a>
                             <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank">Ticket</a>
@@ -390,34 +403,40 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Menu PC (TUTTI I LINK CLICCABILI E ILLUMINABILI) -->
+                <div class="hidden md:flex items-center gap-3">
+                    <a href="index.html" class="pc-nav-link"><i class="fa-solid fa-house text-[#00ff66]"></i> Home</a>
+                    <div class="dropdown">
+                        <button class="nav-dropdown-btn" onclick="toggleDropdown(event, 'pcEventsDropdown')">
+                            <i class="fa-solid fa-trophy text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[9px] ml-1"></i>
+                        </button>
+                        <div id="pcEventsDropdown" class="dropdown-content">
+                            <div class="dropdown-inner">
+                                <a href="cinthec8.html">CintheC 8</a>
+                                <a href="cinthec9.html">CintheC 9</a>
+                                <a href="cinthec10.html">CintheC 10</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="classifiche.html" class="pc-nav-link"><i class="fa-solid fa-ranking-star text-[#00ff66]"></i> Ranking</a>
+                    <a href="galleria.html" class="pc-nav-link"><i class="fa-solid fa-store text-[#00ff66]"></i> Shop</a>
+                    <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="pc-nav-link"><i class="fa-solid fa-ticket text-[#00ff66]"></i> Ticket</a>
+                    <a href="iscrizione.html" class="pc-nav-link"><i class="fa-solid fa-user-pen text-[#00ff66]"></i> Iscrizioni</a>
+                </div>
             </div>
 
-            <div class="flex items-center gap-3">
-                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank">
-                    <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="h-16 sm:h-40 w-auto object-contain transform -translate-y-1.5" onerror="this.style.display='none';">
+            <!-- LOGO LEONI DI SAN MARCO DESTRA -->
+            <div class="flex items-center justify-end">
+                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="flex items-center">
+                    <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="logo-right-leoni" onerror="this.style.display='none';">
                 </a>
-                
-                <button onclick="toggleMobileMenu()" class="md:hidden text-white bg-zinc-900 border border-zinc-700 p-2.5 rounded-none text-sm focus:outline-none cursor-pointer">
-                    <i class="fa-solid fa-bars text-[#00ff66]" id="menuIcon"></i>
-                </button>
             </div>
         </div>
     </header>
 
-    <!-- MENU MOBILE A SCOMPARSA -->
-    <div id="mobileMenu" class="hidden md:hidden bg-zinc-950 border-b border-zinc-800 text-white px-6 py-4 space-y-2 sticky top-20 z-30 shadow-2xl">
-        <a href="index.html" class="block text-xs font-black uppercase tracking-wider text-[#00ff66] py-2 border-b border-zinc-900">Home</a>
-        <a href="cinthec8.html" class="block text-xs font-black uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-2 border-b border-zinc-900">CintheC 8</a>
-        <a href="cinthec9.html" class="block text-xs font-black uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-2 border-b border-zinc-900">CintheC 9</a>
-        <a href="cinthec10.html" class="block text-xs font-black uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-2 border-b border-zinc-900">CintheC 10</a>
-        <a href="classifiche.html" class="block text-xs font-black uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-2 border-b border-zinc-900">Ranking</a>
-        <a href="galleria.html" class="block text-xs font-black uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-2 border-b border-zinc-900">Shop</a>
-        <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="block text-xs font-black uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-2 border-b border-zinc-900">Ticket</a>
-        <a href="iscrizione.html" class="block text-xs font-black uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-2">Iscrizioni</a>
-    </div>
-
     <!-- COUNTDOWN CON BOTTONE BLINDATO E INTERATTIVO AL 100% -->
-    <div class="bg-zinc-950 border-b border-zinc-800 py-3 px-4 text-center">
+    <div class="bg-zinc-950 border-b border-zinc-800 py-3 px-4 text-center relative z-20">
         <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
             <div class="flex flex-col sm:flex-row items-center gap-3">
                 <span class="text-xs font-black uppercase text-[#00ff66] tracking-wider">CintheC X - 10 Ottobre 2026:</span>
@@ -429,7 +448,7 @@
                 </div>
             </div>
             <div>
-                <a href="cinthec10.html" style="position: relative; z-index: 9999; pointer-events: auto;" class="inline-flex items-center gap-1.5 bg-[#00ff66] hover:bg-[#00cc52] text-black font-black uppercase text-[9px] px-4 py-2.5 rounded-none transition shadow-lg cursor-pointer">
+                <a href="cinthec10.html" style="position: relative; z-index: 10; pointer-events: auto;" class="inline-flex items-center gap-1.5 bg-[#00ff66] hover:bg-[#00cc52] text-black font-black uppercase text-[9px] px-4 py-2.5 rounded-none transition shadow-lg cursor-pointer">
                     <i class="fa-solid fa-fire text-black text-[9px]"></i> Vedi i match pubblicati giorno per giorno <i class="fa-solid fa-arrow-right text-[9px]"></i>
                 </a>
             </div>
@@ -604,10 +623,10 @@
                     </div>
                     <div class="relative z-30">
                         <div class="dropdown w-full">
-                            <a href="#" class="w-full inline-flex items-center justify-center gap-2 bg-black hover:bg-zinc-800 text-white font-black uppercase text-[10px] py-2 rounded-none transition shadow-md animate-pulse-btn cursor-pointer">
+                            <button onclick="toggleDropdown(event, 'historyEventsDropdown')" class="w-full inline-flex items-center justify-center gap-2 bg-black hover:bg-zinc-800 text-white font-black uppercase text-[10px] py-2 rounded-none transition shadow-md animate-pulse-btn cursor-pointer">
                                 <i class="fa-solid fa-calendar-days text-[10px]"></i> Vai agli Eventi <i class="fa-solid fa-chevron-down text-[8px] ml-0.5"></i>
-                            </a>
-                            <div class="dropdown-content w-full">
+                            </button>
+                            <div id="historyEventsDropdown" class="dropdown-content w-full">
                                 <div class="dropdown-inner">
                                     <a href="cinthec8.html">CintheC 8</a>
                                     <a href="cinthec9.html">CintheC 9</a>
@@ -638,26 +657,28 @@
     </main>
 
     <!-- FOOTER INFERIORE -->
-    <footer class="relative z-10 py-2.5 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+    <footer class="relative z-10 py-1.5 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-10">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 grid grid-cols-3 items-start gap-2 text-left">
             
-            <div class="flex flex-col items-center md:items-start gap-0.5">
+            <!-- SEGUICI A SINISTRA -->
+            <div class="flex flex-col items-start gap-0.5">
                 <h4 class="text-white font-bold text-[9px] uppercase tracking-wider mb-0.5">Seguici</h4>
                 <div class="flex flex-col gap-0.5 text-[10px]">
-                    <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
+                    <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
                         <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> CintheC MMA
                     </a>
-                    <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
+                    <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
                         <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> Leoni di San Marco
                     </a>
-                    <a href="https://www.instagram.com/labirinthknockout?igsi=dGlwMGZ1amwyMjJr" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
+                    <a href="https://www.instagram.com/labirinthknockout?igsi=dGlwMGZ1amwyMjJr" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
                         <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> Labirinth Knockout
                     </a>
                 </div>
             </div>
 
+            <!-- NOTE LEGALI AL CENTRO -->
             <div class="flex flex-col items-center text-center">
-                <h4 class="text-white font-bold text-[9px] mb-0.5 uppercase tracking-wider">Note Legali & Policy</h4>
+                <h4 class="text-white font-bold text-[9px] mb-0.5 uppercase tracking-wider">Note Legali</h4>
                 <ul class="flex flex-col gap-0.5 text-[10px] text-zinc-300">
                     <li><button onclick="openModal('privacyModal')" class="hover:text-[#00ff66] transition cursor-pointer">Privacy Policy</button></li>
                     <li><button onclick="openModal('termsModal')" class="hover:text-[#00ff66] transition cursor-pointer">Termini e Condizioni</button></li>
@@ -665,10 +686,10 @@
                 </ul>
             </div>
 
-            <div class="flex flex-col items-center md:items-end">
-                <h4 class="text-white font-bold text-[9px] mb-0.5 uppercase tracking-wider">Pagamenti Sicuri</h4>
-                <p class="text-[8px] text-zinc-400 mb-0.5">Powered by Lemon Squeezy</p>
-                <div class="flex gap-2 text-base text-zinc-300">
+            <!-- PAGAMENTI SICURI TUTTO A DESTRA -->
+            <div class="flex flex-col items-end text-right">
+                <h4 class="text-white font-bold text-[9px] mb-1 uppercase tracking-wider">Pagamenti Sicuri</h4>
+                <div class="flex gap-1.5 text-sm sm:text-base text-zinc-300 justify-end flex-wrap">
                     <i class="fa-brands fa-cc-visa" title="Visa"></i>
                     <i class="fa-brands fa-cc-mastercard" title="Mastercard"></i>
                     <i class="fa-brands fa-cc-amex" title="American Express"></i>
@@ -679,7 +700,7 @@
             </div>
 
         </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-1.5 border-t border-zinc-900/80 text-center text-[9px] text-zinc-500 mt-2">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 pt-1 border-t border-zinc-900/80 text-center text-[8px] text-zinc-500 mt-1">
             <p>© 2026 CintheC & Leoni di San Marco. Tutti i diritti riservati.</p>
         </div>
     </footer>
@@ -741,6 +762,30 @@
             html.classList.toggle('dark-mode');
         }
 
+        /* GESTIONE APERTURA/CHIUSURA MENU A TENDINA AL CLIC (TOGGLE) */
+        function toggleDropdown(event, dropdownId) {
+            event.stopPropagation();
+            const targetDropdown = document.getElementById(dropdownId);
+            const isOpen = targetDropdown.classList.contains('show');
+
+            // Chiude prima tutti gli altri dropdown aperti
+            document.querySelectorAll('.dropdown-content, .mobile-dropdown-content').forEach(el => {
+                el.classList.remove('show');
+            });
+
+            // Se non era aperto, lo apre
+            if (!isOpen) {
+                targetDropdown.classList.add('show');
+            }
+        }
+
+        // Chiude i menu a tendina se si clicca fuori
+        window.addEventListener('click', function() {
+            document.querySelectorAll('.dropdown-content, .mobile-dropdown-content').forEach(el => {
+                el.classList.remove('show');
+            });
+        });
+
         function openModal(modalId) {
             document.getElementById(modalId).classList.remove('hidden');
             document.body.style.overflow = 'hidden'; 
@@ -749,28 +794,6 @@
         function closeModal(modalId) {
             document.getElementById(modalId).classList.add('hidden');
             document.body.style.overflow = 'auto'; 
-        }
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            const icon = document.getElementById('menuIcon');
-            menu.classList.toggle('hidden');
-            if(menu.classList.contains('hidden')) {
-                icon.classList.remove('fa-xmark');
-                icon.classList.add('fa-bars');
-            } else {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-xmark');
-            }
-        }
-
-        window.onclick = function(event) {
-            ['privacyModal', 'termsModal', 'cookieModal'].forEach(modalId => {
-                let modal = document.getElementById(modalId);
-                if (event.target === modal) {
-                    closeModal(modalId);
-                }
-            });
         }
     </script>
 </body>
