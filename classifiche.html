@@ -32,7 +32,7 @@
             background-position: center;
         }
 
-        /* STILE MINIMALE PULITO (stile schermata UFC) */
+        /* STILE MINIMALE PULITO */
         .minimal-ranking-card {
             background: #ffffff;
             border: 1px solid #e4e4e7;
@@ -70,7 +70,6 @@
 </head>
 <body class="site-bg-cuts text-zinc-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
 
-    <!-- HEADER SUPERIORE CORRETTO E UNIFORME -->
     <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-22 flex items-center">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full flex justify-between items-center relative z-10">
             <div class="flex items-center gap-6">
@@ -105,29 +104,50 @@
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10 w-full flex-grow">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10 w-full flex-grow relative">
         
-        <!-- INTESTAZIONE PAGINA -->
         <div class="text-center mb-10">
             <h1 class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-zinc-900 mb-2">OFFICIAL RANKINGS CintheC</h1>
             <p class="text-xs sm:text-sm text-zinc-600 font-semibold">Classifiche ufficiali complete suddivise per categorie maschili e femminili.</p>
         </div>
 
-        <!-- PRIMA FILA (4 COLONNE) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" id="row1Grid"></div>
+        <!-- CONTENITORE PRINCIPALE CON VELO BILANCIATO -->
+        <div class="relative w-full">
+            
+            <!-- VELO CON TRASPARENZA INTERMEDIA E SFOCATURA LEGGERA PER VEDERE MEGLIO SOTTO -->
+            <div class="absolute inset-0 bg-zinc-950/65 backdrop-blur-[1px] z-30 flex flex-col items-center justify-start pt-16 sm:pt-24 px-4 text-center rounded-2xl">
+                <div class="bg-zinc-900 border border-[#00ff66]/40 p-6 sm:p-8 max-w-lg shadow-2xl rounded-none space-y-3">
+                    <span class="bg-[#00ff66] text-black font-black text-[9px] uppercase px-2.5 py-1 inline-block tracking-wider">Sezione in Aggiornamento</span>
+                    <h3 class="text-white text-lg sm:text-xl font-black uppercase tracking-tight">Ranking CintheC in Arrivo</h3>
+                    <p class="text-zinc-300 text-xs sm:text-sm leading-relaxed">
+                        Presto arriveranno anche i ranking aggiornati ufficiali di CintheC. Stiamo raccogliendo tutti i dati degli atleti per offrirti le classifiche definitive.
+                    </p>
+                    <div class="pt-2">
+                        <a href="index.html" class="inline-flex items-center gap-2 bg-[#00ff66] hover:bg-[#00cc52] text-black font-black uppercase text-[10px] px-4 py-2.5 rounded-none transition shadow-md">
+                            <i class="fa-solid fa-arrow-left"></i> Torna alla Home
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-        <!-- SECONDA FILA (4 COLONNE) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" id="row2Grid"></div>
+            <!-- CONTENUTO SOTTOSTANTE RESO PIÙ VISIBILE E NITIDO -->
+            <div class="opacity-55 pointer-events-none">
+                <div class="block md:hidden space-y-4" id="mobileRankingsList"></div>
 
-        <!-- TERZA FILA - DIVISIONI FEMMINILI (3 COLONNE) -->
-        <div class="mb-4">
-            <h2 class="text-xs font-black uppercase tracking-widest text-black mb-4 border-b border-zinc-300 pb-2">Women's Divisions</h2>
+                <div class="hidden md:block">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" id="row1Grid"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" id="row2Grid"></div>
+                    <div class="mb-4">
+                        <h2 class="text-xs font-black uppercase tracking-widest text-black mb-4 border-b border-zinc-300 pb-2">Women's Divisions</h2>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto" id="row3Grid"></div>
+                </div>
+            </div>
+
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto" id="row3Grid"></div>
 
     </main>
 
-    <!-- FOOTER -->
     <footer class="relative z-10 py-2 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-2 items-center text-center md:text-left">
             
@@ -173,7 +193,6 @@
         </div>
     </footer>
 
-    <!-- MODALI -->
     <div id="privacyModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
         <div class="bg-zinc-950 border border-zinc-800 rounded-none max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
             <button onclick="closeModal('privacyModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-none flex items-center justify-center border border-zinc-800 cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
@@ -197,40 +216,37 @@
     </div>
 
     <script>
-        // DATI DELLE CATEGORIE CON CHILOGRAMMI, LIBBRE E CAMPIONI
         const categoriesData = [
-            // RIGA 1 (4 Maschili)
             { title: "Pesi Mosca", weight: "56,7 kg (125 lbs)", champion: { name: "Joshua Van", img: "atleti/anuji.jpg" } },
             { title: "Pesi Gallo", weight: "61,2 kg (135 lbs)", champion: { name: "Petr Yan", img: "atleti/balducci.jpg" } },
             { title: "Pesi Piuma", weight: "65,8 kg (145 lbs)", champion: { name: "Alex Volkanovski", img: "atleti/drenica.jpg" } },
             { title: "Pesi Leggeri", weight: "70,3 kg (155 lbs)", champion: { name: "Justin Gaethje", img: "atleti/pagotto.jpg" } },
-            // RIGA 2 (4 Maschili)
             { title: "Pesi Welter", weight: "77,1 kg (170 lbs)", champion: { name: "Mario Rossi", img: "atleti/el-medkour.jpg" } },
             { title: "Pesi Medi", weight: "83,9 kg (185 lbs)", champion: { name: "Sean Strickland", img: "atleti/pitaveric.jpg" } },
             { title: "Pesi Massimi Leggeri", weight: "93 kg (205 lbs)", champion: { name: "Carlos Ulberg", img: "atleti/perini.jpg" } },
             { title: "Pesi Massimi", weight: "120,2 kg (265 lbs)", champion: { name: "Tom Aspinall", img: "atleti/piccini.jpg" } },
-            // RIGA 3 (3 Femminili in inglese)
             { title: "Women's Strawweight", weight: "52,2 kg (115 lbs)", champion: { name: "Mario Rossi", img: "atleti/anuji.jpg" } },
             { title: "Women's Flyweight", weight: "56,7 kg (125 lbs)", champion: { name: "Mario Rossi", img: "atleti/balducci.jpg" } },
             { title: "Women's Bantamweight", weight: "61,2 kg (135 lbs)", champion: { name: "Mario Rossi", img: "atleti/drenica.jpg" } }
         ];
 
-        function generateColumns() {
+        function generateRankings() {
             let row1Html = '';
             let row2Html = '';
             let row3Html = '';
+            let mobileHtml = '';
 
             categoriesData.forEach((cat, index) => {
                 let fightersListHtml = '';
                 for (let i = 1; i <= 15; i++) {
                     fightersListHtml += `
-                        <div class="flex items-center justify-between py-1.5 px-2 border-b border-zinc-100">
-                            <div class="flex items-center gap-2.5">
-                                <span class="text-[11px] font-black text-black w-4 text-center">${i}</span>
-                                <div class="w-6 h-6 rounded-full overflow-hidden bg-zinc-200 border border-zinc-300 shrink-0">
+                        <div class="flex items-center justify-between py-2 px-3 border-b border-zinc-100">
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs font-black text-black w-5 text-center">${i}</span>
+                                <div class="w-7 h-7 rounded-full overflow-hidden bg-zinc-200 border border-zinc-300 shrink-0">
                                     <img src="atleti/logo.png" class="w-full h-full object-cover" onerror="this.src='Immagini/Logo.png'">
                                 </div>
-                                <span class="text-[11px] font-bold text-zinc-800">Mario Rossi</span>
+                                <span class="text-xs font-bold text-zinc-800">Mario Rossi</span>
                             </div>
                         </div>
                     `;
@@ -239,13 +255,11 @@
                 let columnHtml = `
                     <div class="minimal-ranking-card rounded-2xl p-4 flex flex-col justify-between">
                         <div>
-                            <!-- TITOLO E PESI IN NERO PIENO -->
                             <div class="flex justify-between items-center mb-2.5">
                                 <span class="text-[10px] font-black uppercase text-black tracking-wider">${cat.title}</span>
                                 <span class="text-[9px] font-extrabold text-zinc-600">${cat.weight}</span>
                             </div>
                             
-                            <!-- CAMPIONE IN ALTO -->
                             <div class="text-center mb-4 bg-zinc-50 p-3 rounded-xl border border-zinc-200">
                                 <span class="text-[8px] font-extrabold uppercase text-amber-600 bg-amber-100 px-2 py-0.5 rounded border border-amber-200 block w-max mx-auto mb-1.5">Champion</span>
                                 <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-amber-400 shadow-sm mb-1.5 bg-zinc-200">
@@ -254,7 +268,6 @@
                                 <h3 class="text-[11px] font-black text-zinc-900 uppercase tracking-tight">${cat.champion.name}</h3>
                             </div>
 
-                            <!-- LISTA DA 1 A 15 CON NUMERI NERI IN EVIDENZA -->
                             <div class="space-y-0.5">
                                 ${fightersListHtml}
                             </div>
@@ -269,14 +282,53 @@
                 } else {
                     row3Html += columnHtml;
                 }
+
+                mobileHtml += `
+                    <div class="minimal-ranking-card rounded-2xl overflow-hidden mb-4">
+                        <div onclick="toggleMobileAccordion(${index})" class="p-4 bg-white flex items-center justify-between cursor-pointer select-none">
+                            <div>
+                                <span class="text-[10px] font-black uppercase text-black tracking-wider block">${cat.title}</span>
+                                <span class="text-[10px] font-extrabold text-zinc-500">${cat.weight}</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="text-right">
+                                    <span class="text-[8px] font-extrabold uppercase text-amber-600 bg-amber-100 px-1.5 py-0.5 rounded">Champion</span>
+                                    <p class="text-xs font-black text-zinc-900">${cat.champion.name}</p>
+                                </div>
+                                <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-amber-400 shrink-0 bg-zinc-200">
+                                    <img src="${cat.champion.img}" class="w-full h-full object-cover" onerror="this.src='Immagini/Logo.png'">
+                                </div>
+                                <i id="arrow-${index}" class="fa-solid fa-chevron-down text-zinc-400 text-xs transition-transform duration-300"></i>
+                            </div>
+                        </div>
+
+                        <div id="accordion-${index}" class="hidden bg-zinc-50 border-t border-zinc-200 px-4 py-2 space-y-1">
+                            ${fightersListHtml}
+                        </div>
+                    </div>
+                `;
             });
 
             document.getElementById('row1Grid').innerHTML = row1Html;
             document.getElementById('row2Grid').innerHTML = row2Html;
             document.getElementById('row3Grid').innerHTML = row3Html;
+            document.getElementById('mobileRankingsList').innerHTML = mobileHtml;
         }
 
-        generateColumns();
+        function toggleMobileAccordion(index) {
+            const accordion = document.getElementById(`accordion-${index}`);
+            const arrow = document.getElementById(`arrow-${index}`);
+            
+            if (accordion.classList.contains('hidden')) {
+                accordion.classList.remove('hidden');
+                arrow.classList.add('rotate-180');
+            } else {
+                accordion.classList.add('hidden');
+                arrow.classList.remove('rotate-180');
+            }
+        }
+
+        generateRankings();
 
         function openModal(modalId) {
             document.getElementById(modalId).classList.remove('hidden');
