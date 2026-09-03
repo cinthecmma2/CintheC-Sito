@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CintheC Media - Classifiche Ufficiali</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; }
+        
+        /* SFONDO GENERALE CON TAGLI DIAGONALI LEGGERI */
+        .site-bg-cuts {
+            background-color: #f4f4f6;
+            background-image: 
+                linear-gradient(135deg, rgba(0, 0, 0, 0.015) 25%, transparent 25%),
+                linear-gradient(225deg, rgba(0, 0, 0, 0.015) 25%, transparent 25%),
+                linear-gradient(45deg, rgba(0, 0, 0, 0.015) 25%, transparent 25%),
+                linear-gradient(315deg, rgba(0, 0, 0, 0.015) 25%, #f4f4f6 25%);
+            background-size: 60px 60px;
+            background-position: 0 0, 0 30px, 30px -30px, -30px 0px;
+        }
+
+        /* BARRA / HEADER / FOOTER NERI CON FULMINI */
+        .bar-lightning-bg {
+            background-color: #000000;
+            background-image: 
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.92)),
+                url('Immagini/fulmini-barra.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* STILE MINIMALE PULITO (stile schermata UFC) */
+        .minimal-ranking-card {
+            background: #ffffff;
+            border: 1px solid #e4e4e7;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+
+        /* MENU A TENDINA */
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #18181b;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
+            z-index: 50;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #27272a;
+            top: 100%;
+            left: 0;
+        }
+        .dropdown-content a {
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: background 0.2s;
+        }
+        .dropdown-content a:hover { background-color: #00ff66; color: black; }
+        .dropdown:hover .dropdown-content { display: block; }
+    </style>
+</head>
+<body class="site-bg-cuts text-zinc-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
+
+    <!-- HEADER SUPERIORE CORRETTO E UNIFORME -->
+    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-22 flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full flex justify-between items-center relative z-10">
+            <div class="flex items-center gap-6">
+                <a href="index.html">
+                    <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="h-20 sm:h-28 w-auto object-contain py-1" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                </a>
+                <nav class="hidden lg:flex items-center gap-6 text-white font-black text-xs uppercase tracking-wider">
+                    <a href="index.html" class="hover:text-[#00ff66] transition">Home</a>
+                    
+                    <div class="dropdown">
+                        <a href="#" class="hover:text-[#00ff66] transition py-3 flex items-center gap-1">
+                            Eventi <i class="fa-solid fa-chevron-down text-[9px]"></i>
+                        </a>
+                        <div class="dropdown-content">
+                            <a href="cinthec8.html">CintheC 8</a>
+                            <a href="cinthec9.html">CintheC 9</a>
+                            <a href="cinthec10foto.html">CintheC 10</a>
+                        </div>
+                    </div>
+
+                    <a href="classifiche.html" class="text-[#00ff66] transition">Ranking</a>
+                    <a href="galleria.html" class="hover:text-[#00ff66] transition">Shop</a>
+                    <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="hover:text-[#00ff66] transition">Ticket</a>
+                    <a href="iscrizione.html" class="hover:text-[#00ff66] transition">Iscrizioni</a>
+                </nav>
+            </div>
+            <div class="flex items-center">
+                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank">
+                    <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="h-28 sm:h-44 w-auto object-contain transform translate-y-1.5" onerror="this.style.display='none';">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10 w-full flex-grow">
+        
+        <!-- INTESTAZIONE PAGINA -->
+        <div class="text-center mb-10">
+            <h1 class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-zinc-900 mb-2">OFFICIAL RANKINGS CintheC</h1>
+            <p class="text-xs sm:text-sm text-zinc-600 font-semibold">Classifiche ufficiali complete suddivise per categorie maschili e femminili.</p>
+        </div>
+
+        <!-- PRIMA FILA (4 COLONNE) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" id="row1Grid"></div>
+
+        <!-- SECONDA FILA (4 COLONNE) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" id="row2Grid"></div>
+
+        <!-- TERZA FILA - DIVISIONI FEMMINILI (3 COLONNE) -->
+        <div class="mb-4">
+            <h2 class="text-xs font-black uppercase tracking-widest text-black mb-4 border-b border-zinc-300 pb-2">Women's Divisions</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto" id="row3Grid"></div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="relative z-10 py-2 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-2 items-center text-center md:text-left">
+            
+            <div class="flex flex-col items-center md:items-start gap-0.5">
+                <h4 class="text-white font-bold text-[9px] uppercase tracking-wider mb-0.5">Seguici</h4>
+                <div class="flex flex-col gap-0.5 text-[11px]">
+                    <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
+                        <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> CintheC MMA
+                    </a>
+                    <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
+                        <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> Leoni di San Marco
+                    </a>
+                    <a href="https://www.instagram.com/labirinthknockout?igsi=dGlwMGZ1amwyMjJr" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
+                        <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> Labirinth Knockout
+                    </a>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center text-center">
+                <h4 class="text-white font-bold text-[9px] mb-0.5 uppercase tracking-wider">Note Legali & Policy</h4>
+                <ul class="space-y-0.5 text-[11px] text-zinc-300">
+                    <li><button onclick="openModal('privacyModal')" class="hover:text-[#00ff66] transition cursor-pointer">Privacy Policy</button></li>
+                    <li><button onclick="openModal('termsModal')" class="hover:text-[#00ff66] transition cursor-pointer">Termini e Condizioni</button></li>
+                    <li><button onclick="openModal('cookieModal')" class="hover:text-[#00ff66] transition cursor-pointer">Cookie Policy</button></li>
+                </ul>
+            </div>
+
+            <div class="flex flex-col items-center md:items-end">
+                <h4 class="text-white font-bold text-[9px] mb-0.5 uppercase tracking-wider">Pagamenti Sicuri</h4>
+                <div class="flex gap-2 text-base text-zinc-300">
+                    <i class="fa-brands fa-cc-visa" title="Visa"></i>
+                    <i class="fa-brands fa-cc-mastercard" title="Mastercard"></i>
+                    <i class="fa-brands fa-cc-amex" title="American Express"></i>
+                    <i class="fa-brands fa-cc-paypal" title="PayPal"></i>
+                    <i class="fa-brands fa-apple-pay" title="Apple Pay"></i>
+                    <i class="fa-brands fa-google-pay" title="Google Pay"></i>
+                </div>
+            </div>
+
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-1 border-t border-zinc-900/80 text-center text-[9px] text-zinc-500 mt-1">
+            <p>© 2026 CintheC & Leoni di San Marco. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+    <!-- MODALI -->
+    <div id="privacyModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-zinc-950 border border-zinc-800 rounded-none max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
+            <button onclick="closeModal('privacyModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-none flex items-center justify-center border border-zinc-800 cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Privacy Policy</h3>
+            <p class="text-xs sm:text-sm text-zinc-300">La presente Privacy Policy descrive le modalità di raccolta dei dati personali.</p>
+        </div>
+    </div>
+    <div id="termsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-zinc-950 border border-zinc-800 rounded-none max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
+            <button onclick="closeModal('termsModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-none flex items-center justify-center border border-zinc-800 cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Termini e Condizioni</h3>
+            <p class="text-xs sm:text-sm text-zinc-300">L'utilizzo del sito implica l'accettazione dei termini di servizio.</p>
+        </div>
+    </div>
+    <div id="cookieModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-zinc-950 border border-zinc-800 rounded-none max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
+            <button onclick="closeModal('cookieModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-none flex items-center justify-center border border-zinc-800 cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Cookie Policy</h3>
+            <p class="text-xs sm:text-sm text-zinc-300">Il nostro sito utilizza cookie tecnici essenziali.</p>
+        </div>
+    </div>
+
+    <script>
+        // DATI DELLE CATEGORIE CON CHILOGRAMMI, LIBBRE E CAMPIONI
+        const categoriesData = [
+            // RIGA 1 (4 Maschili)
+            { title: "Pesi Mosca", weight: "56,7 kg (125 lbs)", champion: { name: "Joshua Van", img: "atleti/anuji.jpg" } },
+            { title: "Pesi Gallo", weight: "61,2 kg (135 lbs)", champion: { name: "Petr Yan", img: "atleti/balducci.jpg" } },
+            { title: "Pesi Piuma", weight: "65,8 kg (145 lbs)", champion: { name: "Alex Volkanovski", img: "atleti/drenica.jpg" } },
+            { title: "Pesi Leggeri", weight: "70,3 kg (155 lbs)", champion: { name: "Justin Gaethje", img: "atleti/pagotto.jpg" } },
+            // RIGA 2 (4 Maschili)
+            { title: "Pesi Welter", weight: "77,1 kg (170 lbs)", champion: { name: "Mario Rossi", img: "atleti/el-medkour.jpg" } },
+            { title: "Pesi Medi", weight: "83,9 kg (185 lbs)", champion: { name: "Sean Strickland", img: "atleti/pitaveric.jpg" } },
+            { title: "Pesi Massimi Leggeri", weight: "93 kg (205 lbs)", champion: { name: "Carlos Ulberg", img: "atleti/perini.jpg" } },
+            { title: "Pesi Massimi", weight: "120,2 kg (265 lbs)", champion: { name: "Tom Aspinall", img: "atleti/piccini.jpg" } },
+            // RIGA 3 (3 Femminili in inglese)
+            { title: "Women's Strawweight", weight: "52,2 kg (115 lbs)", champion: { name: "Mario Rossi", img: "atleti/anuji.jpg" } },
+            { title: "Women's Flyweight", weight: "56,7 kg (125 lbs)", champion: { name: "Mario Rossi", img: "atleti/balducci.jpg" } },
+            { title: "Women's Bantamweight", weight: "61,2 kg (135 lbs)", champion: { name: "Mario Rossi", img: "atleti/drenica.jpg" } }
+        ];
+
+        function generateColumns() {
+            let row1Html = '';
+            let row2Html = '';
+            let row3Html = '';
+
+            categoriesData.forEach((cat, index) => {
+                let fightersListHtml = '';
+                for (let i = 1; i <= 15; i++) {
+                    fightersListHtml += `
+                        <div class="flex items-center justify-between py-1.5 px-2 border-b border-zinc-100">
+                            <div class="flex items-center gap-2.5">
+                                <span class="text-[11px] font-black text-black w-4 text-center">${i}</span>
+                                <div class="w-6 h-6 rounded-full overflow-hidden bg-zinc-200 border border-zinc-300 shrink-0">
+                                    <img src="atleti/logo.png" class="w-full h-full object-cover" onerror="this.src='Immagini/Logo.png'">
+                                </div>
+                                <span class="text-[11px] font-bold text-zinc-800">Mario Rossi</span>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                let columnHtml = `
+                    <div class="minimal-ranking-card rounded-2xl p-4 flex flex-col justify-between">
+                        <div>
+                            <!-- TITOLO E PESI IN NERO PIENO -->
+                            <div class="flex justify-between items-center mb-2.5">
+                                <span class="text-[10px] font-black uppercase text-black tracking-wider">${cat.title}</span>
+                                <span class="text-[9px] font-extrabold text-zinc-600">${cat.weight}</span>
+                            </div>
+                            
+                            <!-- CAMPIONE IN ALTO -->
+                            <div class="text-center mb-4 bg-zinc-50 p-3 rounded-xl border border-zinc-200">
+                                <span class="text-[8px] font-extrabold uppercase text-amber-600 bg-amber-100 px-2 py-0.5 rounded border border-amber-200 block w-max mx-auto mb-1.5">Champion</span>
+                                <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-amber-400 shadow-sm mb-1.5 bg-zinc-200">
+                                    <img src="${cat.champion.img}" class="w-full h-full object-cover" onerror="this.src='Immagini/Logo.png'">
+                                </div>
+                                <h3 class="text-[11px] font-black text-zinc-900 uppercase tracking-tight">${cat.champion.name}</h3>
+                            </div>
+
+                            <!-- LISTA DA 1 A 15 CON NUMERI NERI IN EVIDENZA -->
+                            <div class="space-y-0.5">
+                                ${fightersListHtml}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                if (index < 4) {
+                    row1Html += columnHtml;
+                } else if (index < 8) {
+                    row2Html += columnHtml;
+                } else {
+                    row3Html += columnHtml;
+                }
+            });
+
+            document.getElementById('row1Grid').innerHTML = row1Html;
+            document.getElementById('row2Grid').innerHTML = row2Html;
+            document.getElementById('row3Grid').innerHTML = row3Html;
+        }
+
+        generateColumns();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; 
+        }
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            document.body.style.overflow = 'auto'; 
+        }
+        window.onclick = function(event) {
+            ['privacyModal', 'termsModal', 'cookieModal'].forEach(modalId => {
+                let modal = document.getElementById(modalId);
+                if (event.target === modal) { closeModal(modalId); }
+            });
+        }
+    </script>
+</body>
+</html>

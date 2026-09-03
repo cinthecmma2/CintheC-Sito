@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CintheC 10 - Fight Card & Risultati</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; }
+        .bar-lightning-bg {
+            background-color: #000000;
+            background-image: 
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.92)),
+                url('Immagini/fulmini-barra.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .carousel-btn {
+            background-color: rgba(0, 255, 102, 0.9);
+            color: black;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+        }
+        .carousel-container:hover .carousel-btn { opacity: 1; }
+        .carousel-btn:hover { background-color: rgb(0, 221, 85); transform: translateY(-50%) scale(1.1); }
+        .btn-prev { left: -15px; }
+        .btn-next { right: -15px; }
+        .scroll-mask-r { mask-image: linear-gradient(to right, black 90%, transparent 100%); }
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #18181b;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
+            z-index: 50;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #27272a;
+            top: 100%;
+            left: 0;
+        }
+        .dropdown-content a {
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: background 0.2s;
+        }
+        .dropdown-content a:hover { background-color: #00ff66; color: black; }
+        .dropdown:hover .dropdown-content { display: block; }
+
+        @keyframes bounceSlow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        .animate-bounce-slow {
+            animation: bounceSlow 1.8s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-zinc-100 text-zinc-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
+
+    <!-- HEADER RIDOTTO NELL'ALTEZZA CON LOGO DESTRA MAGGIORE -->
+    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-22 flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full flex justify-between items-center relative z-10">
+            <div class="flex items-center gap-6">
+                <a href="index.html">
+                    <img src="Immagini/Logo.png" alt="CintheC Logo" class="h-20 sm:h-28 w-auto object-contain py-1" onerror="this.onerror=null; this.src='Immagini/logo.png';">
+                </a>
+                <nav class="hidden lg:flex items-center gap-6 text-white font-black text-xs uppercase tracking-wider">
+                    <a href="index.html" class="hover:text-[#00ff66] transition">Home</a>
+                    <div class="dropdown">
+                        <a href="#" class="text-[#00ff66] transition py-3 flex items-center gap-1">
+                            Eventi <i class="fa-solid fa-chevron-down text-[9px]"></i>
+                        </a>
+                        <div class="dropdown-content">
+                            <a href="cinthec8.html">CintheC 8</a>
+                            <a href="cinthec9.html">CintheC 9</a>
+                            <a href="cinthec10.html">CintheC 10</a>
+                        </div>
+                    </div>
+                    <a href="classifiche.html" class="hover:text-[#00ff66] transition">Ranking</a>
+                    <a href="galleria.html" class="hover:text-[#00ff66] transition">Shop</a>
+                    <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="hover:text-[#00ff66] transition">Ticket</a>
+                    <a href="iscrizione.html" class="hover:text-[#00ff66] transition">Iscrizioni</a>
+                </nav>
+            </div>
+            <div class="flex items-center">
+                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank">
+                    <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="h-28 sm:h-44 w-auto object-contain transform translate-y-1.5" onerror="this.style.display='none';">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10 w-full flex-grow">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12 items-start">
+            <div class="lg:col-span-2 bg-white rounded-none border border-zinc-200 shadow-lg overflow-hidden group">
+                <div class="w-full overflow-hidden m-0 p-0 leading-none bg-zinc-200 h-[300px] sm:h-[420px] flex items-center justify-center">
+                    <img src="Immagini/locandina-cinthec10.jpg" alt="CintheC 10 Locandina" class="w-full h-full object-cover rounded-none" onerror="this.style.display='none';">
+                    <span class="text-zinc-400 font-black text-xs uppercase" style="display:none;">Inserisci Locandina</span>
+                </div>
+                <div class="p-6 bg-white">
+                    <div class="text-[11px] font-black uppercase text-zinc-500 tracking-wider mb-1">CintheC Fight Night - Season 10</div>
+                    <h1 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-900">Main Event & Futuri Risultati</h1>
+                </div>
+            </div>
+
+            <div class="bg-zinc-900 text-white rounded-none p-6 border border-zinc-800 shadow-lg">
+                <h3 class="text-sm font-black uppercase tracking-wider text-[#00ff66] mb-4 border-b border-zinc-800 pb-2">Info Evento</h3>
+                <div class="space-y-4 text-xs">
+                    <div class="border-b border-zinc-800 pb-3">
+                        <span class="text-[9px] font-bold text-zinc-400 uppercase bg-zinc-800 px-2 py-0.5 rounded">Status</span>
+                        <h4 class="font-bold text-white mt-1">In Programmazione</h4>
+                    </div>
+                    <div class="border-b border-zinc-800 pb-3">
+                        <span class="text-[9px] font-bold text-zinc-400 uppercase bg-zinc-800 px-2 py-0.5 rounded">Media</span>
+                        <h4 class="font-bold text-white mt-1">Archivio incontri e verdetti da rivedere</h4>
+                    </div>
+                    <div>
+                        <span class="text-[9px] font-bold text-zinc-400 uppercase bg-zinc-800 px-2 py-0.5 rounded">Shop e foto</span>
+                        <h4 class="font-bold text-white mt-1.5 animate-bounce-slow inline-block">Vai alla galleria e acquista le foto dei tuoi match! →</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-8 border-b border-zinc-300 pb-3">
+            <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-900">Fight Card & Risultati - CintheC 10</h2>
+            <p class="text-xs sm:text-sm text-zinc-600">I verdetti ufficiali di tutti gli incontri della serata.</p>
+        </div>
+
+        <div class="mb-10">
+            <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 flex items-center gap-2">
+                <span class="w-2 h-2 bg-red-600 rounded-full"></span> General Card & Official
+            </h3>
+            
+            <div class="carousel-container relative w-full">
+                <div class="carousel-btn btn-prev" onclick="scrollCarousel('carouselMain10', -300)"><i class="fa-solid fa-chevron-left"></i></div>
+                <div class="carousel-btn btn-next" onclick="scrollCarousel('carouselMain10', 300)"><i class="fa-solid fa-chevron-right"></i></div>
+                
+                <div id="carouselMain10" class="flex overflow-x-auto hide-scrollbar scroll-mask-r gap-5 pb-4 -mb-4 scroll-smooth">
+                    <div class="flex-none w-[270px] sm:w-[290px] bg-white rounded-2xl p-4 border border-zinc-200 shadow-md flex items-center justify-center min-h-[190px]">
+                        <p class="text-xs font-bold text-zinc-400"><i class="fa-solid fa-spinner fa-spin mr-2 text-[#00ff66]"></i> Caricamento match attivi...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER SUPER RIDOTTO E AGGIORNATO -->
+    <footer class="relative z-10 py-2 text-zinc-400 text-[11px] border-t border-zinc-800 bar-lightning-bg mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-2 mb-1 text-center md:text-left items-center">
+            
+            <div class="flex flex-col items-center md:items-start gap-0.5">
+                <h4 class="text-white font-bold text-[9px] uppercase tracking-wider mb-0.5">Seguici</h4>
+                <div class="flex flex-col gap-0.5 text-[11px]">
+                    <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] font-semibold transition"><i class="fa-brands fa-instagram text-pink-500 text-xs"></i> CintheC MMA</a>
+                    <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] font-semibold transition"><i class="fa-brands fa-instagram text-pink-500 text-xs"></i> Leoni di San Marco</a>
+                    <a href="https://www.instagram.com/labirinthknockout?igsi=dGlwMGZ1amwyMjJr" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] font-semibold transition"><i class="fa-brands fa-instagram text-pink-500 text-xs"></i> Labirinth Knockout</a>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center text-center">
+                <h4 class="text-white font-bold text-[9px] mb-0.5 uppercase tracking-wider">Note Legali & Policy</h4>
+                <ul class="space-y-0.5 text-[11px] text-zinc-300">
+                    <li><button onclick="apriModal('privacy')" class="hover:text-[#00ff66] transition cursor-pointer">Privacy Policy</button></li>
+                    <li><button onclick="apriModal('termini')" class="hover:text-[#00ff66] transition cursor-pointer">Termini e Condizioni</button></li>
+                    <li><button onclick="apriModal('cookie')" class="hover:text-[#00ff66] transition cursor-pointer">Cookie Policy</button></li>
+                </ul>
+            </div>
+
+            <div class="flex flex-col items-center md:items-end">
+                <h4 class="text-white font-bold text-[9px] mb-0.5 uppercase tracking-wider">Pagamenti Sicuri</h4>
+                <p class="text-[9px] text-zinc-400 mb-0.5">Powered by Lemon Squeezy</p>
+                <div class="flex gap-2 text-base text-zinc-300">
+                    <i class="fa-brands fa-cc-visa" title="Visa"></i>
+                    <i class="fa-brands fa-cc-mastercard" title="Mastercard"></i>
+                    <i class="fa-brands fa-cc-paypal" title="PayPal"></i>
+                    <i class="fa-brands fa-apple-pay" title="Apple Pay"></i>
+                    <i class="fa-brands fa-google-pay" title="Google Pay"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-1 border-t border-zinc-900/80 text-center text-[9px] text-zinc-500">
+            <p>© 2026 CintheC & Leoni di San Marco. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+    <!-- MODALE POP-UP PER NOTE LEGALI -->
+    <div id="legalModal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-zinc-900 text-white border border-zinc-700 rounded-2xl max-w-lg w-full p-6 relative shadow-2xl">
+            <button onclick="chiudiModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-black cursor-pointer">&times;</button>
+            <h3 id="modalTitle" class="text-base font-black uppercase text-[#00ff66] mb-3 border-b border-zinc-800 pb-2"></h3>
+            <div id="modalBody" class="text-xs text-zinc-300 space-y-2 leading-relaxed max-h-[60vh] overflow-y-auto pr-2"></div>
+            <div class="mt-6 text-right">
+                <button onclick="chiudiModal()" class="bg-[#00ff66] text-black font-black text-xs uppercase px-4 py-2 rounded-xl hover:bg-emerald-400 transition cursor-pointer">Chiudi</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyJSPDKtM2XMbiGQD1BQmmbafPPqpFTBxMpVwJyPHHFsEuwiBQAplQR6HwPGE5F1TNs/exec';
+
+        window.addEventListener('DOMContentLoaded', () => {
+            caricaMatchPubblici();
+        });
+
+        async function caricaMatchPubblici() {
+            const container = document.getElementById('carouselMain10');
+            try {
+                const response = await fetch(SCRIPT_URL + '?action=getMatchSalvati');
+                const data = await response.json();
+                
+                if (data.matchSalvati && data.matchSalvati.length > 0) {
+                    const matchAttivi = data.matchSalvati.filter(m => m.stato === "ON");
+
+                    if (matchAttivi.length > 0) {
+                        container.innerHTML = '';
+                        matchAttivi.forEach((m, index) => {
+                            const card = document.createElement('div');
+                            card.className = "flex-none w-[270px] sm:w-[290px] bg-white rounded-2xl p-4 border border-zinc-200 shadow-md flex flex-col justify-between";
+                            card.innerHTML = `
+                                <div>
+                                    <div class="flex justify-between items-center mb-3">
+                                        <span class="text-[9px] font-black uppercase bg-black text-white px-2 py-0.5 rounded">Match #${index + 1}</span>
+                                        <span class="text-[10px] font-bold text-white bg-black px-2 py-0.5 rounded">Ufficiale</span>
+                                    </div>
+                                    <div class="grid grid-cols-5 items-center mb-3 text-center">
+                                        <div class="col-span-2 px-0.5 flex flex-col items-center">
+                                            <div class="w-11 h-11 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-1.5 border-2 border-red-500 flex items-center justify-center shadow-sm shrink-0">
+                                                <i class="fa-solid fa-user text-red-500 text-xs"></i>
+                                            </div>
+                                            <h4 class="font-black text-[10px] text-red-600 uppercase w-full leading-tight break-words" title="${m.atleta1}">${m.atleta1}</h4>
+                                            <p class="text-[8px] text-zinc-500 font-bold w-full truncate mt-0.5">${m.team1 || '-'}</p>
+                                        </div>
+
+                                        <div class="col-span-1 flex flex-col items-center justify-center">
+                                            <span class="text-[10px] font-black italic text-zinc-400 uppercase">VS</span>
+                                            <span class="text-[7px] font-black uppercase text-zinc-900 mt-0.5 bg-zinc-100 px-1 py-0.5 rounded border border-zinc-300 whitespace-nowrap">${m.lega || 'SEMI-PRO'}</span>
+                                        </div>
+
+                                        <div class="col-span-2 px-0.5 flex flex-col items-center">
+                                            <div class="w-11 h-11 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-1.5 border-2 border-blue-600 flex items-center justify-center shadow-sm shrink-0">
+                                                <i class="fa-solid fa-user text-blue-600 text-xs"></i>
+                                            </div>
+                                            <h4 class="font-black text-[10px] text-blue-600 uppercase w-full leading-tight break-words" title="${m.atleta2}">${m.atleta2}</h4>
+                                            <p class="text-[8px] text-zinc-500 font-bold w-full truncate mt-0.5">${m.team2 || '-'}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-full bg-zinc-100 text-zinc-700 text-center py-2 rounded-xl font-bold text-[11px] border border-zinc-200">
+                                    Risultato: <span class="text-zinc-900 font-black">In attesa di verdetto</span>
+                                </div>
+                            `;
+                            container.appendChild(card);
+                        });
+                        return;
+                    }
+                }
+
+                container.innerHTML = `<div class="flex-none w-full bg-white rounded-2xl p-6 text-center border border-zinc-200"><p class="text-xs font-bold text-zinc-500">Nessun match attivo al momento. Attivalo dalla dashboard Admin!</p></div>`;
+
+            } catch (error) {
+                console.error("Errore caricamento match pubblici:", error);
+                container.innerHTML = `<div class="flex-none w-full bg-white rounded-2xl p-6 text-center border border-zinc-200"><p class="text-xs font-bold text-red-500">Impossibile caricare i match dal Cloud.</p></div>`;
+            }
+        }
+
+        function scrollCarousel(carouselId, distance) {
+            const container = document.getElementById(carouselId);
+            container.scrollBy({ left: distance, behavior: 'smooth' });
+        }
+
+        const testiLegali = {
+            privacy: {
+                titolo: "Privacy Policy",
+                contenuto: "La presente Privacy Policy descrive le modalità con cui CintheC raccoglie, utilizza e protegge le informazioni personali fornite dagli utenti e dagli atleti durante la navigazione del sito e l'iscrizione agli eventi. I dati raccolti (quali nome, cognome, team di appartenenza e contatti) sono trattati nel pieno rispetto della normativa vigente sulla protezione dei dati personali. Nessun dato sensibile viene ceduto a terzi senza esplicito consenso."
+            },
+            termini: {
+                titolo: "Termini e Condizioni",
+                contenuto: "L'accesso e l'utilizzo del portale CintheC e dei suoi servizi comportano l'accettazione integrale dei presenti Termini e Condizioni. Gli atleti e i team partecipanti agli eventi si impegnano a rispettare i regolamenti sportivi ufficiali, le linee guida di condotta e le disposizioni organizzative fornite dallo staff. L'organizzazione declina ogni responsabilità per un uso improprio dei contenuti multimediali presenti sul sito."
+            },
+            cookie: {
+                titolo: "Cookie Policy",
+                contenuto: "Questo sito utilizza cookie tecnici e di sessione necessari per garantire il corretto funzionamento delle pagine, la gestione delle preferenze e l'interazione con i servizi cloud di caricamento match in tempo reale. Continuando la navigazione senza modificare le impostazioni del browser, l'utente acconsente all'uso dei cookie. È possibile disabilitare i cookie in qualsiasi momento tramite le opzioni del proprio browser."
+            }
+        };
+
+        function apriModal(tipo) {
+            const modal = document.getElementById('legalModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+            
+            title.innerText = testiLegali[tipo].titolo;
+            body.innerText = testiLegali[tipo].contenuto;
+            modal.classList.remove('hidden');
+        }
+
+        function chiudiModal() {
+            document.getElementById('legalModal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

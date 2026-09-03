@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CintheC Media - CintheC 8 Fight Card & Acquisto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; }
+        
+        /* SFONDO GENERALE CON FULMINI FISSI */
+        .neon-lightning-bg {
+            background-color: #020503;
+            background-image: 
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(2, 5, 3, 0.85)),
+                url('Immagini/fulmini-bg.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        /* SFONDO DELICATO PER HEADER E FOOTER CON FULMINI-BARRA */
+        .bar-lightning-bg {
+            background-color: #000000;
+            background-image: 
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.88)),
+                url('Immagini/fulmini-barra.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .white-glow-text {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.7), 0 2px 6px rgba(0, 0, 0, 1);
+        }
+
+        /* MENU A TENDINA STABILE CON PONTE DI PASSAGGIO DEL MOUSE */
+        .dropdown { position: relative; display: inline-block; }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: transparent;
+            min-width: 200px;
+            z-index: 9999;
+            left: 50%;
+            transform: translateX(-50%);
+            padding-top: 10px;
+        }
+
+        header .dropdown-content {
+            top: 100%;
+            bottom: auto;
+        }
+
+        .dropdown-inner {
+            background-color: #18181b;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0px 15px 30px 0px rgba(0,0,0,0.8);
+            border: 1px solid #27272a;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: background 0.2s, color 0.2s;
+        }
+        .dropdown-content a:hover { background-color: #00ff66; color: black; }
+        .dropdown:hover .dropdown-content { display: block; }
+
+        /* NASCONDI LA BARRA DI SCORRIMENTO DEL CAROSELLO MA MANTIENI LO SCORRIMENTO FLUIDO */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="neon-lightning-bg text-zinc-100 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
+
+    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-16 flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full flex justify-between items-center relative z-10">
+            <div class="flex items-center gap-3">
+                <a href="galleria.html">
+                    <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="h-20 sm:h-28 w-auto object-contain" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                </a>
+                <span class="text-[#00ff66] font-black text-xs sm:text-sm tracking-wider uppercase bg-zinc-900/80 px-3 py-1.5 rounded-xl border border-[#00ff66]/30 hidden md:inline-block shadow-md">
+                    C I N T H E C 8
+                </span>
+            </div>
+
+            <div class="flex items-center gap-3 sm:gap-4 absolute left-1/2 transform -translate-x-1/2">
+                <div class="dropdown">
+                    <button class="bg-zinc-900 hover:bg-zinc-800 text-[#00ff66] border border-[#00ff66]/40 text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md cursor-pointer">
+                        <i class="fa-solid fa-trophy"></i> CintheC <i class="fa-solid fa-chevron-down text-[9px]"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="dropdown-inner">
+                            <a href="cinthec8foto.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 8</a>
+                            <a href="cinthec9.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 9</a>
+                            <a href="cinthec10foto.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 10</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <button class="bg-zinc-900 hover:bg-zinc-800 text-[#00ff66] border border-[#00ff66]/40 text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md cursor-pointer">
+                        <i class="fa-solid fa-bars"></i> Menu <i class="fa-solid fa-chevron-down text-[9px]"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="dropdown-inner">
+                            <a href="galleria.html"><i class="fa-solid fa-house text-[#00ff66]"></i> Torna alla Home</a>
+                            <a href="galleria.html#pacchetti"><i class="fa-solid fa-tags text-[#00ff66]"></i> Listino</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center">
+                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank">
+                    <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="h-28 sm:h-40 w-auto object-contain transform translate-y-1" onerror="this.style.display='none';">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10 w-full flex-grow">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white mb-2">FIGHT CARD & ACQUISTO MATCH</h1>
+            <p class="white-glow-text text-xs sm:text-sm text-zinc-300 max-w-xl mx-auto font-semibold">Usa il carosello scorrevole per ogni categoria o cerca direttamente l'atleta desiderato.</p>
+        </div>
+
+        <div class="max-w-xl mx-auto mb-12">
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-zinc-400">
+                    <i class="fa-solid fa-magnifying-glass text-base"></i>
+                </span>
+                <input type="text" id="searchInput" onkeyup="searchMatches()" placeholder="Cerca atleta (es. Anuji, Drenica, Tiozzo...)" class="w-full bg-zinc-950/90 border border-zinc-800 focus:border-[#00ff66] text-white pl-12 pr-4 py-3.5 rounded-2xl text-sm sm:text-base outline-none transition shadow-xl">
+            </div>
+        </div>
+
+        <div id="matchesContainer" class="space-y-12">
+            
+            <section class="relative">
+                <div class="flex justify-between items-end mb-4 px-2">
+                    <div class="border-l-4 border-[#00ff66] pl-4">
+                        <h2 class="text-2xl font-black uppercase tracking-tight text-white">Main Card & Main Event</h2>
+                        <p class="text-xs text-zinc-400">Incontri di cartello della serata CintheC 8.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="scrollCarousel('mainEventCarousel', -320)" class="bg-zinc-900 hover:bg-[#00ff66] hover:text-black text-white w-9 h-9 rounded-xl border border-zinc-700 flex items-center justify-center transition shadow cursor-pointer"><i class="fa-solid fa-chevron-left text-xs"></i></button>
+                        <button onclick="scrollCarousel('mainEventCarousel', 320)" class="bg-zinc-900 hover:bg-[#00ff66] hover:text-black text-white w-9 h-9 rounded-xl border border-zinc-700 flex items-center justify-center transition shadow cursor-pointer"><i class="fa-solid fa-chevron-right text-xs"></i></button>
+                    </div>
+                </div>
+                
+                <div id="mainEventCarousel" class="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth pb-4 pt-1 px-1">
+                    
+                    <div class="match-card min-w-[300px] sm:min-w-[340px] max-w-[340px] bg-zinc-950/90 border border-zinc-800 rounded-3xl p-4 shadow-2xl flex flex-col justify-between shrink-0">
+                        <div>
+                            <div class="flex justify-between items-center mb-2 px-1">
+                                <span class="bg-red-600/20 text-red-400 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded border border-red-500/30">Main Event (Pro)</span>
+                                <span class="bg-zinc-800 text-zinc-300 text-[9px] font-bold uppercase px-2 py-0.5 rounded border border-zinc-700">Lightweight</span>
+                            </div>
+                            <div class="text-[10px] text-center font-bold text-[#00ff66] mb-3 bg-black/40 py-1 rounded-lg border border-zinc-800">Vince Anuji (Dec. unanime)</div>
+                            <div class="flex items-center justify-between gap-2 mb-4">
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/anuji.jpg" alt="Anuji" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Anuji</h3>
+                                </div>
+                                <span class="text-[#00ff66] font-black text-xs">VS</span>
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/balducci.jpg" alt="Balducci" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Balducci</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase mb-1 text-center"><i class="fa-solid fa-tags text-[#00ff66]"></i> Scegli il pacchetto:</label>
+                            <select onchange="if(this.value) window.open(this.value, '_blank')" class="w-full bg-zinc-900 border border-zinc-700 hover:border-[#00ff66] text-white text-xs font-bold rounded-xl px-2.5 py-2.5 appearance-none focus:outline-none transition cursor-pointer text-center">
+                                <option value="" disabled selected>-- Seleziona Pacchetto & Prezzo --</option>
+                                <option value="#">Pack Foto — 7€</option>
+                                <option value="#">Pack Video — 10€</option>
+                                <option value="#">Pack Foto + Video (TOP) — 15€</option>
+                                <option value="https://wa.me/393277179868?text=Ciao,%20vorrei%20informazioni%20per%20il%20Pack%20Team%20CintheC8%20Anuji%20vs%20Balducci">Pack Team (WhatsApp) — 25€</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="match-card min-w-[300px] sm:min-w-[340px] max-w-[340px] bg-zinc-950/90 border border-zinc-800 rounded-3xl p-4 shadow-2xl flex flex-col justify-between shrink-0">
+                        <div>
+                            <div class="flex justify-between items-center mb-2 px-1">
+                                <span class="bg-amber-600/20 text-amber-400 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded border border-amber-500/30">Co-Main Event</span>
+                                <span class="bg-zinc-800 text-zinc-300 text-[9px] font-bold uppercase px-2 py-0.5 rounded border border-zinc-700">Title (Welter)</span>
+                            </div>
+                            <div class="text-[10px] text-center font-bold text-[#00ff66] mb-3 bg-black/40 py-1 rounded-lg border border-zinc-800">Vince El Hamajji (Dec. unanime)</div>
+                            <div class="flex items-center justify-between gap-2 mb-4">
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/el-medkour.jpg" alt="El Hamajji" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">El Hamajji</h3>
+                                </div>
+                                <span class="text-[#00ff66] font-black text-xs">VS</span>
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/pitaveric.jpg" alt="Pitaveric" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Pitaveric</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase mb-1 text-center"><i class="fa-solid fa-tags text-[#00ff66]"></i> Scegli il pacchetto:</label>
+                            <select onchange="if(this.value) window.open(this.value, '_blank')" class="w-full bg-zinc-900 border border-zinc-700 hover:border-[#00ff66] text-white text-xs font-bold rounded-xl px-2.5 py-2.5 appearance-none focus:outline-none transition cursor-pointer text-center">
+                                <option value="" disabled selected>-- Seleziona Pacchetto & Prezzo --</option>
+                                <option value="#">Pack Foto — 7€</option>
+                                <option value="#">Pack Video — 10€</option>
+                                <option value="#">Pack Foto + Video (TOP) — 15€</option>
+                                <option value="https://wa.me/393277179868?text=Ciao,%20vorrei%20informazioni%20per%20il%20Pack%20Team%20CintheC8%20El%20Hamajji%20vs%20Pitaveric">Pack Team (WhatsApp) — 25€</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="match-card min-w-[300px] sm:min-w-[340px] max-w-[340px] bg-zinc-950/90 border border-zinc-800 rounded-3xl p-4 shadow-2xl flex flex-col justify-between shrink-0">
+                        <div>
+                            <div class="flex justify-between items-center mb-2 px-1">
+                                <span class="bg-zinc-800 text-zinc-300 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded border border-zinc-700">Main Card</span>
+                                <span class="bg-zinc-800 text-zinc-300 text-[9px] font-bold uppercase px-2 py-0.5 rounded border border-zinc-700">Welterweight</span>
+                            </div>
+                            <div class="text-[10px] text-center font-bold text-[#00ff66] mb-3 bg-black/40 py-1 rounded-lg border border-zinc-800">Vince Drenica (TKO)</div>
+                            <div class="flex items-center justify-between gap-2 mb-4">
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/drenica.jpg" alt="Drenica" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Drenica</h3>
+                                </div>
+                                <span class="text-[#00ff66] font-black text-xs">VS</span>
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/el-medkour.jpg" alt="El Medkour" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">El Medkour</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase mb-1 text-center"><i class="fa-solid fa-tags text-[#00ff66]"></i> Scegli il pacchetto:</label>
+                            <select onchange="if(this.value) window.open(this.value, '_blank')" class="w-full bg-zinc-900 border border-zinc-700 hover:border-[#00ff66] text-white text-xs font-bold rounded-xl px-2.5 py-2.5 appearance-none focus:outline-none transition cursor-pointer text-center">
+                                <option value="" disabled selected>-- Seleziona Pacchetto & Prezzo --</option>
+                                <option value="#">Pack Foto — 7€</option>
+                                <option value="#">Pack Video — 10€</option>
+                                <option value="#">Pack Foto + Video (TOP) — 15€</option>
+                                <option value="https://wa.me/393277179868?text=Ciao,%20vorrei%20informazioni%20per%20il%20Pack%20Team%20CintheC8%20Drenica%20vs%20El%20Medkour">Pack Team (WhatsApp) — 25€</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="match-card min-w-[300px] sm:min-w-[340px] max-w-[340px] bg-zinc-950/90 border border-zinc-800 rounded-3xl p-4 shadow-2xl flex flex-col justify-between shrink-0">
+                        <div>
+                            <div class="flex justify-between items-center mb-2 px-1">
+                                <span class="bg-zinc-800 text-zinc-300 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded border border-zinc-700">Main Card</span>
+                                <span class="bg-zinc-800 text-zinc-300 text-[9px] font-bold uppercase px-2 py-0.5 rounded border border-zinc-700">Catchweight</span>
+                            </div>
+                            <div class="text-[10px] text-center font-bold text-[#00ff66] mb-3 bg-black/40 py-1 rounded-lg border border-zinc-800">Vince Perini (Dec. unanime)</div>
+                            <div class="flex items-center justify-between gap-2 mb-4">
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/pagotto.jpg" alt="Pagotto" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Pagotto</h3>
+                                </div>
+                                <span class="text-[#00ff66] font-black text-xs">VS</span>
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/perini.jpg" alt="Perini" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Perini</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase mb-1 text-center"><i class="fa-solid fa-tags text-[#00ff66]"></i> Scegli il pacchetto:</label>
+                            <select onchange="if(this.value) window.open(this.value, '_blank')" class="w-full bg-zinc-900 border border-zinc-700 hover:border-[#00ff66] text-white text-xs font-bold rounded-xl px-2.5 py-2.5 appearance-none focus:outline-none transition cursor-pointer text-center">
+                                <option value="" disabled selected>-- Seleziona Pacchetto & Prezzo --</option>
+                                <option value="#">Pack Foto — 7€</option>
+                                <option value="#">Pack Video — 10€</option>
+                                <option value="#">Pack Foto + Video (TOP) — 15€</option>
+                                <option value="https://wa.me/393277179868?text=Ciao,%20vorrei%20informazioni%20per%20il%20Pack%20Team%20CintheC8%20Pagotto%20vs%20Perini">Pack Team (WhatsApp) — 25€</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="relative">
+                <div class="flex justify-between items-end mb-4 px-2">
+                    <div class="border-l-4 border-zinc-400 pl-4">
+                        <h2 class="text-2xl font-black uppercase tracking-tight text-white">Preliminary Card</h2>
+                        <p class="text-xs text-zinc-400">Incontri preliminari ufficiali CintheC 8.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="scrollCarousel('prelimsCarousel', -320)" class="bg-zinc-900 hover:bg-[#00ff66] hover:text-black text-white w-9 h-9 rounded-xl border border-zinc-700 flex items-center justify-center transition shadow cursor-pointer"><i class="fa-solid fa-chevron-left text-xs"></i></button>
+                        <button onclick="scrollCarousel('prelimsCarousel', 320)" class="bg-zinc-900 hover:bg-[#00ff66] hover:text-black text-white w-9 h-9 rounded-xl border border-zinc-700 flex items-center justify-center transition shadow cursor-pointer"><i class="fa-solid fa-chevron-right text-xs"></i></button>
+                    </div>
+                </div>
+                
+                <div id="prelimsCarousel" class="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth pb-4 pt-1 px-1">
+                    
+                    <div class="match-card min-w-[300px] sm:min-w-[340px] max-w-[340px] bg-zinc-950/90 border border-zinc-800 rounded-3xl p-4 shadow-2xl flex flex-col justify-between shrink-0">
+                        <div>
+                            <div class="flex justify-between items-center mb-2 px-1">
+                                <span class="bg-zinc-800 text-zinc-300 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded border border-zinc-700">Prelims</span>
+                                <span class="bg-zinc-800 text-zinc-300 text-[9px] font-bold uppercase px-2 py-0.5 rounded border border-zinc-700">Catchweight</span>
+                            </div>
+                            <div class="text-[10px] text-center font-bold text-[#00ff66] mb-3 bg-black/40 py-1 rounded-lg border border-zinc-800">Vince Popa (Dec. unanime)</div>
+                            <div class="flex items-center justify-between gap-2 mb-4">
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-white flex items-center justify-center">
+                                        <i class="fa-solid fa-user text-zinc-400 text-2xl"></i>
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Popa</h3>
+                                </div>
+                                <span class="text-[#00ff66] font-black text-xs">VS</span>
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-white flex items-center justify-center">
+                                        <i class="fa-solid fa-user text-zinc-400 text-2xl"></i>
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Liberati</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase mb-1 text-center"><i class="fa-solid fa-tags text-[#00ff66]"></i> Scegli il pacchetto:</label>
+                            <select onchange="if(this.value) window.open(this.value, '_blank')" class="w-full bg-zinc-900 border border-zinc-700 hover:border-[#00ff66] text-white text-xs font-bold rounded-xl px-2.5 py-2.5 appearance-none focus:outline-none transition cursor-pointer text-center">
+                                <option value="" disabled selected>-- Seleziona Pacchetto & Prezzo --</option>
+                                <option value="#">Pack Foto — 7€</option>
+                                <option value="#">Pack Video — 10€</option>
+                                <option value="#">Pack Foto + Video (TOP) — 15€</option>
+                                <option value="https://wa.me/393277179868?text=Ciao,%20vorrei%20informazioni%20per%20il%20Pack%20Team%20CintheC8%20Popa%20vs%20Liberati">Pack Team (WhatsApp) — 25€</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="match-card min-w-[300px] sm:min-w-[340px] max-w-[340px] bg-zinc-950/90 border border-zinc-800 rounded-3xl p-4 shadow-2xl flex flex-col justify-between shrink-0">
+                        <div>
+                            <div class="flex justify-between items-center mb-2 px-1">
+                                <span class="bg-zinc-800 text-zinc-300 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded border border-zinc-700">Prelims</span>
+                                <span class="bg-zinc-800 text-zinc-300 text-[9px] font-bold uppercase px-2 py-0.5 rounded border border-zinc-700">Featherweight</span>
+                            </div>
+                            <div class="text-[10px] text-center font-bold text-[#00ff66] mb-3 bg-black/40 py-1 rounded-lg border border-zinc-800">Vince Piccini (Dec. unanime)</div>
+                            <div class="flex items-center justify-between gap-2 mb-4">
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/perini-m.jpg" alt="Perini" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Perini</h3>
+                                </div>
+                                <span class="text-[#00ff66] font-black text-xs">VS</span>
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/piccini.jpg" alt="Piccini" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Piccini</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase mb-1 text-center"><i class="fa-solid fa-tags text-[#00ff66]"></i> Scegli il pacchetto:</label>
+                            <select onchange="if(this.value) window.open(this.value, '_blank')" class="w-full bg-zinc-900 border border-zinc-700 hover:border-[#00ff66] text-white text-xs font-bold rounded-xl px-2.5 py-2.5 appearance-none focus:outline-none transition cursor-pointer text-center">
+                                <option value="" disabled selected>-- Seleziona Pacchetto & Prezzo --</option>
+                                <option value="#">Pack Foto — 7€</option>
+                                <option value="#">Pack Video — 10€</option>
+                                <option value="#">Pack Foto + Video (TOP) — 15€</option>
+                                <option value="https://wa.me/393277179868?text=Ciao,%20vorrei%20informazioni%20per%20il%20Pack%20Team%20CintheC8%20Perini%20vs%20Piccini">Pack Team (WhatsApp) — 25€</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="match-card min-w-[300px] sm:min-w-[340px] max-w-[340px] bg-zinc-950/90 border border-zinc-800 rounded-3xl p-4 shadow-2xl flex flex-col justify-between shrink-0">
+                        <div>
+                            <div class="flex justify-between items-center mb-2 px-1">
+                                <span class="bg-zinc-800 text-zinc-300 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded border border-zinc-700">Prelims</span>
+                                <span class="bg-zinc-800 text-zinc-300 text-[9px] font-bold uppercase px-2 py-0.5 rounded border border-zinc-700">Catchweight</span>
+                            </div>
+                            <div class="text-[10px] text-center font-bold text-[#00ff66] mb-3 bg-black/40 py-1 rounded-lg border border-zinc-800">Vince Dyrma (TKO)</div>
+                            <div class="flex items-center justify-between gap-2 mb-4">
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/popa-1.jpg" alt="Popa" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Popa</h3>
+                                </div>
+                                <span class="text-[#00ff66] font-black text-xs">VS</span>
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/dyrma.jpg" alt="Dyrma" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Dyrma</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase mb-1 text-center"><i class="fa-solid fa-tags text-[#00ff66]"></i> Scegli il pacchetto:</label>
+                            <select onchange="if(this.value) window.open(this.value, '_blank')" class="w-full bg-zinc-900 border border-zinc-700 hover:border-[#00ff66] text-white text-xs font-bold rounded-xl px-2.5 py-2.5 appearance-none focus:outline-none transition cursor-pointer text-center">
+                                <option value="" disabled selected>-- Seleziona Pacchetto & Prezzo --</option>
+                                <option value="#">Pack Foto — 7€</option>
+                                <option value="#">Pack Video — 10€</option>
+                                <option value="#">Pack Foto + Video (TOP) — 15€</option>
+                                <option value="https://wa.me/393277179868?text=Ciao,%20vorrei%20informazioni%20per%20il%20Pack%20Team%20CintheC8%20Popa%20vs%20Dyrma">Pack Team (WhatsApp) — 25€</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="match-card min-w-[300px] sm:min-w-[340px] max-w-[340px] bg-zinc-950/90 border border-zinc-800 rounded-3xl p-4 shadow-2xl flex flex-col justify-between shrink-0">
+                        <div>
+                            <div class="flex justify-between items-center mb-2 px-1">
+                                <span class="bg-zinc-800 text-zinc-300 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded border border-zinc-700">Prelims</span>
+                                <span class="bg-zinc-800 text-zinc-300 text-[9px] font-bold uppercase px-2 py-0.5 rounded border border-zinc-700">Catchweight</span>
+                            </div>
+                            <div class="text-[10px] text-center font-bold text-[#00ff66] mb-3 bg-black/40 py-1 rounded-lg border border-zinc-800">Vince Frigerio (Ai punti)</div>
+                            <div class="flex items-center justify-between gap-2 mb-4">
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/costa.jpg" alt="Costa" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Costa</h3>
+                                </div>
+                                <span class="text-[#00ff66] font-black text-xs">VS</span>
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/frigerio.jpg" alt="Frigerio" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Frigerio</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase mb-1 text-center"><i class="fa-solid fa-tags text-[#00ff66]"></i> Scegli il pacchetto:</label>
+                            <select onchange="if(this.value) window.open(this.value, '_blank')" class="w-full bg-zinc-900 border border-zinc-700 hover:border-[#00ff66] text-white text-xs font-bold rounded-xl px-2.5 py-2.5 appearance-none focus:outline-none transition cursor-pointer text-center">
+                                <option value="" disabled selected>-- Seleziona Pacchetto & Prezzo --</option>
+                                <option value="#">Pack Foto — 7€</option>
+                                <option value="#">Pack Video — 10€</option>
+                                <option value="#">Pack Foto + Video (TOP) — 15€</option>
+                                <option value="https://wa.me/393277179868?text=Ciao,%20vorrei%20informazioni%20per%20il%20Pack%20Team%20CintheC8%20Costa%20vs%20Frigerio">Pack Team (WhatsApp) — 25€</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="relative">
+                <div class="flex justify-between items-end mb-4 px-2">
+                    <div class="border-l-4 border-amber-500 pl-4">
+                        <h2 class="text-2xl font-black uppercase tracking-tight text-white">Card Preserale</h2>
+                        <p class="text-xs text-zinc-400">Incontri di apertura e preserale della manifestazione.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="scrollCarousel('preseraleCarousel', -320)" class="bg-zinc-900 hover:bg-[#00ff66] hover:text-black text-white w-9 h-9 rounded-xl border border-zinc-700 flex items-center justify-center transition shadow cursor-pointer"><i class="fa-solid fa-chevron-left text-xs"></i></button>
+                        <button onclick="scrollCarousel('preseraleCarousel', 320)" class="bg-zinc-900 hover:bg-[#00ff66] hover:text-black text-white w-9 h-9 rounded-xl border border-zinc-700 flex items-center justify-center transition shadow cursor-pointer"><i class="fa-solid fa-chevron-right text-xs"></i></button>
+                    </div>
+                </div>
+                
+                <div id="preseraleCarousel" class="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth pb-4 pt-1 px-1">
+                    
+                    <div class="match-card min-w-[300px] sm:min-w-[340px] max-w-[340px] bg-zinc-950/90 border border-zinc-800 rounded-3xl p-4 shadow-2xl flex flex-col justify-between shrink-0">
+                        <div>
+                            <div class="flex justify-between items-center mb-2 px-1">
+                                <span class="bg-amber-600/20 text-amber-400 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded border border-amber-500/30">Preserale</span>
+                                <span class="bg-zinc-800 text-zinc-300 text-[9px] font-bold uppercase px-2 py-0.5 rounded border border-zinc-700">Lightweight</span>
+                            </div>
+                            <div class="text-[10px] text-center font-bold text-[#00ff66] mb-3 bg-black/40 py-1 rounded-lg border border-zinc-800">Vince Bazzara (Ai punti)</div>
+                            <div class="flex items-center justify-between gap-2 mb-4">
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/mazzonetto1.jpg" alt="Mazzonetto" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Mazzonetto</h3>
+                                </div>
+                                <span class="text-[#00ff66] font-black text-xs">VS</span>
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/bazzara.jpg" alt="F. Bazzara" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">F. Bazzara</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase mb-1 text-center"><i class="fa-solid fa-tags text-[#00ff66]"></i> Scegli il pacchetto:</label>
+                            <select onchange="if(this.value) window.open(this.value, '_blank')" class="w-full bg-zinc-900 border border-zinc-700 hover:border-[#00ff66] text-white text-xs font-bold rounded-xl px-2.5 py-2.5 appearance-none focus:outline-none transition cursor-pointer text-center">
+                                <option value="" disabled selected>-- Seleziona Pacchetto & Prezzo --</option>
+                                <option value="#">Pack Foto — 7€</option>
+                                <option value="#">Pack Video — 10€</option>
+                                <option value="#">Pack Foto + Video (TOP) — 15€</option>
+                                <option value="https://wa.me/393277179868?text=Ciao,%20vorrei%20informazioni%20per%20il%20Pack%20Team%20CintheC8%20Mazzonetto%20vs%20Bazzara">Pack Team (WhatsApp) — 25€</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="match-card min-w-[300px] sm:min-w-[340px] max-w-[340px] bg-zinc-950/90 border border-zinc-800 rounded-3xl p-4 shadow-2xl flex flex-col justify-between shrink-0">
+                        <div>
+                            <div class="flex justify-between items-center mb-2 px-1">
+                                <span class="bg-amber-600/20 text-amber-400 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded border border-amber-500/30">Preserale</span>
+                                <span class="bg-zinc-800 text-zinc-300 text-[9px] font-bold uppercase px-2 py-0.5 rounded border border-zinc-700">Welterweight</span>
+                            </div>
+                            <div class="text-[10px] text-center font-bold text-[#00ff66] mb-3 bg-black/40 py-1 rounded-lg border border-zinc-800">Vince Visentin (Per finalizzazione)</div>
+                            <div class="flex items-center justify-between gap-2 mb-4">
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/b-chio.jpg" alt="B. Chio" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">B. Chio</h3>
+                                </div>
+                                <span class="text-[#00ff66] font-black text-xs">VS</span>
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/visentin.jpg" alt="Visentin" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Visentin</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase mb-1 text-center"><i class="fa-solid fa-tags text-[#00ff66]"></i> Scegli il pacchetto:</label>
+                            <select onchange="if(this.value) window.open(this.value, '_blank')" class="w-full bg-zinc-900 border border-zinc-700 hover:border-[#00ff66] text-white text-xs font-bold rounded-xl px-2.5 py-2.5 appearance-none focus:outline-none transition cursor-pointer text-center">
+                                <option value="" disabled selected>-- Seleziona Pacchetto & Prezzo --</option>
+                                <option value="#">Pack Foto — 7€</option>
+                                <option value="#">Pack Video — 10€</option>
+                                <option value="#">Pack Foto + Video (TOP) — 15€</option>
+                                <option value="https://wa.me/393277179868?text=Ciao,%20vorrei%20informazioni%20per%20il%20Pack%20Team%20CintheC8%20B%20Chio%20vs%20Visentin">Pack Team (WhatsApp) — 25€</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="match-card min-w-[300px] sm:min-w-[340px] max-w-[340px] bg-zinc-950/90 border border-zinc-800 rounded-3xl p-4 shadow-2xl flex flex-col justify-between shrink-0">
+                        <div>
+                            <div class="flex justify-between items-center mb-2 px-1">
+                                <span class="bg-amber-600/20 text-amber-400 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded border border-amber-500/30">Preserale</span>
+                                <span class="bg-zinc-800 text-zinc-300 text-[9px] font-bold uppercase px-2 py-0.5 rounded border border-zinc-700">Welterweight</span>
+                            </div>
+                            <div class="text-[10px] text-center font-bold text-[#00ff66] mb-3 bg-black/40 py-1 rounded-lg border border-zinc-800">Vince Visentin (Per finalizzazione)</div>
+                            <div class="flex items-center justify-between gap-2 mb-4">
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900 flex items-center justify-center">
+                                        <i class="fa-solid fa-user text-zinc-500 text-xl"></i>
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Giunta</h3>
+                                </div>
+                                <span class="text-[#00ff66] font-black text-xs">VS</span>
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/visentin.jpg" alt="Visentin" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Visentin</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase mb-1 text-center"><i class="fa-solid fa-tags text-[#00ff66]"></i> Scegli il pacchetto:</label>
+                            <select onchange="if(this.value) window.open(this.value, '_blank')" class="w-full bg-zinc-900 border border-zinc-700 hover:border-[#00ff66] text-white text-xs font-bold rounded-xl px-2.5 py-2.5 appearance-none focus:outline-none transition cursor-pointer text-center">
+                                <option value="" disabled selected>-- Seleziona Pacchetto & Prezzo --</option>
+                                <option value="#">Pack Foto — 7€</option>
+                                <option value="#">Pack Video — 10€</option>
+                                <option value="#">Pack Foto + Video (TOP) — 15€</option>
+                                <option value="https://wa.me/393277179868?text=Ciao,%20vorrei%20informazioni%20per%20il%20Pack%20Team%20CintheC8%20Giunta%20vs%20Visentin">Pack Team (WhatsApp) — 25€</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="match-card min-w-[300px] sm:min-w-[340px] max-w-[340px] bg-zinc-950/90 border border-zinc-800 rounded-3xl p-4 shadow-2xl flex flex-col justify-between shrink-0">
+                        <div>
+                            <div class="flex justify-between items-center mb-2 px-1">
+                                <span class="bg-amber-600/20 text-amber-400 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded border border-amber-500/30">Preserale</span>
+                                <span class="bg-zinc-800 text-zinc-300 text-[9px] font-bold uppercase px-2 py-0.5 rounded border border-zinc-700">Featherweight</span>
+                            </div>
+                            <div class="text-[10px] text-center font-bold text-[#00ff66] mb-3 bg-black/40 py-1 rounded-lg border border-zinc-800">Vince Nicolussi (Dec. unanime)</div>
+                            <div class="flex items-center justify-between gap-2 mb-4">
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/ferro.jpg" alt="Ferro" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Ferro</h3>
+                                </div>
+                                <span class="text-[#00ff66] font-black text-xs">VS</span>
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/nicolussi.jpg" alt="Nicolussi" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Nicolussi</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase mb-1 text-center"><i class="fa-solid fa-tags text-[#00ff66]"></i> Scegli il pacchetto:</label>
+                            <select onchange="if(this.value) window.open(this.value, '_blank')" class="w-full bg-zinc-900 border border-zinc-700 hover:border-[#00ff66] text-white text-xs font-bold rounded-xl px-2.5 py-2.5 appearance-none focus:outline-none transition cursor-pointer text-center">
+                                <option value="" disabled selected>-- Seleziona Pacchetto & Prezzo --</option>
+                                <option value="#">Pack Foto — 7€</option>
+                                <option value="#">Pack Video — 10€</option>
+                                <option value="#">Pack Foto + Video (TOP) — 15€</option>
+                                <option value="https://wa.me/393277179868?text=Ciao,%20vorrei%20informazioni%20per%20il%20Pack%20Team%20CintheC8%20Ferro%20vs%20Nicolussi">Pack Team (WhatsApp) — 25€</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="match-card min-w-[300px] sm:min-w-[340px] max-w-[340px] bg-zinc-950/90 border border-zinc-800 rounded-3xl p-4 shadow-2xl flex flex-col justify-between shrink-0">
+                        <div>
+                            <div class="flex justify-between items-center mb-2 px-1">
+                                <span class="bg-amber-600/20 text-amber-400 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded border border-amber-500/30">Preserale</span>
+                                <span class="bg-zinc-800 text-zinc-300 text-[9px] font-bold uppercase px-2 py-0.5 rounded border border-zinc-700">Welterweight</span>
+                            </div>
+                            <div class="text-[10px] text-center font-bold text-[#00ff66] mb-3 bg-black/40 py-1 rounded-lg border border-zinc-800">Vince Tambascia (Dec. unanime)</div>
+                            <div class="flex items-center justify-between gap-2 mb-4">
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/yuriv.jpg" alt="Yuriv" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Yuriv</h3>
+                                </div>
+                                <span class="text-[#00ff66] font-black text-xs">VS</span>
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/tambascia.jpg" alt="Tambascia" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Tambascia</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase mb-1 text-center"><i class="fa-solid fa-tags text-[#00ff66]"></i> Scegli il pacchetto:</label>
+                            <select onchange="if(this.value) window.open(this.value, '_blank')" class="w-full bg-zinc-900 border border-zinc-700 hover:border-[#00ff66] text-white text-xs font-bold rounded-xl px-2.5 py-2.5 appearance-none focus:outline-none transition cursor-pointer text-center">
+                                <option value="" disabled selected>-- Seleziona Pacchetto & Prezzo --</option>
+                                <option value="#">Pack Foto — 7€</option>
+                                <option value="#">Pack Video — 10€</option>
+                                <option value="#">Pack Foto + Video (TOP) — 15€</option>
+                                <option value="https://wa.me/393277179868?text=Ciao,%20vorrei%20informazioni%20per%20il%20Pack%20Team%20CintheC8%20Yuriv%20vs%20Tambascia">Pack Team (WhatsApp) — 25€</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="match-card min-w-[300px] sm:min-w-[340px] max-w-[340px] bg-zinc-950/90 border border-zinc-800 rounded-3xl p-4 shadow-2xl flex flex-col justify-between shrink-0">
+                        <div>
+                            <div class="flex justify-between items-center mb-2 px-1">
+                                <span class="bg-amber-600/20 text-amber-400 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded border border-amber-500/30">Preserale</span>
+                                <span class="bg-zinc-800 text-zinc-300 text-[9px] font-bold uppercase px-2 py-0.5 rounded border border-zinc-700">Catchweight</span>
+                            </div>
+                            <div class="text-[10px] text-center font-bold text-[#00ff66] mb-3 bg-black/40 py-1 rounded-lg border border-zinc-800">Vince Mihalas (Stop medico)</div>
+                            <div class="flex items-center justify-between gap-2 mb-4">
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/cappon.jpg" alt="Cappon" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Cappon</h3>
+                                </div>
+                                <span class="text-[#00ff66] font-black text-xs">VS</span>
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/mihalas.jpg" alt="Mihalas" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Mihalas</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase mb-1 text-center"><i class="fa-solid fa-tags text-[#00ff66]"></i> Scegli il pacchetto:</label>
+                            <select onchange="if(this.value) window.open(this.value, '_blank')" class="w-full bg-zinc-900 border border-zinc-700 hover:border-[#00ff66] text-white text-xs font-bold rounded-xl px-2.5 py-2.5 appearance-none focus:outline-none transition cursor-pointer text-center">
+                                <option value="" disabled selected>-- Seleziona Pacchetto & Prezzo --</option>
+                                <option value="#">Pack Foto — 7€</option>
+                                <option value="#">Pack Video — 10€</option>
+                                <option value="#">Pack Foto + Video (TOP) — 15€</option>
+                                <option value="https://wa.me/393277179868?text=Ciao,%20vorrei%20informazioni%20per%20il%20Pack%20Team%20CintheC8%20Cappon%20vs%20Mihalas">Pack Team (WhatsApp) — 25€</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="match-card min-w-[300px] sm:min-w-[340px] max-w-[340px] bg-zinc-950/90 border border-zinc-800 rounded-3xl p-4 shadow-2xl flex flex-col justify-between shrink-0">
+                        <div>
+                            <div class="flex justify-between items-center mb-2 px-1">
+                                <span class="bg-amber-600/20 text-amber-400 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded border border-amber-500/30">Preserale</span>
+                                <span class="bg-zinc-800 text-zinc-300 text-[9px] font-bold uppercase px-2 py-0.5 rounded border border-zinc-700">Middleweight</span>
+                            </div>
+                            <div class="text-[10px] text-center font-bold text-[#00ff66] mb-3 bg-black/40 py-1 rounded-lg border border-zinc-800">Vince Tiozzo (Dec. unanime)</div>
+                            <div class="flex items-center justify-between gap-2 mb-4">
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/tiozzo.jpg" alt="Tiozzo" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Tiozzo</h3>
+                                </div>
+                                <span class="text-[#00ff66] font-black text-xs">VS</span>
+                                <div class="text-center w-1/2">
+                                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
+                                        <img src="atleti/tuscano.jpg" alt="Tuscano" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h3 class="text-xs font-black text-white athlete-name">Tuscano</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase mb-1 text-center"><i class="fa-solid fa-tags text-[#00ff66]"></i> Scegli il pacchetto:</label>
+                            <select onchange="if(this.value) window.open(this.value, '_blank')" class="w-full bg-zinc-900 border border-zinc-700 hover:border-[#00ff66] text-white text-xs font-bold rounded-xl px-2.5 py-2.5 appearance-none focus:outline-none transition cursor-pointer text-center">
+                                <option value="" disabled selected>-- Seleziona Pacchetto & Prezzo --</option>
+                                <option value="#">Pack Foto — 7€</option>
+                                <option value="#">Pack Video — 10€</option>
+                                <option value="#">Pack Foto + Video (TOP) — 15€</option>
+                                <option value="https://wa.me/393277179868?text=Ciao,%20vorrei%20informazioni%20per%20il%20Pack%20Team%20CintheC8%20Tiozzo%20vs%20Tuscano">Pack Team (WhatsApp) — 25€</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <section class="relative z-10 py-6 px-4 max-w-5xl mx-auto w-full border-t border-zinc-800/80 mt-12">
+        <div class="text-center mb-4">
+            <h3 class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest">I nostri Partner & Sponsor Ufficiali</h3>
+        </div>
+        <div class="bg-white/95 rounded-xl p-3 shadow-xl overflow-hidden flex items-center justify-center max-w-2xl mx-auto border border-zinc-300">
+            <img src="Immagini/sponsor.jpg" alt="Sponsor CintheC Media" class="w-full h-auto object-contain max-h-12 filter brightness-95 hover:brightness-100 transition duration-300" onerror="this.style.display='none';">
+        </div>
+    </section>
+
+    <footer class="relative z-10 py-6 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+            
+            <div class="flex flex-col items-center md:items-start space-y-2">
+                <span class="text-white font-bold text-xs uppercase tracking-wider mb-1">Seguici:</span>
+                <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-2 text-zinc-300 hover:text-[#00ff66] text-xs font-semibold transition">
+                    <i class="fa-brands fa-instagram text-sm text-pink-500"></i> Cinthec MMA
+                </a>
+                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="inline-flex items-center gap-2 text-zinc-300 hover:text-[#00ff66] text-xs font-semibold transition">
+                    <i class="fa-brands fa-instagram text-sm text-pink-500"></i> Leoni di San Marco
+                </a>
+                <a href="https://www.instagram.com/labirinthknockout?igsi=dGlwMGZ1amwyMjJr" target="_blank" class="inline-flex items-center gap-2 text-zinc-300 hover:text-[#00ff66] text-xs font-semibold transition">
+                    <i class="fa-brands fa-instagram text-sm text-pink-500"></i> Labirinth Knockout
+                </a>
+            </div>
+
+            <div class="flex flex-col items-center text-center space-y-2">
+                <span class="text-white font-bold text-xs uppercase tracking-wider mb-1">Note Legali:</span>
+                <button onclick="openModal('privacyModal')" class="hover:text-[#00ff66] transition cursor-pointer">Privacy Policy</button>
+                <button onclick="openModal('termsModal')" class="hover:text-[#00ff66] transition cursor-pointer">Termini e Condizioni</button>
+                <button onclick="openModal('cookieModal')" class="hover:text-[#00ff66] transition cursor-pointer">Cookie Policy</button>
+            </div>
+
+            <div class="flex flex-col items-center md:items-end space-y-2">
+                <span class="text-white font-bold text-xs uppercase tracking-wider mb-1">Pagamenti Sicuri:</span>
+                <div class="flex flex-wrap gap-2 text-lg items-center justify-center md:justify-end text-zinc-300">
+                    <i class="fa-brands fa-cc-visa" title="Visa"></i>
+                    <i class="fa-brands fa-cc-mastercard" title="Mastercard"></i>
+                    <i class="fa-brands fa-cc-amex" title="American Express"></i>
+                    <i class="fa-brands fa-cc-paypal" title="PayPal"></i>
+                    <i class="fa-brands fa-apple-pay" title="Apple Pay"></i>
+                    <i class="fa-brands fa-google-pay" title="Google Pay"></i>
+                </div>
+            </div>
+
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-3 mt-4 border-t border-zinc-900 text-center text-[10px]">
+            <p>© 2026 CintheC & Leoni di San Marco. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+    <div id="privacyModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
+            <button onclick="closeModal('privacyModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-full flex items-center justify-center border border-zinc-800 cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Privacy Policy</h3>
+            <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                <p>La presente Privacy Policy descrive le modalità di raccolta, utilizzo e protezione dei dati personali dei nostri utenti in conformità alle normative vigenti.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="termsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
+            <button onclick="closeModal('termsModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-full flex items-center justify-center border border-zinc-800 cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Termini e Condizioni</h3>
+            <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                <p>L'utilizzo del sito e l'acquisto dei pack digitali multimediali implicano l'accettazione integrale dei presenti termini e condizioni d'uso.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="cookieModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
+            <button onclick="closeModal('cookieModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-full flex items-center justify-center border border-zinc-800 cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Cookie Policy</h3>
+            <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                <p>Il nostro sito web utilizza esclusivamente cookie tecnici essenziali per garantire la corretta navigazione e funzionalità della piattaforma.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            document.body.style.overflow = 'auto'; 
+        }
+
+        window.onclick = function(event) {
+            ['privacyModal', 'termsModal', 'cookieModal'].forEach(modalId => {
+                let modal = document.getElementById(modalId);
+                if (event.target === modal) {
+                    closeModal(modalId);
+                }
+            });
+        }
+
+        /* FUNZIONE PER SCORRERE IL CAROSELLO CON LE FRECCE */
+        function scrollCarousel(carouselId, distance) {
+            const container = document.getElementById(carouselId);
+            container.scrollBy({ left: distance, behavior: 'smooth' });
+        }
+
+        /* RICERCA INTELLIGENTE PER ATLETA */
+        function searchMatches() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('match-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let nameElements = cards[i].getElementsByClassName('athlete-name');
+                let found = false;
+
+                for (let j = 0; j < nameElements.length; j++) {
+                    let name = nameElements[j].textContent || nameElements[j].innerText;
+                    if (name.toLowerCase().includes(input)) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found || input === "") {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

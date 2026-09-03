@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CintheC - Official Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; }
+        
+        /* SFONDO GENERALE ORIGINALE CON LA TRAMA A RIGHE BIANCHE (NON TOCCATO) */
+        .site-bg-cuts {
+            background-color: #f4f5f4;
+            background-image: 
+                linear-gradient(135deg, rgba(0, 0, 0, 0.02) 25%, transparent 25%),
+                linear-gradient(225deg, rgba(0, 0, 0, 0.02) 25%, transparent 25%),
+                linear-gradient(45deg, rgba(0, 0, 0, 0.02) 25%, transparent 25%),
+                linear-gradient(315deg, rgba(0, 0, 0, 0.02) 25%, #f4f5f4 25%);
+            background-size: 50px 50px;
+            background-position: 0 0, 0 25px, 25px -25px, -25px 0px;
+            background-attachment: fixed;
+        }
+
+        /* HEADER E FOOTER CON FULMINI */
+        .bar-lightning-bg {
+            background-color: #0b0b0b;
+            background-image: 
+                linear-gradient(to bottom, rgba(10, 10, 10, 0.68), rgba(15, 15, 15, 0.78)),
+                url('Immagini/fulmini-barra.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* TUTTI I RIQUADRI/TABELLE: EFFETTO TRIDIMENSIONALE E OMBRA STaccata */
+        .light-lightning-card {
+            background-color: #ffffff;
+            background-image: 
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(242, 242, 242, 0.92)),
+                url('Immagini/fulmini-bg.jpeg');
+            background-size: cover;
+            background-position: center;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            border-top: 2px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            color: #18181b;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .light-lightning-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 25px 40px -10px rgba(0, 0, 0, 0.2), 0 6px 8px -2px rgba(0, 0, 0, 0.08);
+        }
+
+        .light-lightning-card h1, 
+        .light-lightning-card h2, 
+        .light-lightning-card h3 {
+            color: #18181b !important;
+        }
+        .light-lightning-card p {
+            color: #3f3f46 !important;
+        }
+
+        @keyframes pulseButton {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+        .animate-pulse-btn {
+            animation: pulseButton 1.8s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        /* MENU A TENDINA */
+        .dropdown { position: relative; display: inline-block; }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #18181b;
+            min-width: 160px;
+            box-shadow: 0px 12px 24px 0px rgba(0,0,0,0.5);
+            z-index: 100;
+            border-radius: 0px !important;
+            overflow: hidden;
+            border: 1px solid #27272a;
+            top: 100%;
+            left: 0;
+            padding-top: 4px;
+        }
+
+        .dropdown-content::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 0;
+            width: 100%;
+            height: 10px;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: background 0.2s, color 0.2s;
+        }
+        .dropdown-content a:hover { background-color: #00ff66; color: black; }
+        .dropdown:hover .dropdown-content { display: block; }
+
+        /* RULLINO 6 MINI FOTO SFASATE */
+        .photo-preview-container {
+            position: relative;
+            height: 80px;
+            margin: 8px 0;
+            overflow: visible;
+        }
+        .mini-polaroid {
+            position: absolute;
+            background: white;
+            padding: 2px 2px 10px 2px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            border: 1px solid #ccc;
+            transition: transform 0.3s ease, z-index 0.3s ease;
+            width: 44px;
+            height: 54px;
+        }
+        .mini-polaroid img {
+            width: 100%;
+            height: 38px;
+            object-fit: cover;
+        }
+        .mini-polaroid:hover {
+            transform: scale(1.2) rotate(0deg) !important;
+            z-index: 50;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+        }
+
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0px !important;
+        }
+        .background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 2;
+        }
+        .video-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.05);
+            z-index: 3;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="site-bg-cuts text-zinc-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
+
+    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-22 flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full flex justify-between items-center relative z-10">
+            
+            <div class="flex items-center gap-6">
+                <a href="index.html">
+                    <img src="Immagini/Logo.png" alt="CintheC Logo" class="h-20 sm:h-28 w-auto object-contain py-1" onerror="this.onerror=null; this.src='Immagini/logo.png';">
+                </a>
+                <nav class="hidden lg:flex items-center gap-6 text-white font-black text-xs uppercase tracking-wider">
+                    <a href="index.html" class="text-[#00ff66] transition">Home</a>
+                    
+                    <div class="dropdown">
+                        <a href="#" class="hover:text-[#00ff66] transition py-3 flex items-center gap-1">
+                            Eventi <i class="fa-solid fa-chevron-down text-[9px]"></i>
+                        </a>
+                        <div class="dropdown-content">
+                            <a href="cinthec8.html">CintheC 8</a>
+                            <a href="cinthec9.html">CintheC 9</a>
+                            <a href="cinthec10.html">CintheC 10</a>
+                        </div>
+                    </div>
+
+                    <a href="classifiche.html" class="hover:text-[#00ff66] transition">Ranking</a>
+                    <a href="galleria.html" class="hover:text-[#00ff66] transition">Shop</a>
+                    <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="hover:text-[#00ff66] transition">Ticket</a>
+                    <a href="iscrizione.html" class="hover:text-[#00ff66] transition">Iscrizioni</a>
+                </nav>
+            </div>
+
+            <div class="flex items-center">
+                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank">
+                    <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="h-28 sm:h-44 w-auto object-contain transform translate-y-1.5" onerror="this.style.display='none';">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 w-full flex-grow">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-12 items-stretch">
+            
+            <div class="lg:col-span-7 light-lightning-card rounded-none p-6 sm:p-8 flex flex-col justify-between">
+                <div class="space-y-3 mb-6">
+                    <span class="text-[10px] font-black uppercase bg-black text-white px-3 py-1 rounded-none inline-block border border-black">Official Portal</span>
+                    <h1 class="text-2xl sm:text-4xl font-black uppercase tracking-tight text-zinc-900">Benvenuti su CintheC</h1>
+                    <p class="text-zinc-700 text-xs sm:text-sm leading-relaxed">
+                        Il portale definitivo dedicato agli sport da combattimento, nato dalla forte sinergia con i <strong>Leoni di San Marco</strong>. CintheC rappresenta l'unione tra la passione viscerale per la gabbia, l'organizzazione di eventi di alto profilo e la valorizzazione degli atleti emergenti e professionisti nel panorama marziale italiano.
+                    </p>
+                </div>
+                <div class="w-full">
+                    <div class="bg-zinc-950 rounded-none h-48 sm:h-60 flex items-center justify-center border border-zinc-300 overflow-hidden relative video-container shadow-md">
+                        <video autoplay loop muted playsinline class="background-video">
+                            <source src="video/cinthec-home.mp4" type="video/mp4">
+                            Il tuo browser non supporta il tag video.
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 flex flex-col justify-between gap-6">
+                
+                <div class="light-lightning-card rounded-none p-5 relative overflow-hidden flex flex-col justify-between flex-grow">
+                    <div class="absolute -right-6 -bottom-6 opacity-5 pointer-events-none">
+                        <i class="fa-solid fa-ticket text-6xl text-zinc-900"></i>
+                    </div>
+                    <div class="space-y-1 mb-4 relative z-10">
+                        <span class="bg-black text-white font-black text-[9px] uppercase px-2 py-0.5 rounded-none inline-block border border-black">Prossimo Evento</span>
+                        <h2 class="text-lg sm:text-xl font-black uppercase tracking-tight text-zinc-900">Biglietti CintheC 10</h2>
+                        <p class="text-zinc-700 text-[11px] leading-relaxed">
+                            Palazzetto dello Sport Veronese - 10 Ottobre 2026. Vivi l'adrenalina dal vivo.
+                        </p>
+                    </div>
+                    <div class="relative z-10">
+                        <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="w-full inline-flex items-center justify-center gap-2 bg-black hover:bg-zinc-800 text-white font-black uppercase text-[11px] py-2.5 rounded-none transition shadow-md animate-pulse-btn">
+                            <i class="fa-solid fa-cart-shopping text-xs"></i> Acquista Biglietto <i class="fa-solid fa-arrow-right ml-0.5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="light-lightning-card rounded-none p-5 relative overflow-hidden flex flex-col justify-between flex-grow">
+                    <div class="absolute -right-6 -bottom-6 opacity-5 pointer-events-none">
+                        <i class="fa-solid fa-user-pen text-6xl text-zinc-900"></i>
+                    </div>
+                    <div class="space-y-1 mb-4 relative z-10">
+                        <span class="bg-black text-white font-black text-[9px] uppercase px-2 py-0.5 rounded-none inline-block border border-black">Novità Ufficiale</span>
+                        <h2 class="text-lg sm:text-xl font-black uppercase tracking-tight text-zinc-900">Piattaforma Match Atleti</h2>
+                        <p class="text-zinc-700 text-[11px] leading-relaxed">
+                            Iscrizioni aperte per la valutazione e la programmazione strategica dei futuri match in gabbia.
+                        </p>
+                    </div>
+                    <div class="relative z-10">
+                        <a href="iscrizione.html" class="w-full inline-flex items-center justify-center gap-2 bg-black hover:bg-zinc-800 text-white font-black uppercase text-[11px] py-2.5 rounded-none transition shadow-md animate-pulse-btn cursor-pointer">
+                            <i class="fa-solid fa-pen-to-square text-xs"></i> Accedi alle Iscrizioni <i class="fa-solid fa-arrow-right ml-0.5"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-12 items-stretch">
+            
+            <div class="lg:col-span-4 flex flex-col justify-between gap-6">
+                
+                <div class="light-lightning-card rounded-none p-4 relative flex flex-col justify-between flex-grow">
+                    <div class="space-y-1 relative z-10">
+                        <span class="bg-black text-white font-black text-[8px] uppercase px-2 py-0.5 rounded-none inline-block border border-black">Media & Shop</span>
+                        <h2 class="text-base font-black uppercase tracking-tight text-zinc-900">Acquista le tue Foto</h2>
+                        <p class="text-zinc-700 text-[10px] leading-relaxed">
+                            Sfoglia la galleria e acquista i pacchetti digitali ufficiali con gli scatti più inediti di tutti i match, tra cui puoi scegliere tra tre pacchetti principali: Pack Foto, Pack Video e Pack Foto + Video.
+                        </p>
+                    </div>
+
+                    <div class="photo-preview-container flex justify-center items-center">
+                        <div class="mini-polaroid" style="transform: rotate(-10deg); left: 2%; z-index: 5;">
+                            <img src="Immagini/galleria-1.jpg" alt="Foto Match" onerror="this.src='https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=100&auto=format&fit=crop&q=60';">
+                        </div>
+                        <div class="mini-polaroid" style="transform: rotate(5deg); left: 18%; z-index: 10;">
+                            <img src="Immagini/galleria-2.jpg" alt="Foto Match" onerror="this.src='https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=100&auto=format&fit=crop&q=60';">
+                        </div>
+                        <div class="mini-polaroid" style="transform: rotate(-5deg); left: 34%; z-index: 15;">
+                            <img src="Immagini/galleria-3.jpg" alt="Foto Match" onerror="this.src='https://images.unsplash.com/photo-1517649763962-0c6232660a02?w=100&auto=format&fit=crop&q=60';">
+                        </div>
+                        <div class="mini-polaroid" style="transform: rotate(8deg); left: 50%; z-index: 20;">
+                            <img src="Immagini/galleria-4.jpg" alt="Foto Match" onerror="this.src='https://images.unsplash.com/photo-1563227812-0ea4c22e6cc8?w=100&auto=format&fit=crop&q=60';">
+                        </div>
+                        <div class="mini-polaroid" style="transform: rotate(-8deg); left: 66%; z-index: 25;">
+                            <img src="Immagini/galleria-5.jpg" alt="Foto Match" onerror="this.src='https://images.unsplash.com/photo-1552072092-e6443c16d537?w=100&auto=format&fit=crop&q=60';">
+                        </div>
+                        <div class="mini-polaroid" style="transform: rotate(12deg); left: 82%; z-index: 30;">
+                            <img src="Immagini/cappon.jpg" alt="Cappon" onerror="this.src='https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=100&auto=format&fit=crop&q=60';">
+                        </div>
+                    </div>
+
+                    <div class="relative z-10 mt-1">
+                        <a href="galleria.html" class="w-full inline-flex items-center justify-center gap-2 bg-black hover:bg-zinc-800 text-white font-black uppercase text-[10px] py-2 rounded-none transition shadow-md animate-pulse-btn">
+                            <i class="fa-solid fa-store text-[10px]"></i> Visita lo Shop <i class="fa-solid fa-arrow-right ml-0.5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="light-lightning-card rounded-none p-4 relative flex flex-col justify-between flex-grow" style="overflow: visible !important;">
+                    <div class="space-y-1 mb-3 relative z-10">
+                        <span class="bg-black text-white font-black text-[8px] uppercase px-2 py-0.5 rounded-none inline-block border border-black">Storico Incontri</span>
+                        <h2 class="text-base font-black uppercase tracking-tight text-zinc-900">Controlla gli Eventi Passati</h2>
+                        <p class="text-zinc-700 text-[10px] leading-relaxed">
+                            Ripercorri le edizioni precedenti, scopri chi ha vinto, chi ha perso e consulta i verdetti.
+                        </p>
+                    </div>
+                    <div class="relative z-50">
+                        <div class="dropdown w-full">
+                            <a href="#" class="w-full inline-flex items-center justify-center gap-2 bg-black hover:bg-zinc-800 text-white font-black uppercase text-[10px] py-2 rounded-none transition shadow-md animate-pulse-btn">
+                                <i class="fa-solid fa-calendar-days text-[10px]"></i> Vai agli Eventi <i class="fa-solid fa-chevron-down text-[8px] ml-0.5"></i>
+                            </a>
+                            <div class="dropdown-content w-full">
+                                <a href="cinthec8.html">CintheC 8</a>
+                                <a href="cinthec9.html">CintheC 9</a>
+                                <a href="cinthec10.html">CintheC 10</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="lg:col-span-8 light-lightning-card rounded-none p-6 sm:p-8 flex flex-col justify-between shadow-lg">
+                <div class="space-y-3 mb-6">
+                    <span class="text-[10px] font-black uppercase bg-black text-white px-3 py-1 rounded-none inline-block border border-black">La Nostra Storia</span>
+                    <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-900">Chi siamo e da dove veniamo</h2>
+                    <p class="text-zinc-700 text-xs sm:text-sm leading-relaxed">
+                        CintheC nasce con un obiettivo chiaro: dare voce, visibilità e palcoscenici di prim'ordine agli atleti del territorio e non solo. Quella che è iniziata come una scommessa tra appassionati si è trasformata in una vera e propria macchina organizzativa capace di riempire i palazzetti e di offrire card spettacolari, curate in ogni singolo dettaglio, dalla promozione visiva alla gestione dei match in gabbia.
+                    </p>
+                    <p class="text-zinc-700 text-xs sm:text-sm leading-relaxed">
+                        Grazie alla collaborazione con i <strong>Leoni di San Marco</strong>, CintheC promuove i valori del rispetto, della disciplina e del sacrificio, offrendo format innovativi che uniscono lo spettacolo dal vivo all'intrattenimento multimediale.
+                    </p>
+                </div>
+                <div class="w-full">
+                    <div class="bg-zinc-100 rounded-none h-48 sm:h-60 flex items-center justify-center border-2 border-dashed border-zinc-300 overflow-hidden relative shadow-md">
+                        <img src="Immagini/team-staff.jpg" alt="CintheC Staff & Team" class="w-full h-full object-cover rounded-none" onerror="this.style.display='none';">
+                        <div class="absolute text-center p-4 text-zinc-400 text-xs font-bold pointer-events-none">
+                            <i class="fa-solid fa-users text-3xl mb-2 text-zinc-500"></i><br>Inserisci qui la foto dello Staff (es. team-staff.jpg)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="light-lightning-card rounded-none p-8 sm:p-12 mb-12 shadow-lg">
+            <div class="max-w-3xl mx-auto text-center space-y-4 mb-10">
+                <span class="text-[11px] font-black uppercase bg-black text-white px-3 py-1 rounded-none inline-block border border-black">L'Esperienza Live</span>
+                <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-900">Non solo combattimento: un evento a 360 gradi</h2>
+                <p class="text-zinc-700 text-xs sm:text-sm leading-relaxed">
+                    Partecipare a un galà CintheC significa vivere un'esperienza d'intrattenimento completa. Accanto all'adrenalina pura dei match e degli incontri nella gabbia, i nostri eventi sono progettati per offrire il massimo comfort e spettacolo al pubblico presente. A disposizione degli spettatori vi è infatti un'accurata <strong>area bar e ristoro</strong>, ideale per ricaricarsi tra un match e l'altro, il tutto arricchito da <strong>coreografie di ballo e spettacoli dal vivo</strong> capaci di accendere l'atmosfera del palazzetto prima dei grandi incontri.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-3">
+                    <div class="bg-zinc-100 rounded-none h-56 sm:h-64 flex items-center justify-center border-2 border-zinc-300 overflow-hidden relative shadow-md">
+                        <img src="Immagini/area-bar.jpg" alt="Area Bar CintheC" class="w-full h-full object-cover rounded-none" onerror="this.style.display='none';">
+                    </div>
+                    <h3 class="font-black text-sm uppercase text-zinc-900 text-center">Area Bar & Ristoro</h3>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="bg-zinc-950 rounded-none h-56 sm:h-64 flex items-center justify-center border-2 border-zinc-600 overflow-hidden relative shadow-md">
+                        <video id="sequentialVideo" autoplay muted playsinline class="w-full h-full object-cover rounded-none">
+                            <source src="video/spettacolo-1.mp4" type="video/mp4">
+                            Il tuo browser non supporta il tag video.
+                        </video>
+                    </div>
+                    <h3 class="font-black text-sm uppercase text-zinc-900 text-center">Spettacoli & Coreografie</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <h2 class="text-xl sm:text-2xl font-black uppercase tracking-tight text-zinc-900 mb-6">Esplora le sezioni di CintheC</h2>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-0">
+            
+            <div class="light-lightning-card rounded-none p-6 shadow-md transition flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 bg-black text-[#00ff66] rounded-none flex items-center justify-center text-lg mb-4">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-2">Eventi</h3>
+                    <p class="text-xs text-zinc-700 mb-6 leading-relaxed">Consulta l'archivio completo delle edizioni, le card ufficiali e i verdetti dettagliati degli incontri.</p>
+                </div>
+                <a href="cinthec9.html" class="w-full bg-black hover:bg-zinc-800 text-white text-center py-2.5 rounded-none font-bold text-xs transition">Vai a CintheC 9 <i class="fa-solid fa-arrow-right ml-1"></i></a>
+            </div>
+
+            <div class="light-lightning-card rounded-none p-6 shadow-md transition flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 bg-black text-[#00ff66] rounded-none flex items-center justify-center text-lg mb-4">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-2">Ranking</h3>
+                    <p class="text-xs text-zinc-700 mb-6 leading-relaxed">Le classifiche ufficiali aggiornate degli atleti in base ai risultati maturati sul campo.</p>
+                </div>
+                <a href="classifiche.html" class="w-full bg-black hover:bg-zinc-800 text-white text-center py-2.5 rounded-none font-bold text-xs transition">Vedi Ranking <i class="fa-solid fa-arrow-right ml-1"></i></a>
+            </div>
+
+            <div class="light-lightning-card rounded-none p-6 shadow-md transition flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 bg-black text-[#00ff66] rounded-none flex items-center justify-center text-lg mb-4">
+                        <i class="fa-solid fa-store"></i>
+                    </div>
+                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-2">CintheC Shop</h3>
+                    <p class="text-xs text-zinc-700 mb-6 leading-relaxed">Acquista i pack foto digitali degli eventi, merchandise ufficiale e future attrezzature protettive.</p>
+                </div>
+                <a href="galleria.html" class="w-full bg-black hover:bg-zinc-800 text-white text-center py-2.5 rounded-none font-bold text-xs transition">Visita lo Shop <i class="fa-solid fa-arrow-right ml-1"></i></a>
+            </div>
+
+            <div class="light-lightning-card rounded-none p-6 shadow-md transition flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 bg-black text-[#00ff66] rounded-none flex items-center justify-center text-lg mb-4">
+                        <i class="fa-solid fa-ticket"></i>
+                    </div>
+                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-2">Ticket</h3>
+                    <p class="text-xs text-zinc-700 mb-6 leading-relaxed">Prenota e acquista i biglietti d'ingresso per assistere dal vivo ai prossimi galà e fight night.</p>
+                </div>
+                <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="w-full bg-black hover:bg-zinc-800 text-white text-center py-2.5 rounded-none font-bold text-xs transition">Acquista Ticket <i class="fa-solid fa-arrow-right ml-1"></i></a>
+            </div>
+
+            <div class="light-lightning-card rounded-none p-6 shadow-md transition flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 bg-black text-[#00ff66] rounded-none flex items-center justify-center text-lg mb-4">
+                        <i class="fa-solid fa-user-pen"></i>
+                    </div>
+                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-2">Iscrizioni</h3>
+                    <p class="text-xs text-zinc-700 mb-6 leading-relaxed">Accedi alla piattaforma per iscrivere direttamente gli atleti ai prossimi eventi CintheC.</p>
+                </div>
+                <a href="iscrizione.html" class="w-full bg-black hover:bg-zinc-800 text-white text-center py-2.5 rounded-none font-bold text-xs transition">Vai alle Iscrizioni <i class="fa-solid fa-arrow-right ml-1"></i></a>
+            </div>
+
+            <div class="light-lightning-card rounded-none p-6 shadow-md transition flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 bg-black text-[#00ff66] rounded-none flex items-center justify-center text-lg mb-4">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-2">Supporto</h3>
+                    <p class="text-xs text-zinc-700 mb-6 leading-relaxed">Hai domande o bisogno di assistenza? Contattaci direttamente su WhatsApp per una risposta rapida.</p>
+                </div>
+                <a href="https://wa.me/393277179868" target="_blank" class="w-full bg-black hover:bg-zinc-800 text-white text-center py-2.5 rounded-none font-bold text-xs transition">Contattaci su WhatsApp <i class="fa-brands fa-whatsapp ml-1"></i></a>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="relative z-10 py-2 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-2 items-center text-center md:text-left">
+            
+            <div class="flex flex-col items-center md:items-start gap-0.5">
+                <h4 class="text-white font-bold text-[9px] uppercase tracking-wider mb-0.5">Seguici</h4>
+                <div class="flex flex-col gap-0.5 text-[11px]">
+                    <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
+                        <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> CintheC MMA
+                    </a>
+                    <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
+                        <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> Leoni di San Marco
+                    </a>
+                    <a href="https://www.instagram.com/labirinthknockout?igsi=dGlwMGZ1amwyMjJr" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
+                        <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> Labirinth Knockout
+                    </a>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center text-center">
+                <h4 class="text-white font-bold text-[9px] mb-0.5 uppercase tracking-wider">Note Legali & Policy</h4>
+                <ul class="space-y-0.5 text-[11px] text-zinc-300">
+                    <li><button onclick="openModal('privacyModal')" class="hover:text-[#00ff66] transition cursor-pointer">Privacy Policy</button></li>
+                    <li><button onclick="openModal('termsModal')" class="hover:text-[#00ff66] transition cursor-pointer">Termini e Condizioni</button></li>
+                    <li><button onclick="openModal('cookieModal')" class="hover:text-[#00ff66] transition cursor-pointer">Cookie Policy</button></li>
+                </ul>
+            </div>
+
+            <div class="flex flex-col items-center md:items-end">
+                <h4 class="text-white font-bold text-[9px] mb-0.5 uppercase tracking-wider">Pagamenti Sicuri</h4>
+                <p class="text-[9px] text-zinc-400 mb-0.5">Powered by Lemon Squeezy</p>
+                <div class="flex gap-2 text-base text-zinc-300">
+                    <i class="fa-brands fa-cc-visa" title="Visa"></i>
+                    <i class="fa-brands fa-cc-mastercard" title="Mastercard"></i>
+                    <i class="fa-brands fa-cc-amex" title="American Express"></i>
+                    <i class="fa-brands fa-cc-paypal" title="PayPal"></i>
+                    <i class="fa-brands fa-apple-pay" title="Apple Pay"></i>
+                    <i class="fa-brands fa-google-pay" title="Google Pay"></i>
+                </div>
+            </div>
+
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-1 border-t border-zinc-900/80 text-center text-[9px] text-zinc-500 mt-1">
+            <p>© 2026 CintheC & Leoni di San Marco. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+    <div id="privacyModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-zinc-950 border border-zinc-800 rounded-none max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
+            <button onclick="closeModal('privacyModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-none flex items-center justify-center border border-zinc-800 cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Privacy Policy</h3>
+            <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                <p>La presente Privacy Policy descrive le modalità di raccolta, utilizzo e protezione dei dati personali degli utenti che visitano il portale CintheC.</p>
+                <p><strong>1. Raccolta Dati:</strong> Raccogliamo esclusivamente le informazioni necessarie per l'invio dei pacchetti digitali e per la gestione delle richieste di contatto.</p>
+                <p><strong>2. Utilizzo:</strong> I dati non saranno mai ceduti a terzi per scopi commerciali e sono trattati nel pieno rispetto della normativa vigente sulla privacy.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="termsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-zinc-950 border border-zinc-800 rounded-none max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
+            <button onclick="closeModal('termsModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-none flex items-center justify-center border border-zinc-800 cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Termini e Condizioni</h3>
+            <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                <p>L'utilizzo del sito e l'acquisto di contenuti multimediali o ticket comportano l'accettazione automatica dei seguenti termini di servizio.</p>
+                <p><strong>1. Proprietà Intellettuale:</strong> Tutti i contenuti multimediali, loghi e marchi appartengono a CintheC e ai Leoni di San Marco. Ne è vietata la riproduzione non autorizzata a fini commerciali.</p>
+                <p><strong>2. Erogazione Servizi:</strong> I pack foto/video sono beni digitali e vengono consegnati tramite link di download diretto immediato post-transazione.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="cookieModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-zinc-950 border border-zinc-800 rounded-none max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
+            <button onclick="closeModal('cookieModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-none flex items-center justify-center border border-zinc-800 cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Cookie Policy</h3>
+            <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                <p>Il nostro sito utilizza cookie tecnici essenziali per garantire una navigazione sicura e ottimale.</p>
+                <p><strong>1. Cookie Tecnici:</strong> Indispensabili per il funzionamento delle pagine e la gestione delle sessioni di acquisto.</p>
+                <p><strong>2. Cookie di Terze Parti:</strong> Possono essere impiegati da strumenti di pagamento integrati per validare le transazioni in sicurezza.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            document.body.style.overflow = 'auto'; 
+        }
+
+        window.onclick = function(event) {
+            ['privacyModal', 'termsModal', 'cookieModal'].forEach(modalId => {
+                let modal = document.getElementById(modalId);
+                if (event.target === modal) {
+                    closeModal(modalId);
+                }
+            });
+        }
+
+        const videoList = ["video/spettacolo-1.mp4", "video/spettacolo-2.mp4"];
+        let videoIndex = 0;
+        const sequentialVideo = document.getElementById('sequentialVideo');
+
+        if (sequentialVideo) {
+            sequentialVideo.connectedCallback = function() {};
+            sequentialVideo.addEventListener('ended', function() {
+                videoIndex = (videoIndex + 1) % videoList.length;
+                sequentialVideo.src = videoList[videoIndex];
+                sequentialVideo.play();
+            });
+        }
+    </script>
+
+</body>
+</html>

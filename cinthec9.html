@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CintheC 9 - Fight Card & Risultati</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; }
+        
+        /* Sfondo con tagli diagonali spezzati (più lieve del 5%) */
+        .site-bg-cuts {
+            background-color: #fafafc;
+            background-image: 
+                linear-gradient(135deg, rgba(0, 0, 0, 0.018) 25%, transparent 25%),
+                linear-gradient(225deg, rgba(0, 0, 0, 0.018) 25%, transparent 25%),
+                linear-gradient(45deg, rgba(0, 0, 0, 0.018) 25%, transparent 25%),
+                linear-gradient(315deg, rgba(0, 0, 0, 0.018) 25%, #fafafc 25%);
+            background-size: 60px 60px;
+            background-position: 0 0, 0 30px, 30px -30px, -30px 0px;
+        }
+
+        .bar-lightning-bg {
+            background-color: #000000;
+            background-image: 
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.92)),
+                url('Immagini/fulmini-barra.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* EFFETTO 3D PULITO PER LE TABELLE E I RIQUADRI */
+        .card-3d {
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            border-top: 2px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 15px 30px -8px rgba(0, 0, 0, 0.12), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card-3d:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.18), 0 6px 8px -2px rgba(0, 0, 0, 0.06);
+        }
+
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .carousel-btn {
+            background-color: rgba(0, 255, 102, 0.9);
+            color: black;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+        }
+        .carousel-container:hover .carousel-btn { opacity: 1; }
+        .carousel-btn:hover { background-color: rgb(0, 221, 85); transform: translateY(-50%) scale(1.1); }
+        .btn-prev { left: -15px; }
+        .btn-next { right: -15px; }
+        .scroll-mask-r { mask-image: linear-gradient(to right, black 90%, transparent 100%); }
+        
+        @keyframes pulseAttention {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.04); opacity: 0.85; }
+        }
+        .animate-pulse-attention {
+            animation: pulseAttention 2s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #18181b;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
+            z-index: 50;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #27272a;
+            top: 100%;
+            left: 0;
+        }
+        .dropdown-content a {
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: background 0.2s;
+        }
+        .dropdown-content a:hover { background-color: #00ff66; color: black; }
+        .dropdown:hover .dropdown-content { display: block; }
+    </style>
+</head>
+<body class="site-bg-cuts text-zinc-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
+
+    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-22 flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full flex justify-between items-center relative z-10">
+            <div class="flex items-center gap-6">
+                <a href="index.html">
+                    <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="h-20 sm:h-28 w-auto object-contain py-1" onerror="this.onerror=null; this.src='Immagini/logo.png';">
+                </a>
+                <nav class="hidden lg:flex items-center gap-6 text-white font-black text-xs uppercase tracking-wider">
+                    <a href="index.html" class="hover:text-[#00ff66] transition">Home</a>
+                    
+                    <div class="dropdown">
+                        <a href="#" class="text-[#00ff66] transition py-3 flex items-center gap-1">
+                            Eventi <i class="fa-solid fa-chevron-down text-[9px]"></i>
+                        </a>
+                        <div class="dropdown-content">
+                            <a href="cinthec8.html">CintheC 8</a>
+                            <a href="cinthec9.html">CintheC 9</a>
+                            <a href="cinthec10.html">CintheC 10</a>
+                        </div>
+                    </div>
+
+                    <a href="classifiche.html" class="hover:text-[#00ff66] transition">Ranking</a>
+                    <a href="galleria.html" class="hover:text-[#00ff66] transition">Shop</a>
+                    <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="hover:text-[#00ff66] transition">Ticket</a>
+                    <a href="iscrizione.html" class="hover:text-[#00ff66] transition">Iscrizioni</a>
+                </nav>
+            </div>
+            <div class="flex items-center">
+                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank">
+                    <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="h-28 sm:h-44 w-auto object-contain transform translate-y-1.5" onerror="this.style.display='none';">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10 w-full flex-grow">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12 items-start">
+            
+            <div class="lg:col-span-2 bg-white rounded-none card-3d overflow-hidden group">
+                <div class="w-full overflow-hidden m-0 p-0 leading-none">
+                    <img src="Immagini/evento-principale.jpg" alt="CintheC 9 Face to Face" class="w-full h-auto max-h-[480px] object-cover group-hover:scale-102 transition duration-500 m-0 p-0 block rounded-none" onerror="this.src='Immagini/Logo.png';">
+                </div>
+                <div class="p-6 bg-white">
+                    <div class="text-[11px] font-black uppercase text-zinc-500 tracking-wider mb-1">CintheC Fight Night - Season 9</div>
+                    <h1 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-900">Face to Face & Risultati Ufficiali</h1>
+                </div>
+            </div>
+
+            <div class="bg-zinc-900 text-white rounded-none p-6 card-3d border-zinc-800">
+                <h3 class="text-sm font-black uppercase tracking-wider text-[#00ff66] mb-4 border-b border-zinc-800 pb-2">Info Evento</h3>
+                <div class="space-y-4 text-xs">
+                    <div class="border-b border-zinc-800 pb-3">
+                        <span class="text-[9px] font-bold text-zinc-400 uppercase bg-zinc-800 px-2 py-0.5 rounded-none">Status</span>
+                        <h4 class="font-bold text-white mt-1">Edizione Conclusa • Risultati Ufficiali</h4>
+                    </div>
+                    <div class="border-b border-zinc-800 pb-3">
+                        <span class="text-[9px] font-bold text-zinc-400 uppercase bg-zinc-800 px-2 py-0.5 rounded-none">Media</span>
+                        <h4 class="font-bold text-white mt-1">Archivio incontri e verdetti della serata</h4>
+                    </div>
+                    <div>
+                        <span class="text-[9px] font-bold text-zinc-400 uppercase bg-zinc-800 px-2 py-0.5 rounded-none">Shop & Foto</span>
+                        <div class="mt-1">
+                            <a href="galleria.html" class="inline-block font-bold text-white hover:underline animate-pulse-attention">
+                                Vai alla galleria e acquista le foto del tuo match! <i class="fa-solid fa-arrow-right text-[10px] ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-8 border-b border-zinc-300 pb-3">
+            <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-900">Fight Card & Risultati - CintheC 9</h2>
+            <p class="text-xs sm:text-sm text-zinc-600">I verdetti ufficiali di tutti gli incontri della serata.</p>
+        </div>
+
+        <div class="mb-10">
+            <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 flex items-center gap-2">
+                <span class="w-2 h-2 bg-red-600 rounded-full"></span> Main Card & Main Event
+            </h3>
+
+            <div class="carousel-container relative w-full">
+                <div class="carousel-btn btn-prev" onclick="scrollCarousel('carouselMain', -320)"><i class="fa-solid fa-chevron-left"></i></div>
+                <div class="carousel-btn btn-next" onclick="scrollCarousel('carouselMain', 320)"><i class="fa-solid fa-chevron-right"></i></div>
+
+                <div id="carouselMain" class="flex overflow-x-auto hide-scrollbar scroll-mask-r gap-6 pb-4 -mb-4 scroll-smooth">
+                    <div class="flex-none w-[280px] sm:w-[320px] bg-white rounded-2xl p-5 card-3d flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-[10px] font-black uppercase bg-red-600 text-white px-2.5 py-1 rounded">Main Event</span>
+                                <span class="text-xs font-bold text-white bg-black px-2 py-0.5 rounded">Terminata</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-4 text-center">
+                                <div class="w-1/2 pr-2">
+                                    <div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300">
+                                        <img src="atleti/lorenzo-pasqualetto.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Pasqualetto</h4>
+                                </div>
+                                <span class="text-xs font-black text-zinc-400 uppercase italic">VS</span>
+                                <div class="w-1/2 pl-2">
+                                    <div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300">
+                                        <img src="atleti/pierluigi-de-prospo.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">De Prospo</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full bg-zinc-100 text-zinc-700 text-center py-2.5 rounded-xl font-bold text-xs border border-zinc-200">
+                            Vince: De Prospo per TKO
+                        </div>
+                    </div>
+
+                    <div class="flex-none w-[280px] sm:w-[320px] bg-white rounded-2xl p-5 card-3d flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-[10px] font-black uppercase bg-zinc-100 text-zinc-700 px-2.5 py-1 rounded">Main Card</span>
+                                <span class="text-xs font-bold text-white bg-black px-2 py-0.5 rounded">Terminata</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-4 text-center">
+                                <div class="w-1/2 pr-2">
+                                    <div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300">
+                                        <img src="atleti/osama-imaoui.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Imaoui</h4>
+                                </div>
+                                <span class="text-xs font-black text-zinc-400 uppercase italic">VS</span>
+                                <div class="w-1/2 pl-2">
+                                    <div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300">
+                                        <img src="atleti/kush-badgurjan.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Badgurjan</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full bg-zinc-100 text-zinc-700 text-center py-2.5 rounded-xl font-bold text-xs border border-zinc-200">
+                            Vince: Imaoui (Dec. Unanime)
+                        </div>
+                    </div>
+
+                    <div class="flex-none w-[280px] sm:w-[320px] bg-white rounded-2xl p-5 card-3d flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-[10px] font-black uppercase bg-zinc-100 text-zinc-700 px-2.5 py-1 rounded">Main Card</span>
+                                <span class="text-xs font-bold text-white bg-black px-2 py-0.5 rounded">Terminata</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-4 text-center">
+                                <div class="w-1/2 pr-2">
+                                    <div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300">
+                                        <img src="atleti/massimiliano-bello.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Bello</h4>
+                                </div>
+                                <span class="text-xs font-black text-zinc-400 uppercase italic">VS</span>
+                                <div class="w-1/2 pl-2">
+                                    <div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300">
+                                        <img src="atleti/andrei-gabura.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Gabura</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full bg-zinc-100 text-zinc-700 text-center py-2.5 rounded-xl font-bold text-xs border border-zinc-200">
+                            Vince: Bello per KO
+                        </div>
+                    </div>
+
+                    <div class="flex-none w-[280px] sm:w-[320px] bg-white rounded-2xl p-5 card-3d flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-[10px] font-black uppercase bg-zinc-100 text-zinc-700 px-2.5 py-1 rounded">Main Card</span>
+                                <span class="text-xs font-bold text-white bg-black px-2 py-0.5 rounded">Terminata</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-4 text-center">
+                                <div class="w-1/2 pr-2">
+                                    <div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300">
+                                        <img src="atleti/matteo-perini.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Perini</h4>
+                                </div>
+                                <span class="text-xs font-black text-zinc-400 uppercase italic">VS</span>
+                                <div class="w-1/2 pl-2">
+                                    <div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300">
+                                        <img src="atleti/ivan-pio-castellano.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                                    </div>
+                                    <h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Castellano</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full bg-zinc-100 text-zinc-700 text-center py-2.5 rounded-xl font-bold text-xs border border-zinc-200">
+                            Vince: Perini per KO
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-10">
+            <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 flex items-center gap-2">
+                <span class="w-2 h-2 bg-zinc-400 rounded-full"></span> Prelims Card
+            </h3>
+
+            <div class="carousel-container relative w-full">
+                <div class="carousel-btn btn-prev" onclick="scrollCarousel('carouselPrelims', -320)"><i class="fa-solid fa-chevron-left"></i></div>
+                <div class="carousel-btn btn-next" onclick="scrollCarousel('carouselPrelims', 320)"><i class="fa-solid fa-chevron-right"></i></div>
+
+                <div id="carouselPrelims" class="flex overflow-x-auto hide-scrollbar scroll-mask-r gap-6 pb-4 -mb-4 scroll-smooth">
+                    <div class="flex-none w-[280px] sm:w-[320px] bg-white rounded-2xl p-5 card-3d flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4"><span class="text-[10px] font-black uppercase bg-zinc-100 text-zinc-700 px-2.5 py-1 rounded">Prelims</span><span class="text-xs font-bold text-white bg-black px-2 py-0.5 rounded">Terminata</span></div>
+                            <div class="flex items-center justify-between mb-4 text-center">
+                                <div class="w-1/2 pr-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/salvati.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Salvati</h4></div>
+                                <span class="text-xs font-black text-zinc-400 uppercase italic">VS</span>
+                                <div class="w-1/2 pl-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/kosir.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Kosir</h4></div>
+                            </div>
+                        </div>
+                        <div class="w-full bg-zinc-100 text-zinc-700 text-center py-2.5 rounded-xl font-bold text-xs border border-zinc-200">Vince: Salvati (Dec. Unanime)</div>
+                    </div>
+
+                    <div class="flex-none w-[280px] sm:w-[320px] bg-white rounded-2xl p-5 card-3d flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4"><span class="text-[10px] font-black uppercase bg-zinc-100 text-zinc-700 px-2.5 py-1 rounded">Prelims</span><span class="text-xs font-bold text-white bg-black px-2 py-0.5 rounded">Terminata</span></div>
+                            <div class="flex items-center justify-between mb-4 text-center">
+                                <div class="w-1/2 pr-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/acri.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Acri</h4></div>
+                                <span class="text-xs font-black text-zinc-400 uppercase italic">VS</span>
+                                <div class="w-1/2 pl-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/vigolo.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Vigolo</h4></div>
+                            </div>
+                        </div>
+                        <div class="w-full bg-zinc-100 text-zinc-700 text-center py-2.5 rounded-xl font-bold text-xs border border-zinc-200">Vince: Acri per Finalizzazione</div>
+                    </div>
+
+                    <div class="flex-none w-[280px] sm:w-[320px] bg-white rounded-2xl p-5 card-3d flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4"><span class="text-[10px] font-black uppercase bg-zinc-100 text-zinc-700 px-2.5 py-1 rounded">Prelims</span><span class="text-xs font-bold text-white bg-black px-2 py-0.5 rounded">Terminata</span></div>
+                            <div class="flex items-center justify-between mb-4 text-center">
+                                <div class="w-1/2 pr-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/la-barca.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">La Barca</h4></div>
+                                <span class="text-xs font-black text-zinc-400 uppercase italic">VS</span>
+                                <div class="w-1/2 pl-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/kuzel.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Kuzel</h4></div>
+                            </div>
+                        </div>
+                        <div class="w-full bg-zinc-100 text-zinc-700 text-center py-2.5 rounded-xl font-bold text-xs border border-zinc-200">Vince: La Barca per KO</div>
+                    </div>
+
+                    <div class="flex-none w-[280px] sm:w-[320px] bg-white rounded-2xl p-5 card-3d flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4"><span class="text-[10px] font-black uppercase bg-zinc-100 text-zinc-700 px-2.5 py-1 rounded">Prelims</span><span class="text-xs font-bold text-white bg-black px-2 py-0.5 rounded">Terminata</span></div>
+                            <div class="flex items-center justify-between mb-4 text-center">
+                                <div class="w-1/2 pr-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/furlani.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Furlani</h4></div>
+                                <span class="text-xs font-black text-zinc-400 uppercase italic">VS</span>
+                                <div class="w-1/2 pl-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/barbieri.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Barbieri</h4></div>
+                            </div>
+                        </div>
+                        <div class="w-full bg-zinc-100 text-zinc-700 text-center py-2.5 rounded-xl font-bold text-xs border border-zinc-200">Vince: Barbieri per TKO</div>
+                    </div>
+
+                    <div class="flex-none w-[280px] sm:w-[320px] bg-white rounded-2xl p-5 card-3d flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4"><span class="text-[10px] font-black uppercase bg-zinc-100 text-zinc-700 px-2.5 py-1 rounded">Prelims</span><span class="text-xs font-bold text-white bg-black px-2 py-0.5 rounded">Terminata</span></div>
+                            <div class="flex items-center justify-between mb-4 text-center">
+                                <div class="w-1/2 pr-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/mazzonetto.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Mazzonetto</h4></div>
+                                <span class="text-xs font-black text-zinc-400 uppercase italic">VS</span>
+                                <div class="w-1/2 pl-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/billal.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Billal</h4></div>
+                            </div>
+                        </div>
+                        <div class="w-full bg-zinc-100 text-zinc-700 text-center py-2.5 rounded-xl font-bold text-xs border border-zinc-200">Vince: Billal (Dec. Unanime)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-10">
+            <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 flex items-center gap-2">
+                <span class="w-2 h-2 bg-zinc-400 rounded-full"></span> Card Preserale
+            </h3>
+
+            <div class="carousel-container relative w-full">
+                <div class="carousel-btn btn-prev" onclick="scrollCarousel('carouselPreserale', -320)"><i class="fa-solid fa-chevron-left"></i></div>
+                <div class="carousel-btn btn-next" onclick="scrollCarousel('carouselPreserale', 320)"><i class="fa-solid fa-chevron-right"></i></div>
+
+                <div id="carouselPreserale" class="flex overflow-x-auto hide-scrollbar scroll-mask-r gap-6 pb-4 -mb-4 scroll-smooth">
+                    <div class="flex-none w-[280px] sm:w-[320px] bg-white rounded-2xl p-5 card-3d flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4"><span class="text-[10px] font-black uppercase bg-zinc-100 text-zinc-700 px-2.5 py-1 rounded">Preserale</span><span class="text-xs font-bold text-white bg-black px-2 py-0.5 rounded">Terminata</span></div>
+                            <div class="flex items-center justify-between mb-4 text-center">
+                                <div class="w-1/2 pr-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/tiozzo.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Tiozzo</h4></div>
+                                <span class="text-xs font-black text-zinc-400 uppercase italic">VS</span>
+                                <div class="w-1/2 pl-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/riotti.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Riotti</h4></div>
+                            </div>
+                        </div>
+                        <div class="w-full bg-zinc-100 text-zinc-700 text-center py-2.5 rounded-xl font-bold text-xs border border-zinc-200">Vince: Tiozzo (Dec. Unanime)</div>
+                    </div>
+
+                    <div class="flex-none w-[280px] sm:w-[320px] bg-white rounded-2xl p-5 card-3d flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4"><span class="text-[10px] font-black uppercase bg-zinc-100 text-zinc-700 px-2.5 py-1 rounded">Preserale</span><span class="text-xs font-bold text-white bg-black px-2 py-0.5 rounded">Terminata</span></div>
+                            <div class="flex items-center justify-between mb-4 text-center">
+                                <div class="w-1/2 pr-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/guduras.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Guduras</h4></div>
+                                <span class="text-xs font-black text-zinc-400 uppercase italic">VS</span>
+                                <div class="w-1/2 pl-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/sterniqi.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Sterniqi</h4></div>
+                            </div>
+                        </div>
+                        <div class="w-full bg-zinc-100 text-zinc-700 text-center py-2.5 rounded-xl font-bold text-xs border border-zinc-200">Vince: Guduras (Dec. Unanime)</div>
+                    </div>
+
+                    <div class="flex-none w-[280px] sm:w-[320px] bg-white rounded-2xl p-5 card-3d flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4"><span class="text-[10px] font-black uppercase bg-zinc-100 text-zinc-700 px-2.5 py-1 rounded">Preserale</span><span class="text-xs font-bold text-white bg-black px-2 py-0.5 rounded">Terminata</span></div>
+                            <div class="flex items-center justify-between mb-4 text-center">
+                                <div class="w-1/2 pr-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/gassar.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Gassar</h4></div>
+                                <span class="text-xs font-black text-zinc-400 uppercase italic">VS</span>
+                                <div class="w-1/2 pl-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/mendo.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Mendo</h4></div>
+                            </div>
+                        </div>
+                        <div class="w-full bg-zinc-100 text-zinc-700 text-center py-2.5 rounded-xl font-bold text-xs border border-zinc-200">Vince: Gassar per Strangolamento</div>
+                    </div>
+
+                    <div class="flex-none w-[280px] sm:w-[320px] bg-white rounded-2xl p-5 card-3d flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4"><span class="text-[10px] font-black uppercase bg-zinc-100 text-zinc-700 px-2.5 py-1 rounded">Preserale</span><span class="text-xs font-bold text-white bg-black px-2 py-0.5 rounded">Terminata</span></div>
+                            <div class="flex items-center justify-between mb-4 text-center">
+                                <div class="w-1/2 pr-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/mihajlo.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Mihajlo</h4></div>
+                                <span class="text-xs font-black text-zinc-400 uppercase italic">VS</span>
+                                <div class="w-1/2 pl-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/bazzara.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Bazzara</h4></div>
+                            </div>
+                        </div>
+                        <div class="w-full bg-zinc-100 text-zinc-700 text-center py-2.5 rounded-xl font-bold text-xs border border-zinc-200">Vince: Bazzara</div>
+                    </div>
+
+                    <div class="flex-none w-[280px] sm:w-[320px] bg-white rounded-2xl p-5 card-3d flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4"><span class="text-[10px] font-black uppercase bg-zinc-100 text-zinc-700 px-2.5 py-1 rounded">Preserale</span><span class="text-xs font-bold text-white bg-black px-2 py-0.5 rounded">Terminata</span></div>
+                            <div class="flex items-center justify-between mb-4 text-center">
+                                <div class="w-1/2 pr-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/colella.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Colella</h4></div>
+                                <span class="text-xs font-black text-zinc-400 uppercase italic">VS</span>
+                                <div class="w-1/2 pl-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/toska.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Toska</h4></div>
+                            </div>
+                        </div>
+                        <div class="w-full bg-zinc-100 text-zinc-700 text-center py-2.5 rounded-xl font-bold text-xs border border-zinc-200">Vince: Toska (Dec. Unanime)</div>
+                    </div>
+
+                    <div class="flex-none w-[280px] sm:w-[320px] bg-white rounded-2xl p-5 card-3d flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4"><span class="text-[10px] font-black uppercase bg-zinc-100 text-zinc-700 px-2.5 py-1 rounded">Preserale</span><span class="text-xs font-bold text-white bg-black px-2 py-0.5 rounded">Terminata</span></div>
+                            <div class="flex items-center justify-between mb-4 text-center">
+                                <div class="w-1/2 pr-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/albu.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Albu</h4></div>
+                                <span class="text-xs font-black text-zinc-400 uppercase italic">VS</span>
+                                <div class="w-1/2 pl-2"><div class="w-20 h-20 mx-auto bg-zinc-200 rounded-full overflow-hidden mb-2 border-2 border-zinc-300"><img src="atleti/meneghini.jpg" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';"></div><h4 class="font-black text-xs sm:text-sm text-zinc-900 truncate">Meneghini</h4></div>
+                            </div>
+                        </div>
+                        <div class="w-full bg-zinc-100 text-zinc-700 text-center py-2.5 rounded-xl font-bold text-xs border border-zinc-200">Risultato: Da assegnare</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="relative z-10 py-2 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-2 items-center text-center md:text-left">
+            
+            <div class="flex flex-col items-center md:items-start gap-0.5">
+                <h4 class="text-white font-bold text-[9px] uppercase tracking-wider mb-0.5">Seguici</h4>
+                <div class="flex flex-col gap-0.5 text-[11px]">
+                    <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
+                        <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> CintheC MMA
+                    </a>
+                    <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
+                        <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> Leoni di San Marco
+                    </a>
+                    <a href="https://www.instagram.com/labirinthknockout?igsi=dGlwMGZ1amwyMjJr" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
+                        <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> Labirinth Knockout
+                    </a>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center text-center">
+                <h4 class="text-white font-bold text-[9px] mb-0.5 uppercase tracking-wider">Note Legali & Policy</h4>
+                <ul class="space-y-0.5 text-[11px] text-zinc-300">
+                    <li><button onclick="openModal('privacyModal')" class="hover:text-[#00ff66] transition cursor-pointer">Privacy Policy</button></li>
+                    <li><button onclick="openModal('termsModal')" class="hover:text-[#00ff66] transition cursor-pointer">Termini e Condizioni</button></li>
+                    <li><button onclick="openModal('cookieModal')" class="hover:text-[#00ff66] transition cursor-pointer">Cookie Policy</button></li>
+                </ul>
+            </div>
+
+            <div class="flex flex-col items-center md:items-end">
+                <h4 class="text-white font-bold text-[9px] mb-0.5 uppercase tracking-wider">Pagamenti Sicuri</h4>
+                <p class="text-[9px] text-zinc-400 mb-0.5">Powered by Lemon Squeezy</p>
+                <div class="flex gap-2 text-base text-zinc-300">
+                    <i class="fa-brands fa-cc-visa" title="Visa"></i>
+                    <i class="fa-brands fa-cc-mastercard" title="Mastercard"></i>
+                    <i class="fa-brands fa-cc-amex" title="American Express"></i>
+                    <i class="fa-brands fa-cc-paypal" title="PayPal"></i>
+                    <i class="fa-brands fa-apple-pay" title="Apple Pay"></i>
+                    <i class="fa-brands fa-google-pay" title="Google Pay"></i>
+                </div>
+            </div>
+
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-1 border-t border-zinc-900/80 text-center text-[9px] text-zinc-500 mt-1">
+            <p>© 2026 CintheC & Leoni di San Marco. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+    <div id="privacyModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-zinc-950 border border-zinc-800 rounded-none max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
+            <button onclick="closeModal('privacyModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-none flex items-center justify-center border border-zinc-800 cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Privacy Policy</h3>
+            <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                <p>La presente Privacy Policy descrive le modalità di raccolta, utilizzo e protezione dei dati personali degli utenti che visitano il portale CintheC e partecipano ai nostri eventi sportivi.</p>
+                <p><strong>1. Raccolta Dati:</strong> Raccogliamo esclusivamente le informazioni necessarie per l'invio dei pacchetti digitali (foto/video), l'acquisto dei ticket e la gestione delle richieste di contatto.</p>
+                <p><strong>2. Utilizzo e Sicurezza:</strong> I dati personali non saranno mai ceduti a terzi per scopi commerciali e vengono protetti tramite protocolli informatici avanzati nel pieno rispetto del GDPR.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="termsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-zinc-950 border border-zinc-800 rounded-none max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
+            <button onclick="closeModal('termsModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-none flex items-center justify-center border border-zinc-800 cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Termini e Condizioni</h3>
+            <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                <p>L'utilizzo del sito e l'acquisto di contenuti multimediali o biglietti per i galà CintheC comportano l'accettazione automatica dei seguenti termini di servizio.</p>
+                <p><strong>1. Proprietà Intellettuale:</strong> Tutti i contenuti multimediali, loghi, marchi e grafiche appartengono a CintheC e ai Leoni di San Marco. Ne è vietata la riproduzione non autorizzata a fini commerciali.</p>
+                <p><strong>2. Erogazione Servizi:</strong> I pack foto/video sono beni digitali e vengono consegnati tramite link di download diretto immediato post-transazione.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="cookieModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-zinc-950 border border-zinc-800 rounded-none max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
+            <button onclick="closeModal('cookieModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-none flex items-center justify-center border border-zinc-800 cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Cookie Policy</h3>
+            <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                <p>Il nostro sito utilizza cookie tecnici ed analitici essenziali per garantire una navigazione sicura, fluida e ottimale durante l'acquisto dei ticket.</p>
+                <p><strong>1. Cookie Tecnici:</strong> Indispensabili per il corretto funzionamento delle pagine e la gestione delle sessioni d'acquisto.</p>
+                <p><strong>2. Cookie di Terze Parti:</strong> Possono essere impiegati da strumenti di pagamento integrati per validare le transazioni in totale sicurezza.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function scrollCarousel(carouselId, distance) {
+            const container = document.getElementById(carouselId);
+            container.scrollBy({ left: distance, behavior: 'smooth' });
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            document.body.style.overflow = 'auto'; 
+        }
+
+        window.onclick = function(event) {
+            ['privacyModal', 'termsModal', 'cookieModal'].forEach(modalId => {
+                let modal = document.getElementById(modalId);
+                if (event.target === modal) {
+                    closeModal(modalId);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

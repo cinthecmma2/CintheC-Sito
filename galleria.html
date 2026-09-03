@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CintheC Media - Foto & Video Ufficiali</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; }
+        
+        /* SFONDO GENERALE CON FULMINI FISSI */
+        .neon-lightning-bg {
+            background-color: #020503;
+            background-image: 
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(2, 5, 3, 0.85)),
+                url('Immagini/fulmini-bg.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        /* SFONDO DELICATO PER HEADER E FOOTER CON FULMINI-BARRA */
+        .bar-lightning-bg {
+            background-color: #000000;
+            background-image: 
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.86)),
+                url('Immagini/fulmini-barra.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .white-glow-text {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.7), 0 2px 6px rgba(0, 0, 0, 1);
+        }
+
+        /* MENU A TENDINA STABILE CON PONTE DI PASSAGGIO DEL MOUSE */
+        .dropdown { position: relative; display: inline-block; }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: transparent;
+            min-width: 200px;
+            z-index: 9999;
+            left: 50%;
+            transform: translateX(-50%);
+            padding-top: 10px;
+        }
+
+        header .dropdown-content {
+            top: 100%;
+            bottom: auto;
+        }
+
+        .hero-dropdown .dropdown-content {
+            bottom: 100%;
+            top: auto;
+            padding-top: 0;
+            padding-bottom: 10px;
+        }
+
+        .dropdown-inner {
+            background-color: #18181b;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0px 15px 30px 0px rgba(0,0,0,0.8);
+            border: 1px solid #27272a;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: background 0.2s, color 0.2s;
+        }
+        .dropdown-content a:hover { background-color: #00ff66; color: black; }
+        .dropdown:hover .dropdown-content { display: block; }
+
+        .pack-card {
+            overflow: visible !important;
+        }
+
+        /* STILI PER IL CAROSELLO A SCORRIMENTO INFINITO REALE */
+        .carousel-container {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            scroll-behavior: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding-bottom: 1rem;
+        }
+        .carousel-container::-webkit-scrollbar {
+            display: none;
+        }
+        .carousel-item {
+            flex: 0 0 300px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body class="neon-lightning-bg text-zinc-100 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
+
+    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-16 flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full flex justify-between items-center relative z-10">
+            <div class="flex items-center">
+                <a href="index.html">
+                    <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="h-20 sm:h-28 w-auto object-contain" onerror="this.onerror=null; this.src='Immagini/logo.png';">
+                </a>
+            </div>
+
+            <div class="flex items-center gap-3 sm:gap-4 absolute left-1/2 transform -translate-x-1/2">
+                <div class="dropdown">
+                    <button class="bg-zinc-900 hover:bg-zinc-800 text-[#00ff66] border border-[#00ff66]/40 text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md cursor-pointer">
+                        <i class="fa-solid fa-trophy"></i> CintheC <i class="fa-solid fa-chevron-down text-[9px]"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="dropdown-inner">
+                            <a href="cinthec8foto.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 8</a>
+                            <a href="evento.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 9</a>
+                            <a href="cinthec10foto.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 10</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <button class="bg-zinc-900 hover:bg-zinc-800 text-[#00ff66] border border-[#00ff66]/40 text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md cursor-pointer">
+                        <i class="fa-solid fa-bars"></i> Menu <i class="fa-solid fa-chevron-down text-[9px]"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="dropdown-inner">
+                            <a href="index.html"><i class="fa-solid fa-house text-[#00ff66]"></i> Torna alla Home</a>
+                            <a href="#pacchetti"><i class="fa-solid fa-tags text-[#00ff66]"></i> Listino</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center">
+                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank">
+                    <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="h-28 sm:h-40 w-auto object-contain transform translate-y-1" onerror="this.style.display='none';">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative z-10 py-16 px-4 text-center max-w-6xl mx-auto rounded-3xl my-8 border border-zinc-900 overflow-visible shadow-2xl">
+        <div class="absolute inset-0 -z-10 rounded-3xl overflow-hidden">
+            <img src="Immagini/sfondo.jpg" alt="Background" class="w-full h-full object-cover object-center opacity-90" onerror="this.onerror=null; this.src='Immagini/sfondo.jpeg';">
+            <div class="absolute inset-0 bg-black/40"></div>
+        </div>
+        <div class="relative z-10">
+            <h1 class="text-3xl sm:text-5xl font-extrabold mt-2 mb-6 tracking-wide text-white drop-shadow-lg" style="font-family: 'Georgia', serif; font-style: italic; line-height: 1.3;">
+                Rivivi la battaglia.<br>Acquista le foto inedite del tuo match.
+            </h1>
+            <p class="white-glow-text text-base sm:text-lg max-w-2xl mx-auto mb-8 font-bold">
+                CERCA L'EVENTO PREFERITO
+            </p>
+            <div class="inline-block">
+                <div class="dropdown hero-dropdown">
+                    <button class="inline-flex items-center gap-2 bg-zinc-900/90 hover:bg-black text-white border border-[#00ff66] font-bold text-sm px-6 py-3 rounded-2xl transition shadow-xl hover:scale-105 transform cursor-pointer">
+                        <i class="fa-solid fa-fire text-[#00ff66]"></i> Cerca l'evento <i class="fa-solid fa-chevron-down text-[10px] ml-1 text-[#00ff66]"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="dropdown-inner">
+                            <a href="cinthec8foto.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 8</a>
+                            <a href="evento.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 9</a>
+                            <a href="cinthec10foto.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 10</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pacchetti" class="relative z-10 py-12 px-4 max-w-7xl mx-auto w-full">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-black uppercase tracking-tight text-white">Pacchetti Foto & Video</h2>
+            <p class="text-xs sm:text-sm text-zinc-400 mt-2">Scegli il formato perfetto per immortalare la tua prestazione.</p>
+        </div>
+        
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <div class="pack-card relative rounded-3xl p-6 border border-zinc-800 flex flex-col justify-between shadow-xl group min-h-[420px]">
+                <div class="absolute inset-0 -z-10 rounded-3xl overflow-hidden">
+                    <img src="Immagini/foto-pack1.jpeg" alt="Pack Foto" class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:brightness-125 brightness-75" onerror="this.onerror=null; this.src='Immagini/foto-pack.jpg';">
+                    <div class="absolute inset-0 bg-black/60 group-hover:bg-black/30 transition duration-500"></div>
+                </div>
+                <div class="relative z-10">
+                    <h3 class="text-xl font-bold mb-1 text-white drop-shadow">Pack Foto</h3>
+                    <p class="text-xs text-zinc-200 mb-4 drop-shadow">Tutti gli scatti in alta risoluzione del tuo match.</p>
+                    
+                    <ul class="space-y-2 text-xs text-zinc-100 mb-6 drop-shadow">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#00ff66]"></i> Scatti illimitati in alta definizione</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#00ff66]"></i> Selezione dei momenti chiave</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#00ff66]"></i> Download immediato in digitale</li>
+                    </ul>
+
+                    <div class="text-4xl font-black mb-4 text-white drop-shadow-md">7€</div>
+                </div>
+                <div class="relative z-20 w-full dropdown hero-dropdown">
+                    <button class="w-full bg-zinc-900/90 hover:bg-black text-center py-3 rounded-xl font-bold text-sm transition border border-zinc-700 shadow-md flex items-center justify-center gap-2 text-white cursor-pointer">
+                        Seleziona evento <i class="fa-solid fa-chevron-down text-[10px] text-[#00ff66]"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="dropdown-inner">
+                            <a href="cinthec8foto.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 8</a>
+                            <a href="evento.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 9</a>
+                            <a href="cinthec10foto.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 10</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pack-card relative rounded-3xl p-6 border border-zinc-800 flex flex-col justify-between shadow-xl group min-h-[420px]">
+                <div class="absolute inset-0 -z-10 rounded-3xl overflow-hidden">
+                    <video autoplay muted loop playsinline class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:brightness-125 brightness-75">
+                        <source src="Video/video-pack.mp4" type="video/mp4">
+                    </video>
+                    <div class="absolute inset-0 bg-black/60 group-hover:bg-black/30 transition duration-500"></div>
+                </div>
+                <div class="relative z-10">
+                    <h3 class="text-xl font-bold mb-1 text-white drop-shadow">Pack Video</h3>
+                    <p class="text-xs text-zinc-200 mb-4 drop-shadow">Ripresa integrale dell'incontro in HD.</p>
+                    
+                    <ul class="space-y-2 text-xs text-zinc-100 mb-6 drop-shadow">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#00ff66]"></i> Ripresa integrale del match in HD</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#00ff66]"></i> Angolatura perfetta e pulita</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#00ff66]"></i> Audio ambientale originale</li>
+                    </ul>
+
+                    <div class="text-4xl font-black mb-4 text-white drop-shadow-md">10€</div>
+                </div>
+                <div class="relative z-20 w-full dropdown hero-dropdown">
+                    <button class="w-full bg-zinc-900/90 hover:bg-black text-center py-3 rounded-xl font-bold text-sm transition border border-zinc-700 shadow-md flex items-center justify-center gap-2 text-white cursor-pointer">
+                        Seleziona evento <i class="fa-solid fa-chevron-down text-[10px] text-[#00ff66]"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="dropdown-inner">
+                            <a href="cinthec8foto.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 8</a>
+                            <a href="evento.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 9</a>
+                            <a href="cinthec10foto.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 10</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pack-card relative rounded-3xl p-6 border-2 border-[#00ff66] flex flex-col justify-between shadow-2xl shadow-[#00ff66]/10 group min-h-[420px]">
+                <div class="absolute inset-0 -z-10 overflow-hidden rounded-3xl flex items-center justify-center bg-black">
+                    <img src="Immagini/foto-pack3.jpg" alt="Pack Foto + Video" class="w-full h-full object-cover object-center transition duration-500 group-hover:scale-105 group-hover:brightness-125 brightness-75 transform scale-90 rounded-2xl" onerror="this.onerror=null; this.src='Immagini/foto-pack3.png';">
+                    <div class="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition duration-500"></div>
+                </div>
+                <div class="relative z-10">
+                    <span class="bg-[#00ff66] text-black text-[9px] font-black uppercase px-2 py-0.5 rounded-md mb-2 inline-block shadow-md">Più venduto</span>
+                    <h3 class="text-xl font-bold mb-1 text-white drop-shadow">Pack Foto + Video</h3>
+                    <p class="text-xs text-zinc-200 mb-4 drop-shadow">La soluzione completa per non perdere nulla.</p>
+                    
+                    <ul class="space-y-2 text-xs text-zinc-100 mb-6 drop-shadow">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#00ff66]"></i> Gallery foto completa in alta risoluzione</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#00ff66]"></i> Video integrale del match in HD</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#00ff66]"></i> Massimo risparmio e resa totale</li>
+                    </ul>
+
+                    <div class="text-4xl font-black mb-4 text-[#00ff66] drop-shadow-md">15€</div>
+                </div>
+                <div class="relative z-20 w-full dropdown hero-dropdown">
+                    <button class="w-full bg-[#00ff66] hover:bg-[#00cc52] text-black text-center py-3 rounded-xl font-black text-sm transition shadow-md flex items-center justify-center gap-2 cursor-pointer">
+                        Seleziona evento <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="dropdown-inner">
+                            <a href="cinthec8foto.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 8</a>
+                            <a href="evento.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 9</a>
+                            <a href="cinthec10foto.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 10</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pack-card relative rounded-3xl p-6 border border-zinc-800 flex flex-col justify-between shadow-xl group min-h-[420px]">
+                <div class="absolute inset-0 -z-10 rounded-3xl overflow-hidden">
+                    <img src="Immagini/foto-pack4.jpg" alt="Pack Team" class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:brightness-125 brightness-75" onerror="this.onerror=null; this.src='Immagini/foto-pack4.png';">
+                    <div class="absolute inset-0 bg-black/60 group-hover:bg-black/30 transition duration-500"></div>
+                </div>
+                <div class="relative z-10">
+                    <h3 class="text-xl font-bold mb-1 text-white drop-shadow">Pack Team</h3>
+                    <p class="text-xs text-zinc-200 mb-4 drop-shadow">Copertura totale per compagni e angolo.</p>
+                    
+                    <ul class="space-y-2 text-xs text-zinc-100 mb-6 drop-shadow">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#00ff66]"></i> Copertura estesa dell'angolo</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#00ff66]"></i> Foto extra con il team e il coach</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#00ff66]"></i> Video completo + backstage</li>
+                    </ul>
+
+                    <div class="text-4xl font-black mb-4 text-white drop-shadow-md">25€</div>
+                </div>
+                <div class="relative z-20 w-full dropdown hero-dropdown">
+                    <button class="w-full bg-zinc-900/90 hover:bg-black text-center py-3 rounded-xl font-bold text-sm transition border border-zinc-700 shadow-md flex items-center justify-center gap-2 text-white cursor-pointer">
+                        Seleziona evento <i class="fa-solid fa-chevron-down text-[10px] text-[#00ff66]"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="dropdown-inner">
+                            <a href="cinthec8foto.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 8</a>
+                            <a href="evento.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 9</a>
+                            <a href="cinthec10foto.html"><i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC 10</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="relative z-10 py-6 px-4 max-w-3xl mx-auto w-full flex justify-center">
+        <div class="relative rounded-3xl overflow-hidden border-2 border-zinc-800 shadow-2xl bg-black w-full aspect-[4/3] sm:aspect-[16/10] max-h-[480px] flex items-center justify-center mx-auto">
+            <video autoplay muted loop playsinline class="w-full h-full object-cover brightness-90">
+                <source src="Video/video-loop.mp4" type="video/mp4">
+                Il tuo browser non supporta i video HTML5.
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/20 flex items-end p-6 pointer-events-none">
+                <p class="text-white font-black text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2 drop-shadow-md">
+                    <i class="fa-solid fa-fire text-[#00ff66]"></i> CintheC Media Action • Emozioni e Potenza a bordo ring
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="relative z-10 py-16 px-4 max-w-7xl mx-auto w-full overflow-hidden">
+        <div class="text-center mb-12">
+            <span class="bg-[#00ff66]/20 text-[#00ff66] text-xs font-bold uppercase px-3 py-1 rounded-full border border-[#00ff66]/30 inline-block mb-3">Momenti Clou</span>
+            <h2 class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white">Galleria Live</h2>
+            <p class="text-xs sm:text-sm text-zinc-400 mt-2">Scorrimento infinito continuo o manuale tramite le frecce.</p>
+        </div>
+
+        <div class="relative flex items-center">
+            <button onclick="manualScroll(-330)" class="absolute -left-3 sm:-left-6 z-20 bg-zinc-900/90 hover:bg-[#00ff66] text-white hover:text-black border border-zinc-700 w-12 h-12 rounded-full flex items-center justify-center shadow-xl transition transform hover:scale-110 cursor-pointer">
+                <i class="fa-solid fa-chevron-left text-lg"></i>
+            </button>
+
+            <div id="liveCarousel" class="carousel-container py-4 px-2">
+                <div class="flex gap-6 w-max">
+                    <div class="carousel-item relative rounded-3xl overflow-hidden border border-zinc-800 h-72 shadow-xl group">
+                        <img src="atleti/acri.jpg" alt="Acri" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-1.jpg';">
+                    </div>
+                    <div class="carousel-item relative rounded-3xl overflow-hidden border border-zinc-800 h-72 shadow-xl group">
+                        <img src="atleti/albu.jpg" alt="Albu" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-2.jpg';">
+                    </div>
+                    <div class="carousel-item relative rounded-3xl overflow-hidden border border-zinc-800 h-72 shadow-xl group">
+                        <img src="atleti/anuji.jpg" alt="Anuji" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-3.jpg';">
+                    </div>
+                    <div class="carousel-item relative rounded-3xl overflow-hidden border border-zinc-800 h-72 shadow-xl group">
+                        <img src="atleti/b-chio.jpg" alt="B. Chio" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-4.jpg';">
+                    </div>
+                    <div class="carousel-item relative rounded-3xl overflow-hidden border border-zinc-800 h-72 shadow-xl group">
+                        <img src="atleti/balducci.jpg" alt="Balducci" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-5.jpg';">
+                    </div>
+                    <div class="carousel-item relative rounded-3xl overflow-hidden border border-zinc-800 h-72 shadow-xl group">
+                        <img src="atleti/cappon.jpg" alt="Cappon" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-1.jpg';">
+                    </div>
+                    <div class="carousel-item relative rounded-3xl overflow-hidden border border-zinc-800 h-72 shadow-xl group">
+                        <img src="atleti/drenica.jpg" alt="Drenica" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-2.jpg';">
+                    </div>
+                    <div class="carousel-item relative rounded-3xl overflow-hidden border border-zinc-800 h-72 shadow-xl group">
+                        <img src="atleti/el-medkour.jpg" alt="El Medkour" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-3.jpg';">
+                    </div>
+                    <div class="carousel-item relative rounded-3xl overflow-hidden border border-zinc-800 h-72 shadow-xl group">
+                        <img src="atleti/gassar.jpg" alt="Gassar" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-4.jpg';">
+                    </div>
+                    <div class="carousel-item relative rounded-3xl overflow-hidden border border-zinc-800 h-72 shadow-xl group">
+                        <img src="atleti/lorenzo-pasqualetto.jpg" alt="Lorenzo Pasqualetto" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-5.jpg';">
+                    </div>
+                    <div class="carousel-item relative rounded-3xl overflow-hidden border border-zinc-800 h-72 shadow-xl group">
+                        <img src="atleti/pagotto.jpg" alt="Pagotto" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-1.jpg';">
+                    </div>
+                    <div class="carousel-item relative rounded-3xl overflow-hidden border border-zinc-800 h-72 shadow-xl group">
+                        <img src="atleti/perini-m.jpg" alt="Perini M." class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-2.jpg';">
+                    </div>
+                    <div class="carousel-item relative rounded-3xl overflow-hidden border border-zinc-800 h-72 shadow-xl group">
+                        <img src="atleti/pierluigi-de-prospo.jpg" alt="Pierluigi De Prospo" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-3.jpg';">
+                    </div>
+                    <div class="carousel-item relative rounded-3xl overflow-hidden border border-zinc-800 h-72 shadow-xl group">
+                        <img src="atleti/sfondo-cinthec8.jpg" alt="Sfondo CintheC 8" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-4.jpg';">
+                    </div>
+                    <div class="carousel-item relative rounded-3xl overflow-hidden border border-zinc-800 h-72 shadow-xl group">
+                        <img src="atleti/massimiliano-bello.jpg" alt="Massimiliano Bello" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-5.jpg';">
+                    </div>
+
+                    <div class="carousel-item relative rounded-3xl overflow-hidden border border-zinc-800 h-72 shadow-xl group">
+                        <img src="atleti/acri.jpg" alt="Acri" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-1.jpg';">
+                    </div>
+                    <div class="carousel-item relative rounded-3xl overflow-hidden border border-zinc-800 h-72 shadow-xl group">
+                        <img src="atleti/albu.jpg" alt="Albu" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-2.jpg';">
+                    </div>
+                    <div class="carousel-item relative rounded-3xl overflow-hidden border border-zinc-800 h-72 shadow-xl group">
+                        <img src="atleti/anuji.jpg" alt="Anuji" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-3.jpg';">
+                    </div>
+                    <div class="carousel-item relative rounded-3xl overflow-hidden border border-zinc-800 h-72 shadow-xl group">
+                        <img src="atleti/b-chio.jpg" alt="B. Chio" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-4.jpg';">
+                    </div>
+                    <div class="carousel-item relative rounded-3xl overflow-hidden border border-zinc-800 h-72 shadow-xl group">
+                        <img src="atleti/balducci.jpg" alt="Balducci" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-5.jpg';">
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="manualScroll(330)" class="absolute -right-3 sm:-right-6 z-20 bg-zinc-900/90 hover:bg-[#00ff66] text-white hover:text-black border border-zinc-700 w-12 h-12 rounded-full flex items-center justify-center shadow-xl transition transform hover:scale-110 cursor-pointer">
+                <i class="fa-solid fa-chevron-right text-lg"></i>
+            </button>
+        </div>
+    </section>
+
+    <section class="relative z-10 pt-20 pb-12 px-4 max-w-4xl mx-auto w-full border-t border-zinc-800/80">
+        <div class="text-center mb-6">
+            <h3 class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest">I nostri Partner & Sponsor Ufficiali</h3>
+        </div>
+        <div class="bg-white rounded-2xl p-4 shadow-xl overflow-hidden flex items-center justify-center max-w-3xl mx-auto border border-zinc-300">
+            <img src="Immagini/sponsor.jpg" alt="Sponsor CintheC Media" class="w-full h-auto object-contain max-h-16 filter brightness-95 hover:brightness-100 transition duration-300" onerror="this.onerror=null; this.src='Immagini/locandina-cinthec10.jpg';">
+        </div>
+    </section>
+
+    <a href="https://wa.me/393277179868" target="_blank" class="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#20ba5a] text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl transition transform hover:scale-110" title="Contattaci su WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <footer class="relative z-10 py-2 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-4 mb-1 items-center">
+            
+            <div class="flex flex-col items-center md:items-start gap-0.5">
+                <h4 class="text-white font-bold text-[10px] uppercase tracking-wider">Seguici</h4>
+                <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] text-[11px] font-semibold transition">
+                    <i class="fa-brands fa-instagram text-sm text-pink-500"></i> CintheC MMA
+                </a>
+                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] text-[11px] font-semibold transition">
+                    <i class="fa-brands fa-instagram text-sm text-pink-500"></i> Leoni di San Marco
+                </a>
+                <a href="https://www.instagram.com/labirinthknockout?igsi=dGlwMGZ1amwyMjJr" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] text-[11px] font-semibold transition">
+                    <i class="fa-brands fa-instagram text-sm text-pink-500"></i> Labirinth Knockout
+                </a>
+            </div>
+
+            <div class="flex flex-col items-center md:items-center text-center">
+                <h4 class="text-white font-bold text-[10px] mb-0.5 uppercase tracking-wider">Note Legali & Policy</h4>
+                <ul class="space-y-0 text-zinc-300 text-[11px]">
+                    <li><button onclick="openModal('privacyModal')" class="hover:text-[#00ff66] transition cursor-pointer">Privacy Policy</button></li>
+                    <li><button onclick="openModal('termsModal')" class="hover:text-[#00ff66] transition cursor-pointer">Termini e Condizioni</button></li>
+                    <li><button onclick="openModal('cookieModal')" class="hover:text-[#00ff66] transition cursor-pointer">Cookie Policy</button></li>
+                </ul>
+            </div>
+
+            <div class="flex flex-col items-center md:items-end">
+                <h4 class="text-white font-bold text-[10px] mb-0.5 uppercase tracking-wider">Pagamenti Sicuri</h4>
+                <div class="flex flex-wrap gap-2 text-lg text-zinc-300 items-center justify-center md:justify-end">
+                    <i class="fa-brands fa-cc-visa" title="Visa"></i>
+                    <i class="fa-brands fa-cc-mastercard" title="Mastercard"></i>
+                    <i class="fa-brands fa-cc-amex" title="American Express"></i>
+                    <i class="fa-brands fa-cc-paypal" title="PayPal"></i>
+                    <i class="fa-brands fa-apple-pay" title="Apple Pay"></i>
+                    <i class="fa-brands fa-google-pay" title="Google Pay"></i>
+                </div>
+            </div>
+
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-1 border-t border-zinc-900/80 text-center text-[9px] text-zinc-500">
+            <p>© 2026 CintheC & Leoni di San Marco. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+    <div id="privacyModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
+            <button onclick="closeModal('privacyModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-full flex items-center justify-center border border-zinc-800 cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Privacy Policy</h3>
+            <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                <p>La presente Privacy Policy descrive le modalità di raccolta, utilizzo e protezione dei dati personali degli utenti che visitano e acquistano servizi multimediali sul sito di CintheC Media.</p>
+                <p><strong>1. Titolare del Trattamento:</strong> I dati raccolti (quali nome, indirizzo email e dettagli di contatto) vengono trattati esclusivamente al fine di completare l'invio dei file multimediali e dei pacchetti acquistati.</p>
+                <p><strong>2. Finalità:</strong> I dati personali non saranno in alcun modo ceduti a terzi per finalità commerciali e vengono gestiti nel pieno rispetto della normativa GDPR vigente.</p>
+                <p><strong>3. Sicurezza:</strong> I pagamenti sono gestiti in sicurezza tramite la piattaforma integrata Lemon Squeezy, la quale garantisce standard di crittografia avanzati senza memorizzare direttamente i dati sensibili delle carte sui nostri server.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="termsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
+            <button onclick="closeModal('termsModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-full flex items-center justify-center border border-zinc-800 cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Termini e Condizioni</h3>
+            <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                <p>L'utilizzo del sito e l'acquisto dei pack foto e video digitali offerti da CintheC Media implicano l'accettazione automatica dei presenti termini di servizio.</p>
+                <p><strong>1. Erogazione del Servizio:</strong> I contenuti multimediali (foto e video dei match sportivi) vengono recapitati in formato digitale tramite link di download diretto subito dopo la conferma del pagamento elettronico.</p>
+                <p><strong>2. Proprietà Intellettuale:</strong> Tutto il materiale fotografico e video è protetto da copyright. È consentito l'uso personale e la condivisione sui social media (es. Instagram), mentre è severamente vietata la rivendita a fini commerciali non autorizzati.</p>
+                <p><strong>3. Rimborsi:</strong> Trattandosi di prodotti digitali legati a prestazioni ed eventi dal vivo, eventuali contestazioni o problemi tecnici di download verranno gestiti singolarmente tramite assistenza diretta via WhatsApp.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="cookieModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
+            <button onclick="closeModal('cookieModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-full flex items-center justify-center border border-zinc-800 cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Cookie Policy</h3>
+            <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                <p>Il nostro sito web utilizza cookie tecnici essenziali per garantire il corretto funzionamento della navigazione e agevolare la gestione sicura del carrello e dei pagamenti.</p>
+                <p><strong>1. Cookie Tecnici:</strong> Necessari per permettere all'utente di muoversi tra le pagine e usufruire delle funzioni principali della piattaforma senza interruzioni.</p>
+                <p><strong>2. Cookie di Terze Parti:</strong> Durante l'interazione con widget esterni o sistemi di pagamento (come Lemon Squeezy) potrebbero essere impiegati cookie tecnici di terze parti strettamente correlati alla transazione.</p>
+                <p><strong>3. Consenso:</strong> Proseguendo la navigazione all'interno del sito, l'utente acconsente all'utilizzo dei cookie in conformità con la normativa vigente.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            document.body.style.overflow = 'auto'; 
+        }
+
+        window.onclick = function(event) {
+            ['privacyModal', 'termsModal', 'cookieModal'].forEach(modalId => {
+                let modal = document.getElementById(modalId);
+                if (event.target === modal) {
+                    closeModal(modalId);
+                }
+            });
+        }
+
+        const carousel = document.getElementById('liveCarousel');
+
+        function manualScroll(distance) {
+            carousel.scrollBy({ left: distance, behavior: 'smooth' });
+        }
+
+        let autoPlay = setInterval(() => {
+            if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 5) {
+                carousel.scrollTo({ left: 0, behavior: 'auto' });
+            } else {
+                carousel.scrollBy({ left: 1, behavior: 'smooth' });
+            }
+        }, 25);
+
+        carousel.addEventListener('mouseenter', () => clearInterval(autoPlay));
+        carousel.addEventListener('mouseleave', () => {
+            autoPlay = setInterval(() => {
+                if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 5) {
+                    carousel.scrollTo({ left: 0, behavior: 'auto' });
+                } else {
+                    carousel.scrollBy({ left: 1, behavior: 'smooth' });
+                }
+            }, 25);
+        });
+    </script>
+</body>
+</html>

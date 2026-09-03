@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CintheC Media - CintheC 11</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; }
+        
+        /* SFONDO GENERALE CON FULMINI FISSI */
+        .neon-lightning-bg {
+            background-color: #020503;
+            background-image: 
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(2, 5, 3, 0.85)),
+                url('Immagini/fulmini-bg.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        /* SFONDO DELICATO PER HEADER E FOOTER CON FULMINI-BARRA */
+        .bar-lightning-bg {
+            background-color: #000000;
+            background-image: 
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.88)),
+                url('Immagini/fulmini-barra.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .white-glow-text {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.7), 0 2px 6px rgba(0, 0, 0, 1);
+        }
+    </style>
+</head>
+<body class="neon-lightning-bg text-zinc-100 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
+
+    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-16 flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full flex justify-between items-center relative z-10">
+            <div class="flex items-center">
+                <a href="index.html">
+                    <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="h-20 sm:h-28 w-auto object-contain" onerror="this.onerror=null; this.src='Immagini/logo.png';">
+                </a>
+            </div>
+            <div class="flex items-center gap-3 sm:gap-4">
+                <img src="Immagini/secondo-logo.png" alt="Secondo Logo" class="h-28 sm:h-40 w-auto object-contain transform translate-y-1" onerror="this.style.display='none';">
+                <a href="index.html" class="bg-zinc-900 hover:bg-zinc-800 text-[#00ff66] border border-[#00ff66]/40 text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+                    <i class="fa-solid fa-house"></i> Home
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-24 w-full flex-grow flex items-center justify-center">
+        <div class="text-center bg-zinc-950/80 border border-zinc-800 backdrop-blur-md rounded-3xl p-12 shadow-2xl max-w-2xl w-full mx-auto">
+            <span class="bg-[#00ff66]/20 text-[#00ff66] text-xs font-black uppercase px-3 py-1 rounded-full border border-[#00ff66]/30 inline-block mb-4">CintheC 11 • In arrivo</span>
+            <h1 class="text-5xl sm:text-7xl font-black uppercase tracking-tight text-white mb-6 drop-shadow-lg">
+                MERDEEEE
+            </h1>
+            <p class="text-zinc-400 text-sm sm:text-base mb-8">
+                Stiamo preparando i nuovi contenuti e le sorprese per la prossima edizione. Resta sintonizzato!
+            </p>
+            <div>
+                <a href="index.html" class="inline-flex items-center gap-2 bg-[#00ff66] hover:bg-[#00cc52] text-black font-black text-sm px-8 py-3.5 rounded-2xl transition shadow-lg shadow-[#00ff66]/20">
+                    <i class="fa-solid fa-arrow-left"></i> Torna alla Home
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="relative z-10 py-12 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center text-[11px]">
+            <p>© 2026 CINtheC Media. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
