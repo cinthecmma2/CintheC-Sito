@@ -10,7 +10,7 @@
     <style>
         body { font-family: 'Montserrat', sans-serif; }
         
-        /* SFONDO GENERALE ORIGINALE CON LA TRAMA A RIGHE BIANCHE */
+        /* SFONDO GENERALE ORIGINALE CON LA TRAMA A RIGHE BIANCHE (NON TOCCATO) */
         .site-bg-cuts {
             background-color: #f4f5f4;
             background-image: 
@@ -33,7 +33,7 @@
             background-position: center;
         }
 
-        /* RIQUADRI TRIDIMENSIONALI E OMBRA STaccata */
+        /* TUTTI I RIQUADRI/TABELLE: EFFETTO TRIDIMENSIONALE E OMBRA STACCATA */
         .light-lightning-card {
             background-color: #ffffff;
             background-image: 
@@ -71,7 +71,7 @@
             display: inline-block;
         }
 
-        /* BOTTONI A TENDINA CENTRALI */
+        /* STILE BOTTONI A TENDINA CENTRALI */
         .nav-dropdown-btn {
             background-color: rgba(18, 18, 20, 0.85);
             border: 1px solid rgba(0, 255, 102, 0.35);
@@ -125,7 +125,7 @@
         .dropdown-content a:hover { background-color: #00ff66; color: black; }
         .dropdown:hover .dropdown-content { display: block; }
 
-        /* RULLINO MINI FOTO */
+        /* RULLINO 6 MINI FOTO SFASATE */
         .photo-preview-container {
             position: relative;
             height: 80px;
@@ -185,14 +185,16 @@
     <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-22 flex items-center">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full flex justify-between items-center relative z-10">
             
+            <!-- LOGO SINISTRA -->
             <div class="flex items-center">
                 <a href="index.html">
                     <img src="Immagini/Logo.png" alt="CintheC Logo" class="h-16 sm:h-28 w-auto object-contain py-1" onerror="this.onerror=null; this.src='Immagini/logo.png';">
                 </a>
             </div>
 
-            <!-- DUE BOTTONI A TENDINA CENTRALI -->
+            <!-- DUE BOTTONI A TENDINA CENTRALI (CINTEC & MENU) -->
             <div class="hidden md:flex items-center gap-3">
+                <!-- Bottone CintheC -->
                 <div class="dropdown">
                     <button class="nav-dropdown-btn">
                         <i class="fa-solid fa-trophy text-[#00ff66]"></i> CintheC <i class="fa-solid fa-chevron-down text-[9px] ml-1"></i>
@@ -205,6 +207,7 @@
                     </div>
                 </div>
 
+                <!-- Bottone Menu -->
                 <div class="dropdown">
                     <button class="nav-dropdown-btn">
                         <i class="fa-solid fa-bars text-[#00ff66]"></i> Menu <i class="fa-solid fa-chevron-down text-[9px] ml-1"></i>
@@ -218,11 +221,13 @@
                 </div>
             </div>
 
+            <!-- LOGO DESTRA + PULSANTE MOBILE -->
             <div class="flex items-center gap-3">
                 <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank">
                     <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="h-20 sm:h-44 w-auto object-contain transform translate-y-1.5" onerror="this.style.display='none';">
                 </a>
                 
+                <!-- PULSANTE APRI/CHIUDI MENU MOBILE -->
                 <button onclick="toggleMobileMenu()" class="md:hidden text-white bg-zinc-900 border border-zinc-700 p-2.5 rounded-none text-sm focus:outline-none cursor-pointer">
                     <i class="fa-solid fa-bars text-[#00ff66]" id="menuIcon"></i>
                 </button>
@@ -230,34 +235,16 @@
         </div>
     </header>
 
-    <!-- MENU MOBILE -->
-    <div id="mobileMenu" class="hidden md:hidden bg-zinc-950 border-b border-zinc-800 text-white px-6 py-4 space-y-3 sticky top-20 z-40 shadow-2xl">
+    <!-- PANNELLO MENU MOBILE A SCOMPARSA (COERENTE E PULITO) -->
+    <div id="mobileMenu" class="hidden md:hidden bg-zinc-950 border-b border-zinc-800 text-white px-6 py-4 space-y-2 sticky top-20 z-40 shadow-2xl">
         <a href="index.html" class="block text-xs font-black uppercase tracking-wider text-[#00ff66] py-2 border-b border-zinc-900">Home</a>
-        
-        <div>
-            <button onclick="toggleMobileSubmenu('mobileEventsSub', 'subIcon1')" class="w-full flex justify-between items-center text-xs font-black uppercase tracking-wider py-2 border-b border-zinc-900 text-left focus:outline-none">
-                <span>Eventi CintheC</span>
-                <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200" id="subIcon1"></i>
-            </button>
-            <div id="mobileEventsSub" class="hidden pl-4 py-2 space-y-2 bg-zinc-900/50 mt-1 border-l-2 border-[#00ff66]">
-                <a href="cinthec8.html" class="block text-[11px] font-bold uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-1">CintheC 8</a>
-                <a href="cinthec9.html" class="block text-[11px] font-bold uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-1">CintheC 9</a>
-                <a href="cinthec10.html" class="block text-[11px] font-bold uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-1">CintheC 10</a>
-            </div>
-        </div>
-
-        <div>
-            <button onclick="toggleMobileSubmenu('mobileMenuSub', 'subIcon2')" class="w-full flex justify-between items-center text-xs font-black uppercase tracking-wider py-2 border-b border-zinc-900 text-left focus:outline-none">
-                <span>Navigazione Menu</span>
-                <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200" id="subIcon2"></i>
-            </button>
-            <div id="mobileMenuSub" class="hidden pl-4 py-2 space-y-2 bg-zinc-900/50 mt-1 border-l-2 border-[#00ff66]">
-                <a href="classifiche.html" class="block text-[11px] font-bold uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-1">Ranking</a>
-                <a href="galleria.html" class="block text-[11px] font-bold uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-1">Shop</a>
-                <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="block text-[11px] font-bold uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-1">Ticket</a>
-                <a href="iscrizione.html" class="block text-[11px] font-bold uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-1">Iscrizioni</a>
-            </div>
-        </div>
+        <a href="cinthec8.html" class="block text-xs font-black uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-2 border-b border-zinc-900">CintheC 8</a>
+        <a href="cinthec9.html" class="block text-xs font-black uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-2 border-b border-zinc-900">CintheC 9</a>
+        <a href="cinthec10.html" class="block text-xs font-black uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-2 border-b border-zinc-900">CintheC 10</a>
+        <a href="classifiche.html" class="block text-xs font-black uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-2 border-b border-zinc-900">Ranking</a>
+        <a href="galleria.html" class="block text-xs font-black uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-2 border-b border-zinc-900">Shop</a>
+        <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="block text-xs font-black uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-2 border-b border-zinc-900">Ticket</a>
+        <a href="iscrizione.html" class="block text-xs font-black uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-2">Iscrizioni</a>
     </div>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 w-full flex-grow">
@@ -274,8 +261,7 @@
                 </div>
                 <div class="w-full">
                     <div class="bg-zinc-950 rounded-none h-48 sm:h-60 flex items-center justify-center border border-zinc-300 overflow-hidden relative video-container shadow-md">
-                        <!-- VIDEO FORZATO CON ATTRIBUTI OTTIMIZZATI -->
-                        <video autoplay loop muted playsinline preload="auto" class="background-video">
+                        <video autoplay loop muted playsinline class="background-video">
                             <source src="video/Cinthec-Home.mp4" type="video/mp4">
                             Il tuo browser non supporta il tag video.
                         </video>
@@ -432,8 +418,7 @@
 
                 <div class="space-y-3">
                     <div class="bg-zinc-950 rounded-none h-56 sm:h-64 flex items-center justify-center border-2 border-zinc-600 overflow-hidden relative shadow-md">
-                        <!-- SECONDO VIDEO ROTATIVO FORZATO -->
-                        <video id="sequentialVideo" autoplay loop muted playsinline preload="auto" class="w-full h-full object-cover rounded-none">
+                        <video id="sequentialVideo" autoplay loop muted playsinline class="w-full h-full object-cover rounded-none">
                             <source src="video/Spettacolo-1.mp4" type="video/mp4">
                             Il tuo browser non supporta il tag video.
                         </video>
@@ -519,10 +504,11 @@
 
     </main>
 
-    <!-- FOOTER ORIZZONTALE -->
+    <!-- FOOTER OTTIMIZZATO IN ORIZZONTALE (STILE PC) -->
     <footer class="relative z-10 py-5 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
             
+            <!-- SEGUICI A SINISTRA -->
             <div class="flex flex-col items-center md:items-start gap-1">
                 <h4 class="text-white font-bold text-[10px] uppercase tracking-wider mb-1">Seguici</h4>
                 <div class="flex flex-col gap-1 text-[11px]">
@@ -538,6 +524,7 @@
                 </div>
             </div>
 
+            <!-- NOTE LEGALI AL CENTRO -->
             <div class="flex flex-col items-center text-center">
                 <h4 class="text-white font-bold text-[10px] mb-1 uppercase tracking-wider">Note Legali & Policy</h4>
                 <ul class="space-y-1 text-[11px] text-zinc-300">
@@ -547,6 +534,7 @@
                 </ul>
             </div>
 
+            <!-- PAGAMENTI A DESTRA -->
             <div class="flex flex-col items-center md:items-end">
                 <h4 class="text-white font-bold text-[10px] mb-1 uppercase tracking-wider">Pagamenti Sicuri</h4>
                 <p class="text-[9px] text-zinc-400 mb-1">Powered by Lemon Squeezy</p>
@@ -566,7 +554,6 @@
         </div>
     </footer>
 
-    <!-- MODALI -->
     <div id="privacyModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
         <div class="bg-zinc-950 border border-zinc-800 rounded-none max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
             <button onclick="closeModal('privacyModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-none flex items-center justify-center border border-zinc-800 cursor-pointer">
@@ -620,6 +607,7 @@
             document.body.style.overflow = 'auto'; 
         }
 
+        /* FUNZIONI PER APRIRE/CHIUDERE IL MENU MOBILE E I SOTTOMENU */
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
             const icon = document.getElementById('menuIcon');
@@ -649,7 +637,7 @@
             });
         }
 
-        /* GESTIONE VIDEO SEQUENZIALE SICURA */
+        /* LOGICA VIDEO SEQUENZIALE CON NOMI CORRETTI (MAIUSCOLE) */
         const videoList = ["video/Spettacolo-1.mp4", "video/Spettacolo-2.mp4"];
         let videoIndex = 0;
         const sequentialVideo = document.getElementById('sequentialVideo');
@@ -658,10 +646,10 @@
             sequentialVideo.addEventListener('ended', function() {
                 videoIndex = (videoIndex + 1) % videoList.length;
                 sequentialVideo.src = videoList[videoIndex];
-                sequentialVideo.play().catch(e => console.log("Autoplay impedito dal browser"));
+                sequentialVideo.play();
             });
         }
     </script>
-    <!-- Ultimo aggiornamento forzato layout e video: 2026 -->
+    <!-- Aggiornato menu standard definitivo: 2026 -->
 </body>
 </html>
