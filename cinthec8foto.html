@@ -197,19 +197,18 @@
     <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center">
         <div class="max-w-7xl mx-auto px-2 sm:px-6 w-full grid grid-cols-3 items-center relative z-50">
             
-            <!-- LOGO CINTHEC SINISTRA + SCRITTA PIÙ GRANDE -->
+            <!-- LOGO CINTHEC SINISTRA + SCRITTA (VISIBILE SOLO DA PC) -->
             <div class="flex items-center justify-start gap-2 sm:gap-3">
                 <a href="galleria.html" class="flex items-center">
                     <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                 </a>
-                <span class="text-[#00ff66] font-black text-xs sm:text-sm tracking-wider uppercase bg-zinc-900/90 px-3.5 py-2 rounded-none border border-[#00ff66]/40 inline-block shadow-lg">
+                <span class="hidden md:inline-block text-[#00ff66] font-black text-xs sm:text-sm tracking-wider uppercase bg-zinc-900/90 px-3.5 py-2 rounded-none border border-[#00ff66]/40 shadow-lg">
                     C I N T H E C  8
                 </span>
             </div>
 
             <!-- DUE BOTTONI CENTRALI (EVENTI CON MENU A TENDINA + TORNA ALLA HOME) -->
             <div class="flex items-center justify-center gap-2 relative z-50">
-                <!-- Bottone Eventi con menu a tendina -->
                 <div class="dropdown">
                     <button class="nav-center-btn">
                         <i class="fa-solid fa-calendar-days text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[9px] ml-1"></i>
@@ -223,7 +222,6 @@
                     </div>
                 </div>
 
-                <!-- Bottone Torna alla home -->
                 <a href="galleria.html" class="nav-center-btn">
                     <i class="fa-solid fa-house text-[#00ff66]"></i> Torna alla home
                 </a>
@@ -239,6 +237,13 @@
     </header>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10 w-full flex-grow">
+        <!-- SCRITTA GRANDE CINTHEC 8 (VISIBILE SOLO SU MOBILE SOPRA LA FIGHT CARD) -->
+        <div class="mb-6 text-center block md:hidden">
+            <span class="text-[#00ff66] font-black text-2xl tracking-wider uppercase bg-zinc-950/90 px-6 py-3 border-2 border-[#00ff66]/65 inline-block shadow-2xl">
+                C I N T H E C &nbsp; 8
+            </span>
+        </div>
+
         <div class="text-center mb-8">
             <h1 class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white mb-2">FIGHT CARD & ACQUISTO MATCH</h1>
             <p class="white-glow-text text-xs sm:text-sm text-zinc-300 max-w-xl mx-auto font-semibold">Usa il carosello scorrevole per ogni categoria o cerca direttamente l'atleta desiderato.</p>
@@ -811,32 +816,33 @@
         </div>
     </section>
 
-    <footer class="relative z-10 py-6 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+    <!-- FOOTER INFERIORE SUPER COMPATTO A 3 COLONNE -->
+    <footer class="relative z-10 py-2 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-4">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 grid grid-cols-3 gap-2 items-start text-left">
             
-            <div class="flex flex-col items-center md:items-start space-y-2">
-                <span class="text-white font-bold text-xs uppercase tracking-wider mb-1">Seguici:</span>
-                <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-2 text-zinc-300 hover:text-[#00ff66] text-xs font-semibold transition">
-                    <i class="fa-brands fa-instagram text-sm text-pink-500"></i> Cinthec MMA
+            <div class="flex flex-col space-y-0.5">
+                <span class="text-white font-bold text-[9px] uppercase tracking-widest mb-0.5">SEGUICI</span>
+                <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] text-[10px] font-semibold transition truncate">
+                    <i class="fa-brands fa-instagram text-[10px] text-pink-500"></i> CintheC MMA
                 </a>
-                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="inline-flex items-center gap-2 text-zinc-300 hover:text-[#00ff66] text-xs font-semibold transition">
-                    <i class="fa-brands fa-instagram text-sm text-pink-500"></i> Leoni di San Marco
+                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] text-[10px] font-semibold transition truncate">
+                    <i class="fa-brands fa-instagram text-[10px] text-pink-500"></i> Leoni di San Marco
                 </a>
-                <a href="https://www.instagram.com/labirinthknockout?igsi=dGlwMGZ1amwyMjJr" target="_blank" class="inline-flex items-center gap-2 text-zinc-300 hover:text-[#00ff66] text-xs font-semibold transition">
-                    <i class="fa-brands fa-instagram text-sm text-pink-500"></i> Labirinth Knockout
+                <a href="https://www.instagram.com/labirinthknockout?igsi=dGlwMGZ1amwyMjJr" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] text-[10px] font-semibold transition truncate">
+                    <i class="fa-brands fa-instagram text-[10px] text-pink-500"></i> Labirinth Knockout
                 </a>
             </div>
 
-            <div class="flex flex-col items-center text-center space-y-2">
-                <span class="text-white font-bold text-xs uppercase tracking-wider mb-1">Note Legali:</span>
-                <button onclick="openModal('privacyModal')" class="hover:text-[#00ff66] transition cursor-pointer">Privacy Policy</button>
-                <button onclick="openModal('termsModal')" class="hover:text-[#00ff66] transition cursor-pointer">Termini e Condizioni</button>
-                <button onclick="openModal('cookieModal')" class="hover:text-[#00ff66] transition cursor-pointer">Cookie Policy</button>
+            <div class="flex flex-col items-center text-center space-y-0.5">
+                <span class="text-white font-bold text-[9px] uppercase tracking-widest mb-0.5">NOTE LEGALI</span>
+                <button onclick="openModal('privacyModal')" class="hover:text-[#00ff66] transition cursor-pointer text-[10px]">Privacy Policy</button>
+                <button onclick="openModal('termsModal')" class="hover:text-[#00ff66] transition cursor-pointer text-[10px]">Termini e Condizioni</button>
+                <button onclick="openModal('cookieModal')" class="hover:text-[#00ff66] transition cursor-pointer text-[10px]">Cookie Policy</button>
             </div>
 
-            <div class="flex flex-col items-center md:items-end space-y-2">
-                <span class="text-white font-bold text-xs uppercase tracking-wider mb-1">Pagamenti Sicuri:</span>
-                <div class="flex flex-wrap gap-2 text-lg items-center justify-center md:justify-end text-zinc-300">
+            <div class="flex flex-col items-end text-right space-y-0.5">
+                <span class="text-white font-bold text-[9px] uppercase tracking-widest mb-0.5">PAGAMENTI SICURI</span>
+                <div class="flex flex-wrap gap-1 text-xs items-center justify-end text-zinc-300">
                     <i class="fa-brands fa-cc-visa" title="Visa"></i>
                     <i class="fa-brands fa-cc-mastercard" title="Mastercard"></i>
                     <i class="fa-brands fa-cc-amex" title="American Express"></i>
@@ -847,7 +853,7 @@
             </div>
 
         </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-3 mt-4 border-t border-zinc-900 text-center text-[10px]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-1 mt-1 border-t border-zinc-900/60 text-center text-[9px]">
             <p>© 2026 CintheC & Leoni di San Marco. Tutti i diritti riservati.</p>
         </div>
     </footer>

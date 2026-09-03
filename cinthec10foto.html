@@ -18,7 +18,6 @@
             box-shadow: 0 0 15px rgba(0, 255, 102, 0.6) !important;
         }
 
-        /* SFONDO GENERALE CON FULMINI FISSI */
         .neon-lightning-bg {
             background-color: #020503;
             background-image: 
@@ -30,7 +29,6 @@
             position: relative;
         }
 
-        /* SFONDO DELICATO PER HEADER E FOOTER CON FULMINI-BARRA */
         .bar-lightning-bg {
             background-color: #000000;
             background-image: 
@@ -45,7 +43,6 @@
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.7), 0 2px 6px rgba(0, 0, 0, 1);
         }
 
-        /* STILE PULSANTI CENTRALI NELL'HEADER */
         .nav-center-btn {
             background-color: rgba(24, 24, 27, 0.85);
             border: 1px solid rgba(0, 255, 102, 0.4);
@@ -72,7 +69,6 @@
             color: #00ff66;
         }
 
-        /* MENU A TENDINA STABILE CON BORDI SQUADRATI */
         .dropdown { position: relative; display: inline-block; }
         
         .dropdown-content {
@@ -117,7 +113,6 @@
         .dropdown-content a:hover { background-color: #00ff66; color: black; }
         .dropdown:hover .dropdown-content { display: block; }
 
-        /* DIMENSIONI E PROPORZIONI ESATTE DEI LOGHI */
         .logo-left-cinthec {
             width: 160px !important;
             height: 70px !important;
@@ -137,7 +132,6 @@
             z-index: 60;
         }
 
-        /* EFFETTO TICKER TECNOLOGICO SCORREVOLE */
         @keyframes ticker {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -163,7 +157,6 @@
 <body class="neon-lightning-bg text-zinc-100 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
 
     <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md flex flex-col">
-        
         <div class="ticker-wrap text-[10px] font-mono tracking-wider text-zinc-400">
             <div class="ticker-move">
                 <span class="text-[#00ff66] mx-3"><i class="fa-solid fa-satellite-dish animate-pulse"></i> CINTHEC MEDIA SECURE STREAM</span> &bull; 
@@ -171,19 +164,19 @@
                 <span class="text-zinc-300 mx-3"><i class="fa-solid fa-microchip text-[#00ff66]"></i> ENCRYPTION: AES-256-GCM ACTIVE</span> &bull; 
                 <span class="text-amber-400 mx-3"><i class="fa-solid fa-clock"></i> EVENT SYNC: CINTHEC 10 PREVIEW MODE</span> &bull; 
                 <span class="text-[#00ff66] mx-3"><i class="fa-solid fa-satellite-dish animate-pulse"></i> CINTHEC MEDIA SECURE STREAM</span> &bull; 
-                <span class="text-white mx-3">SERVER STATUS: <strong class="text-[#00ff66]">ONLINE [SECURE_NODE_10]</strong></span> &bull; 
+                <span class="text-white mx-3">SERVERSTATUS: <strong class="text-[#00ff66]">ONLINE [SECURE_NODE_10]</strong></span> &bull; 
                 <span class="text-zinc-300 mx-3"><i class="fa-solid fa-microchip text-[#00ff66]"></i> ENCRYPTION: AES-256-GCM ACTIVE</span> &bull; 
                 <span class="text-amber-400 mx-3"><i class="fa-solid fa-clock"></i> EVENT SYNC: CINTHEC 10 PREVIEW MODE</span>
             </div>
         </div>
 
         <div class="max-w-7xl mx-auto px-2 sm:px-6 w-full grid grid-cols-3 items-center relative z-50 py-2 sm:py-3">
-            
+            <!-- LOGO SINISTRA + SCRITTA CINTHEC 10 (VISIBILE SOLO DA PC/SM, NASCOSTA SU MOBILE STRETTO) -->
             <div class="flex items-center justify-start gap-2 sm:gap-3">
                 <a href="galleria.html" class="flex items-center">
                     <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                 </a>
-                <span class="text-[#00ff66] font-black text-xs sm:text-sm tracking-wider uppercase bg-zinc-900/90 px-3.5 py-2 rounded-none border border-[#00ff66]/40 inline-block shadow-lg">
+                <span class="hidden md:inline-block text-[#00ff66] font-black text-xs sm:text-sm tracking-wider uppercase bg-zinc-900/90 px-3.5 py-2 rounded-none border border-[#00ff66]/40 shadow-lg">
                     C I N T H E C  10
                 </span>
             </div>
@@ -215,7 +208,14 @@
         </div>
     </header>
 
-    <section class="relative z-10 py-16 px-4 max-w-4xl mx-auto w-full text-center flex-grow">
+    <section class="relative z-10 py-12 px-4 max-w-4xl mx-auto w-full text-center flex-grow">
+        <!-- SCRITTA GRANDE CINTHEC 10 SOPRA LA TABELLA (VISIBILE SOLO SU MOBILE) -->
+        <div class="mb-6 block md:hidden">
+            <span class="text-[#00ff66] font-black text-2xl tracking-wider uppercase bg-zinc-950/90 px-6 py-3 border-2 border-[#00ff66]/65 inline-block shadow-2xl">
+                C I N T H E C &nbsp; 10
+            </span>
+        </div>
+
         <div class="bg-zinc-950/90 border border-zinc-800 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-md">
             <span class="bg-[#00ff66]/20 text-[#00ff66] text-xs font-black uppercase px-3.5 py-1.5 rounded-full border border-[#00ff66]/30 inline-block mb-4 shadow-md">Prossimo Evento • Ottobre</span>
             <h1 class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white mb-4">
@@ -237,16 +237,104 @@
         </div>
     </section>
 
-    <footer class="relative z-10 py-4 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
+    <!-- FOOTER INFERIORE COMPATTO -->
+    <footer class="relative z-10 py-2 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-4">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 grid grid-cols-3 gap-2 items-start text-left">
             
-            <div class="flex flex-col items-center md:items-start space-y-1">
-                <span class="text-white font-bold text-[11px] uppercase tracking-wider mb-0.5">Seguici:</span>
-                <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] text-xs font-semibold transition">
-                    <i class="fa-brands fa-instagram text-xs text-pink-500"></i> Cinthec MMA
+            <div class="flex flex-col space-y-0.5">
+                <span class="text-white font-bold text-[9px] uppercase tracking-widest mb-0.5">SEGUICI</span>
+                <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] text-[10px] font-semibold transition truncate">
+                    <i class="fa-brands fa-instagram text-[10px] text-pink-500"></i> CintheC MMA
                 </a>
-                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] text-xs font-semibold transition">
-                    <i class="fa-brands fa-instagram text-xs text-pink-500"></i> Leoni di San Marco
+                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] text-[10px] font-semibold transition truncate">
+                    <i class="fa-brands fa-instagram text-[10px] text-pink-500"></i> Leoni di San Marco
                 </a>
-                <a href="https://www.instagram.com/labirinthknockout?igsi=dGlwMGZ1amwyMjJr" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] text-xs font-semibold transition">
-                    <i class="fa-brands
+                <a href="https://www.instagram.com/labirinthknockout?igsi=dGlwMGZ1amwyMjJr" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] text-[10px] font-semibold transition truncate">
+                    <i class="fa-brands fa-instagram text-[10px] text-pink-500"></i> Labirinth Knockout
+                </a>
+            </div>
+
+            <div class="flex flex-col items-center text-center space-y-0.5">
+                <span class="text-white font-bold text-[9px] uppercase tracking-widest mb-0.5">NOTE LEGALI</span>
+                <button onclick="openModal('privacyModal')" class="hover:text-[#00ff66] transition cursor-pointer text-[10px]">Privacy Policy</button>
+                <button onclick="openModal('termsModal')" class="hover:text-[#00ff66] transition cursor-pointer text-[10px]">Termini e Condizioni</button>
+                <button onclick="openModal('cookieModal')" class="hover:text-[#00ff66] transition cursor-pointer text-[10px]">Cookie Policy</button>
+            </div>
+
+            <div class="flex flex-col items-end text-right space-y-0.5">
+                <span class="text-white font-bold text-[9px] uppercase tracking-widest mb-0.5">PAGAMENTI SICURI</span>
+                <div class="flex flex-wrap gap-1 text-xs items-center justify-end text-zinc-300">
+                    <i class="fa-brands fa-cc-visa" title="Visa"></i>
+                    <i class="fa-brands fa-cc-mastercard" title="Mastercard"></i>
+                    <i class="fa-brands fa-cc-amex" title="American Express"></i>
+                    <i class="fa-brands fa-cc-paypal" title="PayPal"></i>
+                    <i class="fa-brands fa-apple-pay" title="Apple Pay"></i>
+                    <i class="fa-brands fa-google-pay" title="Google Pay"></i>
+                </div>
+            </div>
+
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-1 mt-1 border-t border-zinc-900/60 text-center text-[9px]">
+            <p>© 2026 CintheC & Leoni di San Marco. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+    <!-- MODALI (POP-UP) PER NOTE LEGALI -->
+    <div id="privacyModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
+            <button onclick="closeModal('privacyModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-full flex items-center justify-center border border-zinc-800 cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Privacy Policy</h3>
+            <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                <p>La presente Privacy Policy descrive le modalità di raccolta, utilizzo e protezione dei dati personali dei nostri utenti in conformità alle normative vigenti.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="termsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
+            <button onclick="closeModal('termsModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-full flex items-center justify-center border border-zinc-800 cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Termini e Condizioni</h3>
+            <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                <p>L'utilizzo del sito e l'acquisto dei pack digitali multimediali implicano l'accettazione integrale dei presenti termini e condizioni d'uso.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="cookieModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
+            <button onclick="closeModal('cookieModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-full flex items-center justify-center border border-zinc-800 cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Cookie Policy</h3>
+            <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                <p>Il nostro sito web utilizza esclusivamente cookie tecnici essenziali per garantire la corretta navigazione e funzionalità della piattaforma.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            document.body.style.overflow = 'auto'; 
+        }
+
+        window.onclick = function(event) {
+            ['privacyModal', 'termsModal', 'cookieModal'].forEach(modalId => {
+                let modal = document.getElementById(modalId);
+                if (event.target === modal) {
+                    closeModal(modalId);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

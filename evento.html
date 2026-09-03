@@ -201,7 +201,7 @@
                 <a href="galleria.html" class="flex items-center">
                     <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                 </a>
-                <span class="text-[#00ff66] font-black text-xs sm:text-sm tracking-wider uppercase bg-zinc-900/90 px-3.5 py-2 rounded-none border border-[#00ff66]/40 inline-block shadow-lg">
+                <span class="hidden md:inline-block text-[#00ff66] font-black text-xs sm:text-sm tracking-wider uppercase bg-zinc-900/90 px-3.5 py-2 rounded-none border border-[#00ff66]/40 shadow-lg">
                     C I N T H E C  9
                 </span>
             </div>
@@ -234,6 +234,12 @@
     </header>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10 w-full flex-grow">
+        <div class="mb-6 text-center block md:hidden">
+            <span class="text-[#00ff66] font-black text-2xl tracking-wider uppercase bg-zinc-950/90 px-6 py-3 border-2 border-[#00ff66]/65 inline-block shadow-2xl">
+                C I N T H E C &nbsp; 9
+            </span>
+        </div>
+
         <div class="text-center mb-8">
             <h1 class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white mb-2">FIGHT CARD & ACQUISTO MATCH</h1>
             <p class="white-glow-text text-xs sm:text-sm text-zinc-300 max-w-xl mx-auto font-semibold">Usa il carosello scorrevole per ogni categoria o cerca direttamente l'atleta desiderato.</p>
@@ -785,37 +791,36 @@
             <h3 class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">I nostri Partner & Sponsor Ufficiali</h3>
         </div>
         <div class="bg-white/95 rounded-xl p-2.5 shadow-xl overflow-hidden flex items-center justify-center max-w-2xl mx-auto border border-zinc-300">
-            <img src="Immagini/sponsor.jpg" alt="Sponsor CintheC Media" class="w-full h-auto object-contain max-h-10 filter brightness-95 hover:brightness-100 transition duration-300">
+            <img src="Immagini/sponsor.jpg" alt="Sponsor CintheC Media" class="w-full h-auto object-contain max-h-10 filter brightness-95 hover:brightness-100 transition duration-300" onerror="this.style.display='none';">
         </div>
     </section>
 
-    <!-- FOOTER INFERIORE RIDOTTO E COMPATTO -->
-    <footer class="relative z-10 py-4 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-4">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
+    <footer class="relative z-10 py-2 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-4">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 grid grid-cols-3 gap-2 items-start text-left">
             
-            <div class="flex flex-col items-center md:items-start space-y-1">
-                <span class="text-white font-bold text-[11px] uppercase tracking-wider mb-0.5">Seguici:</span>
-                <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] text-xs font-semibold transition">
-                    <i class="fa-brands fa-instagram text-xs text-pink-500"></i> Cinthec MMA
+            <div class="flex flex-col space-y-0.5">
+                <span class="text-white font-bold text-[9px] uppercase tracking-widest mb-0.5">SEGUICI</span>
+                <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] text-[10px] font-semibold transition truncate">
+                    <i class="fa-brands fa-instagram text-[10px] text-pink-500"></i> CintheC MMA
                 </a>
-                <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] text-xs font-semibold transition">
-                    <i class="fa-brands fa-instagram text-xs text-pink-500"></i> Leoni di San Marco
+                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] text-[10px] font-semibold transition truncate">
+                    <i class="fa-brands fa-instagram text-[10px] text-pink-500"></i> Leoni di San Marco
                 </a>
-                <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] text-xs font-semibold transition">
-                    <i class="fa-brands fa-instagram text-xs text-pink-500"></i> Labirinth Knockout
+                <a href="https://www.instagram.com/labirinthknockout?igsi=dGlwMGZ1amwyMjJr" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] text-[10px] font-semibold transition truncate">
+                    <i class="fa-brands fa-instagram text-[10px] text-pink-500"></i> Labirinth Knockout
                 </a>
             </div>
 
-            <div class="flex flex-col items-center text-center space-y-1">
-                <span class="text-white font-bold text-[11px] uppercase tracking-wider mb-0.5">Note Legali:</span>
-                <button onclick="openModal('privacyModal')" class="hover:text-[#00ff66] transition cursor-pointer text-xs">Privacy Policy</button>
-                <button onclick="openModal('termsModal')" class="hover:text-[#00ff66] transition cursor-pointer text-xs">Termini e Condizioni</button>
-                <button onclick="openModal('cookieModal')" class="hover:text-[#00ff66] transition cursor-pointer text-xs">Cookie Policy</button>
+            <div class="flex flex-col items-center text-center space-y-0.5">
+                <span class="text-white font-bold text-[9px] uppercase tracking-widest mb-0.5">NOTE LEGALI</span>
+                <button onclick="openModal('privacyModal')" class="hover:text-[#00ff66] transition cursor-pointer text-[10px]">Privacy Policy</button>
+                <button onclick="openModal('termsModal')" class="hover:text-[#00ff66] transition cursor-pointer text-[10px]">Termini e Condizioni</button>
+                <button onclick="openModal('cookieModal')" class="hover:text-[#00ff66] transition cursor-pointer text-[10px]">Cookie Policy</button>
             </div>
 
-            <div class="flex flex-col items-center md:items-end space-y-1">
-                <span class="text-white font-bold text-[11px] uppercase tracking-wider mb-0.5">Pagamenti Sicuri:</span>
-                <div class="flex flex-wrap gap-1.5 text-base items-center justify-center md:justify-end text-zinc-300">
+            <div class="flex flex-col items-end text-right space-y-0.5">
+                <span class="text-white font-bold text-[9px] uppercase tracking-widest mb-0.5">PAGAMENTI SICURI</span>
+                <div class="flex flex-wrap gap-1 text-xs items-center justify-end text-zinc-300">
                     <i class="fa-brands fa-cc-visa" title="Visa"></i>
                     <i class="fa-brands fa-cc-mastercard" title="Mastercard"></i>
                     <i class="fa-brands fa-cc-amex" title="American Express"></i>
@@ -826,12 +831,11 @@
             </div>
 
         </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-2 mt-2 border-t border-zinc-900 text-center text-[10px]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-1 mt-1 border-t border-zinc-900/60 text-center text-[9px]">
             <p>© 2026 CintheC & Leoni di San Marco. Tutti i diritti riservati.</p>
         </div>
     </footer>
 
-    <!-- MODALI -->
     <div id="privacyModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
         <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
             <button onclick="closeModal('privacyModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-full flex items-center justify-center border border-zinc-800 cursor-pointer">
