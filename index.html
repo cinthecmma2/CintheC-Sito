@@ -325,12 +325,14 @@
 </head>
 <body class="site-bg-cuts text-zinc-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
 
+    <!-- BANNER NEWS SCORREVOLE IN CIMA -->
     <div class="news-ticker-container">
         <div class="news-ticker-content">
             🔥 APERTE LE ISCRIZIONI PER CINTHEC — 🎫 BIGLIETTI GIÀ DISPONIBILI PER I POSTI A BORDO GABBIA — ⚡ PALAZZETTO DELLO SPORT VERONESE: 10 OTTOBRE 2026 — ⚖️ CONTROLLA IL RANKING AGGIORNATO NEL MENU
         </div>
     </div>
 
+    <!-- NAVBAR / FOOTER SUPERIORE -->
     <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-22 flex items-center">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full flex justify-between items-center relative z-10">
             
@@ -340,6 +342,7 @@
                 </a>
             </div>
 
+            <!-- MENU PC -->
             <div class="hidden md:flex items-center gap-4">
                 <div class="dropdown">
                     <button class="nav-dropdown-btn">
@@ -359,6 +362,7 @@
                 <a href="iscrizione.html" class="pc-nav-link"><i class="fa-solid fa-user-pen text-[#00ff66]"></i> Iscrizioni</a>
             </div>
 
+            <!-- BOTTONI CENTRALI (MOBILE) -->
             <div class="flex md:hidden items-center gap-2">
                 <div class="dropdown">
                     <button class="mobile-dropdown-btn">
@@ -400,6 +404,7 @@
         </div>
     </header>
 
+    <!-- MENU MOBILE A SCOMPARSA -->
     <div id="mobileMenu" class="hidden md:hidden bg-zinc-950 border-b border-zinc-800 text-white px-6 py-4 space-y-2 sticky top-20 z-30 shadow-2xl">
         <a href="index.html" class="block text-xs font-black uppercase tracking-wider text-[#00ff66] py-2 border-b border-zinc-900">Home</a>
         <a href="cinthec8.html" class="block text-xs font-black uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-2 border-b border-zinc-900">CintheC 8</a>
@@ -411,6 +416,7 @@
         <a href="iscrizione.html" class="block text-xs font-black uppercase tracking-wider text-zinc-300 hover:text-[#00ff66] py-2">Iscrizioni</a>
     </div>
 
+    <!-- COUNTDOWN CON BOTTONE BLINDATO E INTERATTIVO AL 100% -->
     <div class="bg-zinc-950 border-b border-zinc-800 py-3 px-4 text-center">
         <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
             <div class="flex flex-col sm:flex-row items-center gap-3">
@@ -430,8 +436,10 @@
         </div>
     </div>
 
+    <!-- MAIN CONTENT -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 w-full flex-grow relative z-10">
         
+        <!-- BARRA DARK MODE -->
         <div class="flex justify-end items-center mb-4">
             <div class="flex items-center gap-2 bg-white/80 dark:bg-zinc-900/80 px-3 py-1.5 border border-zinc-300 dark:border-zinc-800 shadow-sm">
                 <span class="text-[10px] font-black uppercase tracking-wider text-zinc-700 dark:text-zinc-300">Dark Mode</span>
@@ -454,8 +462,8 @@
                 </div>
                 <div class="w-full">
                     <div class="bg-zinc-950 rounded-none h-48 sm:h-60 flex items-center justify-center border border-zinc-300 overflow-hidden relative video-container shadow-md">
-                        <video autoplay loop muted playsinline class="background-video">
-                            <source src="video/Cinthec-Home.mp4" type="video/mp4">
+                        <video autoplay loop muted playsinline webkit-playsinline class="background-video">
+                            <source src="video/cinthec-home.mp4" type="video/mp4">
                             Il tuo browser non supporta il tag video.
                         </video>
                     </div>
@@ -463,6 +471,7 @@
             </div>
 
             <div class="lg:col-span-5 flex flex-col justify-between gap-6">
+                <!-- BOX BIGLIETTI CINTHEC 10 -->
                 <div class="light-lightning-card rounded-none p-5 relative overflow-hidden flex flex-col justify-between flex-grow">
                     <div class="absolute -right-6 -bottom-6 opacity-5 pointer-events-none">
                         <i class="fa-solid fa-ticket text-6xl text-zinc-900"></i>
@@ -489,6 +498,7 @@
                     </div>
                 </div>
 
+                <!-- BOX PIATTAFORMA MATCH ATLETI -->
                 <div class="light-lightning-card rounded-none p-5 relative overflow-hidden flex flex-col justify-between flex-grow">
                     <div class="absolute -right-6 -bottom-6 opacity-5 pointer-events-none">
                         <i class="fa-solid fa-user-pen text-6xl text-zinc-900"></i>
@@ -509,6 +519,7 @@
             </div>
         </div>
 
+        <!-- SEZIONE EVENTI A 360°, ANGOLO BAR E SPETTACOLO -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-12 items-stretch">
             <div class="lg:col-span-6 light-lightning-card rounded-none p-6 sm:p-8 flex flex-col justify-between shadow-lg">
                 <div class="space-y-3 mb-6">
@@ -535,8 +546,8 @@
                 </div>
                 <div class="w-full">
                     <div class="bg-zinc-950 rounded-none h-48 sm:h-56 flex items-center justify-center border border-zinc-300 overflow-hidden relative video-container shadow-md">
-                        <video id="sequentialVideo" autoplay muted playsinline class="background-video">
-                            <source src="video/Spettacolo-1.mp4" type="video/mp4">
+                        <video id="sequentialVideo" autoplay loop muted playsinline webkit-playsinline class="background-video">
+                            <source src="video/spettacolo-1.mp4" type="video/mp4">
                             Il tuo browser non supporta il tag video.
                         </video>
                     </div>
@@ -626,6 +637,7 @@
 
     </main>
 
+    <!-- FOOTER INFERIORE -->
     <footer class="relative z-10 py-2.5 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
             
@@ -672,6 +684,7 @@
         </div>
     </footer>
 
+    <!-- MODALI -->
     <div id="privacyModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
         <div class="bg-zinc-950 border border-zinc-800 rounded-none max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
             <button onclick="closeModal('privacyModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-none flex items-center justify-center border border-zinc-800 cursor-pointer">
@@ -761,7 +774,7 @@
         }
 
         /* VIDEO SEQUENZIALI SPETTACOLO */
-        const videoList = ["video/Spettacolo-1.mp4", "video/Spettacolo-2.mp4"];
+        const videoList = ["video/spettacolo-1.mp4", "video/spettacolo-2.mp4"];
         let videoIndex = 0;
         const sequentialVideo = document.getElementById('sequentialVideo');
 
