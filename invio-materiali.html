@@ -31,7 +31,7 @@
             border: 1px solid rgba(0, 255, 102, 0.2);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
-        input:focus { box-shadow: 0 0 12px rgba(0, 255, 102, 0.4); border-color: #00ff66 !important; }
+        input:focus, select:focus { box-shadow: 0 0 12px rgba(0, 255, 102, 0.4); border-color: #00ff66 !important; }
 
         @keyframes pulseGlow {
             0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 102, 0.3), inset 0 0 15px rgba(0, 255, 102, 0.2); }
@@ -46,9 +46,10 @@
 
     <div class="max-w-md w-full glass-panel p-4 sm:p-5 rounded-2xl space-y-3 relative z-10 shadow-2xl" id="mainContainer">
         
+        <!-- HEADER MINIMALE -->
         <div class="flex items-center justify-between border-b border-zinc-800 pb-2.5 gap-2" id="headerLoghi">
-            <div class="w-28 h-24 flex items-center justify-center shrink-0">
-                <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="max-h-24 max-w-[110px] object-contain drop-shadow-[0_0_16px_rgba(255,255,255,0.6)]" onerror="this.style.display='none'">
+            <div class="w-20 h-16 flex items-center justify-center shrink-0">
+                <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="max-h-16 max-w-[90px] object-contain drop-shadow-[0_0_12px_rgba(255,255,255,0.6)]" onerror="this.style.display='none'">
             </div>
 
             <div class="text-center flex-1 px-1">
@@ -58,32 +59,37 @@
                 <h1 class="text-xs sm:text-sm font-black uppercase tracking-tight text-white">Invio Dati & Moduli Match</h1>
             </div>
 
-            <div class="w-24 h-24 flex items-center justify-center shrink-0">
-                <img src="Immagini/Logo.png" alt="CintheC" class="max-h-24 max-w-[96px] object-contain drop-shadow-[0_0_12px_rgba(0,255,102,0.6)]" onerror="this.style.display='none'">
+            <div class="w-20 h-16 flex items-center justify-center shrink-0">
+                <img src="Immagini/Logo.png" alt="CintheC" class="max-h-16 max-w-[80px] object-contain drop-shadow-[0_0_12px_rgba(0,255,102,0.6)]" onerror="this.style.display='none'">
             </div>
         </div>
 
-        <p class="text-[10px] text-zinc-400 font-medium text-center" id="sottotitoloTesto">Compila i dati e scarica/carica i documenti obbligatori richiesti.</p>
+        <p class="text-[10px] text-zinc-400 font-medium text-center" id="sottotitoloTesto">Scarica il modulo corretto, compila i dati e carica i documenti richiesti.</p>
 
-        <div id="areaDownload" class="bg-zinc-950/70 p-2.5 rounded-xl border border-amber-500/30 space-y-2">
+        <!-- SEZIONE DOWNLOAD MODULI MINIMALE CON TENDINA -->
+        <div id="areaDownload" class="bg-zinc-950/70 p-3 rounded-xl border border-amber-500/30 space-y-2.5">
             <div class="flex items-center gap-1.5 text-amber-400 text-[9px] font-bold uppercase">
-                <i class="fa-solid fa-triangle-exclamation"></i> Step 1: Scarica il modulo corretto da firmare
+                <i class="fa-solid fa-triangle-exclamation"></i> Step 1: Seleziona e scarica il tuo modulo
             </div>
-            <div class="grid grid-cols-2 gap-2">
-                <a href="moduli/liberatoria-visita-pre-match.pdf" download onclick="segnaScaricato('Liberatoria Visita Pre Match')" class="bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-amber-500 p-2 rounded-lg text-center transition flex flex-col items-center justify-center gap-1 group">
-                    <i class="fa-solid fa-file-pdf text-amber-400 text-sm group-hover:scale-110 transition"></i>
-                    <span class="text-[9px] font-bold uppercase leading-tight">Liberatoria Visita Pre Match</span>
-                </a>
-                <a href="moduli/liberatoria-contatto-pieno-minorenni.pdf" download onclick="segnaScaricato('Contatto Pieno Minorenni')" class="bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-amber-500 p-2 rounded-lg text-center transition flex flex-col items-center justify-center gap-1 group">
-                    <i class="fa-solid fa-file-pdf text-amber-400 text-sm group-hover:scale-110 transition"></i>
-                    <span class="text-[9px] font-bold uppercase leading-tight">Liberatoria Contatto Pieno Minorenni</span>
-                </a>
+            
+            <div class="space-y-2">
+                <select id="selettoreModulo" class="w-full bg-zinc-900 border border-zinc-700 text-white text-xs rounded-lg p-2 outline-none font-medium">
+                    <option value="" disabled selected>-- Scegli la liberatoria da scaricare --</option>
+                    <option value="uomo">Liberatoria Visita Pre-Match - UOMO</option>
+                    <option value="donna">Liberatoria Visita Pre-Match - DONNA</option>
+                </select>
+
+                <button type="button" onclick="scaricaModuloSelezionato()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-black text-[10px] uppercase py-2 rounded-lg transition cursor-pointer flex items-center justify-center gap-1.5 shadow">
+                    <i class="fa-solid fa-file-pdf"></i> Scarica Modulo Selezionato
+                </button>
             </div>
+
             <div id="avvisoDownload" class="text-[9px] text-amber-400/90 text-center font-semibold italic">
-                ⚠️ Clicca su un modulo per sbloccare l'invio.
+                ⚠️ Devi scaricare il modulo per sbloccare l'invio dei dati.
             </div>
         </div>
 
+        <!-- FORM PRINCIPALE -->
         <form id="formMateriali" onsubmit="inviaMateriali(event)" class="space-y-2">
             
             <div class="grid grid-cols-2 gap-2">
@@ -123,13 +129,19 @@
                 </div>
             </div>
 
-            <div>
-                <label class="block text-[8px] font-bold text-amber-400 uppercase mb-0.5">📄 Certificato Medico Agonistico (Seleziona uno o più PDF) *</label>
+            <!-- CERTIFICATO MEDICO E TEST EMATICI IN EVIDENZA -->
+            <div class="bg-amber-500/10 border border-amber-500/40 p-2 rounded-xl space-y-1">
+                <label class="block text-[9px] font-black text-amber-400 uppercase leading-tight">
+                    <i class="fa-solid fa-circle-exclamation text-amber-400 mr-1"></i> ⚠️ IMPORTANTE: Certificato Medico Agonistico + Test Ematici (Epatite B, Epatite C, HIV) (PDF) *
+                </label>
                 <input type="file" id="certificatoPdf" accept=".pdf,application/pdf" multiple required class="w-full bg-zinc-900 border border-zinc-800 text-zinc-400 text-[10px] rounded-lg p-1 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-amber-500 file:text-black cursor-pointer">
             </div>
 
-            <div>
-                <label class="block text-[8px] font-bold text-amber-400 uppercase mb-0.5">✍️ Liberatoria Visita Pre-Match / Contatto Pieno (Seleziona uno o più PDF) *</label>
+            <!-- LIBERATORIA FIRMATA IN EVIDENZA -->
+            <div class="bg-amber-500/10 border border-amber-500/40 p-2 rounded-xl space-y-1">
+                <label class="block text-[9px] font-black text-amber-400 uppercase leading-tight">
+                    <i class="fa-solid fa-circle-exclamation text-amber-400 mr-1"></i> ⚠️ IMPORTANTE: Liberatoria Firmata (PDF) *
+                </label>
                 <input type="file" id="liberatoriaFirmata" accept=".pdf,application/pdf" multiple required class="w-full bg-zinc-900 border border-zinc-800 text-zinc-400 text-[10px] rounded-lg p-1 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-amber-500 file:text-black cursor-pointer">
             </div>
 
@@ -151,16 +163,16 @@
             </div>
 
             <div>
-                <label class="block text-[8px] font-bold text-zinc-300 uppercase mb-0.5">Foto Ufficiale (Sfondo bianco, mezzo busto, buona qualità) *</label>
+                <label class="block text-[8px] font-bold text-zinc-300 uppercase mb-0.5">Foto Ufficiale (Sfondo bianco, mezzo busto) *</label>
                 <input type="file" id="fotoFile" accept="image/*" required class="w-full bg-zinc-900 border border-zinc-800 text-zinc-400 text-[10px] rounded-lg p-1 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-[#00ff66] file:text-black cursor-pointer">
             </div>
 
             <div class="space-y-1 pt-1">
                 <button type="submit" id="btnInvia" disabled class="w-full bg-zinc-700 text-zinc-400 font-black text-xs uppercase py-2.5 rounded-xl transition cursor-not-allowed shadow-none">
-                    🔒 Scarica un modulo per sbloccare l'invio
+                    🔒 Scarica il modulo per sbloccare l'invio
                 </button>
                 <p id="avvisoAttesa" class="text-[9px] text-zinc-400 text-center font-medium italic hidden">
-                    ⏳ L'invio potrebbe richiedere alcuni secondi. Non chiudere la pagina finché non appare il messaggio di conferma.
+                    ⏳ Invio in corso al Cloud... Non chiudere la pagina.
                 </p>
             </div>
         </form>
@@ -174,15 +186,45 @@
         let modalitaMusica = 'testo';
         let scaricatoModulo = false;
 
-        function segnaScaricato(tipo) {
+        function scaricaModuloSelezionato() {
+            const selettore = document.getElementById('selettoreModulo');
+            const valore = selettore.value;
+
+            if (!valore) {
+                alert("Seleziona prima un modulo dalla tendina!");
+                return;
+            }
+
+            let percorsoFile = "";
+            let nomeModulo = "";
+
+            if (valore === 'uomo') {
+                percorsoFile = "moduli/liberatoria-visita-pre-match-uomo.pdf";
+                nomeModulo = "Liberatoria Visita Pre-Match - UOMO";
+            } else if (valore === 'donna') {
+                percorsoFile = "moduli/liberatoria-visita-pre-match-donna.pdf";
+                nomeModulo = "Liberatoria Visita Pre-Match - DONNA";
+            }
+
+            // Avvia il download effettivo del file PDF
+            const link = document.createElement('a');
+            link.href = percorsoFile;
+            link.download = percorsoFile.split('/').pop();
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Sblocca il form
             scaricatoModulo = true;
             const btn = document.getElementById('btnInvia');
             btn.disabled = false;
             btn.className = "w-full bg-[#00ff66] hover:bg-[#00cc52] text-black font-black text-xs uppercase py-2.5 rounded-xl transition cursor-pointer shadow-[0_0_12px_rgba(0,255,102,0.3)]";
             btn.innerText = "Invia Dati al CintheC";
             document.getElementById('avvisoAttesa').classList.remove('hidden');
-            document.getElementById('avvisoDownload').innerHTML = `✅ Modulo "${tipo}" scaricato. Puoi procedere all'invio!`;
-            document.getElementById('avvisoDownload').className = "text-[9px] text-[#00ff66] text-center font-bold";
+            
+            const avviso = document.getElementById('avvisoDownload');
+            avviso.innerHTML = `✅ Modulo "${nomeModulo}" scaricato. Invio sbloccato!`;
+            avviso.className = "text-[9px] text-[#00ff66] text-center font-bold";
         }
 
         function impostaModalitaMusica(modo) {
@@ -346,4 +388,3 @@
     </script>
 </body>
 </html>
-<!-- Aggiornato: 2026 -->
