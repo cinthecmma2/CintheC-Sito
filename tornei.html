@@ -76,7 +76,6 @@
                 <button onclick="openAdminModal()" class="admin-pro-btn">
                     <i class="fa-solid fa-gear text-emerald-400"></i> <span>Gestione Admin</span>
                 </button>
-                <!-- LOGO SENZA LINK -->
                 <div class="flex items-center">
                     <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="logo-right-leoni" onerror="this.style.display='none';">
                 </div>
@@ -107,8 +106,8 @@
     </main>
 
     <!-- MODALE ADMIN CON LOGIN EMAIL E PASSWORD -->
-    <div id="adminModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-sm hidden p-4">
-        <div class="bg-white border border-slate-200 rounded-xl max-w-md w-full p-6 relative shadow-2xl text-slate-800 max-h-[90vh] overflow-y-auto">
+    <div id="adminModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-sm hidden p-4 overflow-y-auto">
+        <div class="bg-white border border-slate-200 rounded-xl max-w-md w-full p-6 relative shadow-2xl text-slate-800 max-h-[90vh] overflow-y-auto my-auto">
             <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-base font-bold w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer">
                 <i class="fa-solid fa-xmark"></i>
             </button>
@@ -158,27 +157,41 @@
                 </a>
             </div>
 
-            <!-- STEP 3: AGGIUNGI TORNEO -->
+            <!-- STEP 3: AGGIUNGI TORNEO CON CALENDARIO, INDIRIZZO E LOCANDINA -->
             <div id="adminAddFormStep" class="hidden">
                 <button onclick="backToChoice()" class="text-xs font-bold text-emerald-600 mb-4 flex items-center gap-1.5 cursor-pointer">
                     <i class="fa-solid fa-arrow-left"></i> Torna Indietro
                 </button>
                 <h3 class="text-base font-extrabold text-slate-900 mb-4 uppercase tracking-wide">Nuovo Torneo</h3>
+                
                 <form onsubmit="addNewTournament(event)" class="space-y-3">
                     <div>
-                        <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Nome del Torneo</label>
-                        <input type="text" id="newTitle" required placeholder="Es. XXX EVENTO XXX" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-emerald-500">
+                        <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Nome del Torneo *</label>
+                        <input type="text" id="newTitle" required placeholder="Es. CintheC Cup 2026" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-emerald-500">
                     </div>
-                    <div class="grid grid-cols-2 gap-2">
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                            <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Data</label>
-                            <input type="text" id="newDate" required placeholder="18 Ott 2026" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-emerald-500">
+                            <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Data Evento (Calendario) *</label>
+                            <input type="date" id="newDate" required class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-emerald-500">
                         </div>
                         <div>
-                            <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Città</label>
-                            <input type="text" id="newLocation" required placeholder="XXXXX, XXXX" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-emerald-500">
+                            <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Città *</label>
+                            <input type="text" id="newCity" required placeholder="Es. Venezia" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-emerald-500">
                         </div>
                     </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div class="sm:col-span-2">
+                            <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Indirizzo / Via *</label>
+                            <input type="text" id="newAddress" required placeholder="Es. Via Roma" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">N. Civico</label>
+                            <input type="text" id="newCivic" placeholder="Es. 12/A" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-emerald-500">
+                        </div>
+                    </div>
+
                     <div>
                         <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Stato</label>
                         <select id="newStatus" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-emerald-500">
@@ -186,10 +199,17 @@
                             <option value="Iscrizioni Aperte">Iscrizioni Aperte</option>
                         </select>
                     </div>
+
                     <div>
                         <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Descrizione</label>
-                        <textarea id="newDesc" rows="2" placeholder="Dettagli standard..." class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-emerald-500"></textarea>
+                        <textarea id="newDesc" rows="2" placeholder="Dettagli o note sull'evento..." class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-emerald-500"></textarea>
                     </div>
+
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Locandina / Immagine Evento</label>
+                        <input type="file" id="newPoster" accept="image/*" class="w-full bg-slate-50 border border-slate-300 text-xs rounded-lg px-3 py-2 file:mr-4 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-[10px] file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer">
+                    </div>
+
                     <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase py-3 rounded-lg transition shadow-sm mt-2 cursor-pointer">
                         Pubblica Torneo
                     </button>
@@ -260,16 +280,11 @@
         let tournamentToDeleteId = null;
 
         let defaultTournaments = [
-            { id: "torneo-1", title: "XXX EVENTO XXX - 01", date: "18 Ottobre 2026", location: "XXXXX, XXXXX (XX)", status: "Prossimamente", desc: "Dettagli standard di prova per la sezione tornei." },
-            { id: "torneo-2", title: "XXX EVENTO XXX - 02", date: "15 Novembre 2026", location: "XXXXX, XXXXX (XX)", status: "Prossimamente", desc: "Dettagli standard di prova per la sezione tornei." },
-            { id: "torneo-3", title: "XXX EVENTO XXX - 03", date: "05 Dicembre 2026", location: "XXXXX, XXXXX (XX)", status: "Prossimamente", desc: "Dettagli standard di prova per la sezione tornei." },
-            { id: "torneo-4", title: "XXX EVENTO XXX - 04", date: "20 Gennaio 2027", location: "XXXXX, XXXXX (XX)", status: "Prossimamente", desc: "Dettagli standard di prova per la sezione tornei." },
-            { id: "torneo-5", title: "XXX EVENTO XXX - 05", date: "14 Febbraio 2027", location: "XXXXX, XXXXX (XX)", status: "Prossimamente", desc: "Dettagli standard di prova per la sezione tornei." },
-            { id: "torneo-6", title: "XXX EVENTO XXX - 06", date: "10 Marzo 2027", location: "XXXXX, XXXXX (XX)", status: "Prossimamente", desc: "Dettagli standard di prova per la sezione tornei." }
+            { id: "torneo-1", title: "CintheC Cup 01", date: "2026-10-18", location: "Venezia, Via Roma 45", status: "Prossimamente", desc: "Torneo ufficiale di Brazilian Jiu-Jitsu e Grappling.", poster: null },
+            { id: "torneo-2", title: "CintheC Cup 02", date: "2026-11-15", location: "Chioggia, Viale Stazione 12", status: "Prossimamente", desc: "Campionato regionale classi aperte cinture colorate.", poster: null }
         ];
 
         window.addEventListener('DOMContentLoaded', () => { 
-            localStorage.removeItem('cinthec_tornei');
             loadTournaments(); 
         });
 
@@ -299,12 +314,12 @@
 
                 let actionHtml = `
                     <div class="grid grid-cols-2 gap-2">
-                        <a href="#" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-center font-bold text-[10px] uppercase py-2.5 rounded-lg transition flex items-center justify-center gap-1.5">
+                        <a href="smoothtech.html" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-center font-bold text-[10px] uppercase py-2.5 rounded-lg transition flex items-center justify-center gap-1.5">
                             <span>Dettagli</span> <i class="fa-solid fa-arrow-right text-[8px]"></i>
                         </a>
-                        <button disabled class="w-full bg-slate-200 text-slate-400 text-center font-bold text-[10px] uppercase py-2.5 rounded-lg cursor-not-allowed flex items-center justify-center gap-1.5" title="Iscrizioni in arrivo">
-                            <i class="fa-solid fa-lock text-[9px]"></i> <span>Iscriviti</span>
-                        </button>
+                        <a href="smoothtech.html" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold text-[10px] uppercase py-2.5 rounded-lg transition flex items-center justify-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-user-plus text-[9px]"></i> <span>Iscriviti</span>
+                        </a>
                     </div>
                 `;
 
@@ -324,7 +339,8 @@
                             <p class="text-[11px] text-slate-500 flex items-center gap-1.5 mb-3">
                                 <i class="fa-solid fa-location-dot text-rose-500"></i> ${t.location}
                             </p>
-                            <p class="text-[11px] text-slate-600 line-clamp-2 leading-relaxed">${t.desc || 'Nessuna descrizione aggiuntiva.'}</p>
+                            <p class="text-[11px] text-slate-600 line-clamp-2 leading-relaxed mb-2">${t.desc || 'Nessuna descrizione aggiuntiva.'}</p>
+                            ${t.poster ? `<p class="text-[10px] text-emerald-600 font-bold"><i class="fa-solid fa-image mr-1"></i> Locandina: ${t.poster}</p>` : ''}
                         </div>
                     </div>
                     <div class="p-5 pt-0">
@@ -457,14 +473,27 @@
 
         function addNewTournament(e) {
             e.preventDefault();
+            let title = document.getElementById('newTitle').value;
+            let date = document.getElementById('newDate').value;
+            let city = document.getElementById('newCity').value;
+            let address = document.getElementById('newAddress').value;
+            let civic = document.getElementById('newCivic').value;
+            let status = document.getElementById('newStatus').value;
+            let desc = document.getElementById('newDesc').value;
+            let posterInput = document.getElementById('newPoster');
+
+            let fullLocation = `${city}, ${address}${civic ? ' ' + civic : ''}`;
+
             let newTorneo = {
                 id: 'torneo-' + Date.now(),
-                title: document.getElementById('newTitle').value,
-                date: document.getElementById('newDate').value,
-                location: document.getElementById('newLocation').value,
-                status: document.getElementById('newStatus').value,
-                desc: document.getElementById('newDesc').value
+                title: title,
+                date: date,
+                location: fullLocation,
+                status: status,
+                desc: desc,
+                poster: posterInput.files.length > 0 ? posterInput.files[0].name : null
             };
+
             let saved = localStorage.getItem('cinthec_tornei');
             let tornei = saved ? JSON.parse(saved) : defaultTournaments;
             tornei.unshift(newTorneo);

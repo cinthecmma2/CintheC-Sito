@@ -244,6 +244,7 @@
 
         window.addEventListener('DOMContentLoaded', () => { 
             caricaStatoSalvato();
+            renderTatamiSwitches();
             caricaStatoTatamiRapido();
             caricaIscrittiCloud(false);
             setInterval(controllaAggiornamentiLive, 1000);
@@ -328,6 +329,7 @@
 
         function renderTatamiSwitches() {
             let container = document.getElementById('tatamiSwitchesContainer');
+            if (!container) return;
             container.innerHTML = '';
             for (let i = 1; i <= 8; i++) {
                 let isOn = tatamiStates[i];
@@ -385,8 +387,19 @@
 
         function aggiornaFiltroTornei(iscritti) {
             let select = document.getElementById('filterTorneo');
+            if (!select) return;
             let valoreCorrente = select.value;
-            let torneiSet = [...new Set(iscritti.map(i => i.torneo))];
+
+            // Esclude automaticamente i tornei conclusi salvati nel pannello admin
+            let savedTornei = localStorage.getItem('cinthec_tornei');
+            let torneiConclusi = [];
+            if (savedTornei) {
+                let listaTornei = JSON.parse(savedTornei);
+                torneiConclusi = listaTornei.filter(t => t.status === "Evento Concluso").map(t => t.title);
+            }
+
+            let torneiSet = [...new Set(iscritti.map(i => i.torneo))].filter(t => !torneiConclusi.includes(t));
+
             select.innerHTML = '<option value="Tutti">Tutti i Tornei</option>';
             torneiSet.forEach(t => {
                 if (t) {
@@ -458,9 +471,7 @@
                     </div>
                 `).join('');
 
-                // Generazione HTML della tendina delle pool se già create
                 let poolHtmlContent = '';
-                let displayViewStyle = 'hidden';
                 if (isGenerata) {
                     let pairings = generatedPoolsRegistry[chiave].pairings;
                     poolHtmlContent = pairings.map((m, pIdx) => `
@@ -492,7 +503,6 @@
                             </button>
                         </div>
 
-                        <!-- TENDINA AGGIUNTIVA PER VEDERE LE POOL CREATE A OCCHIO A MANO -->
                         <div id="${btnViewPoolId}-wrapper" class="${isGenerata ? '' : 'hidden'}">
                             <button onclick="togglePoolView('${poolViewId}')" class="w-full bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 font-bold text-[9px] uppercase py-1.5 px-2 rounded cursor-pointer flex items-center justify-center gap-1 mt-1">
                                 <i class="fa-solid fa-list-check"></i> <span>Visualizza Pool / Match</span> <i class="fa-solid fa-chevron-down text-[8px]" id="icon-${poolViewId}"></i>
@@ -548,7 +558,6 @@
                 btn.innerHTML = '<i class="fa-solid fa-check"></i> Pool Generata';
             }
 
-            // Mostra subito il pulsante e popola il box della tendina pool
             let wrapper = document.getElementById('btn-view-pool-' + index + '-wrapper');
             if (wrapper) wrapper.classList.remove('hidden');
 
