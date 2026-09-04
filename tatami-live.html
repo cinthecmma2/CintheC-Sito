@@ -3,202 +3,362 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmoothTech - Gestione Tatami Live</title>
+    <title>SmoothTech - Tatami Live Terminal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Montserrat', sans-serif; background-color: #0f172a; color: #f8fafc; }
-        .match-card { background: #1e293b; border: 1.5px solid #334155; border-radius: 8px; transition: all 0.2s ease; }
-        .match-card.active { border-color: #059669; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2); }
+        .logo-left-cinthec { width: 120px !important; height: 45px !important; object-fit: contain !important; }
+        .match-card { background: #1e293b; border: 2px solid #334155; border-radius: 10px; }
+        .match-card.active { border-color: #059669; box-shadow: 0 0 15px rgba(5, 150, 105, 0.15); }
+        #toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .custom-toast {
+            background: #1e293b;
+            color: #ffffff;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #059669;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+        }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased">
 
-    <!-- HEADER TATAMI LIVE -->
-    <header class="bg-slate-900 border-b border-slate-800 h-16 flex items-center shadow-lg">
-        <div class="max-w-5xl mx-auto px-4 w-full flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <span class="bg-emerald-600 text-white font-extrabold text-xs uppercase px-3 py-1 rounded-lg shadow-inner">
-                    <i class="fa-solid fa-desktop mr-1"></i> Tatami Live
+    <div id="toast-container"></div>
+
+    <header class="bg-slate-900 border-b border-slate-800 h-16 flex items-center shadow-md px-6">
+        <div class="max-w-7xl mx-auto w-full flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                <span class="bg-emerald-600 text-white font-black text-xs uppercase px-3 py-1.5 rounded-lg shadow">
+                    <i class="fa-solid fa-map-pin mr-1"></i> Terminale Tatami Live
                 </span>
-                <span id="headerTatamiTitle" class="text-xs text-slate-400 font-bold uppercase tracking-wider">Nessun Tatami Selezionato</span>
             </div>
-            <div>
-                <button onclick="cambiaTatami()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs uppercase px-3 py-1.5 rounded-lg border border-slate-700 transition cursor-pointer">
-                    <i class="fa-solid fa-arrows-rotate mr-1"></i> Cambia Tatami
+            <div class="flex items-center gap-3">
+                <button onclick="sincronizzaTatamiAccesi()" class="bg-slate-800 hover:bg-slate-700 text-emerald-400 font-bold text-xs uppercase px-3.5 py-2 rounded-lg border border-slate-700 transition cursor-pointer flex items-center gap-1.5 shadow-sm">
+                    <i class="fa-solid fa-rotate"></i> Sincronizza Tatami
                 </button>
+                <span id="tatamiIdentifierBadge" class="text-amber-400 font-extrabold text-sm uppercase bg-slate-800 px-4 py-2 rounded-lg border border-slate-700">
+                    Selezione Tatami
+                </span>
+                <a href="smoothtech.html" class="bg-slate-800 hover:bg-emerald-600 text-white px-3 py-2 rounded-lg text-xs font-bold uppercase border border-slate-700 transition">
+                    <i class="fa-solid fa-arrow-left"></i> Hub Gestionale
+                </a>
             </div>
         </div>
     </header>
 
-    <!-- MAIN CONTENT -->
-    <main class="max-w-5xl mx-auto px-4 py-8 w-full flex-grow">
+    <main class="max-w-6xl mx-auto px-4 py-6 w-full flex-grow space-y-5">
         
-        <!-- STEP 1: SELEZIONE TATAMI ATTIVI -->
-        <div id="selectionStep" class="bg-slate-900 border border-slate-800 p-8 rounded-xl shadow-xl text-center max-w-xl mx-auto mt-10">
-            <div class="mb-6">
-                <i class="fa-solid fa-map-location-dot text-emerald-500 text-4xl mb-3"></i>
-                <h1 class="text-xl font-black uppercase tracking-tight text-white">Seleziona il tuo tatami</h1>
-                <p class="text-xs text-slate-400 mt-1">Questi sono i tatami attualmente accesi e operativi dall'amministrazione.</p>
+        <div id="tatamiSelectionScreen" class="bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-xl text-center space-y-6">
+            <div>
+                <h2 class="text-xl font-black uppercase tracking-wide text-white mb-2">Seleziona il Tatami Operativo</h2>
+                <p class="text-xs text-slate-400">Clicca su "Sincronizza Tatami" in alto se hai modificato i tatami attivi dal gestionale.</p>
             </div>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6" id="tatamiButtonsGrid">
-                <!-- Generati dinamicamente dal Cloud -->
-            </div>
-            <button onclick="caricaTatamiAttivi()" class="text-xs text-emerald-400 hover:underline font-bold uppercase cursor-pointer">
-                <i class="fa-solid fa-rotate mr-1"></i> Aggiorna Tatami Attivi
-            </button>
+            <div id="tatamiButtonsGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mx-auto"></div>
         </div>
 
-        <!-- STEP 2: GESTIONE INCONTRI DEL TATAMI -->
-        <div id="liveStep" class="hidden space-y-6">
-            <div class="flex items-center justify-between bg-slate-900 border border-slate-800 p-4 rounded-xl">
-                <div>
-                    <h2 id="activeTatamiHeading" class="text-lg font-black uppercase text-emerald-400">Tatami -</h2>
-                    <p class="text-xs text-slate-400">Gestione incontri in tempo reale e assegnazione vincitori.</p>
+        <div id="tatamiTerminalScreen" class="hidden space-y-5">
+            
+            <div class="flex items-center justify-between bg-slate-900 border border-slate-700 p-3.5 rounded-xl shadow-md">
+                <div class="text-xs text-slate-300 font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-cloud-arrow-down text-emerald-400 text-sm"></i> Modificato i tatami su SmoothTech? Aggiorna la scaletta:
                 </div>
-                <button onclick="caricaDatiTatami()" class="bg-slate-800 hover:bg-emerald-600 text-white font-bold text-xs uppercase px-3.5 py-2 rounded-lg transition cursor-pointer flex items-center gap-2">
-                    <i class="fa-solid fa-rotate"></i> Aggiorna Scaletta
+                <button onclick="ricaricaCodaDalGestionale()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black uppercase px-5 py-2.5 rounded-lg shadow-md transition cursor-pointer flex items-center gap-2">
+                    <i class="fa-solid fa-arrows-rotate"></i> Aggiorna Coda / Match
                 </button>
             </div>
 
-            <!-- Lista Incontri del Tatami -->
-            <div id="matchesContainer" class="space-y-4">
-                <!-- Inserito via JS -->
+            <div id="activeMatchContainer" class="match-card active p-5 space-y-4">
+                <div class="flex flex-col sm:flex-row items-center justify-between border-b border-slate-700 pb-3 gap-3">
+                    <div>
+                        <span id="matchTurnoBadge" class="bg-amber-500 text-slate-950 font-black text-[10px] px-2.5 py-0.5 rounded uppercase tracking-wider inline-block mb-1">Turno</span>
+                        <h2 id="matchCategoriaTitle" class="text-sm md:text-base font-black uppercase text-white tracking-wide">Categoria</h2>
+                    </div>
+                    <div class="text-right flex items-center gap-2">
+                        <span id="matchIndexCounter" class="text-slate-400 text-[11px] font-bold uppercase tracking-wider">Match -- di --</span>
+                        <button onclick="tornaAllaSelezioneTatami()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded text-[10px] font-bold uppercase border border-slate-700 transition">
+                            <i class="fa-solid fa-exchange-alt mr-1"></i> Cambia
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div class="bg-slate-900 border border-slate-700 p-3.5 rounded-lg flex items-center justify-between gap-3">
+                        <div class="overflow-hidden">
+                            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">Atleta 1</span>
+                            <h3 id="atleta1Nome" class="text-sm font-black text-white truncate">---</h3>
+                            <p id="atleta1Team" class="text-[10px] text-emerald-400 font-semibold truncate">---</p>
+                        </div>
+                        <button onclick="registraVittoriaLive(1)" class="bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs uppercase px-4 py-2.5 rounded-lg shadow transition cursor-pointer flex items-center gap-1.5 shrink-0">
+                            <i class="fa-solid fa-trophy"></i> <b>VINCE</b>
+                        </button>
+                    </div>
+
+                    <div class="bg-slate-900 border border-slate-700 p-3.5 rounded-lg flex items-center justify-between gap-3">
+                        <div class="overflow-hidden">
+                            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">Atleta 2</span>
+                            <h3 id="atleta2Nome" class="text-sm font-black text-white truncate">---</h3>
+                            <p id="atleta2Team" class="text-[10px] text-emerald-400 font-semibold truncate">---</p>
+                        </div>
+                        <button onclick="registraVittoriaLive(2)" class="bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs uppercase px-4 py-2.5 rounded-lg shadow transition cursor-pointer flex items-center gap-1.5 shrink-0">
+                            <i class="fa-solid fa-trophy"></i> <b>VINCE</b>
+                        </button>
+                    </div>
+                </div>
             </div>
+
+            <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl space-y-3">
+                <h3 class="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-emerald-500"></i> Scaletta Match in Coda su questo Tatami
+                </h3>
+                <div id="poolQueueContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                    <div class="text-slate-500 text-xs text-center py-4 col-span-full">Nessun incontro in coda al momento.</div>
+                </div>
+            </div>
+
         </div>
 
     </main>
 
-    <!-- FOOTER -->
-    <footer class="bg-slate-900 border-t border-slate-800 py-3 px-6 text-center text-[11px] text-slate-500">
-        SmoothTech Tatami Terminal - CintheC Media © 2026
+    <footer class="bg-slate-900 text-slate-400 py-3 px-6 text-center text-xs border-t border-slate-800">
+        SmoothTech Tatami Live Terminal © 2026
     </footer>
 
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyJSPDKtM2XMbiGQD1BQmmbafPPqpFTBxMpVwJyPHHFsEuwiBQAplQR6HwPGE5F1TNs/exec";
-        let currentTatami = null;
+        let currentTatamiId = null;
+        let poolListForTatami = [];
+        let currentPoolIndex = 0;
+        let currentMatchIndex = 0;
+        let lastKnownTimestamp = null;
 
         window.addEventListener('DOMContentLoaded', () => {
-            caricaTatamiAttivi();
+            sincronizzaTatamiAccesi();
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('t')) {
+                let tId = parseInt(urlParams.get('t'));
+                selezionaTatami(tId);
+            }
+
+            setInterval(verificaAggiornamentiAutomatici, 3000);
         });
 
-        function caricaTatamiAttivi() {
-            let grid = document.getElementById('tatamiButtonsGrid');
-            grid.innerHTML = '<div class="col-span-full py-6 text-slate-400 text-xs"><i class="fa-solid fa-spinner fa-spin mr-1"></i> Sincronizzazione tatami attivi...</div>';
+        function showToast(message) {
+            let container = document.getElementById('toast-container');
+            let toast = document.createElement('div');
+            toast.className = 'custom-toast';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => { toast.remove(); }, 3000);
+        }
 
+        function sincronizzaTatamiAccesi() {
             fetch(SCRIPT_URL + "?action=getStatoTatami&t=" + new Date().getTime())
                 .then(res => res.json())
                 .then(data => {
-                    let attivi = (data && data.tatamiAttivi) ? data.tatamiAttivi.map(Number) : [];
-                    grid.innerHTML = '';
-
-                    if (attivi.length === 0) {
-                        grid.innerHTML = `<div class="col-span-full py-4 text-amber-400 text-xs font-bold bg-amber-500/10 border border-amber-500/20 rounded-lg">Nessun tatami attivo al momento. Accendine almeno uno dalla dashboard amministrativa.</div>`;
-                        return;
-                    }
-
-                    attivi.sort((a, b) => a - b).forEach(num => {
-                        grid.innerHTML += `
-                            <button onclick="selezionaTatami(${num})" class="bg-slate-800 hover:bg-emerald-600 hover:border-emerald-500 border border-slate-700 text-white font-black text-sm uppercase py-4 rounded-lg transition cursor-pointer shadow-sm flex flex-col items-center justify-center gap-1">
-                                <span>Tatami ${num}</span>
-                                <span class="text-[9px] bg-emerald-600/30 text-emerald-400 px-2 py-0.5 rounded-full font-bold">ONLINE</span>
-                            </button>
-                        `;
-                    });
+                    let attivi = (data && data.tatamiAttivi) ? data.tatamiAttivi.map(Number) : [1, 2, 3];
+                    renderGrigliaTatami(attivi);
+                    showToast("Stato tatami sincronizzato!");
                 })
                 .catch(err => {
-                    grid.innerHTML = `<div class="col-span-full py-4 text-red-400 text-xs font-bold">Errore di connessione al cloud. Riprova.</div>`;
+                    renderGrigliaTatami([1, 2, 3, 4]); 
+                    showToast("Stato tatami sincronizzato (offline)");
                 });
         }
 
-        function selezionaTatami(num) {
-            currentTatami = num;
-            document.getElementById('headerTatamiTitle').innerText = `Tatami ${num} Attivo`;
-            document.getElementById('activeTatamiHeading').innerText = `Tatami ${num} - Terminale Tavolo`;
-            
-            document.getElementById('selectionStep').classList.add('hidden');
-            document.getElementById('liveStep').classList.remove('hidden');
+        function renderGrigliaTatami(tatamiAttiviList) {
+            let grid = document.getElementById('tatamiButtonsGrid');
+            grid.innerHTML = '';
 
-            caricaDatiTatami();
+            for (let i = 1; i <= 8; i++) {
+                let isAcceso = tatamiAttiviList.includes(i);
+                if (isAcceso) {
+                    grid.innerHTML += `
+                        <button onclick="selezionaTatami(${i})" class="bg-slate-800 hover:bg-emerald-600 border border-emerald-500/50 hover:border-emerald-400 text-white font-black py-4 rounded-xl text-sm uppercase transition cursor-pointer shadow-sm flex flex-col items-center justify-center gap-1">
+                            <i class="fa-solid fa-map-pin text-emerald-400"></i> Tatami 0${i}
+                            <span class="text-[9px] text-emerald-400 font-normal">ACCESO</span>
+                        </button>
+                    `;
+                } else {
+                    grid.innerHTML += `
+                        <div class="bg-slate-950/50 border border-slate-800 text-slate-600 font-bold py-4 rounded-xl text-sm uppercase flex flex-col items-center justify-center gap-1 opacity-50 cursor-not-allowed">
+                            <i class="fa-solid fa-power-off text-slate-700"></i> Tatami 0${i}
+                            <span class="text-[9px] text-slate-600 font-normal">SPENTO</span>
+                        </div>
+                    `;
+                }
+            }
         }
 
-        function cambiaTatami() {
-            currentTatami = null;
-            document.getElementById('headerTatamiTitle').innerText = 'Nessun Tatami Selezionato';
-            document.getElementById('liveStep').classList.add('hidden');
-            document.getElementById('selectionStep').classList.remove('hidden');
-            caricaTatamiAttivi();
+        function selezionaTatami(id) {
+            currentTatamiId = id;
+            document.getElementById('tatamiIdentifierBadge').innerText = `Tatami 0${id}`;
+            document.getElementById('tatamiSelectionScreen').classList.add('hidden');
+            document.getElementById('tatamiTerminalScreen').classList.remove('hidden');
+            
+            caricaDatiTatami();
+            showToast(`Connesso al Tatami 0${id}`);
+        }
+
+        function ricaricaCodaDalGestionale() {
+            currentPoolIndex = 0;
+            currentMatchIndex = 0;
+            caricaDatiTatami();
+            showToast("Scaletta match e coda aggiornate dal gestionale!");
+        }
+
+        function verificaAggiornamentiAutomatici() {
+            let currentTimestamp = localStorage.getItem("smoothtech_distribution_timestamp");
+            if (currentTimestamp && currentTimestamp !== lastKnownTimestamp) {
+                lastKnownTimestamp = currentTimestamp;
+                if (currentTatamiId !== null) {
+                    caricaDatiTatami();
+                    showToast("Rilevata nuova distribuzione! Coda aggiornata in automatico.");
+                }
+            }
+        }
+
+        function tornaAllaSelezioneTatami() {
+            currentTatamiId = null;
+            document.getElementById('tatamiIdentifierBadge').innerText = "Selezione Tatami";
+            document.getElementById('tatamiTerminalScreen').classList.add('hidden');
+            document.getElementById('tatamiSelectionScreen').classList.remove('hidden');
+            sincronizzaTatamiAccesi();
         }
 
         function caricaDatiTatami() {
-            let container = document.getElementById('matchesContainer');
-            container.innerHTML = `
-                <div class="text-center py-12 text-slate-400 text-xs">
-                    <i class="fa-solid fa-spinner fa-spin text-lg mb-2"></i><br>Caricamento incontri per il Tatami ${currentTatami}...
-                </div>
-            `;
+            let dist = localStorage.getItem("smoothtech_active_distribution");
+            lastKnownTimestamp = localStorage.getItem("smoothtech_distribution_timestamp");
 
-            // Puntiamo correttamente al foglio dedicato MatchTatamiLive
-            fetch(SCRIPT_URL + "?action=getMatchTatamiLive&t=" + new Date().getTime())
-                .then(res => res.json())
-                .then(data => {
-                    let matches = (data && data.matchSalvati) ? data.matchSalvati.filter(m => Number(m.tatamiId) === Number(currentTatami)) : [];
-                    
-                    if (matches.length === 0) {
-                        container.innerHTML = `<div class="col-span-full py-12 text-slate-400 text-xs bg-slate-900 border border-slate-800 rounded-xl">Nessun incontro in programma per questo tatami. Dalla dashboard admin clicca su "Distribuisci Pool sui Tatami".</div>`;
-                        return;
-                    }
-
-                    let matchCorrente = matches[0];
-                    container.innerHTML = `
-                        <div class="match-card active p-5">
-                            <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-700">
-                                <span class="bg-emerald-600 text-white font-black text-[10px] uppercase px-2.5 py-1 rounded">Incontro in Corso</span>
-                                <span class="text-xs text-slate-400 font-semibold">Categoria / Lega: ${matchCorrente.lega || 'Generale'}</span>
-                            </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
-                                <div class="bg-slate-900 border border-slate-700 p-3.5 rounded-lg text-center">
-                                    <span class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Angolo Rosso</span>
-                                    <span class="text-sm font-black text-white block">${matchCorrente.atleta1}</span>
-                                    <span class="text-[10px] text-slate-500 block">${matchCorrente.team1 || 'Team'}</span>
-                                    <button onclick="registraVincitore('${matchCorrente.atleta1}', '${matchCorrente.atleta2}')" class="mt-3 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase py-2 rounded transition cursor-pointer">
-                                        Vince Rosso <i class="fa-solid fa-check ml-1"></i>
-                                    </button>
-                                </div>
-                                <div class="bg-slate-900 border border-slate-700 p-3.5 rounded-lg text-center">
-                                    <span class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Angolo Blu</span>
-                                    <span class="text-sm font-black text-white block">${matchCorrente.atleta2}</span>
-                                    <span class="text-[10px] text-slate-500 block">${matchCorrente.team2 || 'Team'}</span>
-                                    <button onclick="registraVincitore('${matchCorrente.atleta2}', '${matchCorrente.atleta1}')" class="mt-3 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase py-2 rounded transition cursor-pointer">
-                                        Vince Blu <i class="fa-solid fa-check ml-1"></i>
-                                    </button>
-                                </div>
-                            </div>
+            if (dist) {
+                let parsed = JSON.parse(dist);
+                if (parsed[currentTatamiId] && parsed[currentTatamiId].length > 0) {
+                    poolListForTatami = parsed[currentTatamiId];
+                    renderMatchCorrente();
+                    renderCodaPool();
+                } else {
+                    poolListForTatami = [];
+                    document.getElementById('activeMatchContainer').innerHTML = `
+                        <div class="text-center py-8 space-y-2">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-500 text-2xl"></i>
+                            <h2 class="text-sm font-black uppercase text-white">Nessuna pool distribuita su questo tatami</h2>
+                            <p class="text-[11px] text-slate-400">Torna a SmoothTech, ridistribuisci e clicca su "Aggiorna Coda".</p>
                         </div>
                     `;
-                })
-                .catch(err => {
-                    container.innerHTML = `<div class="text-center py-12 text-red-400 text-xs bg-slate-900 border border-slate-800 rounded-xl">Errore nel caricamento dei match dal cloud.</div>`;
-                });
+                }
+            }
         }
 
-        function registraVincitore(vincitore, sconfitto) {
-            if (confirm(`Confermi la vittoria di "${vincitore}" per questo incontro?`)) {
-                fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { "Content-Type": "text/plain;charset=utf-8" },
-                    body: JSON.stringify({ action: "eliminaMatchTatami", atleta1: vincitore, atleta2: sconfitto })
-                })
-                .then(res => res.json())
-                .then(res => {
-                    alert("Risultato registrato! Il tabellone avanza al match successivo.");
-                    caricaDatiTatami();
-                })
-                .catch(err => {
-                    alert("Errore di comunicazione con il cloud.");
-                });
+        function renderMatchCorrente() {
+            if (currentPoolIndex >= poolListForTatami.length) {
+                document.getElementById('activeMatchContainer').innerHTML = `
+                    <div class="text-center py-8 space-y-2">
+                        <i class="fa-solid fa-circle-check text-emerald-500 text-3xl"></i>
+                        <h2 class="text-sm font-black uppercase text-white">Tutte le pool di questo tatami sono terminate!</h2>
+                        <p class="text-[11px] text-slate-400">Il podio è stato inviato all'area amministrativa.</p>
+                    </div>
+                `;
+                return;
             }
+
+            let poolCorrente = poolListForTatami[currentPoolIndex];
+            let pairings = poolCorrente.data.pairings;
+            let match = pairings[currentMatchIndex];
+            let totalP = pairings.length;
+
+            let nomeTurno = "Incontro Preliminare";
+            if (totalP >= 4) {
+                if (currentMatchIndex === totalP - 1) nomeTurno = "FINALE";
+                else if (currentMatchIndex === totalP - 2 || currentMatchIndex === totalP - 3) nomeTurno = "Semifinale";
+                else nomeTurno = "Quarti di Finale";
+            } else if (totalP === 3) {
+                if (currentMatchIndex === 2) nomeTurno = "FINALE";
+                else nomeTurno = "Semifinale";
+            } else {
+                nomeTurno = "FINALE";
+            }
+
+            document.getElementById('matchTurnoBadge').innerText = nomeTurno;
+            document.getElementById('matchCategoriaTitle').innerText = poolCorrente.key;
+            document.getElementById('matchIndexCounter').innerText = `Match #${currentMatchIndex + 1} di ${totalP}`;
+
+            document.getElementById('atleta1Nome').innerText = match.a1.nome;
+            document.getElementById('atleta1Team').innerText = match.a1.team;
+
+            document.getElementById('atleta2Nome').innerText = match.a2.nome;
+            document.getElementById('atleta2Team').innerText = match.a2.team;
+        }
+
+        function renderCodaPool() {
+            let queueContainer = document.getElementById('poolQueueContainer');
+            queueContainer.innerHTML = '';
+
+            if (currentPoolIndex >= poolListForTatami.length) {
+                queueContainer.innerHTML = `<div class="text-slate-500 text-xs text-center py-2 col-span-full">Coda completata.</div>`;
+                return;
+            }
+
+            let poolCorrente = poolListForTatami[currentPoolIndex];
+            poolCorrente.data.pairings.forEach((m, idx) => {
+                let isCurrent = (idx === currentMatchIndex);
+                queueContainer.innerHTML += `
+                    <div class="flex items-center justify-between p-2 rounded border ${isCurrent ? 'bg-slate-800 border-emerald-500 text-white font-bold' : 'bg-slate-900/50 border-slate-800 text-slate-400'} text-[11px]">
+                        <span class="truncate"><b>M.${idx + 1}</b>: ${m.a1.nome} vs ${m.a2.nome}</span>
+                        <span class="text-[9px] shrink-0 ml-2 ${isCurrent ? 'text-emerald-400 font-black' : ''}">${isCurrent ? 'In Corso' : 'In Coda'}</span>
+                    </div>
+                `;
+            });
+        }
+
+        function registraVittoriaLive(atletaNum) {
+            let poolCorrente = poolListForTatami[currentPoolIndex];
+            let pairings = poolCorrente.data.pairings;
+            let match = pairings[currentMatchIndex];
+            let vincitore = atletaNum === 1 ? match.a1.nome : match.a2.nome;
+            let isUltimoMatch = (currentMatchIndex === pairings.length - 1);
+
+            if (isUltimoMatch) {
+                let sconfitto = atletaNum === 1 ? match.a2.nome : match.a1.nome;
+                let podioPayload = {
+                    categoria: poolCorrente.key,
+                    primo: vincitore,
+                    secondo: sconfitto,
+                    terzi: ["Semifinalista Sconfitto A", "Semifinalista Sconfitto B"],
+                    partecipanti: poolCorrente.data.partecipanti || [],
+                    premiato: false
+                };
+
+                localStorage.setItem("smoothtech_new_podium", JSON.stringify(podioPayload));
+                showToast(`FINALE TERMINATA! Pool conclusa, podio inviato al gestionale.`);
+
+                currentPoolIndex++;
+                currentMatchIndex = 0;
+            } else {
+                currentMatchIndex++;
+                showToast(`Incontro vinto da ${vincitore}. Avanzamento match.`);
+            }
+
+            renderMatchCorrente();
+            renderCodaPool();
         }
     </script>
 </body>
