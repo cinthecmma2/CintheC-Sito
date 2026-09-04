@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CintheC Media - Tornei & Eventi Ufficiali</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #f8fafc; }
+        button, a, input, select, textarea { transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
+        button:active, a.inline-flex:active { transform: scale(0.97) !important; }
+
+        .tech-diagonal-bg {
+            background-image: 
+                linear-gradient(135deg, rgba(15, 23, 42, 0.02) 25%, transparent 25%), 
+                linear-gradient(225deg, rgba(15, 23, 42, 0.02) 25%, transparent 25%), 
+                linear-gradient(45deg, rgba(15, 23, 42, 0.02) 25%, transparent 25%), 
+                linear-gradient(315deg, rgba(15, 23, 42, 0.02) 25%, #f8fafc 25%),
+                radial-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px, 40px 40px, 40px 40px, 40px 40px, 20px 20px;
+        }
+
+        .pro-header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-bottom: 1px solid #334155; box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.2); }
+        .pro-footer-compact { background-color: #0f172a; color: #94a3b8; border-top: 1px solid #1e293b; font-size: 11px; }
+
+        .nav-tech-btn {
+            background-color: #334155; border: 1px solid #475569; color: #ffffff;
+            padding: 7px 16px; font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.05em; display: inline-flex; align-items: center; gap: 6px;
+            border-radius: 6px; text-decoration: none; white-space: nowrap;
+        }
+        .nav-tech-btn:hover { border-color: #22c55e; background-color: #0f172a; color: #22c55e; }
+
+        .admin-pro-btn {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: #ffffff; border: 1px solid #475569; padding: 7px 14px;
+            font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;
+            display: inline-flex; align-items: center; gap: 6px; border-radius: 6px; cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .admin-pro-btn:hover { background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); border-color: #22c55e; transform: translateY(-1px); }
+
+        .pro-tournament-card {
+            background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+        }
+        .pro-tournament-card:hover {
+            border-color: #22c55e; transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(34, 197, 94, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .logo-left-cinthec { width: 120px !important; height: 45px !important; object-fit: contain !important; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+        .logo-right-leoni { width: 34px !important; height: 34px !important; object-fit: contain !important; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+    </style>
+</head>
+<body class="tech-diagonal-bg text-slate-800 antialiased min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-white">
+
+    <!-- BLOCCO TRASPARENTE / OVERLAY FISSO -->
+    <div class="fixed inset-0 z-40 bg-slate-950/50 backdrop-blur-[2px] pointer-events-auto"></div>
+
+    <!-- POP-UP FISSO CON FRASE E PULSANTE RITORNO HOME -->
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-auto">
+        <div class="bg-white border border-slate-200 rounded-xl max-w-md w-full p-6 sm:p-8 text-center shadow-2xl relative text-slate-800">
+            <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl shadow-inner">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <span class="bg-emerald-50 text-emerald-700 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-emerald-200 mb-2 inline-block">
+                CintheC Hub
+            </span>
+            <h3 class="text-lg font-black uppercase tracking-tight text-slate-900 mb-2">Aggiornamento in Corso</h3>
+            <p class="text-xs sm:text-sm text-slate-600 mb-6 leading-relaxed font-semibold">
+                A presto novità con il nuovo Smooth Tech!!
+            </p>
+            <a href="index.html" class="w-full bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs uppercase py-3.5 rounded-lg transition shadow-md cursor-pointer flex items-center justify-center gap-2 text-decoration-none">
+                <i class="fa-solid fa-house text-emerald-400"></i> <span>Torna alla Home</span>
+            </a>
+        </div>
+    </div>
+
+    <header class="pro-header sticky top-0 z-30 h-16 flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full grid grid-cols-3 items-center">
+            <div class="flex items-center justify-start">
+                <a href="index.html" class="flex items-center">
+                    <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                </a>
+            </div>
+            <div class="flex items-center justify-center">
+                <a href="index.html" class="nav-tech-btn">
+                    <i class="fa-solid fa-house text-emerald-400"></i> Home
+                </a>
+            </div>
+            <div class="flex items-center justify-end gap-3">
+                <button onclick="openAdminModal()" class="admin-pro-btn">
+                    <i class="fa-solid fa-gear text-emerald-400"></i> <span>Gestione Admin</span>
+                </button>
+                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="flex items-center">
+                    <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="logo-right-leoni" onerror="this.style.display='none';">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-10 w-full flex-grow">
+        <div class="text-center max-w-xl mx-auto mb-10">
+            <span class="bg-emerald-50 text-emerald-700 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-emerald-200 mb-2 inline-block">
+                CintheC Hub Ufficiale
+            </span>
+            <h1 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-slate-900 mb-2">Piattaforma Tornei & Registrazioni</h1>
+            <p class="text-xs text-slate-500">Seleziona un evento per visualizzare i dettagli, le categorie e procedere con l'iscrizione online.</p>
+        </div>
+
+        <div class="max-w-md mx-auto mb-10">
+            <div class="relative shadow-sm rounded-lg overflow-hidden border border-slate-300 bg-white">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 text-xs">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <input type="text" id="searchTournament" onkeyup="filterTournaments()" placeholder="Cerca torneo per nome o località..." class="w-full bg-white text-slate-800 text-xs pl-11 pr-4 py-3.5 focus:outline-none focus:ring-1 focus:ring-emerald-500 transition">
+            </div>
+        </div>
+
+        <div id="tournamentsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </main>
+
+    <!-- MODALE ADMIN -->
+    <div id="adminModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-sm hidden p-4">
+        <div class="bg-white border border-slate-200 rounded-xl max-w-md w-full p-6 relative shadow-2xl text-slate-800 max-h-[90vh] overflow-y-auto">
+            <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-base font-bold w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div id="adminLoginStep">
+                <div class="w-12 h-12 bg-slate-900 text-slate-300 rounded-lg flex items-center justify-center mb-4 text-lg shadow-sm">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h3 class="text-base font-extrabold text-slate-900 mb-1 uppercase tracking-wide">Pannello Organizzatori</h3>
+                <p class="text-xs text-slate-500 mb-6">Accedi agli strumenti di controllo avanzati per tornei e iscritti.</p>
+                <button onclick="directAdminLogin(event)" class="w-full bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs uppercase py-3.5 rounded-lg transition shadow-sm cursor-pointer flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-right-to-bracket text-emerald-400"></i> Accedi al Pannello
+                </button>
+            </div>
+
+            <div id="adminChoiceStep" class="hidden space-y-3">
+                <div class="w-12 h-12 bg-slate-900 text-slate-300 rounded-lg flex items-center justify-center mb-4 text-lg shadow-sm">
+                    <i class="fa-solid fa-sliders"></i>
+                </div>
+                <h3 class="text-base font-extrabold text-slate-900 mb-1 uppercase tracking-wide">Gestione Tornei & Iscritti</h3>
+                <p class="text-xs text-slate-500 mb-5">Seleziona l'area di gestione desiderata:</p>
+                
+                <button onclick="showAddForm()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase py-3.5 rounded-lg transition shadow-sm flex items-center justify-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-plus text-emerald-400"></i> Aggiungi Nuovo Torneo
+                </button>
+                
+                <button onclick="showEditList()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase py-3.5 rounded-lg transition shadow-sm flex items-center justify-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-pen-to-square text-rose-500"></i> Modifica Stato Tornei
+                </button>
+
+                <a href="smoothtech.html" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase py-3.5 rounded-lg transition shadow-sm flex items-center justify-center gap-2 cursor-pointer text-decoration-none">
+                    <i class="fa-solid fa-users-gear text-emerald-400"></i> Gestione Iscritti
+                </a>
+            </div>
+
+            <div id="adminAddFormStep" class="hidden">
+                <button onclick="backToChoice()" class="text-xs font-bold text-emerald-600 mb-4 flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-arrow-left"></i> Torna Indietro
+                </button>
+                <h3 class="text-base font-extrabold text-slate-900 mb-4 uppercase tracking-wide">Nuovo Torneo</h3>
+                <form onsubmit="addNewTournament(event)" class="space-y-3">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Nome del Torneo</label>
+                        <input type="text" id="newTitle" required placeholder="Es. CintheC 12" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Data</label>
+                            <input type="text" id="newDate" required placeholder="18 Ott 2026" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Città</label>
+                            <input type="text" id="newLocation" required placeholder="Palasport, Chioggia" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-emerald-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Stato</label>
+                        <select id="newStatus" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-emerald-500">
+                            <option value="Iscrizioni Aperte">Iscrizioni Aperte</option>
+                            <option value="Prossimamente">Prossimamente</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Descrizione</label>
+                        <textarea id="newDesc" rows="2" placeholder="Dettagli..." class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-emerald-500"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase py-3 rounded-lg transition shadow-sm mt-2 cursor-pointer">
+                        Pubblica Torneo
+                    </button>
+                </form>
+            </div>
+
+            <div id="adminEditFormStep" class="hidden">
+                <button onclick="backToChoice()" class="text-xs font-bold text-emerald-600 mb-4 flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-arrow-left"></i> Torna Indietro
+                </button>
+                <h3 class="text-base font-extrabold text-slate-900 mb-1 uppercase tracking-wide">Modifica o Elimina Torneo</h3>
+                <p class="text-xs text-slate-500 mb-4">Modifica lo stato o elimina definitivamente l'evento.</p>
+                <div id="tournamentsEditList" class="space-y-3"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE DI CONFERMA ELIMINAZIONE PERSONALIZZATO -->
+    <div id="confirmDeleteModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-sm hidden p-4">
+        <div class="bg-white border border-slate-200 rounded-xl max-w-sm w-full p-6 text-center shadow-2xl relative text-slate-800">
+            <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 class="text-base font-black uppercase tracking-tight text-slate-900 mb-1">Conferma Eliminazione</h3>
+            <p class="text-xs text-slate-500 mb-5">Sei sicuro di voler eliminare definitivamente questo torneo dal sistema e dal cloud?</p>
+            <div class="grid grid-cols-2 gap-2">
+                <button onclick="closeConfirmModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs uppercase py-2.5 rounded-lg transition cursor-pointer">
+                    Annulla
+                </button>
+                <button id="confirmDeleteBtn" class="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs uppercase py-2.5 rounded-lg transition cursor-pointer">
+                    Elimina
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE SUCCESSO -->
+    <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-sm hidden p-4">
+        <div class="bg-white border border-slate-200 rounded-xl max-w-sm w-full p-6 text-center shadow-2xl relative text-slate-800">
+            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="text-base font-black uppercase tracking-tight text-slate-900 mb-1">Operazione Riuscita!</h3>
+            <p id="successModalText" class="text-xs text-slate-500 mb-5">Modifiche salvate correttamente nel sistema.</p>
+            <button onclick="closeSuccessModal()" class="w-full bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs uppercase py-3 rounded-lg transition cursor-pointer">
+                Ottimo, Procedi
+            </button>
+        </div>
+    </div>
+
+    <footer class="pro-footer-compact py-4 px-6 sm:px-10">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+            <div>
+                <p class="font-bold text-slate-200 text-xs">CintheC Media & Leoni di San Marco</p>
+                <p class="text-[10px] text-slate-400">Piattaforma ufficiale tornei e registrazioni © 2026</p>
+            </div>
+            <div class="flex gap-3 text-base text-slate-300">
+                <i class="fa-brands fa-cc-visa" title="Visa"></i>
+                <i class="fa-brands fa-cc-mastercard" title="Mastercard"></i>
+                <i class="fa-brands fa-apple-pay" title="Apple Pay"></i>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyJSPDKtM2XMbiGQD1BQmmbafPPqpFTBxMpVwJyPHHFsEuwiBQAplQR6HwPGE5F1TNs/exec";
+        let tournamentToDeleteId = null;
+
+        let defaultTournaments = [
+            { id: "torneo-1", title: "CintheC 11 - Official Tournament", date: "18 Ottobre 2026", location: "Palasport, Chioggia (VE)", status: "Iscrizioni Aperte", desc: "Torneo ufficiale di grappling e BJJ con categorie di peso e cinture." },
+            { id: "torneo-2", title: "Leoni Cup - Grappling & MMA", date: "15 Novembre 2026", location: "Palaindoor, Padova", status: "Prossimamente", desc: "Edizione speciale autunnale dedicata agli sport da combattimento misti." },
+            { id: "torneo-3", title: "Labirinth Knockout Edition", date: "05 Dicembre 2026", location: "Palasport Taliercio, Mestre", status: "Iscrizioni Aperte", desc: "Competizione ad eliminazione diretta per atleti di livello avanzato." },
+            { id: "torneo-4", title: "Venice Open Combat", date: "20 Gennaio 2027", location: "PalaVerde, Villorba (TV)", status: "Prossimamente", desc: "Grande evento internazionale d'apertura anno." }
+        ];
+
+        window.addEventListener('DOMContentLoaded', () => { loadTournaments(); });
+
+        function loadTournaments() {
+            let saved = localStorage.getItem('cinthec_tornei');
+            let tornei = saved ? JSON.parse(saved) : defaultTournaments;
+            renderTournaments(tornei);
+        }
+
+        function saveTournamentsToStorage(tornei) { localStorage.setItem('cinthec_tornei', JSON.stringify(tornei)); }
+
+        function renderTournaments(tornei) {
+            let grid = document.getElementById('tournamentsGrid');
+            grid.innerHTML = '';
+
+            tornei.forEach(t => {
+                let badgeColor = "bg-emerald-600";
+                if (t.status === "Iscrizioni Chiuse") badgeColor = "bg-amber-600";
+                else if (t.status === "Prossimamente") badgeColor = "bg-slate-700";
+                else if (t.status === "Evento Concluso") badgeColor = "bg-slate-500";
+
+                let searchName = (t.title + " " + t.location).toLowerCase();
+                let card = document.createElement('div');
+                card.className = "pro-tournament-card flex flex-col justify-between overflow-hidden group";
+                card.setAttribute('data-id', t.id);
+                card.setAttribute('data-name', searchName);
+
+                let actionHtml = '';
+                if (t.status === "Iscrizioni Aperte") {
+                    actionHtml = `<a href="tornei1.html?torneo=${encodeURIComponent(t.title)}" class="w-full bg-slate-900 hover:bg-emerald-600 text-white text-center font-bold text-[11px] uppercase py-3 rounded-lg transition flex items-center justify-center gap-2 shadow-sm"><span>Iscriviti Ora</span> <i class="fa-solid fa-arrow-right text-[9px]"></i></a>`;
+                } else if (t.status === "Iscrizioni Chiuse") {
+                    actionHtml = `<button disabled class="w-full bg-slate-200 text-slate-400 text-center font-bold text-[11px] uppercase py-3 rounded-lg cursor-not-allowed flex items-center justify-center gap-2"><span>Iscrizioni Chiuse</span> <i class="fa-solid fa-lock text-[9px]"></i></button>`;
+                } else {
+                    actionHtml = `<a href="#" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-center font-bold text-[11px] uppercase py-3 rounded-lg transition flex items-center justify-center gap-2"><span>Dettagli Evento</span> <i class="fa-solid fa-arrow-right text-[9px]"></i></a>`;
+                }
+
+                card.innerHTML = `
+                    <div>
+                        <div class="relative h-20 bg-slate-900 flex items-center justify-center border-b border-slate-800">
+                            <span class="text-white text-[10px] font-black uppercase tracking-widest opacity-80"><i class="fa-solid fa-shield-halved text-emerald-400 mr-1.5"></i> CintheC Official</span>
+                            <div class="absolute top-2.5 right-2.5 ${badgeColor} text-white text-[9px] font-extrabold uppercase px-2.5 py-0.5 rounded-md shadow-sm">
+                                ${t.status}
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center gap-1.5 text-[11px] text-emerald-600 font-bold mb-1.5">
+                                <i class="fa-regular fa-calendar"></i> ${t.date}
+                            </div>
+                            <h3 class="tournament-title text-sm font-black text-slate-900 mb-1.5 uppercase tracking-tight">${t.title}</h3>
+                            <p class="text-[11px] text-slate-500 flex items-center gap-1.5 mb-3">
+                                <i class="fa-solid fa-location-dot text-rose-500"></i> ${t.location}
+                            </p>
+                            <p class="text-[11px] text-slate-600 line-clamp-2 leading-relaxed">${t.desc || 'Nessuna descrizione aggiuntiva.'}</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        ${actionHtml}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function openAdminModal() { document.getElementById('adminModal').classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            document.getElementById('adminLoginStep').classList.remove('hidden');
+            document.getElementById('adminChoiceStep').classList.add('hidden');
+            document.getElementById('adminAddFormStep').classList.add('hidden');
+            document.getElementById('adminEditFormStep').classList.add('hidden');
+        }
+        function backToChoice() {
+            document.getElementById('adminAddFormStep').classList.add('hidden');
+            document.getElementById('adminEditFormStep').classList.add('hidden');
+            document.getElementById('adminChoiceStep').classList.remove('hidden');
+        }
+        function showAddForm() { document.getElementById('adminChoiceStep').classList.add('hidden'); document.getElementById('adminAddFormStep').classList.remove('hidden'); }
+        function showEditList() {
+            document.getElementById('adminChoiceStep').classList.add('hidden');
+            document.getElementById('adminEditFormStep').classList.remove('hidden');
+            let listContainer = document.getElementById('tournamentsEditList');
+            listContainer.innerHTML = '';
+            let cards = document.querySelectorAll('#tournamentsGrid > div');
+            cards.forEach(card => {
+                let id = card.getAttribute('data-id');
+                let title = card.querySelector('.tournament-title').innerText;
+                let currentBadge = card.querySelector('.absolute.top-2\\.5').innerText.trim();
+                let item = document.createElement('div');
+                item.className = "bg-slate-50 border border-slate-200 p-3.5 rounded-lg flex flex-col gap-2.5";
+                item.innerHTML = `
+                    <span class="font-bold text-xs text-slate-900">${title}</span>
+                    <div class="flex items-center gap-2">
+                        <select id="status-${id}" class="w-full bg-white border border-slate-300 text-slate-800 text-xs rounded-lg px-2 py-2 focus:outline-none focus:border-emerald-500">
+                            <option value="Iscrizioni Aperte" ${currentBadge === 'Iscrizioni Aperte' ? 'selected' : ''}>Aperte</option>
+                            <option value="Iscrizioni Chiuse" ${currentBadge === 'Iscrizioni Chiuse' ? 'selected' : ''}>Chiuse</option>
+                            <option value="Prossimamente" ${currentBadge === 'Prossimamente' ? 'selected' : ''}>Prossimamente</option>
+                            <option value="Evento Concluso" ${currentBadge === 'Evento Concluso' ? 'selected' : ''}>Concluso</option>
+                        </select>
+                        <button onclick="updateTournamentStatus('${id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase px-3 py-2 rounded-lg cursor-pointer whitespace-nowrap" title="Salva Stato">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                        </button>
+                        <button onclick="confirmDeleteTournament('${id}')" class="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs uppercase px-3 py-2 rounded-lg cursor-pointer whitespace-nowrap" title="Elimina Torneo">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                `;
+                listContainer.appendChild(item);
+            });
+        }
+        function directAdminLogin(e) { e.preventDefault(); document.getElementById('adminLoginStep').classList.add('hidden'); document.getElementById('adminChoiceStep').classList.remove('hidden'); }
+        
+        function updateTournamentStatus(id) {
+            let newStatus = document.getElementById(`status-${id}`).value;
+            let saved = localStorage.getItem('cinthec_tornei');
+            let tornei = saved ? JSON.parse(saved) : defaultTournaments;
+            let found = tornei.find(t => t.id === id);
+            if (found) { 
+                found.status = newStatus; 
+                saveTournamentsToStorage(tornei); 
+                fetch(SCRIPT_URL, {
+                    method: "POST",
+                    body: JSON.stringify({ action: "aggiornaStatoTorneo", id: id, status: newStatus })
+                }).catch(err => console.log("Cloud sync error:", err));
+            }
+            closeAdminModal();
+            showSuccessModal("Stato del torneo aggiornato con successo.");
+            loadTournaments();
+        }
+
+        function confirmDeleteTournament(id) {
+            tournamentToDeleteId = id;
+            document.getElementById('confirmDeleteModal').classList.remove('hidden');
+            document.getElementById('confirmDeleteBtn').onclick = executeDeleteTournament;
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirmDeleteModal').classList.add('hidden');
+            tournamentToDeleteId = null;
+        }
+
+        function executeDeleteTournament() {
+            if (!tournamentToDeleteId) return;
+            let id = tournamentToDeleteId;
+            closeConfirmModal();
+
+            let saved = localStorage.getItem('cinthec_tornei');
+            let tornei = saved ? JSON.parse(saved) : defaultTournaments;
+            let filtered = tornei.filter(t => t.id !== id);
+            saveTournamentsToStorage(filtered);
+
+            fetch(SCRIPT_URL, {
+                method: "POST",
+                body: JSON.stringify({ action: "eliminaTorneo", id: id })
+            }).catch(err => console.log("Cloud delete sync error:", err));
+
+            closeAdminModal();
+            showSuccessModal("Il torneo è stato eliminato definitivamente.");
+            loadTournaments();
+        }
+
+        function addNewTournament(e) {
+            e.preventDefault();
+            let newTorneo = {
+                id: 'torneo-' + Date.now(),
+                title: document.getElementById('newTitle').value,
+                date: document.getElementById('newDate').value,
+                location: document.getElementById('newLocation').value,
+                status: document.getElementById('newStatus').value,
+                desc: document.getElementById('newDesc').value
+            };
+            let saved = localStorage.getItem('cinthec_tornei');
+            let tornei = saved ? JSON.parse(saved) : defaultTournaments;
+            tornei.unshift(newTorneo);
+            saveTournamentsToStorage(tornei);
+
+            fetch(SCRIPT_URL, {
+                method: "POST",
+                body: JSON.stringify(Object.assign({ action: "salvaTorneo" }, newTorneo))
+            }).catch(err => console.log("Cloud add sync error:", err));
+
+            closeAdminModal();
+            showSuccessModal("Nuovo torneo pubblicato correttamente online!");
+            loadTournaments();
+        }
+
+        function showSuccessModal(text) { document.getElementById('successModalText').innerText = text; document.getElementById('successModal').classList.remove('hidden'); }
+        function closeSuccessModal() { document.getElementById('successModal').classList.add('hidden'); }
+        function filterTournaments() {
+            let input = document.getElementById('searchTournament').value.toLowerCase();
+            document.querySelectorAll('#tournamentsGrid > div').forEach(card => {
+                card.style.display = card.getAttribute('data-name').includes(input) ? "flex" : "none";
+            });
+        }
+        window.onclick = function(e) {
+            if (e.target === document.getElementById('adminModal')) closeAdminModal();
+            if (e.target === document.getElementById('successModal')) closeSuccessModal();
+            if (e.target === document.getElementById('confirmDeleteModal')) closeConfirmModal();
+        }
+    </script>
+</body>
+</html>
