@@ -18,7 +18,6 @@
             box-shadow: 0 0 15px rgba(0, 255, 102, 0.6) !important;
         }
         
-        /* SFONDO GENERALE CON TAGLI DIAGONALI LEGGERI */
         .site-bg-cuts {
             background-color: #f4f4f6;
             background-image: 
@@ -30,7 +29,6 @@
             background-position: 0 0, 0 30px, 30px -30px, -30px 0px;
         }
 
-        /* BARRA / HEADER / FOOTER NERI CON FULMINI */
         .bar-lightning-bg {
             background-color: #000000;
             background-image: 
@@ -40,7 +38,6 @@
             background-position: center;
         }
 
-        /* STILE MINIMALE PULITO */
         .minimal-ranking-card {
             background: #ffffff;
             border: 1px solid #e4e4e7;
@@ -58,9 +55,7 @@
             align-items: center;
             gap: 5px;
         }
-        .pc-nav-link:hover {
-            color: #00ff66;
-        }
+        .pc-nav-link:hover { color: #00ff66; }
 
         .nav-dropdown-btn {
             background-color: rgba(18, 18, 20, 0.85);
@@ -77,16 +72,9 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             border-radius: 0px !important;
         }
-        .nav-dropdown-btn:hover {
-            border-color: #00ff66;
-            background-color: rgba(0, 0, 0, 0.95);
-        }
+        .nav-dropdown-btn:hover { border-color: #00ff66; background-color: rgba(0, 0, 0, 0.95); }
 
-        .dropdown { 
-            position: relative; 
-            display: inline-block; 
-            z-index: 100; 
-        }
+        .dropdown { position: relative; display: inline-block; z-index: 100; }
         
         .dropdown-content {
             display: none;
@@ -104,14 +92,8 @@
             margin-top: 0px;
         }
         
-        .dropdown-inner {
-            background-color: #121214;
-            border-top: 1px solid rgba(0, 255, 102, 0.2);
-        }
-
-        .dropdown-content.show, .mobile-dropdown-content.show {
-            display: block !important;
-        }
+        .dropdown-inner { background-color: #121214; border-top: 1px solid rgba(0, 255, 102, 0.2); }
+        .dropdown-content.show, .mobile-dropdown-content.show { display: block !important; }
 
         .mobile-dropdown-btn {
             background-color: rgba(20, 20, 24, 0.9);
@@ -129,10 +111,7 @@
             border-radius: 0px !important;
             cursor: pointer;
         }
-        .mobile-dropdown-btn:hover {
-            border-color: #ffffff;
-            background-color: rgba(0, 0, 0, 1);
-        }
+        .mobile-dropdown-btn:hover { border-color: #ffffff; background-color: rgba(0, 0, 0, 1); }
 
         .mobile-dropdown-content {
             display: none;
@@ -165,21 +144,8 @@
         .dropdown-content a:hover { background-color: #00ff66; color: black; }
         .mobile-dropdown-content a:hover { background-color: #ffffff; color: black; }
 
-        /* MISURE E PROPORZIONI ESATTE DEI LOGHI */
-        .logo-left-cinthec {
-            width: 180px !important;
-            height: 78px !important;
-            max-height: 78px !important;
-            object-fit: contain !important;
-            margin-left: -10px !important;
-        }
-        .logo-right-leoni {
-            width: 46px !important;
-            height: 46px !important;
-            max-height: 46px !important;
-            object-fit: contain !important;
-            margin-right: 14px !important;
-        }
+        .logo-left-cinthec { width: 180px !important; height: 78px !important; max-height: 78px !important; object-fit: contain !important; margin-left: -10px !important; }
+        .logo-right-leoni { width: 46px !important; height: 46px !important; max-height: 46px !important; object-fit: contain !important; margin-right: 14px !important; }
     </style>
 </head>
 <body class="site-bg-cuts text-zinc-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
@@ -254,14 +220,13 @@
     </header>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10 w-full flex-grow relative">
-        
         <div class="text-center mb-10">
             <h1 class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-zinc-900 mb-2">OFFICIAL RANKINGS CintheC</h1>
             <p class="text-xs sm:text-sm text-zinc-600 font-semibold">Classifiche ufficiali complete suddivise per categorie maschili e femminili.</p>
         </div>
 
         <div class="relative w-full">
-            
+            <!-- BOX BLOCCO / SEZIONE IN AGGIORNAMENTO -->
             <div class="absolute inset-0 bg-zinc-950/65 backdrop-blur-[1px] z-30 flex flex-col items-center justify-start pt-16 sm:pt-24 px-4 text-center rounded-2xl">
                 <div class="bg-zinc-900 border border-[#00ff66]/40 p-6 sm:p-8 max-w-lg shadow-2xl rounded-none space-y-3">
                     <span class="bg-[#00ff66] text-black font-black text-[9px] uppercase px-2.5 py-1 inline-block tracking-wider">Sezione in Aggiornamento</span>
@@ -277,6 +242,7 @@
                 </div>
             </div>
 
+            <!-- CONTENUTO SFONDO BLOCCATO -->
             <div class="opacity-55 pointer-events-none">
                 <div class="block md:hidden space-y-4" id="mobileRankingsList"></div>
 
@@ -289,9 +255,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto" id="row3Grid"></div>
                 </div>
             </div>
-
         </div>
-
     </main>
 
     <footer class="relative z-10 py-2 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-12">
@@ -377,17 +341,88 @@
 
     <script>
         const categoriesData = [
-            { title: "Pesi Mosca", weight: "56,7 kg (125 lbs)", champion: { name: "Joshua Van", img: "atleti/anuji.jpg" } },
-            { title: "Pesi Gallo", weight: "61,2 kg (135 lbs)", champion: { name: "Petr Yan", img: "atleti/balducci.jpg" } },
-            { title: "Pesi Piuma", weight: "65,8 kg (145 lbs)", champion: { name: "Alex Volkanovski", img: "atleti/drenica.jpg" } },
-            { title: "Pesi Leggeri", weight: "70,3 kg (155 lbs)", champion: { name: "Justin Gaethje", img: "atleti/pagotto.jpg" } },
-            { title: "Pesi Welter", weight: "77,1 kg (170 lbs)", champion: { name: "Mario Rossi", img: "atleti/el-medkour.jpg" } },
-            { title: "Pesi Medi", weight: "83,9 kg (185 lbs)", champion: { name: "Sean Strickland", img: "atleti/pitaveric.jpg" } },
-            { title: "Pesi Massimi Leggeri", weight: "93 kg (205 lbs)", champion: { name: "Carlos Ulberg", img: "atleti/perini.jpg" } },
-            { title: "Pesi Massimi", weight: "120,2 kg (265 lbs)", champion: { name: "Tom Aspinall", img: "atleti/piccini.jpg" } },
-            { title: "Women's Strawweight", weight: "52,2 kg (115 lbs)", champion: { name: "Mario Rossi", img: "atleti/anuji.jpg" } },
-            { title: "Women's Flyweight", weight: "56,7 kg (125 lbs)", champion: { name: "Mario Rossi", img: "atleti/balducci.jpg" } },
-            { title: "Women's Bantamweight", weight: "61,2 kg (135 lbs)", champion: { name: "Mario Rossi", img: "atleti/drenica.jpg" } }
+            { 
+                title: "Pesi Mosca", 
+                weight: "56,7 kg (125 lbs)", 
+                champion: { name: "Joshua Van", img: "atleti/anuji.jpg" },
+                fighters: Array(15).fill("Mario Rossi")
+            },
+            { 
+                title: "Pesi Gallo", 
+                weight: "61,2 kg (135 lbs)", 
+                champion: { name: "Petr Yan", img: "atleti/balducci.jpg" },
+                fighters: Array(15).fill("Mario Rossi")
+            },
+            { 
+                title: "Pesi Piuma", 
+                weight: "65,8 kg (145 lbs)", 
+                champion: { name: "Ousama Rachki", img: "atleti/drenica.jpg" },
+                fighters: [
+                    "Andrea Togni",
+                    "Massimiliano Bello",
+                    "Giovanni Parmentola",
+                    "Federico Frigerio",
+                    "Francesco Perini",
+                    "Matteo Perini",
+                    "Davide Pagotto",
+                    "Natay Gurnioli",
+                    "Andrei Gabura",
+                    "Luca Da Costa",
+                    "Atleta 11",
+                    "Atleta 12",
+                    "Atleta 13",
+                    "Atleta 14",
+                    "Atleta 15"
+                ]
+            },
+            { 
+                title: "Pesi Leggeri", 
+                weight: "70,3 kg (155 lbs)", 
+                champion: { name: "Justin Gaethje", img: "atleti/pagotto.jpg" },
+                fighters: Array(15).fill("Mario Rossi")
+            },
+            { 
+                title: "Pesi Welter", 
+                weight: "77,1 kg (170 lbs)", 
+                champion: { name: "Mario Rossi", img: "atleti/el-medkour.jpg" },
+                fighters: Array(15).fill("Mario Rossi")
+            },
+            { 
+                title: "Pesi Medi", 
+                weight: "83,9 kg (185 lbs)", 
+                champion: { name: "Sean Strickland", img: "atleti/pitaveric.jpg" },
+                fighters: Array(15).fill("Mario Rossi")
+            },
+            { 
+                title: "Pesi Massimi Leggeri", 
+                weight: "93 kg (205 lbs)", 
+                champion: { name: "Carlos Ulberg", img: "atleti/perini.jpg" },
+                fighters: Array(15).fill("Mario Rossi")
+            },
+            { 
+                title: "Pesi Massimi", 
+                weight: "120,2 kg (265 lbs)", 
+                champion: { name: "Tom Aspinall", img: "atleti/piccini.jpg" },
+                fighters: Array(15).fill("Mario Rossi")
+            },
+            { 
+                title: "Women's Strawweight", 
+                weight: "52,2 kg (115 lbs)", 
+                champion: { name: "Mario Rossi", img: "atleti/anuji.jpg" },
+                fighters: Array(15).fill("Mario Rossi")
+            },
+            { 
+                title: "Women's Flyweight", 
+                weight: "56,7 kg (125 lbs)", 
+                champion: { name: "Mario Rossi", img: "atleti/balducci.jpg" },
+                fighters: Array(15).fill("Mario Rossi")
+            },
+            { 
+                title: "Women's Bantamweight", 
+                weight: "61,2 kg (135 lbs)", 
+                champion: { name: "Mario Rossi", img: "atleti/drenica.jpg" },
+                fighters: Array(15).fill("Mario Rossi")
+            }
         ];
 
         function generateRankings() {
@@ -398,15 +433,16 @@
 
             categoriesData.forEach((cat, index) => {
                 let fightersListHtml = '';
-                for (let i = 1; i <= 15; i++) {
+                for (let i = 0; i < cat.fighters.length; i++) {
+                    let fighterName = cat.fighters[i];
                     fightersListHtml += `
                         <div class="flex items-center justify-between py-2 px-3 border-b border-zinc-100">
                             <div class="flex items-center gap-3">
-                                <span class="text-xs font-black text-black w-5 text-center">${i}</span>
+                                <span class="text-xs font-black text-black w-5 text-center">${i + 1}</span>
                                 <div class="w-7 h-7 rounded-full overflow-hidden bg-zinc-200 border border-zinc-300 shrink-0">
                                     <img src="atleti/logo.png" class="w-full h-full object-cover" onerror="this.src='Immagini/Logo.png'">
                                 </div>
-                                <span class="text-xs font-bold text-zinc-800">Mario Rossi</span>
+                                <span class="text-xs font-bold text-zinc-800">${fighterName}</span>
                             </div>
                         </div>
                     `;
@@ -490,7 +526,6 @@
 
         generateRankings();
 
-        /* GESTIONE APERTURA/CHIUSURA MENU A TENDINA AL CLIC (TOGGLE) */
         function toggleDropdown(event, dropdownId) {
             event.stopPropagation();
             const targetDropdown = document.getElementById(dropdownId);
