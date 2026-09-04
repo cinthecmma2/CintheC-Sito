@@ -242,16 +242,13 @@
     <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center">
         <div class="max-w-7xl mx-auto px-1 sm:px-6 w-full grid grid-cols-3 items-center relative z-50">
             
-            <!-- LOGO CINTHEC SINISTRA -->
             <div class="flex items-center justify-start">
                 <a href="index.html" class="flex items-center">
                     <img src="Immagini/Logo.png" alt="CintheC Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/logo.png';">
                 </a>
             </div>
 
-            <!-- BOTTONI / MENU CENTRALI (MOBILE + PC) -->
             <div class="flex items-center justify-center gap-1.5 w-full relative z-50">
-                <!-- Bottoni Mobile -->
                 <div class="dropdown md:hidden">
                     <button class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileEventsDropdown')">
                         <i class="fa-solid fa-trophy text-white"></i> Eventi <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
@@ -276,12 +273,12 @@
                             <a href="galleria.html">Shop</a>
                             <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank">Ticket</a>
                             <a href="iscrizione.html">Iscrizioni</a>
+                            <a href="tornei.html">Smooth Tech</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Menu PC (TUTTE LE SCRITTE BIANCHE CON ICONE) -->
-                <div class="hidden md:flex items-center gap-3">
+                <div class="hidden md:flex items-center gap-2 lg:gap-3">
                     <a href="index.html" class="pc-nav-link"><i class="fa-solid fa-house text-[#00ff66]"></i> Home</a>
                     <div class="dropdown">
                         <button class="nav-dropdown-btn" onclick="toggleDropdown(event, 'pcEventsDropdown')">
@@ -299,10 +296,10 @@
                     <a href="galleria.html" class="pc-nav-link"><i class="fa-solid fa-store text-[#00ff66]"></i> Shop</a>
                     <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="pc-nav-link"><i class="fa-solid fa-ticket text-[#00ff66]"></i> Ticket</a>
                     <a href="iscrizione.html" class="pc-nav-link"><i class="fa-solid fa-user-pen text-[#00ff66]"></i> Iscrizioni</a>
+                    <a href="tornei.html" class="pc-nav-link"><i class="fa-solid fa-users-gear text-[#00ff66]"></i> Smooth Tech</a>
                 </div>
             </div>
 
-            <!-- LOGO LEONI DI SAN MARCO DESTRA -->
             <div class="flex items-center justify-end">
                 <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="flex items-center">
                     <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="logo-right-leoni" onerror="this.style.display='none';">
@@ -315,7 +312,6 @@
         
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12 items-start">
             
-            <!-- LOCANDINA CON ZOOM RIDOTTO (object-fit: contain + sfondo scuro/neutro per evitare tagli) -->
             <div class="lg:col-span-2 bg-white rounded-none card-3d overflow-hidden group">
                 <div class="w-full overflow-hidden m-0 p-0 leading-none bg-zinc-950 h-[380px] sm:h-[480px] flex items-center justify-center">
                     <img src="Immagini/locandina-cinthec10.jpg" alt="CintheC 10 Locandina" class="w-full h-full object-contain p-2 group-hover:scale-101 transition duration-500 rounded-none" onerror="this.style.display='none';">
@@ -373,37 +369,36 @@
 
     </main>
 
-    <footer class="relative z-10 py-2 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-2 items-center text-center md:text-left">
+    <footer class="relative z-10 py-1.5 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-10">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 grid grid-cols-3 items-start gap-2 text-left">
             
-            <div class="flex flex-col items-center md:items-start gap-0.5">
+            <div class="flex flex-col items-start gap-0.5">
                 <h4 class="text-white font-bold text-[9px] uppercase tracking-wider mb-0.5">Seguici</h4>
-                <div class="flex flex-col gap-0.5 text-[11px]">
-                    <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
+                <div class="flex flex-col gap-0.5 text-[10px]">
+                    <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
                         <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> CintheC MMA
                     </a>
-                    <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
+                    <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
                         <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> Leoni di San Marco
                     </a>
-                    <a href="https://www.instagram.com/labirinthknockout?igsi=dGlwMGZ1amwyMjJr" target="_blank" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
+                    <a href="https://www.instagram.com/labirinthknockout?igsi=dGlwMGZ1amwyMjJr" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
                         <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> Labirinth Knockout
                     </a>
                 </div>
             </div>
 
             <div class="flex flex-col items-center text-center">
-                <h4 class="text-white font-bold text-[9px] mb-0.5 uppercase tracking-wider">Note Legali & Policy</h4>
-                <ul class="space-y-0.5 text-[11px] text-zinc-300">
+                <h4 class="text-white font-bold text-[9px] mb-0.5 uppercase tracking-wider">Note Legali</h4>
+                <ul class="flex flex-col gap-0.5 text-[10px] text-zinc-300">
                     <li><button onclick="apriModal('privacy')" class="hover:text-[#00ff66] transition cursor-pointer">Privacy Policy</button></li>
                     <li><button onclick="apriModal('termini')" class="hover:text-[#00ff66] transition cursor-pointer">Termini e Condizioni</button></li>
                     <li><button onclick="apriModal('cookie')" class="hover:text-[#00ff66] transition cursor-pointer">Cookie Policy</button></li>
                 </ul>
             </div>
 
-            <div class="flex flex-col items-center md:items-end">
-                <h4 class="text-white font-bold text-[9px] mb-0.5 uppercase tracking-wider">Pagamenti Sicuri</h4>
-                <p class="text-[9px] text-zinc-400 mb-0.5">Powered by Lemon Squeezy</p>
-                <div class="flex gap-2 text-base text-zinc-300">
+            <div class="flex flex-col items-end text-right">
+                <h4 class="text-white font-bold text-[9px] mb-1 uppercase tracking-wider">Pagamenti Sicuri</h4>
+                <div class="flex gap-1.5 text-sm sm:text-base text-zinc-300 justify-end flex-wrap">
                     <i class="fa-brands fa-cc-visa" title="Visa"></i>
                     <i class="fa-brands fa-cc-mastercard" title="Mastercard"></i>
                     <i class="fa-brands fa-cc-amex" title="American Express"></i>
@@ -414,12 +409,11 @@
             </div>
 
         </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-1 border-t border-zinc-900/80 text-center text-[9px] text-zinc-500 mt-1">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 pt-1 border-t border-zinc-900/80 text-center text-[8px] text-zinc-500 mt-1">
             <p>© 2026 CintheC & Leoni di San Marco. Tutti i diritti riservati.</p>
         </div>
     </footer>
 
-    <!-- MODALE POP-UP PER NOTE LEGALI -->
     <div id="legalModal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4">
         <div class="bg-zinc-900 text-white border border-zinc-700 rounded-none max-w-lg w-full p-6 relative shadow-2xl">
             <button onclick="chiudiModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-black cursor-pointer">&times;</button>
@@ -504,7 +498,6 @@
             container.scrollBy({ left: distance, behavior: 'smooth' });
         }
 
-        /* GESTIONE APERTURA/CHIUSURA MENU A TENDINA AL CLIC (TOGGLE) */
         function toggleDropdown(event, dropdownId) {
             event.stopPropagation();
             const targetDropdown = document.getElementById(dropdownId);

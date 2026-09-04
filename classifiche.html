@@ -187,16 +187,13 @@
     <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center">
         <div class="max-w-7xl mx-auto px-1 sm:px-6 w-full grid grid-cols-3 items-center relative z-50">
             
-            <!-- LOGO CINTHEC SINISTRA -->
             <div class="flex items-center justify-start">
                 <a href="index.html" class="flex items-center">
                     <img src="Immagini/Logo.jpeg" alt="CintheC Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                 </a>
             </div>
 
-            <!-- BOTTONI / MENU CENTRALI (MOBILE + PC) -->
             <div class="flex items-center justify-center gap-1.5 w-full">
-                <!-- Bottoni Mobile -->
                 <div class="dropdown md:hidden">
                     <button class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileEventsDropdown')">
                         <i class="fa-solid fa-trophy text-white"></i> Eventi <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
@@ -221,11 +218,11 @@
                             <a href="galleria.html">Shop</a>
                             <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank">Ticket</a>
                             <a href="iscrizione.html">Iscrizioni</a>
+                            <a href="tornei.html">Smooth Tech</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Menu PC -->
                 <div class="hidden md:flex items-center gap-3">
                     <a href="index.html" class="pc-nav-link"><i class="fa-solid fa-house text-[#00ff66]"></i> Home</a>
                     <div class="dropdown">
@@ -244,10 +241,10 @@
                     <a href="galleria.html" class="pc-nav-link"><i class="fa-solid fa-store text-[#00ff66]"></i> Shop</a>
                     <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="pc-nav-link"><i class="fa-solid fa-ticket text-[#00ff66]"></i> Ticket</a>
                     <a href="iscrizione.html" class="pc-nav-link"><i class="fa-solid fa-user-pen text-[#00ff66]"></i> Iscrizioni</a>
+                    <a href="tornei.html" class="pc-nav-link"><i class="fa-solid fa-users-gear text-[#00ff66]"></i> Smooth Tech</a>
                 </div>
             </div>
 
-            <!-- LOGO LEONI DI SAN MARCO DESTRA -->
             <div class="flex items-center justify-end">
                 <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="flex items-center">
                     <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="logo-right-leoni" onerror="this.style.display='none';">
@@ -263,10 +260,8 @@
             <p class="text-xs sm:text-sm text-zinc-600 font-semibold">Classifiche ufficiali complete suddivise per categorie maschili e femminili.</p>
         </div>
 
-        <!-- CONTENITORE PRINCIPALE CON VELO BILANCIATO -->
         <div class="relative w-full">
             
-            <!-- VELO CON TRASPARENZA INTERMEDIA E SFOCATURA LEGGERA PER VEDERE MEGLIO SOTTO -->
             <div class="absolute inset-0 bg-zinc-950/65 backdrop-blur-[1px] z-30 flex flex-col items-center justify-start pt-16 sm:pt-24 px-4 text-center rounded-2xl">
                 <div class="bg-zinc-900 border border-[#00ff66]/40 p-6 sm:p-8 max-w-lg shadow-2xl rounded-none space-y-3">
                     <span class="bg-[#00ff66] text-black font-black text-[9px] uppercase px-2.5 py-1 inline-block tracking-wider">Sezione in Aggiornamento</span>
@@ -282,7 +277,6 @@
                 </div>
             </div>
 
-            <!-- CONTENUTO SOTTOSTANTE RESO PIÙ VISIBILE E NITIDO -->
             <div class="opacity-55 pointer-events-none">
                 <div class="block md:hidden space-y-4" id="mobileRankingsList"></div>
 
@@ -345,7 +339,6 @@
         </div>
     </footer>
 
-    <!-- MODALI -->
     <div id="privacyModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
         <div class="bg-zinc-950 border border-zinc-800 rounded-none max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
             <button onclick="closeModal('privacyModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-none flex items-center justify-center border border-zinc-800 cursor-pointer">

@@ -64,7 +64,6 @@
             background-position: center;
         }
 
-        /* CORNICINA ATTORNO ALLE TABELLE/CARD */
         .light-lightning-card {
             background-color: #ffffff;
             background-image: 
@@ -102,7 +101,6 @@
             display: inline-block;
         }
 
-        /* CLASSE PC-NAV-LINK CORRETTA E CLICCABILE AL 100% */
         .pc-nav-link {
             color: #ffffff !important;
             font-size: 11px;
@@ -332,7 +330,6 @@
             z-index: 2;
         }
 
-        /* DIMENSIONI E DISTANZE OTTIMIZZATE (LOGHI BILANCIATI) */
         .logo-left-cinthec {
             width: 180px !important;
             height: 78px !important;
@@ -355,27 +352,22 @@
 </head>
 <body class="site-bg-cuts text-zinc-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
 
-    <!-- BANNER NEWS SCORREVOLE IN CIMA -->
     <div class="news-ticker-container">
         <div class="news-ticker-content">
             🔥 APERTE LE ISCRIZIONI PER CINTHEC — 🎫 BIGLIETTI GIÀ DISPONIBILI PER I POSTI A BORDO GABBIA — ⚡ PALAZZETTO DELLO SPORT VERONESE: 10 OTTOBRE 2026 — ⚖️ CONTROLLA IL RANKING AGGIORNATO NEL MENU
         </div>
     </div>
 
-    <!-- NAVBAR / HEADER SUPERIORE -->
     <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center">
         <div class="max-w-7xl mx-auto px-1 sm:px-6 w-full grid grid-cols-3 items-center relative z-50">
             
-            <!-- LOGO CINTHEC SINISTRA -->
             <div class="flex items-center justify-start">
                 <a href="index.html" class="flex items-center">
                     <img src="Immagini/Logo.jpeg" alt="CintheC Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/logo.png';">
                 </a>
             </div>
 
-            <!-- BOTTONI / MENU CENTRALI (MOBILE + PC) -->
             <div class="flex items-center justify-center gap-1.5 w-full relative z-50">
-                <!-- Bottoni Mobile -->
                 <div class="dropdown md:hidden">
                     <button class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileEventsDropdown')">
                         <i class="fa-solid fa-trophy text-white"></i> Eventi <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
@@ -398,7 +390,6 @@
                             <a href="index.html">Home</a>
                             <a href="classifiche.html">Ranking</a>
                             <a href="galleria.html">Shop</a>
-                            <a href="tornei.html">Tornei</a>
                             <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank">Ticket</a>
                             <a href="iscrizione.html">Iscrizioni</a>
                             <a href="tornei.html">Smooth Tech</a>
@@ -406,7 +397,6 @@
                     </div>
                 </div>
 
-                <!-- Menu PC (TUTTI I LINK CLICCABILI E ILLUMINABILI) -->
                 <div class="hidden md:flex items-center gap-2 lg:gap-3">
                     <a href="index.html" class="pc-nav-link"><i class="fa-solid fa-house text-[#00ff66]"></i> Home</a>
                     <div class="dropdown">
@@ -423,14 +413,12 @@
                     </div>
                     <a href="classifiche.html" class="pc-nav-link"><i class="fa-solid fa-ranking-star text-[#00ff66]"></i> Ranking</a>
                     <a href="galleria.html" class="pc-nav-link"><i class="fa-solid fa-store text-[#00ff66]"></i> Shop</a>
-                    <a href="tornei.html" class="pc-nav-link"><i class="fa-solid fa-medal text-[#00ff66]"></i> Tornei</a>
                     <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="pc-nav-link"><i class="fa-solid fa-ticket text-[#00ff66]"></i> Ticket</a>
                     <a href="iscrizione.html" class="pc-nav-link"><i class="fa-solid fa-user-pen text-[#00ff66]"></i> Iscrizioni</a>
                     <a href="tornei.html" class="pc-nav-link"><i class="fa-solid fa-users-gear text-[#00ff66]"></i> Smooth Tech</a>
                 </div>
             </div>
 
-            <!-- LOGO LEONI DI SAN MARCO DESTRA -->
             <div class="flex items-center justify-end">
                 <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="flex items-center">
                     <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="logo-right-leoni" onerror="this.style.display='none';">
@@ -439,7 +427,6 @@
         </div>
     </header>
 
-    <!-- COUNTDOWN CON BOTTONE BLINDATO E INTERATTIVO AL 100% -->
     <div class="bg-zinc-950 border-b border-zinc-800 py-3 px-4 text-center relative z-20">
         <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
             <div class="flex flex-col sm:flex-row items-center gap-3">
@@ -459,10 +446,8 @@
         </div>
     </div>
 
-    <!-- MAIN CONTENT -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 w-full flex-grow relative z-10">
         
-        <!-- BARRA DARK MODE -->
         <div class="flex justify-end items-center mb-4">
             <div class="flex items-center gap-2 bg-white/80 dark:bg-zinc-900/80 px-3 py-1.5 border border-zinc-300 dark:border-zinc-800 shadow-sm">
                 <span class="text-[10px] font-black uppercase tracking-wider text-zinc-700 dark:text-zinc-300">Dark Mode</span>
@@ -494,7 +479,6 @@
             </div>
 
             <div class="lg:col-span-5 flex flex-col justify-between gap-6">
-                <!-- BOX BIGLIETTI CINTHEC 10 -->
                 <div class="light-lightning-card rounded-none p-5 relative overflow-hidden flex flex-col justify-between flex-grow">
                     <div class="absolute -right-6 -bottom-6 opacity-5 pointer-events-none">
                         <i class="fa-solid fa-ticket text-6xl text-zinc-900"></i>
@@ -521,7 +505,6 @@
                     </div>
                 </div>
 
-                <!-- BOX PIATTAFORMA MATCH ATLETI -->
                 <div class="light-lightning-card rounded-none p-5 relative overflow-hidden flex flex-col justify-between flex-grow">
                     <div class="absolute -right-6 -bottom-6 opacity-5 pointer-events-none">
                         <i class="fa-solid fa-user-pen text-6xl text-zinc-900"></i>
@@ -542,7 +525,6 @@
             </div>
         </div>
 
-        <!-- SEZIONE EVENTI A 360°, ANGOLO BAR E SPETTACOLO -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-12 items-stretch">
             <div class="lg:col-span-6 light-lightning-card rounded-none p-6 sm:p-8 flex flex-col justify-between shadow-lg">
                 <div class="space-y-3 mb-6">
@@ -660,11 +642,9 @@
 
     </main>
 
-    <!-- FOOTER INFERIORE -->
     <footer class="relative z-10 py-1.5 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-10">
         <div class="max-w-7xl mx-auto px-3 sm:px-6 grid grid-cols-3 items-start gap-2 text-left">
             
-            <!-- SEGUICI A SINISTRA -->
             <div class="flex flex-col items-start gap-0.5">
                 <h4 class="text-white font-bold text-[9px] uppercase tracking-wider mb-0.5">Seguici</h4>
                 <div class="flex flex-col gap-0.5 text-[10px]">
@@ -680,7 +660,6 @@
                 </div>
             </div>
 
-            <!-- NOTE LEGALI AL CENTRO -->
             <div class="flex flex-col items-center text-center">
                 <h4 class="text-white font-bold text-[9px] mb-0.5 uppercase tracking-wider">Note Legali</h4>
                 <ul class="flex flex-col gap-0.5 text-[10px] text-zinc-300">
@@ -690,7 +669,6 @@
                 </ul>
             </div>
 
-            <!-- PAGAMENTI SICURI TUTTO A DESTRA -->
             <div class="flex flex-col items-end text-right">
                 <h4 class="text-white font-bold text-[9px] mb-1 uppercase tracking-wider">Pagamenti Sicuri</h4>
                 <div class="flex gap-1.5 text-sm sm:text-base text-zinc-300 justify-end flex-wrap">
@@ -709,7 +687,6 @@
         </div>
     </footer>
 
-    <!-- MODALI -->
     <div id="privacyModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
         <div class="bg-zinc-950 border border-zinc-800 rounded-none max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
             <button onclick="closeModal('privacyModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-none flex items-center justify-center border border-zinc-800 cursor-pointer">
@@ -747,7 +724,6 @@
     </div>
 
     <script>
-        /* COUNTDOWN LOGIC (10 Ottobre 2026) */
         const eventDate = new Date("October 10, 2026 00:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
@@ -760,30 +736,25 @@
             }
         }, 1000);
 
-        /* DARK / LIGHT MODE SWITCH TOGGLE */
         function toggleTheme() {
             const html = document.getElementById('htmlRoot');
             html.classList.toggle('dark-mode');
         }
 
-        /* GESTIONE APERTURA/CHIUSURA MENU A TENDINA AL CLIC (TOGGLE) */
         function toggleDropdown(event, dropdownId) {
             event.stopPropagation();
             const targetDropdown = document.getElementById(dropdownId);
             const isOpen = targetDropdown.classList.contains('show');
 
-            // Chiude prima tutti gli altri dropdown aperti
             document.querySelectorAll('.dropdown-content, .mobile-dropdown-content').forEach(el => {
                 el.classList.remove('show');
             });
 
-            // Se non era aperto, lo apre
             if (!isOpen) {
                 targetDropdown.classList.add('show');
             }
         }
 
-        // Chiude i menu a tendina se si clicca fuori
         window.addEventListener('click', function() {
             document.querySelectorAll('.dropdown-content, .mobile-dropdown-content').forEach(el => {
                 el.classList.remove('show');
