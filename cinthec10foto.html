@@ -239,7 +239,7 @@
 
     <!-- FOOTER INFERIORE COMPATTO -->
     <footer class="relative z-10 py-2 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-4">
-        <div class="max-w-7xl mx-auto px-3 sm:px-6 grid grid-cols-3 gap-2 items-start text-left">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 grid grid-cols-3 gap-2 items-center text-left">
             
             <div class="flex flex-col space-y-0.5">
                 <span class="text-white font-bold text-[9px] uppercase tracking-widest mb-0.5">SEGUICI</span>
@@ -254,11 +254,9 @@
                 </a>
             </div>
 
-            <div class="flex flex-col items-center text-center space-y-0.5">
-                <span class="text-white font-bold text-[9px] uppercase tracking-widest mb-0.5">NOTE LEGALI</span>
-                <button onclick="openModal('privacyModal')" class="hover:text-[#00ff66] transition cursor-pointer text-[10px]">Privacy Policy</button>
-                <button onclick="openModal('termsModal')" class="hover:text-[#00ff66] transition cursor-pointer text-[10px]">Termini e Condizioni</button>
-                <button onclick="openModal('cookieModal')" class="hover:text-[#00ff66] transition cursor-pointer text-[10px]">Cookie Policy</button>
+            <div class="flex flex-col items-center justify-center text-center space-y-1">
+                <a href="privacy.html" class="hover:text-[#00ff66] transition text-[10px] font-bold text-zinc-300">Privacy Policy</a>
+                <a href="note-legali.html" class="hover:text-[#00ff66] transition text-[10px] font-bold text-zinc-300">Note Legali</a>
             </div>
 
             <div class="flex flex-col items-end text-right space-y-0.5">
@@ -278,63 +276,5 @@
             <p>© 2026 CintheC & Leoni di San Marco. Tutti i diritti riservati.</p>
         </div>
     </footer>
-
-    <!-- MODALI (POP-UP) PER NOTE LEGALI -->
-    <div id="privacyModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
-        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
-            <button onclick="closeModal('privacyModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-full flex items-center justify-center border border-zinc-800 cursor-pointer">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Privacy Policy</h3>
-            <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
-                <p>La presente Privacy Policy descrive le modalità di raccolta, utilizzo e protezione dei dati personali dei nostri utenti in conformità alle normative vigenti.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="termsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
-        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
-            <button onclick="closeModal('termsModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-full flex items-center justify-center border border-zinc-800 cursor-pointer">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Termini e Condizioni</h3>
-            <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
-                <p>L'utilizzo del sito e l'acquisto dei pack digitali multimediali implicano l'accettazione integrale dei presenti termini e condizioni d'uso.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="cookieModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
-        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative max-h-[80vh] overflow-y-auto text-zinc-200">
-            <button onclick="closeModal('cookieModal')" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold bg-zinc-900 w-10 h-10 rounded-full flex items-center justify-center border border-zinc-800 cursor-pointer">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-wide border-b border-zinc-800 pb-3">Cookie Policy</h3>
-            <div class="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
-                <p>Il nostro sito web utilizza esclusivamente cookie tecnici essenziali per garantire la corretta navigazione e funzionalità della piattaforma.</p>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; 
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.add('hidden');
-            document.body.style.overflow = 'auto'; 
-        }
-
-        window.onclick = function(event) {
-            ['privacyModal', 'termsModal', 'cookieModal'].forEach(modalId => {
-                let modal = document.getElementById(modalId);
-                if (event.target === modal) {
-                    closeModal(modalId);
-                }
-            });
-        }
-    </script>
 </body>
 </html>

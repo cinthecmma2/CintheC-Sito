@@ -46,7 +46,6 @@
 
     <div class="max-w-md w-full glass-panel p-4 sm:p-5 rounded-2xl space-y-3 relative z-10 shadow-2xl" id="mainContainer">
         
-        <!-- HEADER MINIMALE -->
         <div class="flex items-center justify-between border-b border-zinc-800 pb-2.5 gap-2" id="headerLoghi">
             <div class="w-20 h-16 flex items-center justify-center shrink-0">
                 <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="max-h-16 max-w-[90px] object-contain drop-shadow-[0_0_12px_rgba(255,255,255,0.6)]" onerror="this.style.display='none'">
@@ -66,7 +65,6 @@
 
         <p class="text-[10px] text-zinc-400 font-medium text-center" id="sottotitoloTesto">Scarica il modulo corretto, compila i dati e carica i documenti richiesti.</p>
 
-        <!-- SEZIONE DOWNLOAD MODULI MINIMALE CON TENDINA -->
         <div id="areaDownload" class="bg-zinc-950/70 p-3 rounded-xl border border-amber-500/30 space-y-2.5">
             <div class="flex items-center gap-1.5 text-amber-400 text-[9px] font-bold uppercase">
                 <i class="fa-solid fa-triangle-exclamation"></i> Step 1: Seleziona e scarica il tuo modulo
@@ -89,7 +87,6 @@
             </div>
         </div>
 
-        <!-- FORM PRINCIPALE -->
         <form id="formMateriali" onsubmit="inviaMateriali(event)" class="space-y-2">
             
             <div class="grid grid-cols-2 gap-2">
@@ -129,7 +126,6 @@
                 </div>
             </div>
 
-            <!-- CERTIFICATO MEDICO E TEST EMATICI IN EVIDENZA -->
             <div class="bg-amber-500/10 border border-amber-500/40 p-2 rounded-xl space-y-1">
                 <label class="block text-[9px] font-black text-amber-400 uppercase leading-tight">
                     <i class="fa-solid fa-circle-exclamation text-amber-400 mr-1"></i> ⚠️ IMPORTANTE: Certificato Medico Agonistico + Test Ematici (Epatite B, Epatite C, HIV) (PDF) *
@@ -137,7 +133,6 @@
                 <input type="file" id="certificatoPdf" accept=".pdf,application/pdf" multiple required class="w-full bg-zinc-900 border border-zinc-800 text-zinc-400 text-[10px] rounded-lg p-1 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-amber-500 file:text-black cursor-pointer">
             </div>
 
-            <!-- LIBERATORIA FIRMATA IN EVIDENZA -->
             <div class="bg-amber-500/10 border border-amber-500/40 p-2 rounded-xl space-y-1">
                 <label class="block text-[9px] font-black text-amber-400 uppercase leading-tight">
                     <i class="fa-solid fa-circle-exclamation text-amber-400 mr-1"></i> ⚠️ IMPORTANTE: Liberatoria Firmata (PDF) *
@@ -165,6 +160,22 @@
             <div>
                 <label class="block text-[8px] font-bold text-zinc-300 uppercase mb-0.5">Foto Ufficiale (Sfondo bianco, mezzo busto) *</label>
                 <input type="file" id="fotoFile" accept="image/*" required class="w-full bg-zinc-900 border border-zinc-800 text-zinc-400 text-[10px] rounded-lg p-1 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-[#00ff66] file:text-black cursor-pointer">
+            </div>
+
+            <div class="pt-2 border-t border-zinc-800/80 space-y-2">
+                <label class="flex items-start gap-2 cursor-pointer">
+                    <input type="checkbox" id="consensoPrivacy" class="mt-0.5 h-3.5 w-3.5 rounded border-zinc-800 bg-zinc-900 text-[#00ff66] focus:ring-0 focus:ring-offset-0 accent-[#00ff66]">
+                    <span class="text-[10px] text-zinc-400 leading-tight">
+                        Accetto la <a href="privacy.html" class="text-[#00ff66] hover:underline font-bold">Privacy Policy</a> e le <a href="note-legali.html" class="text-[#00ff66] hover:underline font-bold">Note Legali</a>. *
+                    </span>
+                </label>
+
+                <label class="flex items-start gap-2 cursor-pointer">
+                    <input type="checkbox" id="consensoMedia" class="mt-0.5 h-3.5 w-3.5 rounded border-zinc-800 bg-zinc-900 text-[#00ff66] focus:ring-0 focus:ring-offset-0 accent-[#00ff66]">
+                    <span class="text-[10px] text-zinc-400 leading-tight">
+                        Autorizzo le riprese foto/video durante l'evento e la loro pubblicazione sui canali ufficiali e media store di CintheC. *
+                    </span>
+                </label>
             </div>
 
             <div class="space-y-1 pt-1">
@@ -249,6 +260,20 @@
 
         async function inviaMateriali(e) {
             e.preventDefault();
+
+            const consensoPrivacy = document.getElementById('consensoPrivacy').checked;
+            const consensoMedia = document.getElementById('consensoMedia').checked;
+
+            if(!consensoPrivacy) {
+                alert('È necessario accettare la Privacy Policy e le Note Legali per procedere.');
+                return;
+            }
+
+            if(!consensoMedia) {
+                alert('È necessario confermare la liberatoria foto e video per procedere.');
+                return;
+            }
+
             const btn = document.getElementById('btnInvia');
             btn.disabled = true;
             btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Invio in corso al Cloud...`;
@@ -305,7 +330,9 @@
                 liberatoriaFirmata: JSON.stringify(liberatorieArray),
                 musicaTesto: modalitaMusica === 'testo' ? musicaValore : "[File Audio Caricato]",
                 audioFile: audioBase64,
-                foto: fotoBase64
+                foto: fotoBase64,
+                consensoPrivacy: consensoPrivacy,
+                consensoMedia: consensoMedia
             };
 
             try {

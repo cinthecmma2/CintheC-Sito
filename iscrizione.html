@@ -160,7 +160,7 @@
             box-shadow: 0 0 12px rgba(0, 255, 102, 0.3);
         }
 
-        #successModal {
+        .modal-transition {
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
     </style>
@@ -169,6 +169,22 @@
 
     <!-- CORNICE ELETTRICA PER I BAGLIORI SUI BORDI -->
     <div id="stormBorder" class="storm-border"></div>
+
+    <!-- POP-UP INFORMATIVO PIATTAFORMA MATCH -->
+    <div id="infoModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 modal-transition opacity-150">
+        <div class="bg-zinc-950 border-2 border-[#00ff66]/60 rounded-2xl max-w-md w-full p-6 shadow-[0_0_30px_rgba(0,255,102,0.25)] relative text-center">
+            <div class="w-12 h-12 bg-[#00ff66]/10 border border-[#00ff66] rounded-full flex items-center justify-center text-[#00ff66] text-xl mx-auto mb-3 shadow-[0_0_15px_rgba(0,255,102,0.3)]">
+                <i class="fa-solid fa-handshake-simple"></i>
+            </div>
+            <h3 class="text-base font-black uppercase text-white mb-2 tracking-wide">Piattaforma Match & Matchmaking</h3>
+            <p class="text-xs text-zinc-300 leading-relaxed mb-5">
+                Iscriviti e compila il form con i tuoi dati e il tuo record per essere registrato ufficialmente nella piattaforma CintheC. Questo ci permetterà di valutare i profili in modo strutturato e **facilitare i matchmaking futuri** per tutti i nostri eventi e galà.
+            </p>
+            <button onclick="chiudiPopUpInfo()" class="w-full bg-[#00ff66] hover:bg-[#00cc52] text-black font-black uppercase text-xs tracking-wider py-3 rounded-xl transition shadow-[0_0_15px_rgba(0,255,102,0.3)] cursor-pointer">
+                Ho capito, compila il form
+            </button>
+        </div>
+    </div>
 
     <div class="split-container">
         
@@ -193,9 +209,12 @@
                     </div>
                 </div>
 
-                <div class="text-center mb-4">
-                    <h2 class="text-lg sm:text-xl font-black uppercase tracking-tight text-white mb-0.5">Piattaforma Match</h2>
-                    <p class="text-[11px] text-[#00ff66] font-semibold">Compila i dati per l'evento</p>
+                <!-- QUADRATO / BOX CLICCABILE PER APRIRE IL POP-UP -->
+                <div onclick="apriPopUpInfo()" class="bg-zinc-900/90 border border-[#00ff66]/40 hover:border-[#00ff66] rounded-xl p-3 mb-4 cursor-pointer transition text-center shadow-md group">
+                    <h2 class="text-sm sm:text-base font-black uppercase tracking-tight text-white mb-0.5 group-hover:text-[#00ff66] transition">Piattaforma Match</h2>
+                    <p class="text-[10px] text-[#00ff66] font-semibold flex items-center justify-center gap-1">
+                        <span>Compila i dati per l'evento</span> <i class="fa-solid fa-circle-info text-[9px]"></i>
+                    </p>
                 </div>
 
                 <div class="space-y-2.5">
@@ -246,12 +265,29 @@
                         </div>
                     </div>
 
+                    <!-- SEZIONE CONSENSI E NOTE LEGALI -->
+                    <div class="pt-2 border-t border-zinc-800/80 space-y-2">
+                        <label class="flex items-start gap-2 cursor-pointer">
+                            <input type="checkbox" id="consensoPrivacy" class="mt-0.5 h-3.5 w-3.5 rounded border-zinc-800 bg-zinc-900 text-[#00ff66] focus:ring-0 focus:ring-offset-0 accent-[#00ff66]">
+                            <span class="text-[10px] text-zinc-400 leading-tight">
+                                Accetto la <a href="privacy.html" class="text-[#00ff66] hover:underline font-bold">Privacy Policy</a> e le <a href="note-legali.html" class="text-[#00ff66] hover:underline font-bold">Note Legali</a>. *
+                            </span>
+                        </label>
+
+                        <label class="flex items-start gap-2 cursor-pointer">
+                            <input type="checkbox" id="consensoMedia" class="mt-0.5 h-3.5 w-3.5 rounded border-zinc-800 bg-zinc-900 text-[#00ff66] focus:ring-0 focus:ring-offset-0 accent-[#00ff66]">
+                            <span class="text-[10px] text-zinc-400 leading-tight">
+                                Autorizzo le riprese foto/video durante l'evento e la loro pubblicazione sui canali ufficiali e media store di CintheC. *
+                            </span>
+                        </label>
+                    </div>
+
                     <button onclick="inviaDati()" id="submitBtn" class="w-full bg-[#00ff66] hover:bg-[#00cc52] text-black font-black uppercase text-xs tracking-wider py-2.5 rounded-xl transition shadow-[0_0_12px_rgba(0,255,102,0.3)] cursor-pointer mt-2">
                         Invia Iscrizione
                     </button>
                 </div>
 
-                <div id="successModal" class="absolute inset-0 bg-zinc-950/95 backdrop-blur-md rounded-2xl flex flex-col items-center justify-center p-6 text-center opacity-0 pointer-events-none z-50">
+                <div id="successModal" class="absolute inset-0 bg-zinc-950/95 backdrop-blur-md rounded-2xl flex flex-col items-center justify-center p-6 text-center opacity-0 pointer-events-none z-50 modal-transition">
                     <div class="w-14 h-14 bg-[#00ff66]/10 border border-[#00ff66] rounded-full flex items-center justify-center text-[#00ff66] text-2xl mb-3 shadow-[0_0_20px_rgba(0,255,102,0.3)]">
                         <i class="fa-solid fa-check"></i>
                     </div>
@@ -325,6 +361,19 @@
         const CONFIG_WHATSAPP_NUMBER = "393206819098";
         document.getElementById('whatsappLink').href = `https://wa.me/${CONFIG_WHATSAPP_NUMBER}`;
 
+        // Gestione Pop-up informativo iniziale
+        function apriPopUpInfo() {
+            const modal = document.getElementById('infoModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100', 'pointer-events-auto');
+        }
+
+        function chiudiPopUpInfo() {
+            const modal = document.getElementById('infoModal');
+            modal.classList.remove('opacity-100', 'pointer-events-auto');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
         let currentSlide = 0;
         const slides = document.querySelectorAll('.bg-slide');
         
@@ -379,6 +428,8 @@
             const btn = document.getElementById('submitBtn');
             const selectLega = document.getElementById('lega');
             const valoreLega = selectLega ? selectLega.value : "";
+            const consensoPrivacy = document.getElementById('consensoPrivacy').checked;
+            const consensoMedia = document.getElementById('consensoMedia').checked;
 
             const dati = {
                 nome: document.getElementById('nome').value.trim(),
@@ -390,11 +441,23 @@
                 vittorie: document.getElementById('vittorie').value || "0",
                 sconfitte: document.getElementById('sconfitte').value || "0",
                 pareggi: document.getElementById('pareggi').value || "0",
+                consensoPrivacy: consensoPrivacy,
+                consensoMedia: consensoMedia,
                 data: new Date().toLocaleString()
             };
 
             if(!dati.nome || !dati.cognome || !dati.email || !dati.lega) {
                 alert('Compila tutti i campi obbligatori inclusa la Lega!');
+                return;
+            }
+
+            if(!consensoPrivacy) {
+                alert('È necessario accettare la Privacy Policy e le Note Legali per procedere.');
+                return;
+            }
+
+            if(!consensoMedia) {
+                alert('È necessario confermare la liberatoria foto e video per partecipare all\'evento.');
                 return;
             }
 
@@ -413,6 +476,8 @@
                 document.getElementById('vittorie').value = '0';
                 document.getElementById('sconfitte').value = '0';
                 document.getElementById('pareggi').value = '0';
+                document.getElementById('consensoPrivacy').checked = false;
+                document.getElementById('consensoMedia').checked = false;
                 selectLega.selectedIndex = 0;
 
                 const modale = document.getElementById('successModal');

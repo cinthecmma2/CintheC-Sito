@@ -123,6 +123,23 @@
                     <span class="font-black text-emerald-600 text-sm">15,00 €</span>
                 </div>
 
+                <!-- SEZIONE CONSENSI E NOTE LEGALI (SENZA TARGET_BLANK) -->
+                <div class="pt-3 border-t border-slate-100 space-y-2">
+                    <label class="flex items-start gap-2 cursor-pointer">
+                        <input type="checkbox" id="consensoPrivacy" class="mt-0.5 h-3.5 w-3.5 rounded border-slate-300 bg-slate-50 text-emerald-600 focus:ring-0 focus:ring-offset-0 accent-emerald-600">
+                        <span class="text-[10px] text-slate-600 leading-tight">
+                            Accetto la <a href="privacy.html" class="text-emerald-600 hover:underline font-bold">Privacy Policy</a> e le <a href="note-legali.html" class="text-emerald-600 hover:underline font-bold">Note Legali</a>. *
+                        </span>
+                    </label>
+
+                    <label class="flex items-start gap-2 cursor-pointer">
+                        <input type="checkbox" id="consensoMedia" class="mt-0.5 h-3.5 w-3.5 rounded border-slate-300 bg-slate-50 text-emerald-600 focus:ring-0 focus:ring-offset-0 accent-emerald-600">
+                        <span class="text-[10px] text-slate-600 leading-tight">
+                            Autorizzo le riprese foto/video durante l'evento e la loro pubblicazione sui canali ufficiali e media store di CintheC. *
+                        </span>
+                    </label>
+                </div>
+
                 <button type="submit" id="submitBtn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs uppercase py-3.5 rounded-lg transition shadow-sm cursor-pointer flex items-center justify-center gap-2">
                     <i class="fa-solid fa-lock"></i> Conferma Iscrizione & Invia al Cloud
                 </button>
@@ -151,6 +168,20 @@
 
         function handleRegistration(e) {
             e.preventDefault();
+
+            const consensoPrivacy = document.getElementById('consensoPrivacy').checked;
+            const consensoMedia = document.getElementById('consensoMedia').checked;
+
+            if(!consensoPrivacy) {
+                alert('È necessario accettare la Privacy Policy e le Note Legali per procedere con l\'iscrizione.');
+                return;
+            }
+
+            if(!consensoMedia) {
+                alert('È necessario confermare la liberatoria foto e video per partecipare al torneo.');
+                return;
+            }
+
             let btn = document.getElementById('submitBtn');
             btn.disabled = true;
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Invio in corso al Cloud...';
@@ -165,6 +196,8 @@
                 stile: document.getElementById('atletaStile').value,
                 cintura: document.getElementById('atletaCintura').value,
                 peso: document.getElementById('atletaPeso').value,
+                consensoPrivacy: consensoPrivacy,
+                consensoMedia: consensoMedia,
                 data: new Date().toLocaleString()
             };
 
