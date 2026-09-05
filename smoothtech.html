@@ -145,7 +145,7 @@
                         <option value="Tutte">Tutte le Cinture</option>
                         <option value="Cintura Bianca">Cintura Bianca</option>
                         <option value="Cintura Blu">Cintura Blu</option>
-                        <option value="Cintura Porpora">Cintura Porpora</option>
+                        <option value="Cintura Viola">Cintura Viola</option>
                         <option value="Cintura Marrone">Cintura Marrone</option>
                         <option value="Cintura Nera">Cintura Nera</option>
                     </select>
@@ -184,13 +184,10 @@
                         <h2 class="text-xl font-black uppercase tracking-tight text-slate-900">
                             <i class="fa-solid fa-layer-group text-emerald-600 mr-2"></i> Pannello Controllo Tatami (1 - 8)
                         </h2>
-                        <p class="text-xs text-slate-500 mt-0.5">Accendi i tatami e distribuisci le pool operative.</p>
+                        <p class="text-xs text-slate-500 mt-0.5">Accendi i tatami e distribuisci le pool operative in modo isolato e sicuro.</p>
                     </div>
-                    <div class="flex flex-wrap items-center gap-2">
-                        <button onclick="distribuisciPoolSuiTatami('standard')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase px-3.5 py-2.5 rounded-lg shadow cursor-pointer flex items-center gap-2">
-                            <i class="fa-solid fa-list-ol"></i> Distribuisci (Standard)
-                        </button>
-                        <button onclick="distribuisciPoolSuiTatami('ottimizzato')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase px-3.5 py-2.5 rounded-lg shadow cursor-pointer flex items-center gap-2">
+                    <div>
+                        <button onclick="distribuisciPoolSuiTatami()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase px-5 py-3 rounded-lg shadow cursor-pointer flex items-center gap-2">
                             <i class="fa-solid fa-shuffle"></i> Distribuisci (Ottimizza Tempi)
                         </button>
                     </div>
@@ -274,6 +271,9 @@
             localStorage.removeItem("smoothtech_new_podium");
             localStorage.removeItem("smoothtech_cached_iscrizioni");
             localStorage.removeItem("smoothtech_distribution_timestamp");
+            for (let i = 1; i <= 8; i++) {
+                localStorage.removeItem(`tatami_${i}_index`);
+            }
             generatedPoolsRegistry = {};
             podioVincitori = [];
             
@@ -390,7 +390,6 @@
             if (!select) return;
             let valoreCorrente = select.value;
 
-            // Esclude automaticamente i tornei conclusi salvati nel pannello admin
             let savedTornei = localStorage.getItem('cinthec_tornei');
             let torneiConclusi = [];
             if (savedTornei) {
@@ -476,7 +475,7 @@
                     let pairings = generatedPoolsRegistry[chiave].pairings;
                     poolHtmlContent = pairings.map((m, pIdx) => `
                         <div class="flex items-center justify-between py-1.5 border-b border-slate-100 last:border-0 text-[11px]">
-                            <span class="font-bold text-slate-800">Match #${pIdx + 1}:</span>
+                            <span class="font-bold text-slate-800">${m.turno || ('Match #' + (pIdx + 1))}:</span>
                             <span class="text-slate-600 text-right">${m.a1.nome} <b class="text-emerald-600">vs</b> ${m.a2.nome}</span>
                         </div>
                     `).join('');
@@ -514,7 +513,7 @@
                         </div>
 
                         <div id="${poolViewId}" class="hidden mt-2 space-y-1 bg-amber-50/50 p-2 rounded border border-amber-200 max-h-48 overflow-y-auto">
-                            <div class="text-[10px] font-black uppercase text-amber-900 border-b border-amber-200 pb-1 mb-1">Accoppiamenti Pool:</div>
+                            <div class="text-[10px] font-black uppercase text-amber-900 border-b border-amber-200 pb-1 mb-1">Tabellone Eliminazione Diretta:</div>
                             <div id="${poolViewId}-content">${poolHtmlContent}</div>
                         </div>
                     </div>
@@ -541,14 +540,44 @@
         }
 
         function generaPool(categoryKey, list, index) {
-            let pairings = [];
-            for (let i = 0; i < list.length; i += 2) {
-                let atleta1 = { nome: `${list[i].nome} ${list[i].cognome}`, team: list[i].team };
-                let atleta2 = (i + 1 < list.length) ? { nome: `${list[i + 1].nome} ${list[i + 1].cognome}`, team: list[i + 1].team } : { nome: "BYE (Riposo)", team: "-" };
-                pairings.push({ match: pairings.length + 1, a1: atleta1, a2: atleta2 });
+            let allPairings = [];
+            let currentRoundAthletes = list.map(a => ({ nome: `${a.nome} ${a.cognome}`, team: a.team }));
+            let roundNum = 1;
+
+            while (currentRoundAthletes.length > 1) {
+                let nextRoundAthletes = [];
+                let roundPairings = [];
+                let matchCountInRound = 1;
+
+                let rName = "Ottavi";
+                if (currentRoundAthletes.length <= 2) rName = "Finale";
+                else if (currentRoundAthletes.length <= 4) rName = "Semifinale";
+                else if (currentRoundAthletes.length <= 8) rName = "Quarti";
+
+                for (let i = 0; i < currentRoundAthletes.length; i += 2) {
+                    if (i + 1 < currentRoundAthletes.length) {
+                        let a1 = currentRoundAthletes[i];
+                        let a2 = currentRoundAthletes[i+1];
+                        let matchObj = {
+                            turno: `${rName} - Match #${matchCountInRound}`,
+                            a1: a1,
+                            a2: a2
+                        };
+                        roundPairings.push(matchObj);
+                        nextRoundAthletes.push({ nome: `[Vincitore ${rName} #${matchCountInRound}]`, team: "-" });
+                        matchCountInRound++;
+                    } else {
+                        nextRoundAthletes.push(currentRoundAthletes[i]);
+                    }
+                }
+
+                allPairings.push(...roundPairings);
+                currentRoundAthletes = nextRoundAthletes;
+                roundNum++;
+                if (roundNum > 5) break;
             }
 
-            generatedPoolsRegistry[categoryKey] = { pairings: pairings, partecipanti: list };
+            generatedPoolsRegistry[categoryKey] = { pairings: allPairings, partecipanti: list };
             salvaStatoLocale();
 
             let btn = document.getElementById('btn-pool-' + index);
@@ -563,18 +592,19 @@
 
             let contentBox = document.getElementById('pool-view-' + index + '-content');
             if (contentBox) {
-                contentBox.innerHTML = pairings.map((m, pIdx) => `
+                contentBox.innerHTML = allPairings.map((m) => `
                     <div class="flex items-center justify-between py-1.5 border-b border-amber-100 last:border-0 text-[11px]">
-                        <span class="font-bold text-slate-800">Match #${pIdx + 1}:</span>
+                        <span class="font-bold text-slate-800">${m.turno}:</span>
                         <span class="text-slate-700 text-right">${m.a1.nome} <b class="text-emerald-600">vs</b> ${m.a2.nome}</span>
                     </div>
                 `).join('');
             }
 
-            showToast(`Pool creata per ${categoryKey}`);
+            showToast(`Tabellone a cascata creato per ${categoryKey}`);
         }
 
-        function distribuisciPoolSuiTatami(modalita) {
+        // DISTRIBUZIONE ISOLATA E BLOCCANTE: Impedisce la ridistribuzione delle pool già assegnate o completate
+        function distribuisciPoolSuiTatami() {
             let activeTatamis = Object.keys(tatamiStates).filter(t => tatamiStates[t]);
             let container = document.getElementById('tatamiAssignmentsContainer');
 
@@ -589,41 +619,56 @@
                 return;
             }
 
+            let savedDist = localStorage.getItem("smoothtech_active_distribution");
+            let distribution = savedDist ? JSON.parse(savedDist) : {};
+            
+            activeTatamis.forEach(t => {
+                if (!distribution[t]) distribution[t] = [];
+            });
+
+            // Filtro di blocco: esclude le categorie già ultimate (finite nei podi) e quelle già distribuite in precedenza
             let categorieCompletate = podioVincitori.map(p => p.categoria);
             let poolKeysDisponibili = poolKeys.filter(key => !categorieCompletate.includes(key));
 
-            if (poolKeysDisponibili.length === 0) {
-                showToast("Tutte le pool generate sono già terminate e sui podi!");
-                container.innerHTML = `
-                    <div class="col-span-full text-center py-8 text-emerald-600 text-xs border border-dashed border-emerald-300 bg-emerald-50/50 rounded-lg font-bold">
-                        <i class="fa-solid fa-circle-check mr-1"></i> Tutti gli incontri di tutte le pool sono stati completati e archiviati!
-                    </div>
-                `;
+            let categorieGiàDistribuite = [];
+            Object.keys(distribution).forEach(t => {
+                distribution[t].forEach(p => categorieGiàDistribuite.push(p.key));
+            });
+
+            let poolDaAssegnare = poolKeysDisponibili.filter(key => !categorieGiàDistribuite.includes(key));
+
+            if (poolDaAssegnare.length === 0) {
+                showToast("Tutte le pool generate sono già state distribuite o completate! Seleziona pool nuove.");
                 return;
             }
 
-            let distribution = {};
-            activeTatamis.forEach(t => distribution[t] = []);
+            poolDaAssegnare.forEach(key => {
+                let targetTatami = activeTatamis.reduce((minT, t) => distribution[t].length < distribution[minT].length ? t : minT, activeTatamis[0]);
+                
+                let poolData = generatedPoolsRegistry[key];
+                let singoliMatch = [];
+                if (poolData && poolData.pairings) {
+                    poolData.pairings.forEach((m) => {
+                        singoliMatch.push({
+                            poolKey: key,
+                            matchId: m.turno,
+                            matchData: m
+                        });
+                    });
+                }
 
-            if (modalita === 'ottimizzato') {
-                poolKeysDisponibili.forEach((key, idx) => {
-                    let targetTatami = activeTatamis[idx % activeTatamis.length];
-                    distribution[targetTatami].push({ key, data: generatedPoolsRegistry[key] });
+                distribution[targetTatami].push({
+                    key: key,
+                    data: poolData,
+                    singoliMatch: singoliMatch
                 });
-            } else {
-                let tatamiIndex = 0;
-                poolKeysDisponibili.forEach(key => {
-                    let targetTatami = activeTatamis[tatamiIndex % activeTatamis.length];
-                    distribution[targetTatami].push({ key, data: generatedPoolsRegistry[key] });
-                    tatamiIndex++;
-                });
-            }
+            });
 
             localStorage.setItem("smoothtech_active_distribution", JSON.stringify(distribution));
             localStorage.setItem("smoothtech_distribution_timestamp", new Date().getTime());
 
             renderDistribuzioneEsistente(distribution);
-            showToast(`Pool attive ridistribuite (${modalita === 'ottimizzato' ? 'Ottimizzate' : 'Standard'}) escludendo quelle già concluse!`);
+            showToast("Nuove pool distribuite e bloccate correttamente sui tatami attivi!");
         }
 
         function renderDistribuzioneEsistente(distribution) {
@@ -633,16 +678,30 @@
             Object.keys(distribution).forEach(t => {
                 if (tatamiStates[t]) {
                     let assignedPools = distribution[t];
-                    let poolsHtml = assignedPools.map(p => `<div class="text-[11px] font-bold text-slate-800 bg-white p-1.5 rounded mb-1 border border-slate-200">${p.key}</div>`).join('');
+                    let poolsHtml = assignedPools.map(p => {
+                        let dettaglioMatch = '';
+                        let listaMatchDaMostrare = p.singoliMatch || (p.data && p.data.pairings ? p.data.pairings.map((m) => ({ matchId: m.turno, matchData: m })) : []);
+                        
+                        if (listaMatchDaMostrare.length > 0) {
+                            dettaglioMatch = `<div class="text-[9px] text-emerald-700 mt-1 pl-2 border-l-2 border-emerald-500 space-y-0.5">` + 
+                                listaMatchDaMostrare.map(sm => `<div><b>${sm.matchId}</b>: ${sm.matchData.a1.nome} vs ${sm.matchData.a2.nome}</div>`).join('') + 
+                                `</div>`;
+                        }
+                        
+                        return `<div class="text-[11px] font-bold text-slate-800 bg-white p-2 rounded mb-1.5 border border-slate-200">
+                            <div class="text-slate-900 uppercase">${p.key}</div>
+                            ${dettaglioMatch}
+                        </div>`;
+                    }).join('');
                     
                     container.innerHTML += `
                         <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 shadow-sm">
                             <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-200">
                                 <h3 class="text-xs font-black uppercase text-slate-900">Tatami ${t}</h3>
-                                <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">${assignedPools.length} Pool</span>
+                                <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">${assignedPools.length} Categorie</span>
                             </div>
-                            <div class="space-y-1 mb-3 max-h-32 overflow-y-auto">${poolsHtml}</div>
-                            <a href="tatami-live.html?t=${t}" target="_blank" class="block text-center bg-slate-900 hover:bg-emerald-600 text-white text-[10px] font-bold uppercase py-1.5 rounded transition shadow">
+                            <div class="space-y-1 mb-3 max-h-48 overflow-y-auto">${poolsHtml}</div>
+                            <a href="tatami-live.html?t=${t}" target="_blank" class="block text-center bg-slate-900 hover:bg-emerald-600 text-white text-[10px] font-bold uppercase py-2 rounded-lg transition shadow">
                                 Apri Tatami ${t} Live <i class="fa-solid fa-external-link-alt ml-1"></i>
                             </a>
                         </div>

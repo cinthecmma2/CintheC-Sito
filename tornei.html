@@ -105,14 +105,36 @@
         <div id="tournamentsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </main>
 
-    <!-- MODALE ADMIN CON LOGIN EMAIL E PASSWORD -->
+    <!-- MODALE DETTAGLI TORNEO -->
+    <div id="detailsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-sm hidden p-4">
+        <div class="bg-white border border-slate-200 rounded-xl max-w-lg w-full p-6 relative shadow-2xl text-slate-800 max-h-[90vh] overflow-y-auto">
+            <button onclick="closeDetailsModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-base font-bold w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="mb-4">
+                <span id="modalTournamentStatus" class="bg-emerald-600 text-white text-[9px] font-extrabold uppercase px-2.5 py-0.5 rounded-md inline-block mb-2"></span>
+                <h3 id="modalTournamentTitle" class="text-lg font-black text-slate-900 uppercase tracking-tight"></h3>
+                <p id="modalTournamentDate" class="text-xs text-emerald-600 font-bold mt-1 flex items-center gap-1.5"><i class="fa-regular fa-calendar"></i> <span></span></p>
+                <p id="modalTournamentLocation" class="text-xs text-slate-500 font-semibold mt-1 flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-rose-500"></i> <span></span></p>
+            </div>
+            <div class="border-t border-slate-100 pt-4 space-y-3">
+                <h4 class="text-xs font-black uppercase text-slate-700 tracking-wider">Descrizione Evento</h4>
+                <p id="modalTournamentDesc" class="text-xs text-slate-600 leading-relaxed whitespace-pre-line"></p>
+                <div id="modalPosterContainer" class="hidden mt-4 pt-4 border-t border-slate-100 text-center">
+                    <h4 class="text-xs font-black uppercase text-slate-700 tracking-wider mb-2 text-left">Locandina</h4>
+                    <p id="modalPosterName" class="text-xs text-emerald-600 font-bold bg-emerald-50 p-3 rounded-lg border border-emerald-200"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE ADMIN -->
     <div id="adminModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-sm hidden p-4 overflow-y-auto">
         <div class="bg-white border border-slate-200 rounded-xl max-w-md w-full p-6 relative shadow-2xl text-slate-800 max-h-[90vh] overflow-y-auto my-auto">
             <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-base font-bold w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
-            <!-- STEP 1: LOGIN (EMAIL E PASSWORD) -->
             <div id="adminLoginStep">
                 <div class="w-12 h-12 bg-slate-900 text-slate-300 rounded-lg flex items-center justify-center mb-4 text-lg shadow-sm">
                     <i class="fa-solid fa-shield-halved"></i>
@@ -136,7 +158,6 @@
                 </form>
             </div>
 
-            <!-- STEP 2: SCELTA GESTIONE -->
             <div id="adminChoiceStep" class="hidden space-y-3">
                 <div class="w-12 h-12 bg-slate-900 text-slate-300 rounded-lg flex items-center justify-center mb-4 text-lg shadow-sm">
                     <i class="fa-solid fa-sliders"></i>
@@ -157,7 +178,6 @@
                 </a>
             </div>
 
-            <!-- STEP 3: AGGIUNGI TORNEO CON CALENDARIO, INDIRIZZO E LOCANDINA -->
             <div id="adminAddFormStep" class="hidden">
                 <button onclick="backToChoice()" class="text-xs font-bold text-emerald-600 mb-4 flex items-center gap-1.5 cursor-pointer">
                     <i class="fa-solid fa-arrow-left"></i> Torna Indietro
@@ -216,7 +236,6 @@
                 </form>
             </div>
 
-            <!-- STEP 4: MODIFICA / ELIMINA TORNEI -->
             <div id="adminEditFormStep" class="hidden">
                 <button onclick="backToChoice()" class="text-xs font-bold text-emerald-600 mb-4 flex items-center gap-1.5 cursor-pointer">
                     <i class="fa-solid fa-arrow-left"></i> Torna Indietro
@@ -281,7 +300,7 @@
 
         let defaultTournaments = [
             { id: "torneo-1", title: "CintheC Cup 01", date: "2026-10-18", location: "Venezia, Via Roma 45", status: "Prossimamente", desc: "Torneo ufficiale di Brazilian Jiu-Jitsu e Grappling.", poster: null },
-            { id: "torneo-2", title: "CintheC Cup 02", date: "2026-11-15", location: "Chioggia, Viale Stazione 12", status: "Prossimamente", desc: "Campionato regionale classi aperte cinture colorate.", poster: null }
+            { id: "torneo-2", title: "CintheC Cup 02", date: "2026-11-15", location: "Chioggia, Viale Stazione 12", status: "Prossimamente", desc: "", poster: null }
         ];
 
         window.addEventListener('DOMContentLoaded', () => { 
@@ -312,16 +331,30 @@
                 card.setAttribute('data-id', t.id);
                 card.setAttribute('data-name', searchName);
 
-                let actionHtml = `
-                    <div class="grid grid-cols-2 gap-2">
-                        <a href="smoothtech.html" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-center font-bold text-[10px] uppercase py-2.5 rounded-lg transition flex items-center justify-center gap-1.5">
-                            <span>Dettagli</span> <i class="fa-solid fa-arrow-right text-[8px]"></i>
-                        </a>
-                        <a href="tornei1.html" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold text-[10px] uppercase py-2.5 rounded-lg transition flex items-center justify-center gap-1.5 shadow-sm">
-                            <i class="fa-solid fa-user-plus text-[9px]"></i> <span>Iscriviti</span>
-                        </a>
-                    </div>
-                `;
+                // CONTROLLO DESCRIZIONE: Se c'è la descrizione mostra il tasto Dettagli, altrimenti lo nasconde
+                let hasDesc = t.desc && t.desc.trim() !== "";
+                let actionHtml = '';
+
+                if (hasDesc) {
+                    actionHtml = `
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick='openDetailsModal(${JSON.stringify(t)})' class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-center font-bold text-[10px] uppercase py-2.5 rounded-lg transition flex items-center justify-center gap-1.5 cursor-pointer">
+                                <span>Dettagli</span> <i class="fa-solid fa-arrow-right text-[8px]"></i>
+                            </button>
+                            <a href="tornei1.html" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold text-[10px] uppercase py-2.5 rounded-lg transition flex items-center justify-center gap-1.5 shadow-sm">
+                                <i class="fa-solid fa-user-plus text-[9px]"></i> <span>Iscriviti</span>
+                            </a>
+                        </div>
+                    `;
+                } else {
+                    actionHtml = `
+                        <div>
+                            <a href="tornei1.html" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold text-[10px] uppercase py-2.5 rounded-lg transition flex items-center justify-center gap-1.5 shadow-sm block">
+                                <i class="fa-solid fa-user-plus text-[9px]"></i> <span>Iscriviti al Torneo</span>
+                            </a>
+                        </div>
+                    `;
+                }
 
                 card.innerHTML = `
                     <div>
@@ -339,8 +372,7 @@
                             <p class="text-[11px] text-slate-500 flex items-center gap-1.5 mb-3">
                                 <i class="fa-solid fa-location-dot text-rose-500"></i> ${t.location}
                             </p>
-                            <p class="text-[11px] text-slate-600 line-clamp-2 leading-relaxed mb-2">${t.desc || 'Nessuna descrizione aggiuntiva.'}</p>
-                            ${t.poster ? `<p class="text-[10px] text-emerald-600 font-bold"><i class="fa-solid fa-image mr-1"></i> Locandina: ${t.poster}</p>` : ''}
+                            <p class="text-[11px] text-slate-600 line-clamp-2 leading-relaxed mb-2">${t.desc || 'Nessuna descrizione aggiuntiva disponibile.'}</p>
                         </div>
                     </div>
                     <div class="p-5 pt-0">
@@ -349,6 +381,30 @@
                 `;
                 grid.appendChild(card);
             });
+        }
+
+        function openDetailsModal(tournament) {
+            document.getElementById('modalTournamentTitle').innerText = tournament.title;
+            document.getElementById('modalTournamentDate').querySelector('span').innerText = tournament.date;
+            document.getElementById('modalTournamentLocation').querySelector('span').innerText = tournament.location;
+            document.getElementById('modalTournamentStatus').innerText = tournament.status;
+            document.getElementById('modalTournamentDesc').innerText = tournament.desc || "Nessuna descrizione dettagliata fornita per questo evento.";
+            
+            let posterBox = document.getElementById('modalPosterContainer');
+            if (tournament.poster) {
+                document.getElementById('modalPosterName').innerText = tournament.poster;
+                posterBox.classList.remove('hidden');
+            } else {
+                posterBox.classList.add('hidden');
+            }
+
+            document.getElementById('detailsModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDetailsModal() {
+            document.getElementById('detailsModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
         }
 
         function openAdminModal() { 
@@ -521,6 +577,7 @@
             if (e.target === document.getElementById('adminModal')) closeAdminModal();
             if (e.target === document.getElementById('successModal')) closeSuccessModal();
             if (e.target === document.getElementById('confirmDeleteModal')) closeConfirmModal();
+            if (e.target === document.getElementById('detailsModal')) closeDetailsModal();
         }
     </script>
 </body>
