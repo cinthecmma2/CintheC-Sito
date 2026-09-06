@@ -1,14 +1,14 @@
-// sw.js - Service Worker aggiornato per SmoothTech
-const CACHE_NAME = 'smoothtech-v1';
+// sw.js - Service Worker corretto per SmoothTech
+const CACHE_NAME = 'smoothtech-v2';
 const ASSETS_TO_CACHE = [
-  './smoothtech.html',
-  './tornei.html',
-  './tornei1.html',
-  './tatami-live.html',
-  './privacy.html',
-  './note-legali.html',
-  './icon-192.png',
-  './icon-512.png'
+    '/smoothtech.html',
+    '/tornei.html',
+    '/tornei1.html',
+    '/tatami-live.html',
+    '/privacy.html',
+    '/note-legali.html',
+    '/icon-192.png',
+    '/icon-512.png'
 ];
 
 // Installazione: scarica e memorizza i file in cache
@@ -21,10 +21,10 @@ self.addEventListener('install', (event) => {
     );
 });
 
-// Attivazione: pulisce le vecchie cache se aggiorni la versione
+// Attivazione: pulisce le vecchie cache
 self.addEventListener('activate', (event) => {
     event.waitUntil(
-        caches.keys().keys ? caches.keys().then((keys) => {
+        caches.keys().then((keys) => {
             return Promise.all(
                 keys.map((key) => {
                     if (key !== CACHE_NAME) {
@@ -32,7 +32,7 @@ self.addEventListener('activate', (event) => {
                     }
                 })
             );
-        }) : null
+        })
     );
 });
 
