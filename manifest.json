@@ -1,8 +1,8 @@
 {
-  "name": "SmoothTech Pro App",
-  "short_name": "SmoothTech",
-  "description": "Terminale Gestione Tornei e Tatami",
-  "start_url": "./smoothtech.html",
+  "name": "CintheC Tornei",
+  "short_name": "CintheC",
+  "description": "Portale Tornei e Terminale Gestione Tatami",
+  "start_url": "tornei.html",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#0f172a",
