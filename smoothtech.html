@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SmoothTech Dashboard - Gestione & Tatami Pro</title>
     
-    <!-- PWA Meta Tags -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
     <link rel="apple-touch-icon" href="icon-192.png">
@@ -21,7 +20,6 @@
         .category-card:hover { border-color: #059669; transform: translateY(-2px); }
         .logo-left-cinthec { width: 110px !important; height: 40px !important; object-fit: contain !important; }
         
-        /* Nascondi scrollbar per caroselli fluidi su mobile */
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -82,7 +80,6 @@
 
     <div id="toast-container"></div>
 
-    <!-- MODALE RESET -->
     <div id="resetModal" class="fixed inset-0 bg-slate-950/70 z-50 flex items-center justify-center hidden backdrop-blur-xs px-4">
         <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-md w-full shadow-2xl space-y-4 text-center">
             <div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto text-lg font-bold">
@@ -103,7 +100,6 @@
         </div>
     </div>
 
-    <!-- HEADER -->
     <header class="bg-slate-900 border-b border-slate-800 py-3 px-3 sm:px-6 shadow-md sticky top-0 z-40">
         <div class="max-w-7xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between gap-3">
             <div class="flex items-center justify-between w-full sm:w-auto">
@@ -128,10 +124,8 @@
         </div>
     </header>
 
-    <!-- MAIN CONTENT -->
     <main class="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-8 w-full flex-grow space-y-6">
         
-        <!-- SEZIONE DASHBOARD & FILTRI MINIMIZZATI -->
         <section>
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 gap-2">
                 <div>
@@ -145,7 +139,6 @@
                 </div>
             </div>
 
-            <!-- Filtri minimizzati e compatti (ottimizzati mobile) -->
             <div class="bg-white p-3 rounded-xl border border-slate-200 mb-4 shadow-sm grid grid-cols-2 sm:grid-cols-5 gap-2">
                 <div>
                     <label class="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Torneo</label>
@@ -188,7 +181,6 @@
                 </div>
             </div>
 
-            <!-- CONTENITORE CATEGORIE: Carosello orizzontale su mobile, Griglia su desktop -->
             <div id="categoriesContainer" class="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-4 px-1 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible sm:pb-0 hide-scrollbar">
                 <div class="col-span-full text-center py-12 text-slate-400 text-xs">
                     <i class="fa-solid fa-spinner fa-spin text-lg mb-2"></i><br>Caricamento rapido in corso...
@@ -200,7 +192,6 @@
             <span><i class="fa-solid fa-sliders text-emerald-600 mr-1.5"></i> Area Operativa Gara & Tatami Live</span>
         </div>
 
-        <!-- SEZIONE TATAMI E CONTROLLO GARA -->
         <section class="bg-white p-4 sm:p-6 rounded-xl border border-slate-300 shadow-sm space-y-6">
             <div>
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
@@ -220,7 +211,6 @@
                     </div>
                 </div>
 
-                <!-- MENU A TENDINA A SCOMPARSA: "TATAMI DA ACCENDERE" CON SWITCH IN FILA -->
                 <div class="mb-5 bg-slate-50 border border-slate-200 rounded-xl overflow-hidden shadow-xs">
                     <button onclick="toggleTatamiSettingsMenu()" class="w-full p-3.5 flex items-center justify-between text-xs font-black uppercase text-slate-800 bg-slate-100/80 hover:bg-slate-200 transition cursor-pointer">
                         <span class="flex items-center gap-2">
@@ -229,12 +219,10 @@
                         <i class="fa-solid fa-chevron-down text-xs text-slate-600" id="tatamiSettingsIcon"></i>
                     </button>
                     <div id="tatamiSettingsDropdown" class="hidden p-3 border-t border-slate-200 space-y-2 max-h-80 overflow-y-auto">
-                        <!-- Elenco verticale pulito con switch laterale -->
                         <div id="tatamiSwitchesContainer" class="space-y-2"></div>
                     </div>
                 </div>
 
-                <!-- MENU A TENDINA PER SELEZIONARE IL TATAMI DA VISUALIZZARE SU MOBILE -->
                 <div class="block sm:hidden mb-4 bg-slate-50 p-3 rounded-xl border border-slate-200">
                     <label class="block text-[10px] font-black uppercase text-slate-700 mb-1">
                         <i class="fa-solid fa-filter text-emerald-600 mr-1"></i> Seleziona Tatami da Visualizzare
@@ -251,7 +239,6 @@
                     </select>
                 </div>
 
-                <!-- Contenitore assegnazioni tatami -->
                 <div id="tatamiAssignmentsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div class="col-span-full text-center py-8 text-slate-400 text-xs border border-dashed border-slate-200 rounded-lg">
                         Nessun tatami attivo o pool distribuita. Accendi almeno un tatami e distribuisci.
@@ -259,7 +246,6 @@
                 </div>
             </div>
 
-            <!-- SEZIONE PODIO & PREMIAZIONI -->
             <div class="border-t border-slate-200 pt-6">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xs sm:text-sm font-black uppercase tracking-tight text-slate-900 flex items-center gap-1.5">
@@ -277,7 +263,6 @@
 
     </main>
 
-    <!-- FOOTER -->
     <footer class="bg-slate-900 text-slate-400 py-3 px-6 text-center text-[11px]">
         SmoothTech Platform - CintheC Media & Leoni di San Marco © 2026
     </footer>
@@ -289,6 +274,7 @@
         let tatamiStates = { 1: false, 2: false, 3: false, 4: false, 5: false, 6: false, 7: false, 8: false };
         let podioVincitori = [];
         let mobileSelectedTatami = "1";
+        let lastLiveSignature = ""; // Firma per il controllo intelligente dei cambiamenti
 
         const mockTestAthletes = [
             ...Array.from({length: 14}, (_, i) => ({ nome: `Atleta${i+1}`, cognome: `Bianca75`, torneo: "CintheC Cup 01", stile: "Brazilian Jiu-Jitsu (Gi)", cintura: "Cintura Bianca", peso: "-75kg", team: i % 2 === 0 ? "Team Chioggia" : "Leoni di San Marco" })),
@@ -350,6 +336,7 @@
             }
             generatedPoolsRegistry = {};
             podioVincitori = [];
+            lastLiveSignature = "";
             
             chiudiModalReset();
             organizzaECreaCategorie(allIscrizioni);
@@ -856,7 +843,7 @@
 
         function renderDistribuzioneEsistente(distribution) {
             let container = document.getElementById('tatamiAssignmentsContainer');
-            container.innerHTML = '';
+            if (!container) return;
             
             let categorieCompletate = podioVincitori.map(p => p.categoria);
             let updated = false;
@@ -876,32 +863,74 @@
             }
 
             let tatamisToRender = window.innerWidth < 640 ? [mobileSelectedTatami] : Object.keys(distribution).filter(t => tatamiStates[t]);
+            container.innerHTML = '';
 
             tatamisToRender.forEach(t => {
                 if (tatamiStates[t] || window.innerWidth < 640) {
                     let assignedPools = distribution[t] || [];
-                    let poolsHtml = assignedPools.map((p, pIdx) => {
-                        let dettaglioMatch = '';
-                        let listaMatchDaMostrare = p.singoliMatch || (p.data && p.data.pairings ? p.data.pairings.map((m) => ({ matchId: m.turno, matchData: m })) : []);
-                        
-                        if (listaMatchDaMostrare.length > 0) {
-                            dettaglioMatch = `<div class="text-[9px] text-emerald-700 mt-1 pl-2 border-l-2 border-emerald-500 space-y-0.5">` + 
-                                listaMatchDaMostrare.map(sm => `<div><b>${sm.matchId}</b>: ${sm.matchData.a1.nome} vs ${sm.matchData.a2.nome}</div>`).join('') + 
-                                `</div>`;
-                        }
+                    
+                    let liveQueueStr = localStorage.getItem(`tatami_${t}_fixed_queue`);
+                    let liveIndex = parseInt(localStorage.getItem(`tatami_${t}_index`) || "0");
+                    
+                    let poolsHtml = '';
+                    if (liveQueueStr) {
+                        try {
+                            let liveQueue = JSON.parse(liveQueueStr);
+                            poolsHtml = liveQueue.map((item, idx) => {
+                                let isCurrent = (idx === liveIndex);
+                                let isDone = item.completato === true;
+                                
+                                let badgeStato = isDone 
+                                    ? `<span class="bg-slate-200 text-slate-600 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">FATTO</span>`
+                                    : (isCurrent 
+                                        ? `<span class="bg-emerald-100 text-emerald-800 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">IN CORSO</span>`
+                                        : `<span class="bg-slate-100 text-slate-500 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">IN CODA</span>`
+                                    );
+                                
+                                let styleBg = isCurrent ? 'bg-emerald-50/70 border-emerald-300' : (isDone ? 'bg-slate-50 opacity-75' : 'bg-white');
+                                let textStyle = isDone ? 'line-through text-slate-400' : 'text-slate-800';
+                                
+                                let vincitoreInfo = item.vincitore ? `<span class="text-amber-600 font-bold ml-1 text-[9px]"><i class="fa-solid fa-trophy mr-0.5"></i>${item.vincitore}</span>` : '';
 
-                        let badgeStato = pIdx === 0 
-                            ? `<span class="bg-emerald-100 text-emerald-800 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">IN CORSO</span>`
-                            : `<span class="bg-slate-100 text-slate-600 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">IN CODA</span>`;
-                        
-                        return `<div class="text-[11px] font-bold text-slate-800 bg-white p-2.5 rounded-lg mb-2 border border-slate-200 shadow-xs">
-                            <div class="flex items-center justify-between">
-                                <span class="text-slate-900 uppercase">${p.key}</span>
-                                ${badgeStato}
-                            </div>
-                            ${dettaglioMatch}
-                        </div>`;
-                    }).join('');
+                                return `<div class="text-[11px] font-bold ${textStyle} ${styleBg} p-2.5 rounded-lg mb-1.5 border border-slate-200 shadow-xs">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-slate-900 uppercase"><b>[${item.categoria}]</b> ${item.matchId}</span>
+                                        ${badgeStato}
+                                    </div>
+                                    <div class="text-[10px] text-slate-700 mt-1">
+                                        ${item.matchData.a1.nome} vs ${item.matchData.a2.nome} ${vincitoreInfo}
+                                    </div>
+                                </div>`;
+                            }).join('');
+                        } catch(e) {
+                            poolsHtml = '';
+                        }
+                    }
+
+                    if (!poolsHtml) {
+                        poolsHtml = assignedPools.map((p, pIdx) => {
+                            let dettaglioMatch = '';
+                            let listaMatchDaMostrare = p.singoliMatch || (p.data && p.data.pairings ? p.data.pairings.map((m) => ({ matchId: m.turno, matchData: m })) : []);
+                            
+                            if (listaMatchDaMostrare.length > 0) {
+                                dettaglioMatch = `<div class="text-[9px] text-emerald-700 mt-1 pl-2 border-l-2 border-emerald-500 space-y-0.5">` + 
+                                    listaMatchDaMostrare.map(sm => `<div><b>${sm.matchId}</b>: ${sm.matchData.a1.nome} vs ${sm.matchData.a2.nome}</div>`).join('') + 
+                                    `</div>`;
+                            }
+
+                            let badgeStato = pIdx === 0 
+                                ? `<span class="bg-emerald-100 text-emerald-800 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">IN CORSO</span>`
+                                : `<span class="bg-slate-100 text-slate-600 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">IN CODA</span>`;
+                            
+                            return `<div class="text-[11px] font-bold text-slate-800 bg-white p-2.5 rounded-lg mb-2 border border-slate-200 shadow-xs">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-slate-900 uppercase">${p.key}</span>
+                                    ${badgeStato}
+                                </div>
+                                ${dettaglioMatch}
+                            </div>`;
+                        }).join('');
+                    }
                     
                     container.innerHTML += `
                         <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 shadow-sm flex flex-col justify-between">
@@ -910,7 +939,9 @@
                                     <h3 class="text-xs font-black uppercase text-slate-900">Tatami ${t}</h3>
                                     <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">${assignedPools.length} Categorie</span>
                                 </div>
-                                <div class="space-y-1 mb-3 max-h-48 overflow-y-auto">${poolsHtml || '<div class="text-xs text-slate-400 py-4 text-center">Nessuna pool in coda per questo tatami.</div>'}</div>
+                                <div class="space-y-1 mb-3 max-h-48 overflow-y-auto">
+                                    ${poolsHtml || '<div class="text-xs text-slate-400 py-4 text-center">Nessuna pool in coda per questo tatami.</div>'}
+                                </div>
                             </div>
                             <a href="tatami-live.html?t=${t}" target="_blank" class="block text-center bg-slate-900 hover:bg-emerald-600 text-white text-[10px] font-bold uppercase py-2 rounded-lg transition shadow">
                                 Apri Tatami ${t} Live <i class="fa-solid fa-external-link-alt ml-1"></i>
@@ -921,35 +952,53 @@
             });
 
             if (container.innerHTML === '') {
-                container.innerHTML = `<div class="col-span-full text-center py-8 text-slate-400 text-xs border border-dashed border-slate-200 rounded-lg">Nessun tatami attivo con pool distribuita. Accendi un tatami e clicca su Distribuisci.</div>`;
+                container.innerHTML = `<div class="col-span-full text-center py-8 text-slate-400 text-xs border border-dashed border-slate-200 rounded-lg">Nessun tatami attivo con pool distribuita. Accendi un tatami e distribuisci.</div>`;
             }
         }
 
+        // CONTROLLO LIVE INTELLIGENTE (Smart Diffing)
         function controllaAggiornamentiLive() {
-            let savedPodio = localStorage.getItem("smoothtech_new_podium");
-            if (savedPodio) {
-                let pData = JSON.parse(savedPodio);
+            let dist = localStorage.getItem("smoothtech_active_distribution") || "";
+            let podium = localStorage.getItem("smoothtech_new_podium") || "";
+            let tatamiData = "";
+            for (let i = 1; i <= 8; i++) {
+                tatamiData += (localStorage.getItem(`tatami_${i}_fixed_queue`) || "") + (localStorage.getItem(`tatami_${i}_index`) || "");
+            }
+            
+            // Crea una firma unica di tutti i dati attuali
+            let currentSignature = dist + "_" + podium + "_" + tatamiData;
+
+            // Se la firma NON è cambiata rispetto al secondo precedente, NON FA NULLA. 
+            // In questo modo lo scroll non viene mai disturbato e la pagina è fluidissima!
+            if (currentSignature === lastLiveSignature) return;
+            
+            // Se c'è stato un cambiamento effettivo, aggiorna la firma e ridisegna
+            lastLiveSignature = currentSignature;
+
+            if (dist) {
+                renderDistribuzioneEsistente(JSON.parse(dist));
+            }
+
+            if (podium) {
+                let pData = JSON.parse(podium);
                 if (!podioVincitori.some(v => v.categoria === pData.categoria)) {
                     podioVincitori.push(pData);
                     salvaStatoLocale();
                     renderPodioList();
 
-                    let savedDist = localStorage.getItem("smoothtech_active_distribution");
-                    if (savedDist) {
-                        let distribution = JSON.parse(savedDist);
-                        let categorieCompletate = podioVincitori.map(p => p.categoria);
-                        let changed = false;
-                        Object.keys(distribution).forEach(t => {
-                            if (distribution[t]) {
-                                let lenPrima = distribution[t].length;
-                                distribution[t] = distribution[t].filter(p => !categorieCompletate.includes(p.key));
-                                if (distribution[t].length !== lenPrima) changed = true;
-                            }
-                        });
-                        if (changed) {
-                            localStorage.setItem("smoothtech_active_distribution", JSON.stringify(distribution));
-                            renderDistribuzioneEsistente(distribution);
+                    let distribution = JSON.parse(dist);
+                    let categorieCompletate = podioVincitori.map(p => p.categoria);
+                    let changed = false;
+                    Object.keys(distribution).forEach(t => {
+                        if (distribution[t]) {
+                            let lenPrima = distribution[t].length;
+                            distribution[t] = distribution[t].filter(p => !categorieCompletate.includes(p.key));
+                            if (distribution[t].length !== lenPrima) changed = true;
                         }
+                    });
+                    if (changed) {
+                        localStorage.setItem("smoothtech_active_distribution", JSON.stringify(distribution));
+                        renderDistribuzioneEsistente(JSON.parse(localStorage.getItem("smoothtech_active_distribution")));
                     }
 
                     showToast(`Pool conclusa e inviata al podio: ${pData.categoria}`);
@@ -1053,7 +1102,6 @@
         }
     </script>
 
-    <!-- Script Service Worker per la PWA -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {

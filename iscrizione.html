@@ -167,10 +167,8 @@
 </head>
 <body class="text-zinc-100 antialiased selection:bg-[#00ff66] selection:text-black">
 
-    <!-- CORNICE ELETTRICA PER I BAGLIORI SUI BORDI -->
     <div id="stormBorder" class="storm-border"></div>
 
-    <!-- POP-UP INFORMATIVO PIATTAFORMA MATCH -->
     <div id="infoModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 modal-transition opacity-150">
         <div class="bg-zinc-950 border-2 border-[#00ff66]/60 rounded-2xl max-w-md w-full p-6 shadow-[0_0_30px_rgba(0,255,102,0.25)] relative text-center">
             <div class="w-12 h-12 bg-[#00ff66]/10 border border-[#00ff66] rounded-full flex items-center justify-center text-[#00ff66] text-xl mx-auto mb-3 shadow-[0_0_15px_rgba(0,255,102,0.3)]">
@@ -188,11 +186,9 @@
 
     <div class="split-container">
         
-        <!-- PANNELLO SINISTRA: MODULO DI ISCRIZIONE -->
         <div class="left-pane w-full">
             <div class="max-w-md w-full bg-zinc-950/95 border border-zinc-800/80 rounded-2xl p-4 sm:p-6 shadow-2xl backdrop-blur-md relative my-auto">
                 
-                <!-- PULSANTE TORNA ALLA HOME EVIDENTE IN ALTO -->
                 <div class="mb-3">
                     <a href="index.html" class="flex items-center justify-center gap-2 w-full bg-zinc-900 hover:bg-zinc-800 text-[#00ff66] border border-[#00ff66]/50 py-2 px-3 rounded-xl font-black text-xs uppercase tracking-wider transition shadow-md">
                         <i class="fa-solid fa-arrow-left"></i> Torna alla Home
@@ -209,7 +205,6 @@
                     </div>
                 </div>
 
-                <!-- QUADRATO / BOX CLICCABILE PER APRIRE IL POP-UP -->
                 <div onclick="apriPopUpInfo()" class="bg-zinc-900/90 border border-[#00ff66]/40 hover:border-[#00ff66] rounded-xl p-3 mb-4 cursor-pointer transition text-center shadow-md group">
                     <h2 class="text-sm sm:text-base font-black uppercase tracking-tight text-white mb-0.5 group-hover:text-[#00ff66] transition">Piattaforma Match</h2>
                     <p class="text-[10px] text-[#00ff66] font-semibold flex items-center justify-center gap-1">
@@ -265,7 +260,6 @@
                         </div>
                     </div>
 
-                    <!-- SEZIONE CONSENSI E NOTE LEGALI -->
                     <div class="pt-2 border-t border-zinc-800/80 space-y-2">
                         <label class="flex items-start gap-2 cursor-pointer">
                             <input type="checkbox" id="consensoPrivacy" class="mt-0.5 h-3.5 w-3.5 rounded border-zinc-800 bg-zinc-900 text-[#00ff66] focus:ring-0 focus:ring-offset-0 accent-[#00ff66]">
@@ -301,7 +295,6 @@
             </div>
         </div>
 
-        <!-- PANNELLO DESTRA: SLIDER FOTO + FEED MINIMALE -->
         <div class="right-pane">
             <div class="space-y-6 max-w-xl mx-auto w-full pb-10">
                 
@@ -432,6 +425,7 @@
             const consensoMedia = document.getElementById('consensoMedia').checked;
 
             const dati = {
+                action: "iscrizione", // <--- PROPRIETÀ FONDAMENTALE AGGIUNTA
                 nome: document.getElementById('nome').value.trim(),
                 cognome: document.getElementById('cognome').value.trim(),
                 email: document.getElementById('email').value.trim(),

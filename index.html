@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CintheC - Official Portal</title>
     
-    <!-- PWA Meta Tags & Manifest -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0b0b0b">
     <link rel="apple-touch-icon" href="icon-192.png">
@@ -14,9 +13,15 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Montserrat', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            transition: background-color 0.3s ease, color 0.3s ease; 
+        }
         
         button, a, .pc-nav-link, .nav-dropdown-btn, .mobile-dropdown-btn, .light-lightning-card a {
             transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
@@ -339,11 +344,11 @@
         }
 
         .logo-left-cinthec {
-            width: 180px !important;
-            height: 78px !important;
-            max-height: 78px !important;
+            width: 320px !important;
+            height: 110px !important;
+            max-height: 110px !important;
             object-fit: contain !important;
-            margin-left: -10px !important;
+            margin-left: -40px !important;
             position: relative;
             z-index: 60;
         }
@@ -367,9 +372,9 @@
     </div>
 
     <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center">
-        <div class="max-w-7xl mx-auto px-1 sm:px-6 w-full grid grid-cols-3 items-center relative z-50">
+        <div class="max-w-7xl mx-auto pl-0 pr-1 sm:px-4 w-full grid grid-cols-3 items-center relative z-50">
             
-            <div class="flex items-center justify-start">
+            <div class="flex items-center justify-start pl-0">
                 <a href="index.html" class="flex items-center">
                     <img src="Immagini/Logo.jpeg" alt="CintheC Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/logo.png';">
                 </a>
@@ -733,7 +738,6 @@
         });
     </script>
 
-    <!-- Script Service Worker per la PWA -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
