@@ -17,14 +17,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Montserrat', sans-serif; background-color: #f8fafc; }
-        .category-card { background: #ffffff; border: 1.5px solid #0f172a; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.03); }
+        .category-card { background: #ffffff; border: 1.5px solid #0f172a; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); transition: all 0.25s ease; }
+        .category-card:hover { border-color: #059669; transform: translateY(-2px); }
         .logo-left-cinthec { width: 110px !important; height: 40px !important; object-fit: contain !important; }
-        .tatami-box { background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 8px; transition: all 0.2s ease; }
-        .tatami-box.active { border-color: #059669; box-shadow: 0 4px 6px -1px rgba(5, 150, 105, 0.1); }
+        
+        /* Nascondi scrollbar per caroselli fluidi su mobile */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
         .section-divider {
             position: relative;
             text-align: center;
-            margin: 2.5rem 0;
+            margin: 2rem 0;
         }
         .section-divider::before {
             content: '';
@@ -74,10 +78,11 @@
         @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
     </style>
 </head>
-<body class="bg-slate-100 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-slate-100 text-slate-800 antialiased min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-white">
 
     <div id="toast-container"></div>
 
+    <!-- MODALE RESET -->
     <div id="resetModal" class="fixed inset-0 bg-slate-950/70 z-50 flex items-center justify-center hidden backdrop-blur-xs px-4">
         <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-md w-full shadow-2xl space-y-4 text-center">
             <div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto text-lg font-bold">
@@ -98,7 +103,8 @@
         </div>
     </div>
 
-    <header class="bg-slate-900 border-b border-slate-800 py-3 px-3 sm:px-6 shadow-md">
+    <!-- HEADER -->
+    <header class="bg-slate-900 border-b border-slate-800 py-3 px-3 sm:px-6 shadow-md sticky top-0 z-40">
         <div class="max-w-7xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between gap-3">
             <div class="flex items-center justify-between w-full sm:w-auto">
                 <a href="tornei.html" class="flex items-center">
@@ -122,65 +128,68 @@
         </div>
     </header>
 
+    <!-- MAIN CONTENT -->
     <main class="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-8 w-full flex-grow space-y-6">
         
+        <!-- SEZIONE DASHBOARD & FILTRI MINIMIZZATI -->
         <section>
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 gap-2">
                 <div>
-                    <h1 class="text-xl sm:text-2xl font-black uppercase tracking-tight text-slate-900">Dashboard Categorie & Auto-Pooling</h1>
-                    <span id="totalBadge" class="bg-emerald-600 text-white font-extrabold text-xs px-3 py-1 rounded-full inline-block mt-1">0 Iscritti Totali</span>
+                    <h1 class="text-lg sm:text-2xl font-black uppercase tracking-tight text-slate-900">Dashboard Categorie & Auto-Pooling</h1>
+                    <span id="totalBadge" class="bg-emerald-600 text-white font-extrabold text-[10px] sm:text-xs px-2.5 py-0.5 rounded-full inline-block mt-1">0 Iscritti Totali</span>
                 </div>
                 <div>
-                    <button onclick="caricaIscrittiCloud(true)" class="w-full sm:w-auto bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs uppercase px-4 py-2.5 rounded-lg shadow cursor-pointer flex items-center justify-center gap-2 transition">
+                    <button onclick="caricaIscrittiCloud(true)" class="w-full sm:w-auto bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs uppercase px-3.5 py-2 rounded-lg shadow cursor-pointer flex items-center justify-center gap-2 transition">
                         <i class="fa-solid fa-rotate"></i> Aggiorna Dati
                     </button>
                 </div>
             </div>
 
-            <!-- Filtri Ottimizzati Mobile -->
-            <div class="bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200 mb-6 shadow-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+            <!-- Filtri minimizzati e compatti (ottimizzati mobile) -->
+            <div class="bg-white p-3 rounded-xl border border-slate-200 mb-4 shadow-sm grid grid-cols-2 sm:grid-cols-5 gap-2">
                 <div>
-                    <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Torneo</label>
-                    <select id="filterTorneo" onchange="filtraCategorie()" class="w-full bg-slate-50 border border-slate-300 text-xs rounded-lg px-3 py-2.5">
-                        <option value="Tutti">Tutti i Tornei</option>
+                    <label class="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Torneo</label>
+                    <select id="filterTorneo" onchange="filtraCategorie()" class="w-full bg-slate-50 border border-slate-300 text-[11px] rounded-lg px-2 py-1.5 focus:outline-none focus:border-emerald-500">
+                        <option value="Tutti">Tutti</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Stile</label>
-                    <select id="filterStile" onchange="filtraCategorie()" class="w-full bg-slate-50 border border-slate-300 text-xs rounded-lg px-3 py-2.5">
-                        <option value="Tutti">Tutti gli Stili</option>
-                        <option value="Brazilian Jiu-Jitsu (Gi)">Brazilian Jiu-Jitsu (Gi)</option>
-                        <option value="Grappling (No-Gi)">Grappling (No-Gi)</option>
+                    <label class="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Stile</label>
+                    <select id="filterStile" onchange="filtraCategorie()" class="w-full bg-slate-50 border border-slate-300 text-[11px] rounded-lg px-2 py-1.5 focus:outline-none focus:border-emerald-500">
+                        <option value="Tutti">Tutti</option>
+                        <option value="Brazilian Jiu-Jitsu (Gi)">BJJ (Gi)</option>
+                        <option value="Grappling (No-Gi)">Grappling</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Cintura</label>
-                    <select id="filterCintura" onchange="filtraCategorie()" class="w-full bg-slate-50 border border-slate-300 text-xs rounded-lg px-3 py-2.5">
-                        <option value="Tutte">Tutte le Cinture</option>
-                        <option value="Cintura Bianca">Cintura Bianca</option>
-                        <option value="Cintura Blu">Cintura Blu</option>
-                        <option value="Cintura Viola">Cintura Viola</option>
-                        <option value="Cintura Marrone">Cintura Marrone</option>
-                        <option value="Cintura Nera">Cintura Nera</option>
+                    <label class="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Cintura</label>
+                    <select id="filterCintura" onchange="filtraCategorie()" class="w-full bg-slate-50 border border-slate-300 text-[11px] rounded-lg px-2 py-1.5 focus:outline-none focus:border-emerald-500">
+                        <option value="Tutte">Tutte</option>
+                        <option value="Cintura Bianca">Bianca</option>
+                        <option value="Cintura Blu">Blu</option>
+                        <option value="Cintura Viola">Viola</option>
+                        <option value="Cintura Marrone">Marrone</option>
+                        <option value="Cintura Nera">Nera</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Peso</label>
-                    <select id="filterPeso" onchange="filtraCategorie()" class="w-full bg-slate-50 border border-slate-300 text-xs rounded-lg px-3 py-2.5">
-                        <option value="Tutti">Tutti i Pesi</option>
-                        <option value="-55kg">-55 kg</option>
-                        <option value="-75kg">-75 kg</option>
-                        <option value="-90kg">-90 kg</option>
-                        <option value="OPEN / Assoluto">OPEN / Assoluto</option>
+                    <label class="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Peso</label>
+                    <select id="filterPeso" onchange="filtraCategorie()" class="w-full bg-slate-50 border border-slate-300 text-[11px] rounded-lg px-2 py-1.5 focus:outline-none focus:border-emerald-500">
+                        <option value="Tutti">Tutti</option>
+                        <option value="-55kg">-55kg</option>
+                        <option value="-75kg">-75kg</option>
+                        <option value="-90kg">-90kg</option>
+                        <option value="OPEN / Assoluto">OPEN</option>
                     </select>
                 </div>
-                <div>
-                    <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Cerca</label>
-                    <input type="text" id="searchAtleta" onkeyup="filtraCategorie()" placeholder="Atleta o team..." class="w-full bg-slate-50 border border-slate-300 text-xs rounded-lg px-3 py-2.5">
+                <div class="col-span-2 sm:col-span-1">
+                    <label class="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Cerca</label>
+                    <input type="text" id="searchAtleta" onkeyup="filtraCategorie()" placeholder="Atleta o team..." class="w-full bg-slate-50 border border-slate-300 text-[11px] rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-emerald-500">
                 </div>
             </div>
 
-            <div id="categoriesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- CONTENITORE CATEGORIE: Carosello orizzontale su mobile, Griglia su desktop -->
+            <div id="categoriesContainer" class="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-4 px-1 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible sm:pb-0 hide-scrollbar">
                 <div class="col-span-full text-center py-12 text-slate-400 text-xs">
                     <i class="fa-solid fa-spinner fa-spin text-lg mb-2"></i><br>Caricamento rapido in corso...
                 </div>
@@ -191,27 +200,58 @@
             <span><i class="fa-solid fa-sliders text-emerald-600 mr-1.5"></i> Area Operativa Gara & Tatami Live</span>
         </div>
 
-        <section class="bg-white p-4 sm:p-6 rounded-xl border border-slate-300 shadow-sm space-y-8">
+        <!-- SEZIONE TATAMI E CONTROLLO GARA -->
+        <section class="bg-white p-4 sm:p-6 rounded-xl border border-slate-300 shadow-sm space-y-6">
             <div>
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-3">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
                     <div>
-                        <h2 class="text-lg sm:text-xl font-black uppercase tracking-tight text-slate-900">
-                            <i class="fa-solid fa-layer-group text-emerald-600 mr-2"></i> Pannello Controllo Tatami (1 - 8)
+                        <h2 class="text-base sm:text-xl font-black uppercase tracking-tight text-slate-900">
+                            <i class="fa-solid fa-layer-group text-emerald-600 mr-2"></i> Pannello Controllo Tatami
                         </h2>
-                        <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">Accendi i tatami, distribuisci o bilancia le code in attesa.</p>
+                        <p class="text-[11px] text-slate-500 mt-0.5">Gestisci i tatami attivi, distribuisci o bilancia le code in attesa.</p>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-2">
-                        <button onclick="bilanciaCodeTatami()" class="bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs uppercase px-4 py-3 rounded-lg shadow cursor-pointer flex items-center justify-center gap-2 transition">
+                        <button onclick="bilanciaCodeTatami()" class="bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs uppercase px-3.5 py-2.5 rounded-lg shadow cursor-pointer flex items-center justify-center gap-1.5 transition">
                             <i class="fa-solid fa-scale-balanced"></i> Bilancia Code
                         </button>
-                        <button onclick="distribuisciPoolSuiTatami()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase px-5 py-3 rounded-lg shadow cursor-pointer flex items-center justify-center gap-2 transition">
-                            <i class="fa-solid fa-shuffle"></i> Distribuisci (Aggiungi Nuove)
+                        <button onclick="distribuisciPoolSuiTatami()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase px-4 py-2.5 rounded-lg shadow cursor-pointer flex items-center justify-center gap-1.5 transition">
+                            <i class="fa-solid fa-shuffle"></i> Distribuisci (Aggiungi)
                         </button>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 mb-6" id="tatamiSwitchesContainer"></div>
+                <!-- MENU A TENDINA A SCOMPARSA: "TATAMI DA ACCENDERE" CON SWITCH IN FILA -->
+                <div class="mb-5 bg-slate-50 border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+                    <button onclick="toggleTatamiSettingsMenu()" class="w-full p-3.5 flex items-center justify-between text-xs font-black uppercase text-slate-800 bg-slate-100/80 hover:bg-slate-200 transition cursor-pointer">
+                        <span class="flex items-center gap-2">
+                            <i class="fa-solid fa-power-off text-emerald-600"></i> Tatami da accendere
+                        </span>
+                        <i class="fa-solid fa-chevron-down text-xs text-slate-600" id="tatamiSettingsIcon"></i>
+                    </button>
+                    <div id="tatamiSettingsDropdown" class="hidden p-3 border-t border-slate-200 space-y-2 max-h-80 overflow-y-auto">
+                        <!-- Elenco verticale pulito con switch laterale -->
+                        <div id="tatamiSwitchesContainer" class="space-y-2"></div>
+                    </div>
+                </div>
 
+                <!-- MENU A TENDINA PER SELEZIONARE IL TATAMI DA VISUALIZZARE SU MOBILE -->
+                <div class="block sm:hidden mb-4 bg-slate-50 p-3 rounded-xl border border-slate-200">
+                    <label class="block text-[10px] font-black uppercase text-slate-700 mb-1">
+                        <i class="fa-solid fa-filter text-emerald-600 mr-1"></i> Seleziona Tatami da Visualizzare
+                    </label>
+                    <select id="mobileTatamiDropdown" onchange="renderMobileTatamiView(this.value)" class="w-full bg-white border border-slate-300 text-xs font-bold text-slate-900 rounded-lg p-2.5 shadow-sm focus:outline-none focus:border-emerald-600">
+                        <option value="1">Tatami 1</option>
+                        <option value="2">Tatami 2</option>
+                        <option value="3">Tatami 3</option>
+                        <option value="4">Tatami 4</option>
+                        <option value="5">Tatami 5</option>
+                        <option value="6">Tatami 6</option>
+                        <option value="7">Tatami 7</option>
+                        <option value="8">Tatami 8</option>
+                    </select>
+                </div>
+
+                <!-- Contenitore assegnazioni tatami -->
                 <div id="tatamiAssignmentsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div class="col-span-full text-center py-8 text-slate-400 text-xs border border-dashed border-slate-200 rounded-lg">
                         Nessun tatami attivo o pool distribuita. Accendi almeno un tatami e distribuisci.
@@ -219,12 +259,13 @@
                 </div>
             </div>
 
+            <!-- SEZIONE PODIO & PREMIAZIONI -->
             <div class="border-t border-slate-200 pt-6">
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-xs sm:text-sm font-black uppercase tracking-tight text-slate-900">
-                        <i class="fa-solid fa-medal text-amber-500 mr-1.5"></i> Chiamata Podio & Premiazioni
+                    <h3 class="text-xs sm:text-sm font-black uppercase tracking-tight text-slate-900 flex items-center gap-1.5">
+                        <i class="fa-solid fa-medal text-amber-500"></i> Chiamata Podio & Premiazioni
                     </h3>
-                    <span id="podioCounter" class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2.5 py-0.5 rounded-full">0 Categorie Ultimate</span>
+                    <span id="podioCounter" class="text-[10px] bg-amber-100 text-amber-800 font-extrabold px-2.5 py-0.5 rounded-full">0 Categorie Ultimate</span>
                 </div>
                 <div id="podioListContainer" class="space-y-3">
                     <div class="text-center py-6 text-slate-400 text-xs border border-dashed border-slate-200 rounded-lg">
@@ -236,6 +277,7 @@
 
     </main>
 
+    <!-- FOOTER -->
     <footer class="bg-slate-900 text-slate-400 py-3 px-6 text-center text-[11px]">
         SmoothTech Platform - CintheC Media & Leoni di San Marco © 2026
     </footer>
@@ -246,6 +288,7 @@
         let generatedPoolsRegistry = {}; 
         let tatamiStates = { 1: false, 2: false, 3: false, 4: false, 5: false, 6: false, 7: false, 8: false };
         let podioVincitori = [];
+        let mobileSelectedTatami = "1";
 
         const mockTestAthletes = [
             ...Array.from({length: 14}, (_, i) => ({ nome: `Atleta${i+1}`, cognome: `Bianca75`, torneo: "CintheC Cup 01", stile: "Brazilian Jiu-Jitsu (Gi)", cintura: "Cintura Bianca", peso: "-75kg", team: i % 2 === 0 ? "Team Chioggia" : "Leoni di San Marco" })),
@@ -284,6 +327,14 @@
 
         function chiudiModalReset() {
             document.getElementById('resetModal').classList.add('hidden');
+        }
+
+        function toggleTatamiSettingsMenu() {
+            let box = document.getElementById('tatamiSettingsDropdown');
+            let icon = document.getElementById('tatamiSettingsIcon');
+            box.classList.toggle('hidden');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
         }
 
         function eseguiResetTotale() {
@@ -377,9 +428,11 @@
             for (let i = 1; i <= 8; i++) {
                 let isOn = tatamiStates[i];
                 container.innerHTML += `
-                    <div id="tatami-card-${i}" class="tatami-box p-3 text-center ${isOn ? 'active bg-emerald-50' : 'bg-slate-50'}">
-                        <span class="block font-black text-xs text-slate-800 mb-2">Tatami ${i}</span>
-                        <button onclick="toggleTatami(${i})" class="w-full py-1.5 rounded text-[10px] font-bold uppercase transition cursor-pointer ${isOn ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-700 hover:bg-slate-300'}">
+                    <div class="flex items-center justify-between p-2.5 bg-white border ${isOn ? 'border-emerald-500 bg-emerald-50/50' : 'border-slate-200'} rounded-xl shadow-xs transition">
+                        <span class="font-bold text-xs text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-map text-emerald-600"></i> Tatami ${i}
+                        </span>
+                        <button onclick="toggleTatami(${i})" class="px-4 py-1.5 rounded-lg text-xs font-bold uppercase transition cursor-pointer ${isOn ? 'bg-emerald-600 text-white shadow-sm' : 'bg-slate-200 text-slate-700 hover:bg-slate-300'}">
                             ${isOn ? '<i class="fa-solid fa-power-off mr-1"></i> ON' : 'OFF'}
                         </button>
                     </div>
@@ -396,6 +449,14 @@
                 headers: { "Content-Type": "text/plain;charset=utf-8" },
                 body: JSON.stringify({ action: "salvaStatoTatami", tatamiId: id, stato: tatamiStates[id] ? "ON" : "OFF" })
             });
+        }
+
+        function renderMobileTatamiView(val) {
+            mobileSelectedTatami = val;
+            let savedDist = localStorage.getItem("smoothtech_active_distribution");
+            if (savedDist) {
+                renderDistribuzioneEsistente(JSON.parse(savedDist));
+            }
         }
 
         function caricaIscrittiCloud(forzaAggiornamento = false) {
@@ -442,7 +503,7 @@
 
             let torneiSet = [...new Set(iscritti.map(i => i.torneo))].filter(t => !torneiConclusi.includes(t));
 
-            select.innerHTML = '<option value="Tutti">Tutti i Tornei</option>';
+            select.innerHTML = '<option value="Tutti">Tutti</option>';
             torneiSet.forEach(t => {
                 if (t) {
                     let opt = document.createElement('option');
@@ -500,7 +561,7 @@
                 let isGenerata = generatedPoolsRegistry[chiave] !== undefined;
 
                 let card = document.createElement('div');
-                card.className = "category-card p-3.5 flex flex-col justify-between";
+                card.className = "category-card p-3.5 flex flex-col justify-between snap-center min-w-[260px] max-w-[280px] sm:min-w-0 sm:max-w-none flex-shrink-0 sm:flex-shrink";
 
                 let listaAtletiHtml = atletiCategoria.map((a, idx) => `
                     <div class="flex items-center justify-between py-1.5 border-b border-slate-100 last:border-0 text-[11px]">
@@ -814,9 +875,11 @@
                 localStorage.setItem("smoothtech_active_distribution", JSON.stringify(distribution));
             }
 
-            Object.keys(distribution).forEach(t => {
-                if (tatamiStates[t]) {
-                    let assignedPools = distribution[t];
+            let tatamisToRender = window.innerWidth < 640 ? [mobileSelectedTatami] : Object.keys(distribution).filter(t => tatamiStates[t]);
+
+            tatamisToRender.forEach(t => {
+                if (tatamiStates[t] || window.innerWidth < 640) {
+                    let assignedPools = distribution[t] || [];
                     let poolsHtml = assignedPools.map((p, pIdx) => {
                         let dettaglioMatch = '';
                         let listaMatchDaMostrare = p.singoliMatch || (p.data && p.data.pairings ? p.data.pairings.map((m) => ({ matchId: m.turno, matchData: m })) : []);
@@ -828,8 +891,8 @@
                         }
 
                         let badgeStato = pIdx === 0 
-                            ? `<span class="bg-emerald-100 text-emerald-800 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">IN CORSO (BLOCCATA)</span>`
-                            : `<span class="bg-slate-100 text-slate-600 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">IN CODA (MOBILE)</span>`;
+                            ? `<span class="bg-emerald-100 text-emerald-800 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">IN CORSO</span>`
+                            : `<span class="bg-slate-100 text-slate-600 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">IN CODA</span>`;
                         
                         return `<div class="text-[11px] font-bold text-slate-800 bg-white p-2.5 rounded-lg mb-2 border border-slate-200 shadow-xs">
                             <div class="flex items-center justify-between">
@@ -847,7 +910,7 @@
                                     <h3 class="text-xs font-black uppercase text-slate-900">Tatami ${t}</h3>
                                     <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">${assignedPools.length} Categorie</span>
                                 </div>
-                                <div class="space-y-1 mb-3 max-h-48 overflow-y-auto">${poolsHtml}</div>
+                                <div class="space-y-1 mb-3 max-h-48 overflow-y-auto">${poolsHtml || '<div class="text-xs text-slate-400 py-4 text-center">Nessuna pool in coda per questo tatami.</div>'}</div>
                             </div>
                             <a href="tatami-live.html?t=${t}" target="_blank" class="block text-center bg-slate-900 hover:bg-emerald-600 text-white text-[10px] font-bold uppercase py-2 rounded-lg transition shadow">
                                 Apri Tatami ${t} Live <i class="fa-solid fa-external-link-alt ml-1"></i>
@@ -858,7 +921,7 @@
             });
 
             if (container.innerHTML === '') {
-                container.innerHTML = `<div class="col-span-full text-center py-8 text-slate-400 text-xs border border-dashed border-slate-200 rounded-lg">Nessun tatami attivo con pool distribuita. Clicca su Distribuisci.</div>`;
+                container.innerHTML = `<div class="col-span-full text-center py-8 text-slate-400 text-xs border border-dashed border-slate-200 rounded-lg">Nessun tatami attivo con pool distribuita. Accendi un tatami e clicca su Distribuisci.</div>`;
             }
         }
 
@@ -943,7 +1006,7 @@
                 let iconaFreccia = item.premiato ? 'fa-chevron-down' : 'fa-chevron-up';
 
                 container.innerHTML += `
-                    <div class="bg-slate-50 border ${item.premiato ? 'border-emerald-300 bg-emerald-50/60' : 'border-slate-200'} p-3.5 rounded-xl space-y-3 transition">
+                    <div class="bg-white border ${item.premiato ? 'border-emerald-300 bg-emerald-50/40' : 'border-slate-200'} p-3.5 rounded-xl space-y-3 transition shadow-xs">
                         <div class="flex items-center justify-between cursor-pointer" onclick="togglePodioMinimale(${idx})">
                             <div class="flex items-center gap-2">
                                 <span class="text-xs font-black uppercase text-slate-900">
@@ -954,31 +1017,31 @@
                                 </span>
                             </div>
                             <div class="flex items-center gap-2">
-                                <span class="text-[10px] text-slate-500 font-bold hidden sm:inline">Mostra / Nascondi</span>
+                                <span class="text-[10px] text-slate-500 font-bold hidden sm:inline">Dettagli</span>
                                 <i class="fa-solid ${iconaFreccia} text-xs text-slate-600" id="podio-icon-${idx}"></i>
                             </div>
                         </div>
 
-                        <div id="podio-body-${idx}" class="${corpoNascosto} space-y-3 pt-2 border-t border-slate-200">
+                        <div id="podio-body-${idx}" class="${corpoNascosto} space-y-3 pt-2 border-t border-slate-100">
                             <div class="flex items-center justify-between">
                                 <span class="text-[10px] font-bold text-slate-500">Dettaglio Pool Conclusa</span>
-                                <button onclick="toggleTendinaPartecipanti(${idx})" class="text-[10px] font-bold text-slate-700 bg-white border border-slate-300 px-2.5 py-1 rounded cursor-pointer flex items-center gap-1.5 shadow-sm">
+                                <button onclick="toggleTendinaPartecipanti(${idx})" class="text-[10px] font-bold text-slate-700 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded cursor-pointer flex items-center gap-1.5 shadow-sm">
                                     <span>Tutti i Partecipanti</span> <i class="fa-solid fa-chevron-down text-[9px]" id="tendina-icon-${idx}"></i>
                                 </button>
                             </div>
 
-                            <div id="tendina-part-${idx}" class="hidden bg-white border border-slate-200 p-3 rounded-lg space-y-1 max-h-40 overflow-y-auto">
+                            <div id="tendina-part-${idx}" class="hidden bg-slate-50 border border-slate-200 p-3 rounded-lg space-y-1 max-h-40 overflow-y-auto">
                                 ${partecipantiHtml}
                             </div>
 
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 items-center border-t border-slate-200 pt-3">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center border-t border-slate-100 pt-3">
                                 <div class="text-xs font-bold text-slate-900 space-y-1">
                                     <div><i class="fa-solid fa-trophy text-amber-500 mr-1"></i> 1° (Oro): <span class="font-black">${item.primo}</span></div>
                                     <div><i class="fa-solid fa-medal text-slate-400 mr-1"></i> 2° (Argento): <span class="font-semibold">${item.secondo}</span></div>
                                     <div><i class="fa-solid fa-medal text-amber-700 mr-1"></i> 3° (Bronzi): <span class="font-semibold">${item.terzi ? item.terzi.join(" & ") : "N/D"}</span></div>
                                 </div>
                                 <div class="text-right">
-                                    <button onclick="togglePremiatoCat(${idx})" class="${item.premiato ? 'bg-emerald-600 text-white' : 'bg-slate-200 hover:bg-slate-300 text-slate-700'} px-4 py-2.5 rounded-lg text-xs font-bold uppercase transition cursor-pointer inline-flex items-center gap-2 shadow-sm">
+                                    <button onclick="togglePremiatoCat(${idx})" class="${item.premiato ? 'bg-emerald-600 text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'} w-full sm:w-auto px-4 py-2.5 rounded-lg text-xs font-bold uppercase transition cursor-pointer inline-flex items-center justify-center gap-2 shadow-sm border border-slate-200">
                                         <i class="fa-solid ${item.premiato ? 'fa-square-check' : 'fa-square'}"></i> ${item.premiato ? 'Premiato (Fatto)' : 'Segna come Premiato'}
                                     </button>
                                 </div>

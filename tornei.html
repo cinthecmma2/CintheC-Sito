@@ -35,18 +35,18 @@
 
         .nav-tech-btn {
             background-color: #334155; border: 1px solid #475569; color: #ffffff;
-            padding: 7px 16px; font-size: 10px; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.05em; display: inline-flex; align-items: center; gap: 6px;
+            padding: 5px 10px; font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.05em; display: inline-flex; align-items: center; gap: 4px;
             border-radius: 6px; text-decoration: none; white-space: nowrap;
         }
         .nav-tech-btn:hover { border-color: #22c55e; background-color: #0f172a; color: #22c55e; }
 
         .admin-pro-btn {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            color: #ffffff; border: 1px solid #475569; padding: 7px 14px;
+            color: #ffffff; border: 1px solid #475569; padding: 5px 9px;
             font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;
-            display: inline-flex; align-items: center; gap: 6px; border-radius: 6px; cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: inline-flex; align-items: center; gap: 4px; border-radius: 6px; cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15); white-space: nowrap;
         }
         .admin-pro-btn:hover { background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); border-color: #22c55e; transform: translateY(-1px); }
 
@@ -59,33 +59,75 @@
             box-shadow: 0 20px 25px -5px rgba(34, 197, 94, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
-        .logo-left-cinthec { width: 140px !important; height: 50px !important; object-fit: contain !important; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
-        .logo-right-leoni { width: 38px !important; height: 38px !important; object-fit: contain !important; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+        /* Animazioni e stile avanzato per i pulsanti Admin */
+        .admin-action-card {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border: 1.5px solid #334155;
+            color: #ffffff;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .admin-action-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.15), transparent);
+            transition: 0.5s;
+        }
+        .admin-action-card:hover::before {
+            left: 100%;
+        }
+        .admin-action-card:hover {
+            border-color: #22c55e;
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 10px 25px -5px rgba(34, 197, 94, 0.25);
+        }
+        .admin-action-card:active {
+            transform: scale(0.97);
+        }
+
+        /* Nascondi la scrollbar orizzontale su mobile mantenendo lo scorrimento fluido */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .logo-left-cinthec { 
+            width: 155px; 
+            height: 56px; 
+            object-fit: contain; 
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); 
+        }
+        .logo-right-leoni { 
+            width: 44px; 
+            height: 44px; 
+            object-fit: contain; 
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); 
+        }
+
+        @media (min-width: 640px) {
+            .logo-left-cinthec { width: 185px; height: 66px; }
+            .logo-right-leoni { width: 52px; height: 52px; }
+        }
     </style>
 </head>
 <body class="tech-diagonal-bg text-slate-800 antialiased min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-white">
 
     <header class="pro-header sticky top-0 z-30 h-20 flex items-center">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full grid grid-cols-3 items-center">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 w-full flex items-center justify-between">
             
-            <div class="flex items-center justify-start">
+            <div class="flex items-center -ml-2 sm:ml-0">
                 <a href="index.html" class="flex items-center">
                     <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                 </a>
             </div>
 
-            <div class="flex items-center justify-center gap-2">
+            <div class="flex items-center gap-1.5 sm:gap-3">
                 <a href="index.html" class="nav-tech-btn">
-                    <i class="fa-solid fa-house text-emerald-400"></i> Home
+                    <i class="fa-solid fa-house text-emerald-400"></i> <span>Home</span>
                 </a>
-                <a href="iscrizione.html" class="nav-tech-btn">
-                    <i class="fa-solid fa-user-pen text-emerald-400"></i> Matchmaking
-                </a>
-            </div>
-
-            <div class="flex items-center justify-end gap-3">
                 <button onclick="openAdminModal()" class="admin-pro-btn">
-                    <i class="fa-solid fa-gear text-emerald-400"></i> <span>Gestione Admin</span>
+                    <i class="fa-solid fa-gear text-emerald-400"></i> <span>Admin</span>
                 </button>
                 <div class="flex items-center">
                     <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="logo-right-leoni" onerror="this.style.display='none';">
@@ -95,8 +137,8 @@
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 py-12 w-full flex-grow">
-        <div class="text-center max-w-xl mx-auto mb-10">
+    <main class="max-w-7xl mx-auto px-3 sm:px-6 py-8 sm:py-12 w-full flex-grow">
+        <div class="text-center max-w-xl mx-auto mb-6 sm:mb-10">
             <span class="text-emerald-600 font-black text-xs uppercase tracking-widest px-3.5 py-1.5 rounded-full border border-emerald-300 bg-emerald-50 mb-3 inline-block shadow-sm">
                 Smooth-Tech Platform
             </span>
@@ -104,7 +146,8 @@
             <p class="text-xs sm:text-sm text-slate-500">Seleziona un evento ufficiale per consultare i dettagli tecnici o procedere con le registrazioni e il tesseramento.</p>
         </div>
 
-        <div class="max-w-md mx-auto mb-10">
+        <!-- Barra di Ricerca attiva sia su PC che su Mobile -->
+        <div class="max-w-md mx-auto mb-8 sm:mb-10 px-2">
             <div class="relative shadow-sm rounded-xl overflow-hidden border border-slate-300 bg-white">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 text-xs">
                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -113,7 +156,8 @@
             </div>
         </div>
 
-        <div id="tournamentsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        <!-- Contenitore Tornei: Carosello orizzontale su Mobile, Griglia reattiva su PC -->
+        <div id="tournamentsGrid" class="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 px-2 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible sm:pb-0 hide-scrollbar"></div>
     </main>
 
     <!-- MODALE DETTAGLI TORNEO -->
@@ -169,24 +213,47 @@
                 </form>
             </div>
 
-            <div id="adminChoiceStep" class="hidden space-y-3.5">
-                <div class="w-12 h-12 bg-slate-900 text-slate-300 rounded-xl flex items-center justify-center mb-4 text-lg shadow-sm">
-                    <i class="fa-solid fa-sliders"></i>
+            <!-- NUOVA TAB ADMIN RIDISEGNATA, FLUIDA E ANIMATA SIA PER MOBILE CHE PC -->
+            <div id="adminChoiceStep" class="hidden space-y-4">
+                <div class="text-center pb-2 border-b border-slate-100">
+                    <div class="w-14 h-14 bg-gradient-to-br from-slate-900 to-emerald-950 text-emerald-400 rounded-2xl flex items-center justify-center mx-auto mb-2 text-xl shadow-md border border-emerald-500/30">
+                        <i class="fa-solid fa-sliders"></i>
+                    </div>
+                    <h3 class="text-lg font-black text-slate-900 uppercase tracking-tight">Gestione Tornei & Iscritti</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Seleziona l'area di gestione desiderata:</p>
                 </div>
-                <h3 class="text-lg font-black text-slate-900 mb-1 uppercase tracking-wide">Gestione Tornei & Iscritti</h3>
-                <p class="text-xs text-slate-500 mb-5">Seleziona l'area di gestione desiderata:</p>
                 
-                <button onclick="showAddForm()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase py-3.5 rounded-xl transition shadow-sm flex items-center justify-center gap-2 cursor-pointer">
-                    <i class="fa-solid fa-plus text-emerald-400"></i> Aggiungi Nuovo Torneo
-                </button>
-                
-                <button onclick="showEditList()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase py-3.5 rounded-xl transition shadow-sm flex items-center justify-center gap-2 cursor-pointer">
-                    <i class="fa-solid fa-pen-to-square text-rose-500"></i> Modifica Stato Tornei
-                </button>
+                <div class="space-y-3 pt-1">
+                    <button onclick="showAddForm()" class="admin-action-card w-full font-bold text-xs uppercase py-4 px-4 rounded-xl flex items-center justify-between cursor-pointer group shadow-sm">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-plus"></i>
+                            </div>
+                            <span class="tracking-wider">Aggiungi Nuovo Torneo</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-slate-400 text-xs group-hover:translate-x-1 group-hover:text-emerald-400 transition-all"></i>
+                    </button>
+                    
+                    <button onclick="showEditList()" class="admin-action-card w-full font-bold text-xs uppercase py-4 px-4 rounded-xl flex items-center justify-between cursor-pointer group shadow-sm">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center text-sm group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </div>
+                            <span class="tracking-wider">Modifica Stato Tornei</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-slate-400 text-xs group-hover:translate-x-1 group-hover:text-emerald-400 transition-all"></i>
+                    </button>
 
-                <a href="smoothtech.html" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase py-3.5 rounded-xl transition shadow-sm flex items-center justify-center gap-2 cursor-pointer text-decoration-none">
-                    <i class="fa-solid fa-users-gear text-emerald-400"></i> Gestione Iscritti
-                </a>
+                    <a href="smoothtech.html" class="admin-action-card w-full font-bold text-xs uppercase py-4 px-4 rounded-xl flex items-center justify-between cursor-pointer group shadow-sm text-decoration-none block">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-sm group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-users-gear"></i>
+                            </div>
+                            <span class="tracking-wider">Gestione Iscritti</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-slate-400 text-xs group-hover:translate-x-1 group-hover:text-emerald-400 transition-all"></i>
+                    </a>
+                </div>
             </div>
 
             <div id="adminAddFormStep" class="hidden">
@@ -356,7 +423,7 @@
 
                 let searchName = (t.title + " " + t.location).toLowerCase();
                 let card = document.createElement('div');
-                card.className = "pro-tournament-card flex flex-col justify-between overflow-hidden group";
+                card.className = "pro-tournament-card flex flex-col justify-between overflow-hidden group snap-center min-w-[260px] max-w-[280px] sm:min-w-0 sm:max-w-none flex-shrink-0 sm:flex-shrink";
                 card.setAttribute('data-id', t.id);
                 card.setAttribute('data-name', searchName);
 
@@ -365,11 +432,11 @@
 
                 if (hasDesc) {
                     actionHtml = `
-                        <div class="grid grid-cols-2 gap-2.5">
-                            <button onclick='openDetailsModal(${JSON.stringify(t)})' class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-center font-bold text-[10px] uppercase py-3 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer">
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick='openDetailsModal(${JSON.stringify(t)})' class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-center font-bold text-[10px] uppercase py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer">
                                 <span>Dettagli</span> <i class="fa-solid fa-arrow-right text-[8px]"></i>
                             </button>
-                            <a href="tornei1.html" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold text-[10px] uppercase py-3 rounded-xl transition flex items-center justify-center gap-1.5 shadow-sm">
+                            <a href="tornei1.html" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold text-[10px] uppercase py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow-sm">
                                 <i class="fa-solid fa-user-plus text-[9px]"></i> <span>Iscriviti</span>
                             </a>
                         </div>
@@ -377,7 +444,7 @@
                 } else {
                     actionHtml = `
                         <div>
-                            <a href="tornei1.html" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold text-[10px] uppercase py-3 rounded-xl transition flex items-center justify-center gap-1.5 shadow-sm block">
+                            <a href="tornei1.html" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold text-[10px] uppercase py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow-sm block">
                                 <i class="fa-solid fa-user-plus text-[9px]"></i> <span>Iscriviti al Torneo</span>
                             </a>
                         </div>
@@ -386,24 +453,24 @@
 
                 card.innerHTML = `
                     <div>
-                        <div class="relative h-24 bg-slate-900 flex items-center justify-center border-b border-slate-800">
-                            <span class="text-white text-[11px] font-black uppercase tracking-widest opacity-80"><i class="fa-solid fa-shield-halved text-emerald-400 mr-1.5"></i> CintheC Official</span>
-                            <div class="absolute top-3 right-3 ${badgeColor} text-white text-[9px] font-extrabold uppercase px-2.5 py-1 rounded-md shadow-sm">
+                        <div class="relative h-20 bg-slate-900 flex items-center justify-center border-b border-slate-800">
+                            <span class="text-white text-[10px] font-black uppercase tracking-widest opacity-80"><i class="fa-solid fa-shield-halved text-emerald-400 mr-1.5"></i> CintheC Official</span>
+                            <div class="absolute top-2.5 right-2.5 ${badgeColor} text-white text-[8px] font-extrabold uppercase px-2 py-0.5 rounded-md shadow-sm">
                                 ${t.status}
                             </div>
                         </div>
-                        <div class="p-6">
-                            <div class="flex items-center gap-1.5 text-[11px] text-emerald-600 font-bold mb-2">
+                        <div class="p-4 sm:p-6">
+                            <div class="flex items-center gap-1.5 text-[10px] text-emerald-600 font-bold mb-1.5">
                                 <i class="fa-regular fa-calendar"></i> ${t.date}
                             </div>
-                            <h3 class="tournament-title text-base font-black text-slate-900 mb-2 uppercase tracking-tight">${t.title}</h3>
-                            <p class="text-[11px] text-slate-500 flex items-center gap-1.5 mb-3">
+                            <h3 class="tournament-title text-sm sm:text-base font-black text-slate-900 mb-1.5 uppercase tracking-tight">${t.title}</h3>
+                            <p class="text-[10px] sm:text-[11px] text-slate-500 flex items-center gap-1.5 mb-2.5">
                                 <i class="fa-solid fa-location-dot text-rose-500"></i> ${t.location}
                             </p>
-                            <p class="text-[11px] text-slate-600 line-clamp-2 leading-relaxed mb-2">${t.desc || 'Nessuna descrizione aggiuntiva disponibile.'}</p>
+                            <p class="text-[10px] sm:text-[11px] text-slate-600 line-clamp-2 leading-relaxed mb-2">${t.desc || 'Nessuna descrizione aggiuntiva disponibile.'}</p>
                         </div>
                     </div>
-                    <div class="p-6 pt-0">
+                    <div class="p-4 sm:p-6 pt-0">
                         ${actionHtml}
                     </div>
                 `;
@@ -482,7 +549,7 @@
             cards.forEach(card => {
                 let id = card.getAttribute('data-id');
                 let title = card.querySelector('.tournament-title').innerText;
-                let currentBadge = card.querySelector('.absolute.top-3').innerText.trim();
+                let currentBadge = card.querySelector('.absolute.top-2\\.5').innerText.trim();
                 let item = document.createElement('div');
                 item.className = "bg-slate-50 border border-slate-200 p-3.5 rounded-xl flex flex-col gap-2.5";
                 item.innerHTML = `

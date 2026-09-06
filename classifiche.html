@@ -10,10 +10,10 @@
     <style>
         body { font-family: 'Montserrat', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
         
-        button, a, .pc-nav-link, .nav-dropdown-btn, .mobile-dropdown-btn {
+        button, .nav-dropdown-btn, .mobile-dropdown-btn {
             transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
         }
-        button:active, a.inline-flex:active, .pc-nav-link:active {
+        button:active {
             transform: scale(0.95) !important;
             box-shadow: 0 0 15px rgba(0, 255, 102, 0.6) !important;
         }
@@ -50,10 +50,12 @@
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            padding: 6px 12px;
+            padding: 6px 10px;
             display: inline-flex;
             align-items: center;
             gap: 5px;
+            cursor: pointer;
+            white-space: nowrap;
         }
         .pc-nav-link:hover { color: #00ff66; }
 
@@ -71,6 +73,7 @@
             gap: 6px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             border-radius: 0px !important;
+            cursor: pointer;
         }
         .nav-dropdown-btn:hover { border-color: #00ff66; background-color: rgba(0, 0, 0, 0.95); }
 
@@ -139,6 +142,7 @@
             text-transform: uppercase;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 0px !important;
+            cursor: pointer;
         }
         .dropdown-content a:last-child, .mobile-dropdown-content a:last-child { border-bottom: none; }
         .dropdown-content a:hover { background-color: #00ff66; color: black; }
@@ -151,16 +155,16 @@
 <body class="site-bg-cuts text-zinc-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
 
     <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center">
-        <div class="max-w-7xl mx-auto px-1 sm:px-6 w-full grid grid-cols-3 items-center relative z-50">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 w-full flex items-center justify-between relative z-50 gap-2">
             
-            <div class="flex items-center justify-start">
-                <a href="index.html" class="flex items-center">
+            <div class="flex items-center shrink-0">
+                <a href="index.html" class="flex items-center cursor-pointer">
                     <img src="Immagini/Logo.jpeg" alt="CintheC Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                 </a>
             </div>
 
-            <div class="flex items-center justify-center gap-1.5 w-full">
-                <div class="dropdown md:hidden">
+            <div class="flex items-center gap-1.5 md:hidden">
+                <div class="dropdown">
                     <button class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileEventsDropdown')">
                         <i class="fa-solid fa-trophy text-white"></i> Eventi <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
                     </button>
@@ -173,7 +177,7 @@
                     </div>
                 </div>
 
-                <div class="dropdown md:hidden">
+                <div class="dropdown">
                     <button class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileMenuDropdown')">
                         <i class="fa-solid fa-bars text-white"></i> Menu <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
                     </button>
@@ -188,31 +192,31 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="hidden md:flex items-center gap-3">
-                    <a href="index.html" class="pc-nav-link"><i class="fa-solid fa-house text-[#00ff66]"></i> Home</a>
-                    <div class="dropdown">
-                        <button class="nav-dropdown-btn" onclick="toggleDropdown(event, 'pcEventsDropdown')">
-                            <i class="fa-solid fa-trophy text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[9px] ml-1"></i>
-                        </button>
-                        <div id="pcEventsDropdown" class="dropdown-content">
-                            <div class="dropdown-inner">
-                                <a href="cinthec8.html">CintheC 8</a>
-                                <a href="cinthec9.html">CintheC 9</a>
-                                <a href="cinthec10.html">CintheC 10</a>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="classifiche.html" class="pc-nav-link"><i class="fa-solid fa-ranking-star text-[#00ff66]"></i> Ranking</a>
-                    <a href="galleria.html" class="pc-nav-link"><i class="fa-solid fa-store text-[#00ff66]"></i> Shop</a>
-                    <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="pc-nav-link"><i class="fa-solid fa-ticket text-[#00ff66]"></i> Ticket</a>
-                    <a href="iscrizione.html" class="pc-nav-link"><i class="fa-solid fa-user-pen text-[#00ff66]"></i> Matchmaking</a>
-                    <a href="tornei.html" class="pc-nav-link"><i class="fa-solid fa-users-gear text-[#00ff66]"></i> SmootheC</a>
-                </div>
             </div>
 
-            <div class="flex items-center justify-end">
-                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="flex items-center">
+            <div class="hidden md:flex items-center gap-1.5 lg:gap-3 justify-center flex-grow px-2">
+                <a href="index.html" class="pc-nav-link"><i class="fa-solid fa-house text-[#00ff66]"></i> Home</a>
+                <div class="dropdown">
+                    <button class="nav-dropdown-btn" onclick="toggleDropdown(event, 'pcEventsDropdown')">
+                        <i class="fa-solid fa-trophy text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[9px] ml-1"></i>
+                    </button>
+                    <div id="pcEventsDropdown" class="dropdown-content">
+                        <div class="dropdown-inner">
+                            <a href="cinthec8.html">CintheC 8</a>
+                            <a href="cinthec9.html">CintheC 9</a>
+                            <a href="cinthec10.html">CintheC 10</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="classifiche.html" class="pc-nav-link"><i class="fa-solid fa-ranking-star text-[#00ff66]"></i> Ranking</a>
+                <a href="galleria.html" class="pc-nav-link"><i class="fa-solid fa-store text-[#00ff66]"></i> Shop</a>
+                <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="pc-nav-link"><i class="fa-solid fa-ticket text-[#00ff66]"></i> Ticket</a>
+                <a href="iscrizione.html" class="pc-nav-link"><i class="fa-solid fa-user-pen text-[#00ff66]"></i> Matchmaking</a>
+                <a href="tornei.html" class="pc-nav-link"><i class="fa-solid fa-users-gear text-[#00ff66]"></i> SmootheC</a>
+            </div>
+
+            <div class="flex items-center justify-end shrink-0">
+                <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="flex items-center cursor-pointer">
                     <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="logo-right-leoni" onerror="this.style.display='none';">
                 </a>
             </div>
@@ -226,7 +230,6 @@
         </div>
 
         <div class="relative w-full">
-            <!-- BOX BLOCCO / SEZIONE IN AGGIORNAMENTO -->
             <div class="absolute inset-0 bg-zinc-950/65 backdrop-blur-[1px] z-30 flex flex-col items-center justify-start pt-16 sm:pt-24 px-4 text-center rounded-2xl">
                 <div class="bg-zinc-900 border border-[#00ff66]/40 p-6 sm:p-8 max-w-lg shadow-2xl rounded-none space-y-3">
                     <span class="bg-[#00ff66] text-black font-black text-[9px] uppercase px-2.5 py-1 inline-block tracking-wider">Sezione in Aggiornamento</span>
@@ -235,14 +238,13 @@
                         Presto arriveranno anche i ranking aggiornati ufficiali di CintheC. Stiamo raccogliendo tutti i dati degli atleti per offrirti le classifiche definitive.
                     </p>
                     <div class="pt-2">
-                        <a href="index.html" class="inline-flex items-center gap-2 bg-[#00ff66] hover:bg-[#00cc52] text-black font-black uppercase text-[10px] px-4 py-2.5 rounded-none transition shadow-md">
+                        <a href="index.html" class="inline-flex items-center gap-2 bg-[#00ff66] hover:bg-[#00cc52] text-black font-black uppercase text-[10px] px-4 py-2.5 rounded-none transition shadow-md cursor-pointer">
                             <i class="fa-solid fa-arrow-left"></i> Torna alla Home
                         </a>
                     </div>
                 </div>
             </div>
 
-            <!-- CONTENUTO SFONDO BLOCCATO -->
             <div class="opacity-55 pointer-events-none">
                 <div class="block md:hidden space-y-4" id="mobileRankingsList"></div>
 
@@ -258,20 +260,19 @@
         </div>
     </main>
 
-    <!-- FOOTER ULTRACOMPATTO, ABBASSATO (MT-28) E CON POSIZIONI INVARIATE -->
     <footer class="relative z-10 py-1.5 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-28">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-2 text-left items-center">
             
             <div class="flex flex-col items-start gap-0.5">
                 <h4 class="text-white font-black text-[10px] uppercase tracking-wider mb-0.5">Seguici</h4>
                 <div class="flex flex-col gap-0.5 text-[11px]">
-                    <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
+                    <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] font-semibold transition cursor-pointer">
                         <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> CintheC MMA
                     </a>
-                    <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
+                    <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] font-semibold transition cursor-pointer">
                         <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> Leoni di San Marco
                     </a>
-                    <a href="https://www.instagram.com/labirinthknockout?igsi=dGlwMGZ1amwyMjJr" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] font-semibold transition">
+                    <a href="https://www.instagram.com/labirinthknockout?igsi=dGlwMGZ1amwyMjJr" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] font-semibold transition cursor-pointer">
                         <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> Labirinth Knockout
                     </a>
                 </div>
@@ -280,8 +281,8 @@
             <div class="flex flex-col items-center text-center">
                 <h4 class="text-white font-black text-[10px] mb-0.5 uppercase tracking-wider">Note Legali</h4>
                 <ul class="flex flex-col gap-0.5 text-[11px] text-zinc-300">
-                    <li><a href="privacy.html" class="hover:text-[#00ff66] transition font-medium">Privacy Policy</a></li>
-                    <li><a href="note-legali.html" class="hover:text-[#00ff66] transition font-medium">Note Legali</a></li>
+                    <li><a href="privacy.html" class="hover:text-[#00ff66] transition font-medium cursor-pointer">Privacy Policy</a></li>
+                    <li><a href="note-legali.html" class="hover:text-[#00ff66] transition font-medium cursor-pointer">Note Legali</a></li>
                 </ul>
             </div>
 
@@ -322,21 +323,11 @@
                 weight: "65,8 kg (145 lbs)", 
                 champion: { name: "Ousama Rachki", img: "atleti/drenica.jpg" },
                 fighters: [
-                    "Andrea Togni",
-                    "Massimiliano Bello",
-                    "Giovanni Parmentola",
-                    "Federico Frigerio",
-                    "Francesco Perini",
-                    "Matteo Perini",
-                    "Davide Pagotto",
-                    "Natay Gurnioli",
-                    "Andrei Gabura",
-                    "Luca Da Costa",
-                    "Atleta 11",
-                    "Atleta 12",
-                    "Atleta 13",
-                    "Atleta 14",
-                    "Atleta 15"
+                    "Andrea Togni", "Massimiliano Bello", "Giovanni Parmentola",
+                    "Federico Frigerio", "Francesco Perini", "Matteo Perini",
+                    "Davide Pagotto", "Natay Gurnioli", "Andrei Gabura",
+                    "Luca Da Costa", "Atleta 11", "Atleta 12", "Atleta 13",
+                    "Atleta 14", "Atleta 15"
                 ]
             },
             { 
@@ -504,10 +495,12 @@
             }
         }
 
-        window.addEventListener('click', function() {
-            document.querySelectorAll('.dropdown-content, .mobile-dropdown-content').forEach(el => {
-                el.classList.remove('show');
-            });
+        window.addEventListener('click', function(event) {
+            if (!event.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown-content, .mobile-dropdown-content').forEach(el => {
+                    el.classList.remove('show');
+                });
+            }
         });
     </script>
 </body>
