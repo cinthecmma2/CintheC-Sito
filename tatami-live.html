@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SmoothTech - Tatami Live Terminal Pro</title>
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -44,7 +52,7 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased">
 
-    <!-- OVERLAY PIN DI SICUREZZA (SENZA ESEMPI VISIBILI) -->
+    <!-- OVERLAY PIN DI SICUREZZA -->
     <div id="pinOverlay" class="fixed inset-0 bg-slate-950/90 z-50 flex items-center justify-center backdrop-blur-sm px-4 hidden">
         <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 max-w-sm w-full shadow-2xl space-y-4 text-center">
             <div class="w-12 h-12 rounded-full bg-yellow-500/20 text-yellow-400 flex items-center justify-center mx-auto text-lg font-bold border border-yellow-500/30">
@@ -156,12 +164,10 @@
                         <h2 id="matchCategoriaTitle" class="text-xs sm:text-base font-black uppercase text-yellow-400 tracking-wide">Categoria</h2>
                     </div>
                     <div class="flex items-center gap-3 flex-wrap justify-end">
-                        <!-- Pulsante Posticipa Match -->
                         <button onclick="posticipaMatchCorrente()" class="bg-amber-600 hover:bg-amber-500 text-white text-[10px] font-extrabold uppercase px-3 py-1.5 rounded-lg shadow transition cursor-pointer flex items-center gap-1.5" title="Sposta in basso rispettando i turni della pool">
                             <i class="fa-solid fa-clock-rotate-left"></i> Posticipa Match
                         </button>
 
-                        <!-- Timer Facoltativo 5 min -->
                         <div class="bg-slate-950/80 border border-slate-700 px-3 py-1 rounded-lg flex items-center gap-2">
                             <span id="matchTimerDisplay" class="text-yellow-400 font-mono font-black text-xs">05:00</span>
                             <div class="flex items-center gap-1">
@@ -253,7 +259,6 @@
         let currentIndex = 0;
         let currentActiveTab = 'coda';
 
-        // Gestione Timer Facoltativo (5 minuti)
         let timerSeconds = 300;
         let timerInterval = null;
         let isTimerRunning = false;
@@ -759,6 +764,17 @@
                 `;
             }
             renderCodeETabArchivio();
+        }
+    </script>
+
+    <!-- Script Service Worker per abilitare la PWA -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                .then(reg => console.log('Service Worker registrato correttamente su Tatami Live!'))
+                .catch(err => console.log('Errore di registrazione Service Worker:', err));
+            });
         }
     </script>
 </body>

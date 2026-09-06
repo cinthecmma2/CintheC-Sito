@@ -108,5 +108,15 @@
         </div>
     </footer>
 
+    <!-- Script Service Worker PWA -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                .then(reg => console.log('Service Worker registrato su Privacy!'))
+                .catch(err => console.log('Errore PWA:', err));
+            });
+        }
+    </script>
 </body>
 </html>
