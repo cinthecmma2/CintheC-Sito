@@ -111,7 +111,7 @@
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* LOGO INGRANDITO E SPOSTATO PIÙ A SINISTRA */
+        /* LOGHI INGRANDITI E OTTIMIZZATI */
         .logo-left-cinthec { 
             width: 360px !important; 
             height: 120px !important; 
@@ -123,16 +123,18 @@
             z-index: 60;
         }
         .logo-right-leoni { 
-            width: 48px !important; 
-            height: 48px !important; 
-            max-height: 48px !important; 
+            width: 70px !important; 
+            height: 70px !important; 
+            max-height: 70px !important; 
             object-fit: contain !important; 
             filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4)); 
+            position: relative;
+            z-index: 60;
         }
 
         @media (min-width: 640px) {
             .logo-left-cinthec { width: 440px !important; height: 140px !important; max-height: 140px !important; margin-left: -80px !important; }
-            .logo-right-leoni { width: 52px; height: 52px; }
+            .logo-right-leoni { width: 85px !important; height: 85px !important; max-height: 85px !important; }
             .pro-header { height: 110px; }
         }
     </style>
