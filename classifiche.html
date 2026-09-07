@@ -102,8 +102,8 @@
             background-color: rgba(20, 20, 24, 0.9);
             border: 1px solid rgba(255, 255, 255, 0.25);
             color: #ffffff;
-            padding: 5px 10px;
-            font-size: 9px;
+            padding: 6px 10px;
+            font-size: 10px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -113,6 +113,7 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             border-radius: 0px !important;
             cursor: pointer;
+            white-space: nowrap;
         }
         .mobile-dropdown-btn:hover { border-color: #ffffff; background-color: rgba(0, 0, 0, 1); }
 
@@ -148,73 +149,80 @@
         .dropdown-content a:hover { background-color: #00ff66; color: black; }
         .mobile-dropdown-content a:hover { background-color: #ffffff; color: black; }
 
-        .logo-left-cinthec { width: 180px !important; height: 78px !important; max-height: 78px !important; object-fit: contain !important; margin-left: -10px !important; }
-        .logo-right-leoni { width: 46px !important; height: 46px !important; max-height: 46px !important; object-fit: contain !important; margin-right: 14px !important; }
+        .logo-left-cinthec { width: 160px !important; height: 70px !important; max-height: 70px !important; object-fit: contain !important; margin-left: -10px !important; }
+        .logo-right-leoni { width: 44px !important; height: 44px !important; max-height: 44px !important; object-fit: contain !important; margin-right: 10px !important; }
     </style>
 </head>
 <body class="site-bg-cuts text-zinc-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
 
     <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center">
-        <div class="max-w-7xl mx-auto px-2 sm:px-6 w-full flex items-center justify-between relative z-50 gap-2">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 w-full grid grid-cols-3 items-center relative z-50">
             
-            <div class="flex items-center shrink-0">
+            <!-- Colonna Sinistra: Logo Principale -->
+            <div class="flex items-center justify-start shrink-0">
                 <a href="index.html" class="flex items-center cursor-pointer">
                     <img src="Immagini/Logo.jpeg" alt="CintheC Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                 </a>
             </div>
 
-            <div class="flex items-center gap-1.5 md:hidden">
-                <div class="dropdown">
-                    <button class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileEventsDropdown')">
-                        <i class="fa-solid fa-trophy text-white"></i> Eventi <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
-                    </button>
-                    <div id="mobileEventsDropdown" class="mobile-dropdown-content">
-                        <div class="dropdown-inner">
-                            <a href="cinthec8.html">CintheC 8</a>
-                            <a href="cinthec9.html">CintheC 9</a>
-                            <a href="cinthec10.html">CintheC 10</a>
+            <!-- Colonna Centrale: Perfettamente centrata -->
+            <div class="flex items-center justify-center gap-1.5 sm:gap-2 relative z-50">
+                <!-- Mobile Dropdown Buttons -->
+                <div class="flex items-center gap-1.5 md:hidden">
+                    <div class="dropdown">
+                        <button class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileEventsDropdown')">
+                            <i class="fa-solid fa-trophy text-white"></i> Eventi <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
+                        </button>
+                        <div id="mobileEventsDropdown" class="mobile-dropdown-content">
+                            <div class="dropdown-inner">
+                                <a href="cinthec8.html">CintheC 8</a>
+                                <a href="cinthec9.html">CintheC 9</a>
+                                <a href="cinthec10.html">CintheC 10</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileMenuDropdown')">
+                            <i class="fa-solid fa-bars text-white"></i> Menu <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
+                        </button>
+                        <div id="mobileMenuDropdown" class="mobile-dropdown-content">
+                            <div class="dropdown-inner">
+                                <a href="index.html">Home</a>
+                                <a href="classifiche.html">Ranking</a>
+                                <a href="galleria.html">Shop</a>
+                                <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank">Ticket</a>
+                                <a href="iscrizione.html">Matchmaking</a>
+                                <a href="tornei.html">SmootheC</a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="dropdown">
-                    <button class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileMenuDropdown')">
-                        <i class="fa-solid fa-bars text-white"></i> Menu <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
-                    </button>
-                    <div id="mobileMenuDropdown" class="mobile-dropdown-content">
-                        <div class="dropdown-inner">
-                            <a href="index.html">Home</a>
-                            <a href="classifiche.html">Ranking</a>
-                            <a href="galleria.html">Shop</a>
-                            <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank">Ticket</a>
-                            <a href="iscrizione.html">Matchmaking</a>
-                            <a href="tornei.html">SmootheC</a>
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center gap-1 lg:gap-2.5 justify-center">
+                    <a href="index.html" class="pc-nav-link"><i class="fa-solid fa-house text-[#00ff66]"></i> Home</a>
+                    <div class="dropdown">
+                        <button class="nav-dropdown-btn" onclick="toggleDropdown(event, 'pcEventsDropdown')">
+                            <i class="fa-solid fa-trophy text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[9px] ml-1"></i>
+                        </button>
+                        <div id="pcEventsDropdown" class="dropdown-content">
+                            <div class="dropdown-inner">
+                                <a href="cinthec8.html">CintheC 8</a>
+                                <a href="cinthec9.html">CintheC 9</a>
+                                <a href="cinthec10.html">CintheC 10</a>
+                            </div>
                         </div>
                     </div>
+                    <a href="classifiche.html" class="pc-nav-link"><i class="fa-solid fa-ranking-star text-[#00ff66]"></i> Ranking</a>
+                    <a href="galleria.html" class="pc-nav-link"><i class="fa-solid fa-store text-[#00ff66]"></i> Shop</a>
+                    <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="pc-nav-link"><i class="fa-solid fa-ticket text-[#00ff66]"></i> Ticket</a>
+                    <a href="iscrizione.html" class="pc-nav-link"><i class="fa-solid fa-user-pen text-[#00ff66]"></i> Matchmaking</a>
+                    <a href="tornei.html" class="pc-nav-link"><i class="fa-solid fa-users-gear text-[#00ff66]"></i> SmootheC</a>
                 </div>
             </div>
 
-            <div class="hidden md:flex items-center gap-1.5 lg:gap-3 justify-center flex-grow px-2">
-                <a href="index.html" class="pc-nav-link"><i class="fa-solid fa-house text-[#00ff66]"></i> Home</a>
-                <div class="dropdown">
-                    <button class="nav-dropdown-btn" onclick="toggleDropdown(event, 'pcEventsDropdown')">
-                        <i class="fa-solid fa-trophy text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[9px] ml-1"></i>
-                    </button>
-                    <div id="pcEventsDropdown" class="dropdown-content">
-                        <div class="dropdown-inner">
-                            <a href="cinthec8.html">CintheC 8</a>
-                            <a href="cinthec9.html">CintheC 9</a>
-                            <a href="cinthec10.html">CintheC 10</a>
-                        </div>
-                    </div>
-                </div>
-                <a href="classifiche.html" class="pc-nav-link"><i class="fa-solid fa-ranking-star text-[#00ff66]"></i> Ranking</a>
-                <a href="galleria.html" class="pc-nav-link"><i class="fa-solid fa-store text-[#00ff66]"></i> Shop</a>
-                <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="pc-nav-link"><i class="fa-solid fa-ticket text-[#00ff66]"></i> Ticket</a>
-                <a href="iscrizione.html" class="pc-nav-link"><i class="fa-solid fa-user-pen text-[#00ff66]"></i> Matchmaking</a>
-                <a href="tornei.html" class="pc-nav-link"><i class="fa-solid fa-users-gear text-[#00ff66]"></i> SmootheC</a>
-            </div>
-
+            <!-- Colonna Destra: Secondo Logo -->
             <div class="flex items-center justify-end shrink-0">
                 <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="flex items-center cursor-pointer">
                     <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="logo-right-leoni" onerror="this.style.display='none';">
@@ -230,37 +238,20 @@
         </div>
 
         <div class="relative w-full">
-            <div class="absolute inset-0 bg-zinc-950/65 backdrop-blur-[1px] z-30 flex flex-col items-center justify-start pt-16 sm:pt-24 px-4 text-center rounded-2xl">
-                <div class="bg-zinc-900 border border-[#00ff66]/40 p-6 sm:p-8 max-w-lg shadow-2xl rounded-none space-y-3">
-                    <span class="bg-[#00ff66] text-black font-black text-[9px] uppercase px-2.5 py-1 inline-block tracking-wider">Sezione in Aggiornamento</span>
-                    <h3 class="text-white text-lg sm:text-xl font-black uppercase tracking-tight">Ranking CintheC in Arrivo</h3>
-                    <p class="text-zinc-300 text-xs sm:text-sm leading-relaxed">
-                        Presto arriveranno anche i ranking aggiornati ufficiali di CintheC. Stiamo raccogliendo tutti i dati degli atleti per offrirti le classifiche definitive.
-                    </p>
-                    <div class="pt-2">
-                        <a href="index.html" class="inline-flex items-center gap-2 bg-[#00ff66] hover:bg-[#00cc52] text-black font-black uppercase text-[10px] px-4 py-2.5 rounded-none transition shadow-md cursor-pointer">
-                            <i class="fa-solid fa-arrow-left"></i> Torna alla Home
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <div class="block md:hidden space-y-4" id="mobileRankingsList"></div>
 
-            <div class="opacity-55 pointer-events-none">
-                <div class="block md:hidden space-y-4" id="mobileRankingsList"></div>
-
-                <div class="hidden md:block">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" id="row1Grid"></div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" id="row2Grid"></div>
-                    <div class="mb-4">
-                        <h2 class="text-xs font-black uppercase tracking-widest text-black mb-4 border-b border-zinc-300 pb-2">Women's Divisions</h2>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto" id="row3Grid"></div>
+            <div class="hidden md:block">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" id="row1Grid"></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" id="row2Grid"></div>
+                <div class="mb-4">
+                    <h2 class="text-xs font-black uppercase tracking-widest text-black mb-4 border-b border-zinc-300 pb-2">Women's Divisions</h2>
                 </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto" id="row3Grid"></div>
             </div>
         </div>
     </main>
 
-    <footer class="relative z-10 py-1.5 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-28">
+    <footer class="relative z-10 py-1.5 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-2 text-left items-center">
             
             <div class="flex flex-col items-start gap-0.5">
@@ -387,6 +378,8 @@
             let mobileHtml = '';
 
             categoriesData.forEach((cat, index) => {
+                let isUnlocked = cat.title === "Pesi Piuma" || cat.title === "Pesi Welter";
+
                 let fightersListHtml = '';
                 for (let i = 0; i < cat.fighters.length; i++) {
                     let fighterName = cat.fighters[i];
@@ -404,7 +397,16 @@
                 }
 
                 let columnHtml = `
-                    <div class="minimal-ranking-card rounded-2xl p-4 flex flex-col justify-between">
+                    <div class="minimal-ranking-card rounded-2xl p-4 flex flex-col justify-between relative overflow-hidden">
+                        ${!isUnlocked ? `
+                            <div class="absolute inset-0 bg-zinc-950/75 backdrop-blur-[1px] z-20 flex flex-col items-center justify-center p-4 text-center">
+                                <div class="w-10 h-10 rounded-full bg-[#00ff66]/20 border border-[#00ff66]/50 flex items-center justify-center mb-2 shadow-lg">
+                                    <i class="fa-solid fa-lock text-[#00ff66] text-sm"></i>
+                                </div>
+                                <span class="bg-[#00ff66] text-black font-black text-[9px] uppercase px-2.5 py-0.5 rounded mb-1 tracking-wider">In Arrivo</span>
+                                <h4 class="text-white text-xs font-black uppercase tracking-tight">Ranking Bloccato</h4>
+                            </div>
+                        ` : ''}
                         <div>
                             <div class="flex justify-between items-center mb-2.5">
                                 <span class="text-[10px] font-black uppercase text-black tracking-wider">${cat.title}</span>
@@ -435,8 +437,23 @@
                 }
 
                 mobileHtml += `
-                    <div class="minimal-ranking-card rounded-2xl overflow-hidden mb-4">
-                        <div onclick="toggleMobileAccordion(${index})" class="p-4 bg-white flex items-center justify-between cursor-pointer select-none">
+                    <div class="minimal-ranking-card rounded-2xl overflow-hidden mb-4 relative">
+                        ${!isUnlocked ? `
+                            <div class="absolute inset-0 bg-zinc-950/75 backdrop-blur-[1px] z-20 flex items-center justify-between px-4">
+                                <div>
+                                    <span class="text-[10px] font-black uppercase text-white tracking-wider block">${cat.title}</span>
+                                    <span class="text-[10px] font-extrabold text-zinc-300">${cat.weight}</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="bg-[#00ff66] text-black font-black text-[8px] uppercase px-2 py-0.5 rounded">In Arrivo</span>
+                                    <div class="w-8 h-8 rounded-full bg-[#00ff66]/20 border border-[#00ff66]/50 flex items-center justify-center">
+                                        <i class="fa-solid fa-lock text-[#00ff66] text-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        <div onclick="${isUnlocked ? `toggleMobileAccordion(${index})` : ''}" class="p-4 bg-white flex items-center justify-between ${isUnlocked ? 'cursor-pointer select-none' : 'opacity-40 pointer-events-none'}">
                             <div>
                                 <span class="text-[10px] font-black uppercase text-black tracking-wider block">${cat.title}</span>
                                 <span class="text-[10px] font-extrabold text-zinc-500">${cat.weight}</span>
@@ -449,13 +466,15 @@
                                 <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-amber-400 shrink-0 bg-zinc-200">
                                     <img src="${cat.champion.img}" class="w-full h-full object-cover" onerror="this.src='Immagini/Logo.png'">
                                 </div>
-                                <i id="arrow-${index}" class="fa-solid fa-chevron-down text-zinc-400 text-xs transition-transform duration-300"></i>
+                                ${isUnlocked ? `<i id="arrow-${index}" class="fa-solid fa-chevron-down text-zinc-400 text-xs transition-transform duration-300"></i>` : ''}
                             </div>
                         </div>
 
-                        <div id="accordion-${index}" class="hidden bg-zinc-50 border-t border-zinc-200 px-4 py-2 space-y-1">
-                            ${fightersListHtml}
-                        </div>
+                        ${isUnlocked ? `
+                            <div id="accordion-${index}" class="hidden bg-zinc-50 border-t border-zinc-200 px-4 py-2 space-y-1">
+                                ${fightersListHtml}
+                            </div>
+                        ` : ''}
                     </div>
                 `;
             });
