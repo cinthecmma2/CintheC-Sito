@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CintheC Cards Arena - Colleziona i Fighters</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #09090b; color: white; overflow-x: hidden; }
+        
+        .text-cinthec { color: #00ff66; }
+        .bg-cinthec { background-color: #00ff66; color: black; }
+        .border-cinthec { border-color: #00ff66; }
+        .shadow-cinthec { box-shadow: 0 0 12px rgba(0, 255, 102, 0.35); }
+
+        .site-bg-cuts {
+            background-image: 
+                linear-gradient(135deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%),
+                linear-gradient(225deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%),
+                linear-gradient(45deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%),
+                linear-gradient(315deg, rgba(255, 255, 255, 0.02) 25%, #09090b 25%);
+            background-size: 50px 50px;
+            background-position: 0 0, 0 25px, 25px -25px, -25px 0px;
+        }
+
+        .input-field {
+            width: 100%; background: #18181b; border: 1px solid #27272a; color: white;
+            padding: 9px 12px; font-weight: 600; font-size: 12px; border-radius: 0px !important;
+            transition: all 0.2s ease;
+        }
+        .input-field:focus { border-color: #00ff66; outline: none; box-shadow: 0 0 8px rgba(0,255,102,0.2); }
+
+        /* CARTE (ANGOLI SMUSSATI) */
+        .card-container { perspective: 1000px; cursor: pointer; }
+        .card-inner {
+            width: 100%; aspect-ratio: 2.5 / 3.5;
+            background: #18181b; border-radius: 8px !important;
+            position: relative; overflow: hidden;
+            transition: transform 0.1s ease-out;
+            transform-style: preserve-3d;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+        }
+
+        /* STILI RARITÀ */
+        .rarity-comune { border: 2px solid #71717a; }
+        .rarity-rara { border: 2px solid #fbbf24; box-shadow: 0 0 12px rgba(251, 191, 36, 0.35); }
+        .rarity-ultra { border: 2px solid #c084fc; box-shadow: 0 0 16px rgba(192, 132, 252, 0.5); }
+        
+        /* CORNICE LEGGENDARIA CON CORNICE ANIMATA */
+        .rarity-leggendaria {
+            position: relative;
+            border: 3px solid transparent;
+            border-radius: 8px !important;
+            background-clip: padding-box;
+            box-shadow: 0 0 22px rgba(0, 255, 102, 0.3), 0 0 15px rgba(255, 215, 0, 0.4);
+        }
+        .rarity-leggendaria::before {
+            content: ''; position: absolute; inset: -3px; z-index: 5;
+            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #00ff66, #00afff, #7a00ff, #ff00c8, #ff0000);
+            background-size: 400%; border-radius: 10px;
+            animation: rainbowRotate 6s linear infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            padding: 3px;
+            pointer-events: none;
+        }
+        @keyframes rainbowRotate { 0% { background-position: 0 0; } 100% { background-position: 400% 0; } }
+
+        /* FASCIO ARCOBALENO OLOGRAFICO TRASPARENTE ED ELEGANTE */
+        .rarity-leggendaria::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 6;
+            pointer-events: none;
+            background: linear-gradient(
+                120deg,
+                transparent 15%,
+                rgba(255, 0, 85, 0.22) 28%,
+                rgba(255, 154, 0, 0.25) 38%,
+                rgba(255, 240, 0, 0.25) 48%,
+                rgba(0, 255, 102, 0.25) 58%,
+                rgba(0, 195, 255, 0.25) 68%,
+                rgba(170, 0, 255, 0.22) 78%,
+                transparent 90%
+            );
+            background-size: 250% 250%;
+            mix-blend-mode: color-dodge;
+            opacity: 0.8;
+            animation: rainbowBeamSweep 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes rainbowBeamSweep {
+            0% { background-position: 0% 0%; opacity: 0.6; }
+            50% { background-position: 100% 100%; opacity: 0.95; }
+            100% { background-position: 0% 0%; opacity: 0.6; }
+        }
+
+        /* RIFLESSO OLOGRAFICO STANDARD SU HOVER */
+        .holo-overlay {
+            position: absolute; inset: 0; z-index: 7; opacity: 0;
+            background: linear-gradient(125deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%);
+            background-size: 200% 200%; transition: opacity 0.3s ease; mix-blend-mode: overlay; pointer-events: none;
+        }
+        .card-inner:hover .holo-overlay, .modal-card-front:hover .holo-overlay { 
+            opacity: 1; animation: holoShine 3s infinite linear; 
+        }
+        @keyframes holoShine { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+        .sparkles {
+            position: absolute; inset: 0; z-index: 8; opacity: 0; pointer-events: none;
+            background-image: radial-gradient(white, rgba(255,255,255,.4) 1.5px, transparent 3px);
+            background-size: 40px 40px;
+            transition: opacity 0.3s ease;
+        }
+        .card-inner:hover .sparkles, .modal-card-front:hover .sparkles { opacity: 0.6; }
+
+        .pack-shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both infinite; }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0) rotate(-1deg); }
+            20%, 80% { transform: translate3d(2px, 0, 0) rotate(1deg); }
+            30%, 50%, 70% { transform: translate3d(-3px, 0, 0) rotate(-2deg); }
+            40%, 60% { transform: translate3d(3px, 0, 0) rotate(2deg); }
+        }
+        .pack-explode { animation: explode 0.8s forwards; }
+        @keyframes explode {
+            0% { transform: scale(1); opacity: 1; filter: brightness(1); }
+            50% { transform: scale(1.3); opacity: 1; filter: brightness(4) drop-shadow(0 0 40px #00ff66); }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        .binder-page {
+            background: linear-gradient(145deg, #111113 0%, #17171a 100%);
+            border: 2px solid #27272a;
+            position: relative;
+        }
+        .binder-pocket {
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px dashed rgba(255, 255, 255, 0.12);
+            aspect-ratio: 2.5 / 3.5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .binder-pocket-empty {
+            color: #52525b;
+            font-size: 8px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .mini-card .card-inner { border-radius: 6px !important; }
+        .mini-card h4 { font-size: 8px !important; }
+        .mini-card span { font-size: 6px !important; }
+
+        .modal-card-3d {
+            perspective: 1200px;
+            width: 280px;
+            height: 392px;
+            cursor: pointer;
+        }
+        .modal-card-flipper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .modal-card-3d.flipped .modal-card-flipper {
+            transform: rotateY(180deg);
+        }
+        .modal-card-front, .modal-card-back {
+            position: absolute; inset: 0;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+        }
+        .modal-card-front { z-index: 2; transform: rotateY(0deg); }
+        .modal-card-back { transform: rotateY(180deg); background: #121215; border: 2px solid #27272a; }
+    </style>
+</head>
+<body class="site-bg-cuts min-h-screen flex flex-col">
+
+    <header class="border-b border-zinc-800 bg-black/90 backdrop-blur-md sticky top-0 z-50 h-14 flex items-center justify-between px-4">
+        <a href="index.html" class="flex items-center gap-2 hover:opacity-80 transition">
+            <div class="w-7 h-7 bg-cinthec flex items-center justify-center font-black text-black text-xs">C</div>
+            <span class="font-black tracking-widest uppercase text-xs text-cinthec hidden sm:block"><i class="fa-solid fa-layer-group mr-1"></i> Cards Arena</span>
+        </a>
+        <div id="user-header-info" class="hidden flex items-center gap-3">
+            <div class="flex items-center gap-1.5 bg-zinc-900 border border-zinc-800 px-2.5 py-0.5">
+                <i class="fa-solid fa-bolt text-cinthec text-[10px]"></i>
+                <span id="header-points" class="font-black text-xs text-white">0</span>
+            </div>
+            <button onclick="resetUserData()" title="Reset Album" class="text-rose-500 hover:text-rose-400 text-[10px] font-bold uppercase transition flex items-center gap-1 bg-rose-500/10 px-2 py-1 border border-rose-500/20">
+                <i class="fa-solid fa-trash-can"></i> Reset
+            </button>
+            <button onclick="logout()" class="text-zinc-400 hover:text-white text-[10px] font-bold uppercase transition"><i class="fa-solid fa-right-from-bracket"></i> Esci</button>
+        </div>
+    </header>
+
+    <main class="flex-grow flex flex-col relative max-w-5xl mx-auto w-full px-3 py-4" id="main-content">
+        
+        <div id="auth-screen" class="flex-grow flex items-center justify-center p-2">
+            <div class="w-full max-w-sm bg-zinc-950 border border-zinc-800 p-6 shadow-2xl relative text-center">
+                <div class="absolute top-0 left-0 w-full h-1 bg-cinthec"></div>
+                
+                <div class="inline-flex items-center justify-center w-14 h-14 bg-cinthec/10 border border-cinthec/30 text-cinthec text-2xl mb-4 shadow-cinthec">
+                    <i class="fa-solid fa-gamepad"></i>
+                </div>
+                
+                <h1 class="text-2xl font-black uppercase tracking-tight text-white mb-1">CintheC Cards Arena</h1>
+                <p class="text-[11px] text-zinc-400 font-semibold mb-6">Colleziona le carte dei fighters, spacchetta i pacchetti e scopri le rarità leggendarie.</p>
+
+                <button onclick="enterArenaDirectly()" class="w-full bg-cinthec py-3.5 font-black text-black uppercase text-xs hover:bg-emerald-400 active:scale-95 transition shadow-cinthec flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-play text-sm"></i>
+                    <span>Entra nella Card Arena</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="app-screen" class="hidden flex-grow flex flex-col w-full">
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+                <div class="bg-zinc-950 border border-zinc-800 p-3 flex items-center gap-3">
+                    <div class="w-9 h-9 bg-zinc-900 border border-cinthec flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-user-ninja text-cinthec text-sm"></i>
+                    </div>
+                    <div class="min-w-0">
+                        <p class="text-[9px] text-zinc-500 font-bold uppercase tracking-wider">Collezionista</p>
+                        <p id="profile-email" class="font-bold text-xs truncate text-white">Giocatore CintheC</p>
+                    </div>
+                </div>
+
+                <div class="bg-zinc-950 border border-zinc-800 p-3 flex flex-col justify-center relative overflow-hidden">
+                    <p class="text-[9px] text-zinc-500 font-bold uppercase tracking-wider mb-0.5">Crediti Disponibili</p>
+                    <div class="flex items-end gap-1.5">
+                        <span id="dashboard-points" class="text-2xl font-black text-cinthec leading-none">50</span>
+                        <span class="text-[10px] font-bold text-zinc-500 mb-0.5">PUNTI</span>
+                    </div>
+                </div>
+
+                <div class="bg-zinc-950 border border-zinc-800 p-3 flex flex-col gap-1.5">
+                    <button onclick="claimDaily()" class="w-full py-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[10px] font-bold uppercase flex items-center justify-center gap-1.5 transition text-white">
+                        <i class="fa-solid fa-gift text-cinthec"></i> Bonus Giornaliero (+10)
+                    </button>
+                    <div class="flex gap-1.5">
+                        <input type="text" placeholder="Codice TicketSMS" class="input-field !py-1 !text-[10px]" id="ticket-code">
+                        <button onclick="redeemTicket()" class="px-2.5 bg-white text-black font-black uppercase text-[9px] hover:bg-cinthec transition shrink-0">Riscatta</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex border-b border-zinc-800 mb-5 justify-between items-center">
+                <div class="flex">
+                    <button onclick="switchView('shop')" id="nav-shop" class="px-3 py-2 text-[11px] font-black uppercase border-b-2 border-cinthec text-cinthec transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-box-open"></i> Spacchetta
+                    </button>
+                    <button onclick="switchView('album')" id="nav-album" class="px-3 py-2 text-[11px] font-black uppercase border-b-2 border-transparent text-zinc-500 hover:text-white transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-book-bookmark"></i> Album Digitale
+                    </button>
+                    <button onclick="switchView('trade')" id="nav-trade" class="px-3 py-2 text-[11px] font-black uppercase border-b-2 border-transparent text-zinc-500 hover:text-white transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-repeat"></i> Scambi
+                    </button>
+                </div>
+            </div>
+
+            <div id="view-shop" class="flex-grow flex flex-col items-center justify-center py-4">
+                <h2 class="text-xl font-black uppercase tracking-tight text-white mb-1">Scegli il tuo Pacchetto</h2>
+                <p class="text-[11px] text-zinc-400 font-semibold mb-6">Usa i tuoi punti per spacchettare nuove carte.</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-lg w-full">
+                    <div class="bg-zinc-950 border border-zinc-800 p-4 flex flex-col items-center text-center relative group hover:border-cinthec transition">
+                        <div class="w-28 h-36 bg-zinc-900 border-2 border-zinc-700 flex flex-col items-center justify-center relative overflow-hidden mb-3 shadow-lg group-hover:scale-105 group-hover:border-cinthec transition">
+                            <i class="fa-solid fa-clone text-xl text-cinthec mb-1"></i>
+                            <span class="font-black text-xs uppercase">SINGOLO</span>
+                            <span class="text-[8px] text-zinc-500 font-bold uppercase">1 Carta</span>
+                        </div>
+                        <h3 class="font-black text-sm uppercase text-white mb-0.5">Pacchetto Base</h3>
+                        <p class="text-[10px] text-zinc-400 mb-4">1 carta casuale dal roster.</p>
+                        <button onclick="buyPack(1, 10)" class="w-full py-2 bg-cinthec text-black font-black uppercase text-[10px] shadow-cinthec hover:bg-emerald-400 transition">
+                            Apri (10 PUNTI)
+                        </button>
+                    </div>
+
+                    <div class="bg-zinc-950 border border-zinc-800 p-4 flex flex-col items-center text-center relative group hover:border-cinthec transition">
+                        <div class="absolute top-2 right-2 bg-amber-500 text-black font-black text-[8px] px-1.5 py-0.2 uppercase">Offerta</div>
+                        <div class="w-28 h-36 bg-zinc-900 border-2 border-amber-500/50 flex flex-col items-center justify-center relative overflow-hidden mb-3 shadow-lg group-hover:scale-105 group-hover:border-cinthec transition">
+                            <i class="fa-solid fa-layer-group text-xl text-amber-400 mb-1"></i>
+                            <span class="font-black text-xs uppercase text-amber-400">DOPPIO</span>
+                            <span class="text-[8px] text-zinc-400 font-bold uppercase">2 Carte</span>
+                        </div>
+                        <h3 class="font-black text-sm uppercase text-white mb-0.5">Pacchetto Doppio</h3>
+                        <p class="text-[10px] text-zinc-400 mb-4">2 carte casuali del roster.</p>
+                        <button onclick="buyPack(2, 15)" class="w-full py-2 bg-amber-400 text-black font-black uppercase text-[10px] shadow-lg hover:bg-amber-300 transition">
+                            Apri (15 PUNTI)
+                        </button>
+                    </div>
+                </div>
+                <p id="pack-error" class="hidden text-rose-500 text-[10px] font-bold mt-4 bg-rose-500/10 px-3 py-1.5 border border-rose-500/20"></p>
+            </div>
+
+            <div id="view-album" class="hidden flex-grow flex flex-col">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2 border-b border-zinc-800 pb-3">
+                    <div>
+                        <h2 class="text-xl font-black uppercase tracking-tight">La tua Collezione</h2>
+                        <p class="text-[11px] text-zinc-400 font-semibold" id="album-stats">Clicca su una carta per ingrandirla e girarla!</p>
+                    </div>
+                    
+                    <div class="flex bg-zinc-950 p-0.5 border border-zinc-800">
+                        <button onclick="setAlbumDisplayMode('grid')" id="btn-mode-grid" class="px-3 py-1 text-[10px] font-black uppercase bg-zinc-800 text-cinthec transition flex items-center gap-1">
+                            <i class="fa-solid fa-border-all"></i> Griglia
+                        </button>
+                        <button onclick="setAlbumDisplayMode('binder')" id="btn-mode-binder" class="px-3 py-1 text-[10px] font-black uppercase text-zinc-400 hover:text-white transition flex items-center gap-1">
+                            <i class="fa-solid fa-book-open"></i> Vedi Raccoglitore
+                        </button>
+                    </div>
+                </div>
+
+                <div id="album-grid-view">
+                    <div id="cards-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3"></div>
+                </div>
+
+                <div id="album-binder-view" class="hidden flex-grow flex flex-col items-center">
+                    <div class="relative w-full max-w-5xl flex items-center gap-2 mb-2">
+                        <button onclick="changeBinderPage(-1)" id="btn-prev-page" class="h-16 px-2 sm:px-3 bg-zinc-950 border border-zinc-800 hover:border-cinthec text-white font-black text-xs uppercase transition disabled:opacity-20 shrink-0 z-10 flex items-center justify-center">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
+                        </button>
+
+                        <div class="binder-page p-3 sm:p-4 flex-grow border border-zinc-800">
+                            <div id="binder-pockets-grid" class="grid grid-cols-3 sm:grid-cols-5 gap-2 md:gap-3"></div>
+                        </div>
+
+                        <button onclick="changeBinderPage(1)" id="btn-next-page" class="h-16 px-2 sm:px-3 bg-zinc-950 border border-zinc-800 hover:border-cinthec text-white font-black text-xs uppercase transition disabled:opacity-20 shrink-0 z-10 flex items-center justify-center">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
+                        </button>
+                    </div>
+
+                    <span id="binder-page-num" class="font-black text-[10px] uppercase text-zinc-500">Pagina 1 di 1</span>
+                </div>
+            </div>
+
+            <div id="view-trade" class="hidden flex-grow flex flex-col items-center justify-center py-16 text-center">
+                <i class="fa-solid fa-handshake text-5xl text-zinc-800 mb-3"></i>
+                <h2 class="text-xl font-black uppercase text-zinc-500 mb-1">Mercato Scambi</h2>
+                <p class="text-xs text-zinc-600 max-w-sm">La funzione per scambiare i doppioni sarà disponibile prossimamente!</p>
+            </div>
+        </div>
+    </main>
+
+    <div id="card-inspect-modal" class="fixed inset-0 bg-black/90 z-[110] hidden flex flex-col items-center justify-center p-4 backdrop-blur-md" onclick="closeCardInspectModal(event)">
+        <p class="text-xs font-black uppercase tracking-widest text-cinthec mb-4 animate-pulse"><i class="fa-solid fa-hand-pointer mr-1"></i> Clicca sulla carta per girarla!</p>
+        <div id="inspect-card-container"></div>
+        <button onclick="closeCardInspectModalDirect()" class="mt-6 px-6 py-2 bg-zinc-900 border border-zinc-700 text-white font-black uppercase text-xs hover:bg-white hover:text-black transition">
+            Chiudi Vista
+        </button>
+    </div>
+
+    <div id="pack-modal" class="fixed inset-0 bg-black/95 z-[100] hidden flex flex-col items-center justify-center p-4 backdrop-blur-md">
+        <div id="opening-animation" class="hidden flex-col items-center justify-center">
+            <div id="anim-pack" class="w-40 h-56 bg-zinc-900 border-2 border-cinthec pack-shake shadow-[0_0_35px_rgba(0,255,102,0.4)]"></div>
+            <p class="mt-6 text-white font-black uppercase text-xs tracking-widest animate-pulse" id="anim-text">Apertura pacchetto...</p>
+        </div>
+        <div id="found-card-view" class="hidden flex-col items-center justify-center text-center max-w-3xl w-full">
+            <h3 class="text-2xl font-black uppercase mb-1 text-white" id="result-rarity-text">Carte Trovate!</h3>
+            <p class="text-xs text-zinc-400 font-bold mb-6">Aggiunte al tuo album personale.</p>
+            
+            <div id="result-card-container" class="flex flex-wrap justify-center gap-4 mb-6 w-full"></div>
+            
+            <button onclick="closePackModal()" class="px-6 py-2.5 bg-cinthec text-black font-black uppercase text-xs hover:bg-emerald-400 transition shadow-cinthec">
+                Aggiungi all'Album
+            </button>
+        </div>
+    </div>
+
+    <div id="custom-alert-modal" class="fixed inset-0 bg-black/80 z-[120] hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-zinc-950 border border-zinc-800 p-5 max-w-xs w-full text-center relative shadow-2xl">
+            <div id="alert-icon" class="w-10 h-10 bg-cinthec/10 border border-cinthec/30 text-cinthec flex items-center justify-center text-lg mx-auto mb-3">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h3 id="alert-title" class="font-black uppercase text-sm text-white mb-1">Notifica</h3>
+            <p id="alert-msg" class="text-[11px] text-zinc-400 font-semibold mb-5"></p>
+            <button onclick="closeCustomAlert()" class="w-full py-2 bg-zinc-900 hover:bg-zinc-800 text-white font-black uppercase text-[10px] transition">
+                Ho Capito
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const FIGHTER_DB = {
+            'bagni': { nome: 'Umberto Bagni', categoria: 'Pesi Piuma', rec: '2-0-0', foto: 'ranking/umberto-bagni.jpg', stats: { stk: 82, grp: 75, pwr: 80, crd: 85 } },
+            'bello': { nome: 'Massimiliano Bello', categoria: 'Pesi Piuma', rec: '14-3-0', foto: 'ranking/bello.jpg', stats: { stk: 92, grp: 88, pwr: 90, crd: 86 } },
+            'costa': { nome: 'Luca D\'Acosta', categoria: 'Pesi Piuma', rec: '1-2-0', foto: 'ranking/costa.jpg', stats: { stk: 76, grp: 70, pwr: 75, crd: 78 } },
+            'frigerio': { nome: 'Federico Frigerio', categoria: 'Pesi Piuma', rec: '4-0-0', foto: 'ranking/frigerio.jpg', stats: { stk: 85, grp: 82, pwr: 84, crd: 88 } },
+            'gabura': { nome: 'Andrei Gabura', categoria: 'Pesi Piuma', rec: '1-3-0', foto: 'ranking/gabura1.jpg', stats: { stk: 74, grp: 72, pwr: 78, crd: 75 } },
+            'gurnioli': { nome: 'Natay Gurnioli', categoria: 'Pesi Piuma', rec: '0-2-0', foto: 'atleti/logo.png', stats: { stk: 70, grp: 68, pwr: 72, crd: 70 } },
+            'pagotto': { nome: 'Davide Pagotto', categoria: 'Pesi Piuma', rec: '7-8-0', foto: 'ranking/pagotto.jpg', stats: { stk: 81, grp: 83, pwr: 79, crd: 82 } },
+            'parmentola': { nome: 'Giovanni Parmentola', categoria: 'Pesi Piuma', rec: '16-9-0', foto: 'ranking/parmentola.jpeg', stats: { stk: 89, grp: 90, pwr: 87, crd: 88 } },
+            'perini_f': { nome: 'Francesco Perini', categoria: 'Pesi Piuma', rec: '5-1-0', foto: 'ranking/perini10.jpg', stats: { stk: 84, grp: 80, pwr: 83, crd: 86 } },
+            'perini_m': { nome: 'Matteo Perini', categoria: 'Pesi Piuma', rec: '3-1-0', foto: 'ranking/perini3.jpg', stats: { stk: 80, grp: 78, pwr: 82, crd: 81 } },
+            'piccinini': { nome: 'Andrea Piccinini', categoria: 'Pesi Piuma', rec: '0-6-0', foto: 'ranking/piccini.jpg', stats: { stk: 68, grp: 65, pwr: 70, crd: 72 } },
+            'rachki': { nome: 'Oussama Rachki', categoria: 'Pesi Piuma', rec: '4-4-0', foto: 'ranking/Osama.jpg', stats: { stk: 95, grp: 91, pwr: 94, crd: 92 } },
+            'togni': { nome: 'Andrea Togni', categoria: 'Pesi Piuma', rec: '3-0-0', foto: 'ranking/togni.jpg', stats: { stk: 86, grp: 80, pwr: 85, crd: 89 } }
+        };
+
+        const RARITIES = ['comune', 'rara', 'ultra', 'leggendaria'];
+
+        let currentUser = null;
+        let currentAlbumMode = 'grid';
+        let binderCurrentPage = 1;
+        const POCKETS_PER_PAGE = 10;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedData = localStorage.getItem('cinthec_arena_data');
+            if (savedData) {
+                currentUser = JSON.parse(savedData);
+            } else {
+                currentUser = {
+                    email: 'Giocatore CintheC',
+                    punti: 50,
+                    carte: ['bello_leggendaria', 'togni_comune', 'rachki_rara']
+                };
+                saveUserData();
+            }
+        });
+
+        function saveUserData() {
+            if (currentUser) {
+                localStorage.setItem('cinthec_arena_data', JSON.stringify(currentUser));
+            }
+        }
+
+        function enterArenaDirectly() {
+            showDashboard();
+        }
+
+        function resetUserData() {
+            localStorage.removeItem('cinthec_arena_data');
+            localStorage.removeItem('cinthec_last_daily');
+            currentUser = {
+                email: 'Giocatore CintheC',
+                punti: 50,
+                carte: []
+            };
+            saveUserData();
+            updateUI();
+            if (currentAlbumMode === 'binder') renderBinder(); else renderAlbum();
+            showAlert("Album Azzerato", "Il tuo inventario locale è stato ripulito con successo.", "fa-trash-can");
+        }
+
+        function showDashboard() {
+            document.getElementById('auth-screen').classList.add('hidden');
+            document.getElementById('app-screen').classList.remove('hidden');
+            document.getElementById('user-header-info').classList.remove('hidden');
+            updateUI();
+        }
+
+        function logout() {
+            document.getElementById('auth-screen').classList.remove('hidden');
+            document.getElementById('app-screen').classList.add('hidden');
+            document.getElementById('user-header-info').classList.add('hidden');
+        }
+
+        function updateUI() {
+            if(!currentUser) return;
+            document.getElementById('header-points').textContent = currentUser.punti;
+            document.getElementById('dashboard-points').textContent = currentUser.punti;
+            const carteValide = currentUser.carte.filter(c => c && c.trim() !== "");
+            document.getElementById('album-stats').textContent = `Hai sbloccato ${carteValide.length} carte. Clicca per ingrandire e girare!`;
+        }
+
+        function claimDaily() { 
+            const todayStr = new Date().toISOString().split('T')[0];
+            const lastClaim = localStorage.getItem('cinthec_last_daily');
+            if (lastClaim === todayStr) {
+                showAlert("Bonus già preso", "Hai già ritirato i punti bonus oggi. Torna domani!", "fa-circle-xmark");
+                return;
+            }
+            localStorage.setItem('cinthec_last_daily', todayStr);
+            currentUser.punti += 10;
+            saveUserData();
+            updateUI();
+            showAlert("Bonus Accreditato!", "+10 Punti aggiunti al tuo saldo.", "fa-gift");
+        }
+        
+        function redeemTicket() { 
+            const code = document.getElementById('ticket-code').value.trim();
+            if(!code) return;
+            currentUser.punti += 30;
+            saveUserData();
+            document.getElementById('ticket-code').value = '';
+            updateUI();
+            showAlert("Biglietto Convalidato!", "Codice TicketSMS accettato! +30 Punti aggiunti.", "fa-ticket");
+        }
+
+        function showAlert(title, msg, iconClass = "fa-circle-check") {
+            document.getElementById('alert-title').textContent = title;
+            document.getElementById('alert-msg').textContent = msg;
+            document.getElementById('alert-icon').innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
+            document.getElementById('custom-alert-modal').classList.remove('hidden');
+        }
+
+        function closeCustomAlert() {
+            document.getElementById('custom-alert-modal').classList.add('hidden');
+        }
+
+        function switchView(view) {
+            ['shop', 'album', 'trade'].forEach(v => {
+                document.getElementById(`view-${v}`).classList.add('hidden');
+                document.getElementById(`nav-${v}`).className = 'px-3 py-2 text-[11px] font-black uppercase border-b-2 border-transparent text-zinc-500 hover:text-white transition flex items-center gap-1.5';
+            });
+            document.getElementById(`view-${view}`).classList.remove('hidden');
+            document.getElementById(`nav-${view}`).className = 'px-3 py-2 text-[11px] font-black uppercase border-b-2 border-cinthec text-cinthec transition flex items-center gap-1.5';
+            if(view === 'album') renderAlbum();
+        }
+
+        function buyPack(cardsCount, cost) {
+            const errP = document.getElementById('pack-error');
+            errP.classList.add('hidden');
+
+            if (currentUser.punti < cost) {
+                errP.textContent = `Crediti insufficienti! Servono ${cost} Punti per questo pacchetto.`;
+                errP.classList.remove('hidden');
+                return;
+            }
+
+            const modal = document.getElementById('pack-modal');
+            const anim = document.getElementById('opening-animation');
+            const result = document.getElementById('found-card-view');
+            const packVisual = document.getElementById('anim-pack');
+            const animText = document.getElementById('anim-text');
+            
+            modal.classList.remove('hidden');
+            anim.classList.remove('hidden');
+            anim.classList.add('flex');
+            result.classList.add('hidden');
+            result.classList.remove('flex');
+            packVisual.classList.remove('pack-explode');
+            packVisual.classList.add('pack-shake');
+            animText.textContent = "Estrazione carte in corso...";
+
+            setTimeout(() => {
+                currentUser.punti -= cost;
+                const wonCards = [];
+                const fighters = Object.keys(FIGHTER_DB);
+
+                for (let i = 0; i < cardsCount; i++) {
+                    const rand = Math.random() * 100;
+                    let rarityStr = 'comune';
+                    if (rand < 5) rarityStr = 'leggendaria';
+                    else if (rand < 20) rarityStr = 'ultra';
+                    else if (rand < 45) rarityStr = 'rara';
+
+                    const randomFighter = fighters[Math.floor(Math.random() * fighters.length)];
+                    const cardCode = randomFighter + '_' + rarityStr;
+                    currentUser.carte.push(cardCode);
+                    wonCards.push(cardCode);
+                }
+
+                saveUserData();
+
+                packVisual.classList.remove('pack-shake');
+                packVisual.classList.add('pack-explode');
+                
+                setTimeout(() => {
+                    anim.classList.remove('flex');
+                    anim.classList.add('hidden');
+                    showResult(wonCards);
+                }, 800);
+            }, 800);
+        }
+
+        function showResult(wonCards) {
+            const result = document.getElementById('found-card-view');
+            result.classList.remove('hidden');
+            result.classList.add('flex');
+            
+            const container = document.getElementById('result-card-container');
+            container.innerHTML = wonCards.map(code => `
+                <div class="w-44 sm:w-52">${createCardHTML(code)}</div>
+            `).join('');
+
+            attachTiltEffect();
+            updateUI();
+        }
+
+        function closePackModal() { document.getElementById('pack-modal').classList.add('hidden'); }
+
+        function setAlbumDisplayMode(mode) {
+            currentAlbumMode = mode;
+            document.getElementById('btn-mode-grid').className = mode === 'grid' ? 'px-3 py-1 text-[10px] font-black uppercase bg-zinc-800 text-cinthec transition flex items-center gap-1' : 'px-3 py-1 text-[10px] font-black uppercase text-zinc-400 hover:text-white transition flex items-center gap-1';
+            document.getElementById('btn-mode-binder').className = mode === 'binder' ? 'px-3 py-1 text-[10px] font-black uppercase bg-zinc-800 text-cinthec transition flex items-center gap-1' : 'px-3 py-1 text-[10px] font-black uppercase text-zinc-400 hover:text-white transition flex items-center gap-1';
+
+            if (mode === 'grid') {
+                document.getElementById('album-grid-view').classList.remove('hidden');
+                document.getElementById('album-binder-view').classList.add('hidden');
+                renderAlbum();
+            } else {
+                document.getElementById('album-grid-view').classList.add('hidden');
+                document.getElementById('album-binder-view').classList.remove('hidden');
+                renderBinder();
+            }
+        }
+
+        function renderAlbum() {
+            if (currentAlbumMode === 'binder') {
+                renderBinder();
+                return;
+            }
+
+            const grid = document.getElementById('cards-grid');
+            const carteValide = currentUser.carte.filter(c => c && c.trim() !== "");
+            
+            if (carteValide.length === 0) {
+                grid.innerHTML = '<div class="col-span-full text-center py-8 text-zinc-500 font-bold text-xs">Nessuna carta presente nell\'album. Apri un pacchetto per iniziare!</div>';
+                return;
+            }
+            grid.innerHTML = carteValide.map(code => createCardHTML(code)).join('');
+            attachTiltEffect();
+        }
+
+        function getMasterCatalog() {
+            const catalog = [];
+            const sortedFighterKeys = Object.keys(FIGHTER_DB).sort((a, b) => 
+                FIGHTER_DB[a].nome.localeCompare(FIGHTER_DB[b].nome)
+            );
+
+            sortedFighterKeys.forEach(fKey => {
+                RARITIES.forEach(rarity => {
+                    catalog.push({
+                        code: `${fKey}_${rarity}`,
+                        fighterKey: fKey,
+                        rarity: rarity,
+                        data: FIGHTER_DB[fKey]
+                    });
+                });
+            });
+            return catalog;
+        }
+
+        function renderBinder() {
+            const catalog = getMasterCatalog();
+            const totalPages = Math.ceil(catalog.length / POCKETS_PER_PAGE);
+
+            if (binderCurrentPage > totalPages) binderCurrentPage = totalPages;
+            if (binderCurrentPage < 1) binderCurrentPage = 1;
+
+            document.getElementById('binder-page-num').textContent = `Pagina ${binderCurrentPage} di ${totalPages}`;
+            document.getElementById('btn-prev-page').disabled = binderCurrentPage === 1;
+            document.getElementById('btn-next-page').disabled = binderCurrentPage === totalPages;
+
+            const startIndex = (binderCurrentPage - 1) * POCKETS_PER_PAGE;
+            const pageCards = catalog.slice(startIndex, startIndex + POCKETS_PER_PAGE);
+
+            const grid = document.getElementById('binder-pockets-grid');
+            grid.innerHTML = pageCards.map(item => {
+                const isOwned = currentUser.carte.includes(item.code);
+                if (isOwned) {
+                    return `<div class="w-full mini-card">${createCardHTML(item.code, true)}</div>`;
+                } else {
+                    return `
+                        <div class="binder-pocket p-1 text-center flex-col">
+                            <i class="fa-solid fa-lock text-zinc-700 text-xs mb-1"></i>
+                            <span class="binder-pocket-empty block font-black truncate w-full">${item.data.nome}</span>
+                            <span class="text-[7px] text-zinc-600 uppercase font-extrabold">${item.rarity}</span>
+                        </div>
+                    `;
+                }
+            }).join('');
+
+            attachTiltEffect();
+        }
+
+        function changeBinderPage(delta) {
+            binderCurrentPage += delta;
+            renderBinder();
+        }
+
+        function openCardInspectModal(cardCode) {
+            const modal = document.getElementById('card-inspect-modal');
+            const container = document.getElementById('inspect-card-container');
+            container.innerHTML = createGiant3DCardHTML(cardCode);
+            modal.classList.remove('hidden');
+        }
+
+        function closeCardInspectModal(e) {
+            if (e.target.id === 'card-inspect-modal') {
+                document.getElementById('card-inspect-modal').classList.add('hidden');
+            }
+        }
+
+        function closeCardInspectModalDirect() {
+            document.getElementById('card-inspect-modal').classList.add('hidden');
+        }
+
+        function createCardHTML(cardCode, isMini = false) {
+            if (!cardCode || cardCode.trim() === '') return '';
+            const parts = cardCode.split('_');
+            const id = parts[0];
+            const rarity = parts[1] || 'comune';
+            
+            const fData = FIGHTER_DB[id] || { nome: 'Fighter CintheC', categoria: 'MMA', rec: '0-0-0', foto: `ranking/${id}.jpg` };
+            
+            let rarityLabel = rarity.toUpperCase();
+            let rarityColor = 'bg-zinc-600';
+            if(rarity === 'rara') rarityColor = 'bg-amber-500 text-black';
+            if(rarity === 'ultra') rarityColor = 'bg-purple-500 text-white';
+            if(rarity === 'leggendaria') rarityColor = 'bg-gradient-to-r from-yellow-300 via-pink-500 to-cyan-400 text-black font-black';
+
+            const imgUrl = fData.foto || `ranking/${id}.jpg`;
+
+            return `
+                <div class="card-container ${isMini ? 'mini-card' : ''}" onclick="openCardInspectModal('${cardCode}')">
+                    <div class="card-inner rarity-${rarity} flex flex-col justify-end p-2" style="background-image: url('${imgUrl}'); background-size: cover; background-position: center;">
+                        <div class="holo-overlay"></div>
+                        <div class="sparkles"></div>
+                        
+                        <div class="absolute top-1.5 right-1.5 ${rarityColor} px-1.5 py-0.2 rounded-[2px] text-[7px] font-black uppercase z-20 shadow">${rarityLabel}</div>
+                        
+                        <div class="relative z-20 bg-black/85 backdrop-blur-sm p-1.5 border border-zinc-700/50">
+                            <h4 class="font-black text-[10px] uppercase text-white truncate leading-tight">${fData.nome}</h4>
+                            <div class="flex justify-between items-center mt-0.5">
+                                <span class="text-[7px] text-cinthec font-bold uppercase truncate">${fData.categoria}</span>
+                                <span class="text-[7px] bg-white text-black px-1 font-black shrink-0">${fData.rec}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createGiant3DCardHTML(cardCode) {
+            const parts = cardCode.split('_');
+            const id = parts[0];
+            const rarity = parts[1] || 'comune';
+            
+            const fData = FIGHTER_DB[id] || { 
+                nome: 'Fighter CintheC', categoria: 'MMA', rec: '0-0-0', foto: `ranking/${id}.jpg`,
+                stats: { stk: 80, grp: 80, pwr: 80, crd: 80 }
+            };
+            
+            let rarityLabel = rarity.toUpperCase();
+            let rarityColor = 'bg-zinc-600';
+            if(rarity === 'rara') rarityColor = 'bg-amber-500 text-black';
+            if(rarity === 'ultra') rarityColor = 'bg-purple-500 text-white';
+            if(rarity === 'leggendaria') rarityColor = 'bg-gradient-to-r from-yellow-300 via-pink-500 to-cyan-400 text-black font-black';
+
+            const imgUrl = fData.foto || `ranking/${id}.jpg`;
+            const stats = fData.stats || { stk: 80, grp: 80, pwr: 80, crd: 80 };
+
+            return `
+                <div class="modal-card-3d" onclick="this.classList.toggle('flipped')">
+                    <div class="modal-card-flipper">
+                        
+                        <!-- FRONTE GIGANTE -->
+                        <div class="modal-card-front rarity-${rarity} flex flex-col justify-end p-4" style="background-image: url('${imgUrl}'); background-size: cover; background-position: center;">
+                            <div class="holo-overlay" style="opacity: 0.8;"></div>
+                            <div class="sparkles" style="opacity: 1;"></div>
+                            
+                            <div class="absolute top-3 right-3 ${rarityColor} px-3 py-1 rounded text-xs font-black uppercase z-20 shadow-xl tracking-wider">${rarityLabel}</div>
+                            
+                            <div class="relative z-20 bg-black/90 backdrop-blur-md p-3 rounded border border-zinc-700">
+                                <h4 class="font-black text-base uppercase text-white truncate leading-tight mb-1">${fData.nome}</h4>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-cinthec font-bold uppercase tracking-wider">${fData.categoria}</span>
+                                    <span class="text-xs bg-white text-black px-2 py-0.5 rounded font-black">${fData.rec}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- RETRO GIGANTE (SCHEDA TECNICA) -->
+                        <div class="modal-card-back rarity-${rarity} flex flex-col justify-between p-5 text-center">
+                            <div class="border-b border-zinc-800 pb-2">
+                                <span class="text-xs text-cinthec font-black uppercase tracking-widest block">Scheda Tecnica Ufficiale</span>
+                                <h5 class="font-black text-lg uppercase text-white truncate">${fData.nome}</h5>
+                            </div>
+
+                            <div class="space-y-3 my-auto text-left">
+                                <div>
+                                    <div class="flex justify-between items-center text-xs font-black mb-1">
+                                        <span class="text-zinc-400">STRIKING</span>
+                                        <span class="text-cinthec text-sm">${stats.stk}</span>
+                                    </div>
+                                    <div class="w-full bg-zinc-800 h-2 rounded"><div class="bg-cinthec h-2 rounded" style="width: ${stats.stk}%"></div></div>
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between items-center text-xs font-black mb-1">
+                                        <span class="text-zinc-400">GRAPPLING</span>
+                                        <span class="text-amber-400 text-sm">${stats.grp}</span>
+                                    </div>
+                                    <div class="w-full bg-zinc-800 h-2 rounded"><div class="bg-amber-400 h-2 rounded" style="width: ${stats.grp}%"></div></div>
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between items-center text-xs font-black mb-1">
+                                        <span class="text-zinc-400">POTENZA</span>
+                                        <span class="text-purple-400 text-sm">${stats.pwr}</span>
+                                    </div>
+                                    <div class="w-full bg-zinc-800 h-2 rounded"><div class="bg-purple-400 h-2 rounded" style="width: ${stats.pwr}%"></div></div>
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between items-center text-xs font-black mb-1">
+                                        <span class="text-zinc-400">CARDIO</span>
+                                        <span class="text-sky-400 text-sm">${stats.crd}</span>
+                                    </div>
+                                    <div class="w-full bg-zinc-800 h-2 rounded"><div class="bg-sky-400 h-2 rounded" style="width: ${stats.crd}%"></div></div>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-zinc-800 pt-2 text-[9px] text-zinc-500 font-extrabold uppercase tracking-widest">
+                                CintheC Digital Collectibles • 2026
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            `;
+        }
+
+        function attachTiltEffect() {
+            const cards = document.querySelectorAll('.card-container');
+            cards.forEach(container => {
+                const inner = container.querySelector('.card-inner');
+                container.addEventListener('mousemove', (e) => {
+                    const rect = container.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -12;
+                    const rotateY = ((x - centerX) / centerX) * 12;
+                    inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+                });
+                container.addEventListener('mouseleave', () => {
+                    inner.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+                });
+            });
+        }
+    </script>
+</body>
+</html>
