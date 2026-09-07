@@ -9,6 +9,7 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
     <link rel="apple-touch-icon" href="icon-192.png">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
@@ -30,7 +31,7 @@
             background-size: 40px 40px, 40px 40px, 40px 40px, 40px 40px, 20px 20px;
         }
 
-        .pro-header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-bottom: 2px solid #334155; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); }
+        .pro-header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-bottom: 2px solid #334155; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); height: 100px; }
         .pro-footer-compact { background-color: #0f172a; color: #94a3b8; border-top: 1px solid #1e293b; font-size: 11px; }
 
         .nav-tech-btn {
@@ -111,7 +112,7 @@
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* LOGHI INGRANDITI E OTTIMIZZATI */
+        /* LOGHI OTTIMIZZATI */
         .logo-left-cinthec { 
             width: 360px !important; 
             height: 120px !important; 
@@ -123,25 +124,25 @@
             z-index: 60;
         }
         .logo-right-leoni { 
-            width: 70px !important; 
-            height: 70px !important; 
-            max-height: 70px !important; 
+            width: 42px !important; 
+            height: 42px !important; 
+            max-height: 42px !important; 
             object-fit: contain !important; 
-            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4)); 
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); 
             position: relative;
             z-index: 60;
         }
 
         @media (min-width: 640px) {
             .logo-left-cinthec { width: 440px !important; height: 140px !important; max-height: 140px !important; margin-left: -80px !important; }
-            .logo-right-leoni { width: 85px !important; height: 85px !important; max-height: 85px !important; }
-            .pro-header { height: 110px; }
+            .logo-right-leoni { display: none !important; }
+            .pro-header { height: 100px; }
         }
     </style>
 </head>
 <body class="tech-diagonal-bg text-slate-800 antialiased min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-white">
 
-    <header class="pro-header sticky top-0 z-30 h-20 flex items-center">
+    <header class="pro-header sticky top-0 z-30 flex items-center">
         <div class="max-w-7xl mx-auto px-2 sm:px-6 w-full flex items-center justify-between">
             
             <div class="flex items-center -ml-2 sm:ml-0">
