@@ -334,13 +334,11 @@
         }
 
         .logo-left-cinthec {
-            width: 160px !important;
+            width: 140px !important;
             height: auto !important;
-            max-height: 50px !important;
+            max-height: 44px !important;
             object-fit: contain !important;
-            margin-left: 0px !important;
-            position: relative;
-            z-index: 60;
+            display: block !important;
         }
         .logo-right-leoni {
             width: 46px !important;
@@ -366,9 +364,9 @@
 
             <div class="flex items-center justify-center gap-2 w-full relative z-50">
                 <div class="dropdown md:hidden">
-                    <a href="javascript:void(0);" class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileEventsDropdown')">
+                    <button type="button" class="mobile-dropdown-btn w-full justify-center" onclick="toggleDropdown(event, 'mobileEventsDropdown')">
                         <i class="fa-solid fa-trophy text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
-                    </a>
+                    </button>
                     <div id="mobileEventsDropdown" class="mobile-dropdown-content">
                         <div class="dropdown-inner">
                             <a href="cinthec8.html">CintheC 8</a>
@@ -379,9 +377,9 @@
                 </div>
 
                 <div class="dropdown md:hidden">
-                    <a href="javascript:void(0);" class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileMenuDropdown')">
+                    <button type="button" class="mobile-dropdown-btn w-full justify-center" onclick="toggleDropdown(event, 'mobileMenuDropdown')">
                         <i class="fa-solid fa-bars text-[#00ff66]"></i> Menu <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
-                    </a>
+                    </button>
                     <div id="mobileMenuDropdown" class="mobile-dropdown-content">
                         <div class="dropdown-inner">
                             <a href="index.html">Home</a>
