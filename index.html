@@ -193,14 +193,14 @@
             background-color: rgba(20, 20, 24, 0.9);
             border: 1px solid rgba(255, 255, 255, 0.25);
             color: #ffffff;
-            padding: 5px 8px;
-            font-size: 9px;
+            padding: 6px 12px;
+            font-size: 10px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.03em;
             display: inline-flex;
             align-items: center;
-            gap: 3px;
+            gap: 4px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             border-radius: 0px !important;
             cursor: pointer;
@@ -365,14 +365,9 @@
                 </a>
             </div>
 
-            <div class="flex items-center justify-center gap-1.5 w-full relative z-50">
-                <!-- Tasto Home diretto su mobile -->
-                <a href="index.html" class="mobile-dropdown-btn md:hidden">
-                    <i class="fa-solid fa-house text-[#00ff66]"></i> Home
-                </a>
-
+            <div class="flex items-center justify-center gap-2 w-full relative z-50">
                 <div class="dropdown md:hidden">
-                    <button class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileEventsDropdown')">
+                    <button type="button" class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileEventsDropdown')">
                         <i class="fa-solid fa-trophy text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
                     </button>
                     <div id="mobileEventsDropdown" class="mobile-dropdown-content">
@@ -385,11 +380,12 @@
                 </div>
 
                 <div class="dropdown md:hidden">
-                    <button class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileMenuDropdown')">
+                    <button type="button" class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileMenuDropdown')">
                         <i class="fa-solid fa-bars text-[#00ff66]"></i> Menu <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
                     </button>
                     <div id="mobileMenuDropdown" class="mobile-dropdown-content">
                         <div class="dropdown-inner">
+                            <a href="index.html">Home</a>
                             <a href="classifiche.html">Ranking</a>
                             <a href="galleria.html">Shop</a>
                             <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank">Ticket</a>
@@ -402,7 +398,7 @@
                 <div class="hidden md:flex items-center gap-2 lg:gap-3">
                     <a href="index.html" class="pc-nav-link"><i class="fa-solid fa-house text-[#00ff66]"></i> Home</a>
                     <div class="dropdown">
-                        <button class="nav-dropdown-btn" onclick="toggleDropdown(event, 'pcEventsDropdown')">
+                        <button type="button" class="nav-dropdown-btn" onclick="toggleDropdown(event, 'pcEventsDropdown')">
                             <i class="fa-solid fa-trophy text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[9px] ml-1"></i>
                         </button>
                         <div id="pcEventsDropdown" class="dropdown-content">
@@ -760,6 +756,7 @@
         }
 
         function toggleDropdown(event, dropdownId) {
+            event.preventDefault();
             event.stopPropagation();
             const targetDropdown = document.getElementById(dropdownId);
             const isOpen = targetDropdown.classList.contains('show');
@@ -773,10 +770,20 @@
             }
         }
 
-        window.addEventListener('click', function() {
-            document.querySelectorAll('.dropdown-content, .mobile-dropdown-content').forEach(el => {
-                el.classList.remove('show');
-            });
+        window.addEventListener('click', function(e) {
+            if (!e.target.closest('.dropdown') && !e.target.closest('.mobile-dropdown-btn') && !e.target.closest('.nav-dropdown-btn')) {
+                document.querySelectorAll('.dropdown-content, .mobile-dropdown-content').forEach(el => {
+                    el.classList.remove('show');
+                });
+            }
+        });
+
+        window.addEventListener('touchend', function(e) {
+            if (!e.target.closest('.dropdown') && !e.target.closest('.mobile-dropdown-btn') && !e.target.closest('.nav-dropdown-btn')) {
+                document.querySelectorAll('.dropdown-content, .mobile-dropdown-content').forEach(el => {
+                    el.classList.remove('show');
+                });
+            }
         });
     </script>
 
