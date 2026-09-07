@@ -167,7 +167,7 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* DIMENSIONI E PROPORZIONI ESATTE DEI LOGHI */
+        /* DIMENSIONI E PROPORZIONI LOGHI (OTTIMIZZATI ANCHE PER MOBILE) */
         .logo-left-cinthec {
             width: 160px !important;
             height: 70px !important;
@@ -186,6 +186,15 @@
             position: relative;
             z-index: 60;
         }
+
+        @media (max-width: 768px) {
+            .logo-left-cinthec {
+                width: 165px !important;
+                height: 72px !important;
+                max-height: 72px !important;
+                margin-left: -20px !important;
+            }
+        }
     </style>
 </head>
 <body class="neon-lightning-bg text-zinc-100 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black site-locked">
@@ -195,10 +204,10 @@
     </div>
 
     <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center">
-        <div class="max-w-7xl mx-auto px-2 sm:px-6 w-full grid grid-cols-3 items-center relative z-50">
+        <div class="max-w-7xl mx-auto px-1 sm:px-6 w-full grid grid-cols-[auto_1fr_auto] items-center relative z-50">
             
-            <!-- LOGO CINTHEC SINISTRA + SCRITTA (VISIBILE SOLO DA PC) -->
-            <div class="flex items-center justify-start gap-2 sm:gap-3">
+            <!-- LOGO CINTHEC SINISTRA + SCRITTA -->
+            <div class="flex items-center justify-start gap-1 sm:gap-3">
                 <a href="galleria.html" class="flex items-center">
                     <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                 </a>
@@ -208,7 +217,7 @@
             </div>
 
             <!-- DUE BOTTONI CENTRALI (EVENTI CON MENU A TENDINA + TORNA ALLA HOME) -->
-            <div class="flex items-center justify-center gap-2 relative z-50">
+            <div class="flex items-center justify-center gap-1.5 sm:gap-2 relative z-50 px-1">
                 <div class="dropdown">
                     <button class="nav-center-btn">
                         <i class="fa-solid fa-calendar-days text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[9px] ml-1"></i>
