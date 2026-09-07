@@ -333,6 +333,16 @@
             overflow: hidden;
         }
 
+        /* LOGO INGRANDITO A SINISTRA */
+        .logo-left-cinthec {
+            width: 210px !important;
+            height: 85px !important;
+            max-height: 85px !important;
+            object-fit: contain !important;
+            margin-left: -15px !important;
+            position: relative;
+            z-index: 60;
+        }
         .logo-right-leoni {
             width: 46px !important;
             height: 46px !important;
@@ -342,6 +352,15 @@
             position: relative;
             z-index: 60;
         }
+
+        @media (max-width: 768px) {
+            .logo-left-cinthec {
+                width: 195px !important;
+                height: 78px !important;
+                max-height: 78px !important;
+                margin-left: -10px !important;
+            }
+        }
     </style>
 </head>
 <body class="site-bg-cuts text-zinc-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
@@ -349,9 +368,9 @@
     <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center overflow-visible">
         <div class="max-w-7xl mx-auto px-2 sm:px-4 w-full grid grid-cols-3 items-center relative z-50">
             
-            <div class="flex items-center justify-start pl-2">
+            <div class="flex items-center justify-start">
                 <a href="index.html" class="flex items-center">
-                    <img src="Immagini/Logo.jpeg" alt="CintheC Logo" style="width: 140px; height: 45px; object-fit: contain; display: block;" onerror="this.onerror=null; this.src='Immagini/logo.jpeg';">
+                    <img src="Immagini/Logo.jpeg" alt="CintheC Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                 </a>
             </div>
 

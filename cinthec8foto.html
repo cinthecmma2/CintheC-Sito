@@ -167,32 +167,33 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* DIMENSIONI E PROPORZIONI LOGHI */
+        /* DIMENSIONI E PROPORZIONI LOGHI (INGRANDITI) */
         .logo-left-cinthec {
-            width: 160px !important;
-            height: 70px !important;
-            max-height: 70px !important;
+            width: 200px !important;
+            height: 80px !important;
+            max-height: 80px !important;
             object-fit: contain !important;
-            margin-left: -10px !important;
+            margin-left: -5px !important;
             position: relative;
             z-index: 60;
         }
         .logo-right-leoni {
-            width: 44px !important;
-            height: 44px !important;
-            max-height: 44px !important;
+            width: 46px !important;
+            height: 46px !important;
+            max-height: 46px !important;
             object-fit: contain !important;
             margin-right: 10px !important;
             position: relative;
             z-index: 60;
         }
 
+        /* REGOLAZIONE PER MOBILE: INGRANDITO E SPOSTATO PIÙ A DESTRA */
         @media (max-width: 768px) {
             .logo-left-cinthec {
-                width: 165px !important;
-                height: 72px !important;
-                max-height: 72px !important;
-                margin-left: -20px !important;
+                width: 190px !important;
+                height: 78px !important;
+                max-height: 78px !important;
+                margin-left: 0px !important; /* Spostato più a destra su mobile */
             }
         }
     </style>
