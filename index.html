@@ -8,8 +8,7 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0b0b0b">
     <link rel="apple-touch-icon" href="icon-192.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -335,11 +334,11 @@
         }
 
         .logo-left-cinthec {
-            width: 320px !important;
-            height: 110px !important;
-            max-height: 110px !important;
+            width: 160px !important;
+            height: auto !important;
+            max-height: 50px !important;
             object-fit: contain !important;
-            margin-left: -40px !important;
+            margin-left: 0px !important;
             position: relative;
             z-index: 60;
         }
@@ -357,7 +356,7 @@
 <body class="site-bg-cuts text-zinc-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
 
     <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center overflow-visible">
-        <div class="max-w-7xl mx-auto pl-0 pr-1 sm:px-4 w-full grid grid-cols-3 items-center relative z-50">
+        <div class="max-w-7xl mx-auto px-2 sm:px-4 w-full grid grid-cols-3 items-center relative z-50">
             
             <div class="flex items-center justify-start pl-0">
                 <a href="index.html" class="flex items-center">
@@ -367,9 +366,9 @@
 
             <div class="flex items-center justify-center gap-2 w-full relative z-50">
                 <div class="dropdown md:hidden">
-                    <button type="button" class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileEventsDropdown')">
+                    <a href="javascript:void(0);" class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileEventsDropdown')">
                         <i class="fa-solid fa-trophy text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
-                    </button>
+                    </a>
                     <div id="mobileEventsDropdown" class="mobile-dropdown-content">
                         <div class="dropdown-inner">
                             <a href="cinthec8.html">CintheC 8</a>
@@ -380,9 +379,9 @@
                 </div>
 
                 <div class="dropdown md:hidden">
-                    <button type="button" class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileMenuDropdown')">
+                    <a href="javascript:void(0);" class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileMenuDropdown')">
                         <i class="fa-solid fa-bars text-[#00ff66]"></i> Menu <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
-                    </button>
+                    </a>
                     <div id="mobileMenuDropdown" class="mobile-dropdown-content">
                         <div class="dropdown-inner">
                             <a href="index.html">Home</a>
