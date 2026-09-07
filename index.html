@@ -65,7 +65,7 @@
             color: #ffffff !important;
         }
         .dark-mode .light-lightning-card p {
-            color: #a1a1aa !important;
+            color: #d4d4d8 !important;
         }
 
         .bar-lightning-bg {
@@ -102,7 +102,8 @@
             color: #18181b !important;
         }
         .light-lightning-card p {
-            color: #3f3f46 !important;
+            color: #27272a !important;
+            font-weight: 500;
         }
 
         @keyframes pulseButton {
@@ -242,30 +243,6 @@
         .dropdown-content a:hover { background-color: #00ff66; color: black; }
         .mobile-dropdown-content a:hover { background-color: #ffffff; color: black; }
 
-        .news-ticker-container {
-            background: #000000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-            color: #ffffff;
-            overflow: hidden;
-            white-space: nowrap;
-            position: relative;
-            height: 32px;
-            display: flex;
-            align-items: center;
-        }
-        .news-ticker-content {
-            display: inline-block;
-            animation: marquee 25s linear infinite;
-            font-size: 10px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-
         .theme-switch {
             width: 52px;
             height: 26px;
@@ -303,8 +280,8 @@
 
         .photo-preview-container {
             position: relative;
-            height: 80px;
-            margin: 8px 0;
+            height: 90px;
+            margin: 12px 0;
             overflow: visible;
         }
         .mini-polaroid {
@@ -314,12 +291,12 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
             border: 1px solid #ccc;
             transition: transform 0.3s ease, z-index 0.3s ease;
-            width: 44px;
-            height: 54px;
+            width: 48px;
+            height: 60px;
         }
         .mini-polaroid img {
             width: 100%;
-            height: 38px;
+            height: 42px;
             object-fit: cover;
         }
         .mini-polaroid:hover {
@@ -328,19 +305,31 @@
             box-shadow: 0 8px 18px rgba(0,0,0,0.3);
         }
 
-        .video-container {
-            position: relative;
+        /* STILI PER LE GALLERY SCORREVOLI AUTOMATICHE */
+        .auto-scroller-container {
             overflow: hidden;
-            border-radius: 0px !important;
-        }
-        .background-video {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 2;
+            position: relative;
+            white-space: nowrap;
+        }
+        .auto-scroller-track {
+            display: inline-flex;
+            gap: 12px;
+            animation: scrollLeftToRight 70s linear infinite;
+        }
+        .auto-scroller-track:hover {
+            animation-play-state: paused;
+        }
+        @keyframes scrollLeftToRight {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .scroller-item {
+            flex-shrink: 0;
+            border: 1px solid rgba(0,0,0,0.15);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            background: #fff;
+            overflow: hidden;
         }
 
         .logo-left-cinthec {
@@ -364,12 +353,6 @@
     </style>
 </head>
 <body class="site-bg-cuts text-zinc-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
-
-    <div class="news-ticker-container">
-        <div class="news-ticker-content">
-            🔥 APERTE LE ISCRIZIONI PER CINTHEC — 🎫 BIGLIETTI GIÀ DISPONIBILI PER I POSTI A BORDO GABBIA — ⚡ PALAZZETTO dello SPORT VERONESE: 10 OTTOBRE 2026 — ⚖️ CONTROLLA IL RANKING AGGIORNATO NEL MENU
-        </div>
-    </div>
 
     <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center">
         <div class="max-w-7xl mx-auto pl-0 pr-1 sm:px-4 w-full grid grid-cols-3 items-center relative z-50">
@@ -440,22 +423,20 @@
         </div>
     </header>
 
-    <div class="bg-zinc-950 border-b border-zinc-800 py-3 px-4 text-center relative z-20">
-        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div class="flex flex-col sm:flex-row items-center gap-3">
-                <span class="text-xs font-black uppercase text-[#00ff66] tracking-wider">CintheC X - 10 Ottobre 2026:</span>
-                <div id="countdown" class="flex justify-center gap-2 text-white font-black text-xs">
-                    <div class="bg-zinc-900 px-2.5 py-1 border border-zinc-700 rounded-none"><span id="days">00</span> <span class="text-[7px] uppercase text-zinc-400">Giorni</span></div>
-                    <div class="bg-zinc-900 px-2.5 py-1 border border-zinc-700 rounded-none"><span id="hours">00</span> <span class="text-[7px] uppercase text-zinc-400">Ore</span></div>
-                    <div class="bg-zinc-900 px-2.5 py-1 border border-zinc-700 rounded-none"><span id="minutes">00</span> <span class="text-[7px] uppercase text-zinc-400">Min</span></div>
-                    <div class="bg-zinc-900 px-2.5 py-1 border border-zinc-700 rounded-none"><span id="seconds">00</span> <span class="text-[7px] uppercase text-zinc-400">Sec</span></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-4 pb-2 flex justify-center relative z-25">
+        <div class="inline-flex flex-col sm:flex-row items-center gap-3 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 p-3 shadow-md">
+            <div class="flex items-center gap-2 text-zinc-900 dark:text-white text-[12px] font-bold uppercase">
+                <span class="text-[#00ff66]">CintheC X (10 Ott 2026):</span>
+                <div id="countdown" class="flex gap-1.5 font-bold text-zinc-800 dark:text-zinc-200">
+                    <span class="bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 border border-zinc-200 dark:border-zinc-700"><span id="days">00</span>g</span>
+                    <span class="bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 border border-zinc-200 dark:border-zinc-700"><span id="hours">00</span>h</span>
+                    <span class="bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 border border-zinc-200 dark:border-zinc-700"><span id="minutes">00</span>m</span>
+                    <span class="bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 border border-zinc-200 dark:border-zinc-700"><span id="seconds">00</span>s</span>
                 </div>
             </div>
-            <div>
-                <a href="cinthec10.html" style="position: relative; z-index: 10; pointer-events: auto;" class="inline-flex items-center gap-1.5 bg-[#00ff66] hover:bg-[#00cc52] text-black font-black uppercase text-[9px] px-4 py-2.5 rounded-none transition shadow-lg cursor-pointer">
-                    <i class="fa-solid fa-fire text-black text-[9px]"></i> Vedi i match pubblicati giorno per giorno <i class="fa-solid fa-arrow-right text-[9px]"></i>
-                </a>
-            </div>
+            <a href="https://www.ticketsms.it/event/Cinthec-X-Chioggia-Palazetto-Dello-Sport-Veronese-10-10-2026?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUC5T5wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp7tBxqmypRhUvTBjA3iKb6PuNio1hk_S8rSnuuf0Oigut1wB8v15KGw5mGfu_aem_Lty047RJmJ8w4Jzr92cN9w" target="_blank" class="inline-flex items-center gap-1.5 bg-[#00ff66] hover:bg-[#00cc52] text-black font-black uppercase text-[10px] px-3.5 py-1.5 transition shadow cursor-pointer">
+                <i class="fa-solid fa-ticket"></i> Acquista biglietto
+            </a>
         </div>
     </div>
 
@@ -463,7 +444,7 @@
         
         <div class="flex justify-end items-center mb-4">
             <div class="flex items-center gap-2 bg-white/80 dark:bg-zinc-900/80 px-3 py-1.5 border border-zinc-300 dark:border-zinc-800 shadow-sm">
-                <span class="text-[10px] font-black uppercase tracking-wider text-zinc-700 dark:text-zinc-300">Dark Mode</span>
+                <span class="text-[11px] font-bold uppercase tracking-wider text-zinc-800 dark:text-zinc-200">Dark Mode</span>
                 <div class="theme-switch" onclick="toggleTheme()" title="Attiva/Disattiva Dark Mode">
                     <div class="theme-switch-thumb">
                         <i class="fa-solid fa-bolt text-[#00ff66] text-[10px]"></i>
@@ -477,16 +458,13 @@
                 <div class="space-y-3 mb-6">
                     <span class="text-[10px] font-black uppercase bg-black text-white px-3 py-1 rounded-none inline-block border border-black">Official Portal</span>
                     <h1 class="text-2xl sm:text-4xl font-black uppercase tracking-tight text-zinc-900">Benvenuti su CintheC</h1>
-                    <p class="text-zinc-700 text-xs sm:text-sm leading-relaxed">
-                        Il portale definitivo dedicato agli sport da combattimento, nato dalla forte sinergia con i <strong>Leoni di San Marco</strong>. CintheC rappresenta l'unione tra la passione viscerale per la gabbia, l'organizzazione di eventi di alto profilo e la valorizzazione degli atleti emergenti e professionisti nel panorama marziale italiano.
+                    <p class="text-zinc-800 dark:text-zinc-200 text-xs sm:text-sm font-medium leading-relaxed">
+                        La promotion definitiva dedicata agli sport da combattimento, nata dalla famiglia dei Leoni di San Marco e guidata dal team di Andrea e Marco Pozzato e tutta la sua famiglia marziale e i collaboratori. CintheC rappresenta l'unione tra la passione viscerale per la gabbia, l'organizzazione di eventi di alto profilo e la valorizzazione degli atleti emergenti e professionisti del panorama marziale italiano. Più di una semplice promotion, è una vetrina d'eccellenza e un vero e proprio trampolino di lancio che ha visto calcare la propria gabbia da fighter semi-pro e pro tra i più stimati d'Italia, aprendo loro le porte verso i più importanti palcoscenici nazionali e internazionali. Ogni appuntamento è curato nei minimi dettagli per offrire uno spettacolo fatto veramente con i fiocchi, dove la qualità dei match si unisce a un'organizzazione impeccabile, performance live d'impatto e un accogliente angolo bar per il pubblico.
                     </p>
                 </div>
                 <div class="w-full">
-                    <div class="bg-zinc-950 rounded-none h-48 sm:h-60 flex items-center justify-center border border-zinc-300 overflow-hidden relative video-container shadow-md">
-                        <video autoplay loop muted playsinline webkit-playsinline class="background-video">
-                            <source src="Video/chinthec-home.mp4" type="video/mp4">
-                            Il tuo browser non supporta il tag video.
-                        </video>
+                    <div class="bg-zinc-950 rounded-none h-48 sm:h-60 flex items-center justify-center border border-zinc-300 overflow-hidden relative shadow-md">
+                        <img src="Immagini/sfondocinthec.jpg" alt="CintheC Sfondo" class="w-full h-full object-cover rounded-none" onerror="tryNextExtension(this)">
                     </div>
                 </div>
             </div>
@@ -499,14 +477,14 @@
                     <div class="space-y-2 mb-4 relative z-10">
                         <span class="bg-black text-white font-black text-[9px] uppercase px-2 py-0.5 rounded-none inline-block border border-black">Prossimo Evento</span>
                         <h2 class="text-lg sm:text-xl font-black uppercase tracking-tight text-zinc-900">Biglietti CintheC 10</h2>
-                        <p class="text-zinc-700 text-[11px] leading-relaxed">
-                            Palazzetto dello Sport Veronese - 10 Ottobre 2026. Vivi l'adrenalina dei match dal vivo a bordo gabbia.
+                        <p class="text-zinc-800 dark:text-zinc-200 text-xs font-medium leading-relaxed">
+                            <strong>CintheC X - Champion in the Cage (10° Edizione)</strong>: il grande galà degli sport da combattimento sta per tornare! La grande notte dei combattimenti ti aspetta al Palazzetto dello Sport Veronese. Festeggiamo questo straordinario traguardo con uno show unico dedicato alle arti marziali miste e agli sport da combattimento: all'interno della celebre gabbia ottagonale, i migliori atleti del panorama nazionale si sfideranno per conquistare la vittoria!
                         </p>
                         <div class="pt-2 border-t border-zinc-200 dark:border-zinc-800 space-y-1.5 bg-zinc-100/60 dark:bg-zinc-900/60 p-2">
-                            <div class="flex items-center gap-2 text-[11px] font-extrabold text-zinc-900 dark:text-zinc-100">
+                            <div class="flex items-center gap-2 text-xs font-bold text-zinc-900 dark:text-zinc-100">
                                 <i class="fa-solid fa-circle-check text-[#00ff66]"></i> Posti numerati e tribune disponibili
                             </div>
-                            <div class="flex items-center gap-2 text-[11px] font-extrabold text-zinc-900 dark:text-zinc-100">
+                            <div class="flex items-center gap-2 text-xs font-bold text-zinc-900 dark:text-zinc-100">
                                 <i class="fa-solid fa-circle-check text-[#00ff66]"></i> Accesso rapido e prevendita ufficiale
                             </div>
                         </div>
@@ -524,9 +502,9 @@
                     </div>
                     <div class="space-y-1 mb-4 relative z-10">
                         <span class="bg-black text-white font-black text-[9px] uppercase px-2 py-0.5 rounded-none inline-block border border-black">Novità Ufficiale</span>
-                        <h2 class="text-lg sm:text-xl font-black uppercase tracking-tight text-zinc-900">Piattaforma Match Atleti</h2>
-                        <p class="text-zinc-700 text-[11px] leading-relaxed">
-                            Vuoi metterti in gioco e combattere a CintheC in futuro? Registrati per essere chiamato e per agevolare il matchmaking da parte del team di CintheC.
+                        <h2 class="text-lg sm:text-xl font-black uppercase tracking-tight text-zinc-900">Matchmaking Atleti</h2>
+                        <p class="text-zinc-800 dark:text-zinc-200 text-xs font-medium leading-relaxed">
+                            Vuoi metterti in gioco e salire sulla nostra gabbia in futuro? Registrati ora per essere chiamato dal team di CintheC e facilitare il matchmaking ufficiale per i prossimi eventi. Le iscrizioni sono aperte e disponibili in qualsiasi momento: compila il modulo inserendo tutti i tuoi dati e ricorda di spuntare le caselle obbligatorie per l'accettazione della privacy e l'autorizzazione all'utilizzo dei contenuti media. Entra a far parte della nostra famiglia marziale!
                         </p>
                     </div>
                     <div class="relative z-10">
@@ -543,13 +521,16 @@
                 <div class="space-y-3 mb-6">
                     <span class="text-[10px] font-black uppercase bg-black text-white px-3 py-1 rounded-none inline-block border border-black">Esperienza a 360°</span>
                     <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-900">Non solo combattimento</h2>
-                    <p class="text-zinc-700 text-xs sm:text-sm leading-relaxed">
-                        CintheC è uno show totale che unisce l'energia della gabbia a momenti di intrattenimento unici. Dalla cura dell'<strong>angolo bar</strong> per il pubblico e gli ospiti, fino agli spettacoli di danza e alle performance coreografiche all'interno della struttura dell'evento.
+                    <p class="text-zinc-800 dark:text-zinc-200 text-xs sm:text-sm font-medium leading-relaxed">
+                        CintheC è uno show totale che unisce l'energia della gabbia a momenti di intrattenimento unici. Uno straordinario angolo bar per il pubblico e gli ospiti, dove sono disponibili vari tipi di alimenti come panini, pizzette, dolci, caffè e soprattutto tanta tanta birra. Il tutto gestito unicamente dal nostro Loffry e dalla nostra cara Alessia.
                     </p>
                 </div>
-                <div class="w-full">
-                    <div class="bg-zinc-100 rounded-none h-48 sm:h-56 flex items-center justify-center border-2 border-dashed border-zinc-300 overflow-hidden relative shadow-md">
-                        <img src="Immagini/angolo-bar.jpg" alt="Angolo Bar CintheC" class="w-full h-full object-cover rounded-none" onerror="this.src='https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=600&auto=format&fit=crop&q=60';">
+                <div class="w-full grid grid-cols-2 gap-3">
+                    <div class="bg-zinc-100 rounded-none h-48 sm:h-56 flex items-center justify-center border border-zinc-300 overflow-hidden relative shadow-md">
+                        <img src="Immagini/bar1.jpg" alt="Angolo Bar CintheC" class="w-full h-full object-cover rounded-none" onerror="tryNextExtension(this)">
+                    </div>
+                    <div class="bg-zinc-100 rounded-none h-48 sm:h-56 flex items-center justify-center border border-zinc-300 overflow-hidden relative shadow-md">
+                        <img src="Immagini/loffreda.jpg" alt="Loffry - Angolo Bar" class="w-full h-full object-cover rounded-none" onerror="tryNextExtension(this)">
                     </div>
                 </div>
             </div>
@@ -558,97 +539,136 @@
                 <div class="space-y-3 mb-6">
                     <span class="text-[10px] font-black uppercase bg-black text-white px-3 py-1 rounded-none inline-block border border-black">Spettacolo & Intrattenimento</span>
                     <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-900">Show & Performance dal Vivo</h2>
-                    <p class="text-zinc-700 text-xs sm:text-sm leading-relaxed">
-                        Rivivi le incredibili performance e gli spettacoli di intrattenimento che animano la gabbia e le pause tra un match e l'altro durante le serate targate CintheC.
+                    <p class="text-zinc-800 dark:text-zinc-200 text-xs sm:text-sm font-medium leading-relaxed">
+                        Vivi l'energia e la magia di incredibili performance dal vivo: spettacoli di intrattenimento unici che animano la gabbia e ogni pausa tra un match e l'altro durante le serate targate CintheC. Sul nostro palcoscenico si alternano i migliori ballerini in circolazione con show coreografici di altissimo livello, pensati per regalare emozioni irripetibili al pubblico. Ogni spettacolo è diverso dall'altro e pensato per stupire, valorizzando il talento di tutti i protagonisti: sul palco si esibiscono con passione bambini, bambine, ragazzi e ragazze, offrendo una straordinaria varietà di numeri artistici ed energici che rendono ogni evento indimenticabile dall'inizio alla fine.
                     </p>
                 </div>
                 <div class="w-full">
-                    <div class="bg-zinc-950 rounded-none h-48 sm:h-56 flex items-center justify-center border border-zinc-300 overflow-hidden relative video-container shadow-md">
-                        <video autoplay loop muted playsinline webkit-playsinline class="background-video">
-                            <source src="Video/spettacolo-1.mp4" type="video/mp4">
-                            Il tuo browser non supporta il tag video.
-                        </video>
+                    <div class="auto-scroller-container py-2">
+                        <div class="auto-scroller-track">
+                            <div class="scroller-item w-44 h-36 sm:w-56 sm:h-44"><img src="Immagini/ballo2.jpg" alt="Ballo 2" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                            <div class="scroller-item w-44 h-36 sm:w-56 sm:h-44"><img src="Immagini/ballo3.jpg" alt="Ballo 3" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                            <div class="scroller-item w-44 h-36 sm:w-56 sm:h-44"><img src="Immagini/ballo4.jpg" alt="Ballo 4" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                            <div class="scroller-item w-44 h-36 sm:w-56 sm:h-44"><img src="Immagini/ballo5.jpg" alt="Ballo 5" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                            <div class="scroller-item w-44 h-36 sm:w-56 sm:h-44"><img src="Immagini/ballo6.jpg" alt="Ballo 6" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                            <div class="scroller-item w-44 h-36 sm:w-56 sm:h-44"><img src="Immagini/ballo7.jpg" alt="Ballo 7" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                            <div class="scroller-item w-44 h-36 sm:w-56 sm:h-44"><img src="Immagini/ballo8.jpg" alt="Ballo 8" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                            <div class="scroller-item w-44 h-36 sm:w-56 sm:h-44"><img src="Immagini/ballo9.jpg" alt="Ballo 9" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                            <div class="scroller-item w-44 h-36 sm:w-56 sm:h-44"><img src="Immagini/ballo10.jpg" alt="Ballo 10" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                            <div class="scroller-item w-44 h-36 sm:w-56 sm:h-44"><img src="Immagini/ballo11.jpg" alt="Ballo 11" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                            <div class="scroller-item w-44 h-36 sm:w-56 sm:h-44"><img src="Immagini/ballo12.jpg" alt="Ballo 12" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                            <div class="scroller-item w-44 h-36 sm:w-56 sm:h-44"><img src="Immagini/ballo13.jpg" alt="Ballo 13" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                            <div class="scroller-item w-44 h-36 sm:w-56 sm:h-44"><img src="Immagini/ballo14.jpg" alt="Ballo 14" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                            <div class="scroller-item w-44 h-36 sm:w-56 sm:h-44"><img src="Immagini/ballo15.jpg" alt="Ballo 15" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-12 items-stretch">
-            <div class="lg:col-span-4 flex flex-col justify-between gap-6">
-                <div class="light-lightning-card rounded-none p-4 relative flex flex-col justify-between flex-grow">
-                    <div class="space-y-1 relative z-10">
-                        <span class="bg-black text-white font-black text-[8px] uppercase px-2 py-0.5 rounded-none inline-block border border-black">Media & Shop</span>
-                        <h2 class="text-base font-black uppercase tracking-tight text-zinc-900">Acquista le tue Foto</h2>
-                        <p class="text-zinc-700 text-[10px] leading-relaxed">
-                            Sfoglia la galleria e acquista i pacchetti digitali ufficiali con gli scatti più inediti di tutti i match.
-                        </p>
-                    </div>
+            <div class="lg:col-span-6 light-lightning-card rounded-none p-6 sm:p-8 flex flex-col justify-between shadow-lg">
+                <div class="space-y-3 mb-4">
+                    <span class="text-[10px] font-black uppercase bg-black text-white px-3 py-1 rounded-none inline-block border border-black">Media & Shop</span>
+                    <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-900">Acquista le tue foto</h2>
+                    <p class="text-zinc-800 dark:text-zinc-200 text-xs sm:text-sm font-medium leading-relaxed">
+                        Porta a casa il ricordo indelebile della tua prestazione nella gabbia di CintheC. Sfoglia la galleria ufficiale e acquista i nostri pacchetti digitali esclusivi: non solo scatti fotografici professionali ad alta risoluzione, ma anche preziosi pacchetti video completi di clip grezze perfette per essere montate e condivise sui social network come Instagram, TikTok e Reels. Tutti i contenuti sono curati da professionisti di altissimo livello nel settore: il videomaker <a href="https://www.instagram.com/nicolas.castellotti.dp?stkn=ZGh5bXk5bGFpN3Bj" target="_blank" style="color: #000000 !important; font-weight: 900; font-size: 1.15em; text-decoration: underline; background-color: rgba(0,255,102,0.3); padding: 1px 4px;">Nicolas Castellotti</a> e il fotografo <a href="https://www.instagram.com/jonathan_boscolo?stkn=ZjR0d3Yza2h5bHho" target="_blank" style="color: #000000 !important; font-weight: 900; font-size: 1.15em; text-decoration: underline; background-color: rgba(0,255,102,0.3); padding: 1px 4px;">Jonathan Boscolo</a>. Grazie a una piattaforma di e-commerce e pagamento digitale certificata e protetta, puoi effettuare acquisti in totale sicurezza con transazioni crittografate e consegna immediata dei file. Valorizza la tua immagine da fighter!
+                    </p>
+                </div>
 
-                    <div class="photo-preview-container flex justify-center items-center">
-                        <div class="mini-polaroid" style="transform: rotate(-10deg); left: 2%; z-index: 5;">
-                            <img src="Immagini/galleria-1.jpg" alt="Foto" onerror="this.src='https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=100&auto=format&fit=crop&q=60';">
-                        </div>
-                        <div class="mini-polaroid" style="transform: rotate(5deg); left: 18%; z-index: 10;">
-                            <img src="Immagini/galleria-2.jpg" alt="Foto" onerror="this.src='https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=100&auto=format&fit=crop&q=60';">
-                        </div>
-                        <div class="mini-polaroid" style="transform: rotate(-5deg); left: 34%; z-index: 15;">
-                            <img src="Immagini/galleria-3.jpg" alt="Foto" onerror="this.src='https://images.unsplash.com/photo-1517649763962-0c6232660a02?w=100&auto=format&fit=crop&q=60';">
-                        </div>
-                        <div class="mini-polaroid" style="transform: rotate(8deg); left: 50%; z-index: 20;">
-                            <img src="Immagini/galleria-4.jpg" alt="Foto" onerror="this.src='https://images.unsplash.com/photo-1563227812-0ea4c22e6cc8?w=100&auto=format&fit=crop&q=60';">
-                        </div>
-                        <div class="mini-polaroid" style="transform: rotate(-8deg); left: 66%; z-index: 25;">
-                            <img src="Immagini/galleria-5.jpg" alt="Foto" onerror="this.src='https://images.unsplash.com/photo-1552072092-e6443c16d537?w=100&auto=format&fit=crop&q=60';">
-                        </div>
-                        <div class="mini-polaroid" style="transform: rotate(12deg); left: 82%; z-index: 30;">
-                            <img src="Immagini/cappon.jpg" alt="Cappon" onerror="this.src='https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=100&auto=format&fit=crop&q=60';">
-                        </div>
+                <div class="photo-preview-container flex justify-center items-center my-2">
+                    <div class="mini-polaroid" style="transform: rotate(-10deg); left: 12%; z-index: 5;">
+                        <img src="Atleti/galleria2.jpg" alt="Foto" onerror="tryNextExtension(this)">
                     </div>
+                    <div class="mini-polaroid" style="transform: rotate(5deg); left: 28%; z-index: 10;">
+                        <img src="Atleti/galleria3.jpg" alt="Foto" onerror="tryNextExtension(this)">
+                    </div>
+                    <div class="mini-polaroid" style="transform: rotate(-5deg); left: 44%; z-index: 15;">
+                        <img src="Atleti/galleria4.jpg" alt="Foto" onerror="tryNextExtension(this)">
+                    </div>
+                    <div class="mini-polaroid" style="transform: rotate(8deg); left: 60%; z-index: 20;">
+                        <img src="Atleti/galleria5.jpg" alt="Foto" onerror="tryNextExtension(this)">
+                    </div>
+                    <div class="mini-polaroid" style="transform: rotate(-8deg); left: 76%; z-index: 25;">
+                        <img src="Atleti/galleria6.jpg" alt="Foto" onerror="tryNextExtension(this)">
+                    </div>
+                </div>
 
-                    <div class="relative z-10 mt-1">
-                        <a href="galleria.html" class="w-full inline-flex items-center justify-center gap-2 bg-black hover:bg-zinc-800 text-white font-black uppercase text-[10px] py-2 rounded-none transition shadow-md animate-pulse-btn cursor-pointer">
-                            <i class="fa-solid fa-store text-[10px]"></i> Visita lo Shop <i class="fa-solid fa-arrow-right ml-0.5"></i>
+                <div class="w-full pt-2">
+                    <a href="galleria.html" class="w-full inline-flex items-center justify-center gap-2 bg-black hover:bg-zinc-800 text-white font-black uppercase text-[11px] py-2.5 rounded-none transition shadow-md animate-pulse-btn cursor-pointer">
+                        <i class="fa-solid fa-store text-xs"></i> Visita lo Shop <i class="fa-solid fa-arrow-right ml-0.5"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="lg:col-span-6 light-lightning-card rounded-none p-6 sm:p-8 flex flex-col justify-between shadow-lg">
+                <div class="space-y-3 mb-4">
+                    <span class="text-[10px] font-black uppercase bg-black text-white px-3 py-1 rounded-none inline-block border border-black">Storico Incontri</span>
+                    <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-900">Controlla gli eventi passati</h2>
+                    <p class="text-zinc-800 dark:text-zinc-200 text-xs sm:text-sm font-medium leading-relaxed">
+                        Ripercorri la straordinaria storia e l'evoluzione di tutti gli eventi targati CintheC. Tuffati nel passato consultando le card complete, i match d'apertura e i main event di ogni singola edizione. Scopri tutti i verdetti ufficiali, chi ha vinto, chi ha perso e rivivi le emozioni, le battaglie epiche e i trionfi che hanno fatto la storia della nostra promotion, minuto per minuto. Seleziona direttamente qui sotto l'edizione che desideri esplorare:
+                    </p>
+                </div>
+
+                <div class="w-full my-3">
+                    <div class="grid grid-cols-3 gap-2">
+                        <a href="cinthec8.html" class="bg-black hover:bg-[#00ff66] text-white hover:text-black text-center py-2.5 px-2 text-[11px] font-black uppercase transition border border-black shadow-sm flex items-center justify-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-trophy text-[10px]"></i> CintheC 8
+                        </a>
+                        <a href="cinthec9.html" class="bg-black hover:bg-[#00ff66] text-white hover:text-black text-center py-2.5 px-2 text-[11px] font-black uppercase transition border border-black shadow-sm flex items-center justify-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-trophy text-[10px]"></i> CintheC 9
+                        </a>
+                        <a href="cinthec10.html" class="bg-black hover:bg-[#00ff66] text-white hover:text-black text-center py-2.5 px-2 text-[11px] font-black uppercase transition border border-black shadow-sm flex items-center justify-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-trophy text-[10px]"></i> CintheC 10
                         </a>
                     </div>
                 </div>
 
-                <div class="light-lightning-card rounded-none p-4 relative flex flex-col justify-between flex-grow" style="overflow: visible !important;">
-                    <div class="space-y-1 mb-3 relative z-10">
-                        <span class="bg-black text-white font-black text-[8px] uppercase px-2 py-0.5 rounded-none inline-block border border-black">Storico Incontri</span>
-                        <h2 class="text-base font-black uppercase tracking-tight text-zinc-900">Controlla gli Eventi Passati</h2>
-                        <p class="text-zinc-700 text-[10px] leading-relaxed">
-                            Ripercorri le edizioni precedenti, scopri chi ha vinto, chi ha perso e consulta i verdetti.
-                        </p>
-                    </div>
-                    <div class="relative z-30">
-                        <div class="dropdown w-full">
-                            <button onclick="toggleDropdown(event, 'historyEventsDropdown')" class="w-full inline-flex items-center justify-center gap-2 bg-black hover:bg-zinc-800 text-white font-black uppercase text-[10px] py-2 rounded-none transition shadow-md animate-pulse-btn cursor-pointer">
-                                <i class="fa-solid fa-calendar-days text-[10px]"></i> Vai agli Eventi <i class="fa-solid fa-chevron-down text-[8px] ml-0.5"></i>
-                            </button>
-                            <div id="historyEventsDropdown" class="dropdown-content w-full">
-                                <div class="dropdown-inner">
-                                    <a href="cinthec8.html">CintheC 8</a>
-                                    <a href="cinthec9.html">CintheC 9</a>
-                                    <a href="cinthec10.html">CintheC 10</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="w-full pt-2">
+                    <a href="cinthec10.html" class="w-full inline-flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 text-white font-black uppercase text-[11px] py-2.5 rounded-none transition shadow-md cursor-pointer">
+                        <i class="fa-solid fa-calendar-days text-xs"></i> Esplora Tutti gli Archivi <i class="fa-solid fa-arrow-right ml-0.5"></i>
+                    </a>
                 </div>
             </div>
+        </div>
 
-            <div class="lg:col-span-8 light-lightning-card rounded-none p-6 sm:p-8 flex flex-col justify-between shadow-lg">
-                <div class="space-y-3 mb-6">
-                    <span class="text-[10px] font-black uppercase bg-black text-white px-3 py-1 rounded-none inline-block border border-black">La Nostra Storia</span>
-                    <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-900">Chi siamo e da dove veniamo</h2>
-                    <p class="text-zinc-700 text-xs sm:text-sm leading-relaxed">
-                        CintheC nasce con un obiettivo chiaro: dare voce, visibilità e palcoscenici di prim'ordine agli atleti del territorio e non solo. Quella che è iniziata come una scommessa tra appassionati si è trasformata in una vera e propria macchina organizzativa capace di riempire i palazzetti.
-                    </p>
-                </div>
-                <div class="w-full">
-                    <div class="bg-zinc-100 rounded-none h-48 sm:h-60 flex items-center justify-center border-2 border-dashed border-zinc-300 overflow-hidden relative shadow-md">
-                        <img src="Immagini/team-staff.jpg" alt="CintheC Staff & Team" class="w-full h-full object-cover rounded-none" onerror="this.style.display='none';">
-                    </div>
+        <div class="mb-12 py-4">
+            <div class="mb-4">
+                <span class="text-[10px] font-black uppercase bg-black text-white px-3 py-1 rounded-none inline-block border border-black mb-1">Momenti Indimenticabili</span>
+                <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-black">Gallery Ufficiale CintheC</h2>
+            </div>
+
+            <div class="auto-scroller-container py-3">
+                <div class="auto-scroller-track">
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/acri.jpg" alt="Acri" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/albu.jpg" alt="Albu" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/anuji.jpg" alt="Anugi" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/b-chio.jpg" alt="B Chio" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/balducci.jpg" alt="Balducci" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/cappon.jpg" alt="Cappon" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/costa.jpg" alt="Costa" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/drenica.jpg" alt="Drenica" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/dyrma.jpg" alt="Dyrma" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/frigerio.jpg" alt="Frigerio" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/galleria2.jpg" alt="Galleria 2" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/galleria3.jpg" alt="Galleria 3" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/galleria4.jpg" alt="Galleria 4" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/galleria5.jpg" alt="Galleria 5" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/galleria6.jpg" alt="Galleria 6" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/gassar.jpg" alt="Gassar" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/lorenzo-pasqualetto.jpg" alt="Lorenzo Pasqualetto" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/massimiliano-bello.jpg" alt="Massimiliano Bello" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/matteo-perini.jpg" alt="Matteo Perini" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/osama-imaoui.jpg" alt="Osama Imaoui" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/pagotto.jpg" alt="Pagotto" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/perini-m.jpg" alt="Perini M" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/pierluigi-de-prospo.jpg" alt="Pierluigi De Prospo" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/pitaveric.jpg" alt="Pitaveric" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/popa-1.jpg" alt="Popa 1" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/el-hamajji.jpg" alt="El Hamajji" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/el-medkour.jpg" alt="El Medkour" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/riotti.jpg" alt="Riotti" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
+                    <div class="scroller-item w-48 h-32 sm:w-64 sm:h-44"><img src="Atleti/tiozzo.jpg" alt="Tiozzo" class="w-full h-full object-cover" onerror="tryNextExtension(this)"></div>
                 </div>
             </div>
         </div>
@@ -700,6 +720,22 @@
     </footer>
 
     <script>
+        function tryNextExtension(img) {
+            let attempts = parseInt(img.dataset.attempt || '0');
+            let base = img.dataset.base;
+            if (!base) {
+                const lastDot = img.src.lastIndexOf('.');
+                base = lastDot !== -1 ? img.src.substring(0, lastDot) : img.src;
+                img.dataset.base = base;
+            }
+            const extensions = ['.jpg', '.jpeg', '.png'];
+            attempts++;
+            if (attempts < extensions.length) {
+                img.dataset.attempt = attempts;
+                img.src = base + extensions[attempts];
+            }
+        }
+
         const eventDate = new Date("October 10, 2026 00:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
@@ -739,13 +775,13 @@
     </script>
 
     <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                .then(reg => console.log('PWA registrata!'))
-                .catch(err => console.log('Errore PWA:', err));
-            });
-        }
+        (function() {
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('./sw.js').catch(err => {});
+                });
+            }
+        })();
     </script>
 </body>
 </html>

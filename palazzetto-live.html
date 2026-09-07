@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmoothTech - Palazzetto Live Panoramica</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #0f172a; color: #f8fafc; }
+        
+        /* Stile 3D Squadrato Universale */
+        .pro-3d-card { 
+            background: #1e293b; 
+            border: 2px solid #334155; 
+            border-radius: 0px !important; 
+            box-shadow: 6px 6px 0px 0px #334155; 
+        }
+
+        .active-match-box {
+            background: #0f172a;
+            border: 2px solid #eab308;
+            border-radius: 0px !important;
+            box-shadow: 4px 4px 0px 0px #eab308;
+        }
+        
+        button, input, select, textarea { border-radius: 0px !important; }
+
+        @keyframes pulseLive { 0% { transform: scale(0.95); opacity: 0.8; } 50% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(0.95); opacity: 0.8; } }
+        .live-pulse { animation: pulseLive 2s infinite; }
+        
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased p-3 sm:p-6">
+
+    <header class="bg-slate-900 border-2 border-slate-800 py-3 px-4 sm:px-6 shadow-md mb-6">
+        <div class="max-w-7xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <span class="w-3 h-3 bg-emerald-500 live-pulse"></span>
+                <div>
+                    <h1 class="text-sm sm:text-base font-black uppercase text-white tracking-wider">SmoothTech - Palazzetto Live Panoramica</h1>
+                    <p class="text-[10px] text-slate-400">Monitoraggio in tempo reale di tutti i tatami attivi e delle pool</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 flex-wrap justify-end">
+                <div id="liveClock" class="bg-slate-800 border-2 border-slate-700 text-yellow-400 font-mono font-black text-xs px-3 py-2">
+                    00:00:00
+                </div>
+                <button onclick="renderPalazzettoPanoramica()" class="bg-slate-800 hover:bg-yellow-500 hover:text-slate-950 text-white px-3.5 py-2 text-xs font-bold uppercase border-2 border-slate-700 transition flex items-center gap-1.5 cursor-pointer shadow-sm">
+                    <i class="fa-solid fa-arrows-rotate"></i> Aggiorna Dati
+                </button>
+                <a href="smoothtech.html" class="bg-slate-800 hover:bg-yellow-600 text-white px-3.5 py-2 text-xs font-bold uppercase border-2 border-slate-700 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-arrow-left"></i> Hub
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto w-full flex-grow">
+        <div id="palazzettoTatamiContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div class="col-span-full text-center py-20 text-slate-400 text-xs border-2 border-dashed border-slate-700">
+                <i class="fa-solid fa-spinner fa-spin text-2xl mb-2 text-yellow-400"></i><br>Caricamento tatami attivi in corso...
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-3 px-6 text-center text-[11px] border-t-2 border-slate-800 mt-6">
+        SmoothTech Palazzetto Display Service © 2026 - Tutti i diritti riservati
+    </footer>
+
+    <script>
+        let openPoolsState = {};
+
+        window.addEventListener('DOMContentLoaded', () => {
+            aggiornaOrologio();
+            setInterval(aggiornaOrologio, 1000);
+            renderPalazzettoPanoramica();
+            setInterval(renderPalazzettoPanoramica, 3000); // Sincronizzazione automatica ogni 3 secondi
+        });
+
+        function aggiornaOrologio() {
+            let ora = new Date();
+            let h = String(ora.getHours()).padStart(2, '0');
+            let m = String(ora.getMinutes()).padStart(2, '0');
+            let s = String(ora.getSeconds()).padStart(2, '0');
+            let clockEl = document.getElementById('liveClock');
+            if(clockEl) clockEl.innerText = `${h}:${m}:${s}`;
+        }
+
+        function togglePoolPalazzetto(tatamiId) {
+            let detailsBox = document.getElementById(`pool-details-${tatamiId}`);
+            let icon = document.getElementById(`pool-icon-${tatamiId}`);
+            if (detailsBox && icon) {
+                detailsBox.classList.toggle('hidden');
+                icon.classList.toggle('fa-chevron-down');
+                icon.classList.toggle('fa-chevron-up');
+                openPoolsState[tatamiId] = !detailsBox.classList.contains('hidden');
+            }
+        }
+
+        function getQueueForTatami(tId) {
+            let queueItems = [];
+            try {
+                let activeDistribution = localStorage.getItem("smoothtech_active_distribution");
+                let distributedData = activeDistribution ? JSON.parse(activeDistribution) : {};
+                let assignedPools = distributedData[String(tId)] || distributedData[tId] || [];
+
+                if (Array.isArray(assignedPools) && assignedPools.length > 0) {
+                    assignedPools.forEach(p => {
+                        let catName = p.key || "Categoria";
+                        if (p.singoliMatch && Array.isArray(p.singoliMatch) && p.singoliMatch.length > 0) {
+                            p.singoliMatch.forEach(sm => {
+                                queueItems.push({
+                                    categoria: catName,
+                                    matchId: sm.matchId || "Incontro",
+                                    matchData: sm.matchData,
+                                    partecipanti: p.data ? p.data.partecipanti : [],
+                                    completato: false,
+                                    vincitore: null
+                                });
+                            });
+                        } else if (p.data && p.data.pairings && Array.isArray(p.data.pairings)) {
+                            p.data.pairings.forEach((m, idx) => {
+                                queueItems.push({
+                                    categoria: catName,
+                                    matchId: m.turno || `Match #${idx + 1}`,
+                                    matchData: m,
+                                    partecipanti: p.data.partecipanti || [],
+                                    completato: false,
+                                    vincitore: null
+                                });
+                            });
+                        }
+                    });
+                }
+            } catch(e) {
+                console.error("Errore recupero distribuzione tatami:", e);
+            }
+
+            if (queueItems.length === 0) {
+                try {
+                    let savedQueue = localStorage.getItem(`tatami_${tId}_fixed_queue`);
+                    if (savedQueue) {
+                        queueItems = JSON.parse(savedQueue);
+                    }
+                } catch(e) {}
+            } else {
+                try {
+                    localStorage.setItem(`tatami_${tId}_fixed_queue`, JSON.stringify(queueItems));
+                } catch(e) {}
+            }
+
+            return queueItems;
+        }
+
+        function renderPalazzettoPanoramica() {
+            let container = document.getElementById('palazzettoTatamiContainer');
+            if(!container) return;
+
+            let tatamiStates = {};
+            try {
+                let savedTatami = localStorage.getItem("smoothtech_tatami_states_cache");
+                if (savedTatami) tatamiStates = JSON.parse(savedTatami);
+            } catch(e) {}
+
+            let distributedData = {};
+            try {
+                let activeDistribution = localStorage.getItem("smoothtech_active_distribution");
+                if (activeDistribution) distributedData = JSON.parse(activeDistribution);
+            } catch(e) {}
+
+            let tatamisAttivi = [];
+            for (let i = 1; i <= 8; i++) {
+                let hasAssignedPools = distributedData[String(i)] && distributedData[String(i)].length > 0;
+                if (tatamiStates[i] === true || hasAssignedPools) {
+                    tatamisAttivi.push(i);
+                }
+            }
+
+            // Memorizza la posizione di scroll attuale di ogni coda prima del rendering
+            let scrollPositions = {};
+            tatamisAttivi.forEach(t => {
+                let el = document.getElementById(`queue-container-${t}`);
+                if (el) {
+                    scrollPositions[t] = el.scrollTop;
+                }
+            });
+
+            if (tatamisAttivi.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full pro-3d-card bg-slate-900 p-12 text-center text-slate-400 text-xs space-y-2">
+                        <i class="fa-solid fa-triangle-exclamation text-yellow-400 text-2xl"></i>
+                        <p class="font-bold uppercase text-white">Nessun tatami attivo al momento.</p>
+                        <p class="text-[11px]">Accendi almeno un tatami e distribuisci le pool dall'Hub Gestionale.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let htmlChunks = [];
+            let baseTime = new Date();
+
+            tatamisAttivi.forEach(t => {
+                let queueItems = getQueueForTatami(t);
+                let indexKey = `tatami_${t}_index`;
+                let currentIndex = 0;
+                try {
+                    currentIndex = parseInt(localStorage.getItem(indexKey) || "0");
+                } catch(e) {}
+
+                if (currentIndex >= queueItems.length) {
+                    currentIndex = 0;
+                    try { localStorage.setItem(indexKey, 0); } catch(e) {}
+                }
+
+                let matchInCorso = (queueItems.length > 0 && currentIndex < queueItems.length && !queueItems[currentIndex].completato) ? queueItems[currentIndex] : null;
+
+                let currentPoolHtml = '';
+                let upcomingPoolsHtml = '';
+
+                if (matchInCorso) {
+                    let currentCategory = matchInCorso.categoria;
+                    
+                    let matchDettagliHtml = queueItems.map((m, qIdx) => {
+                        if (m.categoria !== currentCategory) return null;
+                        
+                        let isThisActive = (qIdx === currentIndex && !m.completato);
+                        let statoMatch = m.completato 
+                            ? `<span class="text-emerald-400 text-[8px] font-bold">FATTO</span>` 
+                            : (isThisActive ? `<span class="bg-yellow-500 text-slate-950 px-1 py-0.5 text-[8px] font-black">IN CORSO</span>` : `<span class="text-slate-400 text-[8px]">IN CODA</span>`);
+                        
+                        let diffMatch = qIdx - currentIndex;
+                        if (diffMatch < 0) diffMatch = 0;
+                        let estTime = new Date(baseTime.getTime() + (diffMatch * 8) * 60000);
+                        let timeStr = estTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                        return `
+                            <div class="flex items-center justify-between text-[10px] py-1 border-b border-slate-800 last:border-0 gap-1">
+                                <span class="text-yellow-400 font-mono font-bold shrink-0">~${timeStr}</span>
+                                <span class="text-slate-300 font-bold shrink-0">${m.matchId}:</span>
+                                <span class="text-white truncate mx-1">${m.matchData.a1.nome} vs ${m.matchData.a2.nome}</span>
+                                <span class="shrink-0">${statoMatch}</span>
+                            </div>
+                        `;
+                    }).filter(Boolean).join('');
+
+                    let isOpen = openPoolsState[t] === true;
+                    let hiddenClass = isOpen ? '' : 'hidden';
+                    let iconClass = isOpen ? 'fa-chevron-up' : 'fa-chevron-down';
+
+                    currentPoolHtml = `
+                        <div class="active-match-box p-3 space-y-2">
+                            <div class="flex items-center justify-between cursor-pointer select-none" onclick="togglePoolPalazzetto(${t})">
+                                <div class="pr-2">
+                                    <span class="bg-yellow-500 text-slate-950 font-black text-[9px] px-2 py-0.5 uppercase tracking-wider inline-block mb-0.5">POOL IN CORSO</span>
+                                    <h4 class="text-xs font-black uppercase text-yellow-400 whitespace-normal break-words">${currentCategory}</h4>
+                                </div>
+                                <i class="fa-solid ${iconClass} text-xs text-yellow-400 transition-transform shrink-0" id="pool-icon-${t}"></i>
+                            </div>
+
+                            <div class="text-xs font-black text-white border-t border-slate-800 pt-2">
+                                <div class="text-[10px] text-slate-400 uppercase">Match Attivo (${matchInCorso.matchId}):</div>
+                                <div class="truncate mt-0.5">🥋 ${matchInCorso.matchData.a1.nome} <span class="text-[9px] text-slate-400">(${matchInCorso.matchData.a1.team || '-'})</span></div>
+                                <div class="text-yellow-400 text-[9px] font-black">VS</div>
+                                <div class="truncate">🥋 ${matchInCorso.matchData.a2.nome} <span class="text-[9px] text-slate-400">(${matchInCorso.matchData.a2.team || '-'})</span></div>
+                            </div>
+
+                            <div id="pool-details-${t}" class="${hiddenClass} pt-2 border-t border-slate-800 space-y-1 bg-slate-950/60 p-2">
+                                <div class="text-[9px] font-black uppercase text-slate-400 mb-1 flex items-center justify-between">
+                                    <span>Tutti i match di questa pool:</span>
+                                    <span class="text-yellow-400">Orari stimati (8 min/match)</span>
+                                </div>
+                                ${matchDettagliHtml}
+                            </div>
+                        </div>
+                    `;
+
+                    let categorieInCodaMap = {};
+                    let runningMatchCount = 0;
+                    let seenCategories = [currentCategory];
+
+                    for (let idx = currentIndex; idx < queueItems.length; idx++) {
+                        let item = queueItems[idx];
+                        if (item.completato) continue;
+
+                        if (!seenCategories.includes(item.categoria)) {
+                            seenCategories.push(item.categoria);
+                            categorieInCodaMap[item.categoria] = runningMatchCount;
+                        }
+                        runningMatchCount++;
+                    }
+
+                    let categorieInCodaViste = Object.keys(categorieInCodaMap);
+
+                    if (categorieInCodaViste.length > 0) {
+                        upcomingPoolsHtml = categorieInCodaViste.map(catName => {
+                            let matchPrecedentiCount = categorieInCodaMap[catName];
+                            let minutesOffset = matchPrecedentiCount * 8;
+                            let estimatedTime = new Date(baseTime.getTime() + minutesOffset * 60000);
+                            let timeString = estimatedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                            return `
+                                <div class="bg-slate-900 border-2 border-slate-700 p-2.5 text-[11px] space-y-1.5">
+                                    <div class="flex items-start justify-between gap-2">
+                                        <span class="text-yellow-400 font-bold uppercase whitespace-normal break-words leading-tight flex-grow">[${catName}]</span>
+                                        <span class="bg-slate-800 text-yellow-400 font-mono font-bold px-1.5 py-0.5 border border-slate-600 text-[10px] shrink-0">~${timeString}</span>
+                                    </div>
+                                    <div class="text-slate-300 font-semibold text-[10px] border-t border-slate-800/80 pt-1">
+                                        Pool in attesa di salire sul tatami
+                                    </div>
+                                </div>
+                            `;
+                        }).join('');
+                    } else {
+                        upcomingPoolsHtml = `<div class="text-slate-500 text-[11px] text-center py-3 border border-dashed border-slate-800">Nessun'altra pool in coda.</div>`;
+                    }
+
+                } else {
+                    currentPoolHtml = `
+                        <div class="bg-slate-900 border-2 border-slate-700 p-4 text-center text-slate-400 text-xs">
+                            <i class="fa-solid fa-circle-check text-emerald-400 mb-1"></i>
+                            <p class="font-bold uppercase text-white">Tatami completato / In attesa</p>
+                        </div>
+                    `;
+                    upcomingPoolsHtml = `<div class="text-slate-500 text-[11px] text-center py-3">Nessuna pool assegnata.</div>`;
+                }
+
+                let tNumStr = t < 10 ? '0' + t : t;
+
+                htmlChunks.push(`
+                    <div class="pro-3d-card bg-slate-900 p-4 flex flex-col justify-between space-y-4">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between border-b-2 border-slate-800 pb-2">
+                                <h3 class="text-sm font-black uppercase text-white flex items-center gap-2">
+                                    <i class="fa-solid fa-map-pin text-yellow-400"></i> Tatami ${tNumStr}
+                                </h3>
+                                <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[9px] font-black px-2 py-0.5">LIVE</span>
+                            </div>
+
+                            <div>
+                                ${currentPoolHtml}
+                            </div>
+
+                            <div class="space-y-1.5">
+                                <div class="text-[10px] font-black uppercase text-slate-400 flex items-center justify-between">
+                                    <span><i class="fa-solid fa-layer-group mr-1"></i> Pool successive in coda</span>
+                                </div>
+                                <div class="space-y-1.5 max-h-60 overflow-y-auto pr-1 hide-scrollbar" id="queue-container-${t}">
+                                    ${upcomingPoolsHtml}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            });
+
+            container.innerHTML = htmlChunks.join('');
+
+            // Ripristina la posizione di scroll esatta per ciascuna coda dopo il rendering
+            tatamisAttivi.forEach(t => {
+                let el = document.getElementById(`queue-container-${t}`);
+                if (el && scrollPositions[t] !== undefined) {
+                    el.scrollTop = scrollPositions[t];
+                }
+            });
+        }
+    </script>
+</body>
+</html>

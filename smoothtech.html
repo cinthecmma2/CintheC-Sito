@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmoothTech Dashboard - Gestione & Tatami Pro</title>
+    <title>SmoothTech - Hub Gestionale Gara</title>
     
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
@@ -16,10 +16,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Montserrat', sans-serif; background-color: #f8fafc; }
-        .category-card { background: #ffffff; border: 1.5px solid #0f172a; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); transition: all 0.25s ease; }
-        .category-card:hover { border-color: #059669; transform: translateY(-2px); }
+        
+        /* Stile 3D Squadrato Universale */
+        .pro-3d-card { 
+            background: #ffffff; 
+            border: 2px solid #0f172a; 
+            border-radius: 0px !important; 
+            box-shadow: 4px 4px 0px 0px #0f172a; 
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        .pro-3d-card:hover { 
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px 0px #059669;
+            border-color: #059669;
+        }
+
         .logo-left-cinthec { width: 110px !important; height: 40px !important; object-fit: contain !important; }
         
+        button, input, select, textarea { border-radius: 0px !important; }
+
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -46,9 +61,10 @@
             font-size: 10px;
             letter-spacing: 0.1em;
             color: #475569;
-            border: 1px solid #cbd5e1;
-            border-radius: 9999px;
+            border: 2px solid #0f172a;
+            box-shadow: 2px 2px 0px 0px #0f172a;
         }
+
         #toast-container {
             position: fixed;
             bottom: 20px;
@@ -62,10 +78,10 @@
             background: #0f172a;
             color: #ffffff;
             padding: 12px 20px;
-            border-radius: 8px;
+            border-radius: 0px;
             font-size: 12px;
             font-weight: 700;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+            box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.3);
             border-left: 4px solid #059669;
             display: flex;
             align-items: center;
@@ -81,8 +97,8 @@
     <div id="toast-container"></div>
 
     <div id="resetModal" class="fixed inset-0 bg-slate-950/70 z-50 flex items-center justify-center hidden backdrop-blur-xs px-4">
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-md w-full shadow-2xl space-y-4 text-center">
-            <div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto text-lg font-bold">
+        <div class="pro-3d-card bg-white p-6 max-w-md w-full shadow-2xl space-y-4 text-center">
+            <div class="w-12 h-12 bg-red-100 text-red-600 flex items-center justify-center mx-auto text-lg font-bold border-2 border-red-600">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
             <div>
@@ -90,34 +106,34 @@
                 <p class="text-xs text-slate-500">Vuoi davvero cancellare tutte le pool generate, i dati dei tatami e i podi per ricominciare da capo?</p>
             </div>
             <div class="grid grid-cols-2 gap-2 pt-2">
-                <button onclick="chiudiModalReset()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs uppercase py-2.5 rounded-lg transition cursor-pointer">
+                <button onclick="chiudiModalReset()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs uppercase py-2.5 border-2 border-slate-900 transition cursor-pointer">
                     Annulla
                 </button>
-                <button onclick="eseguiResetTotale()" class="bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase py-2.5 rounded-lg transition cursor-pointer shadow">
+                <button onclick="eseguiResetTotale()" class="bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase py-2.5 border-2 border-slate-900 transition cursor-pointer shadow">
                     Conferma Reset
                 </button>
             </div>
         </div>
     </div>
 
-    <header class="bg-slate-900 border-b border-slate-800 py-3 px-3 sm:px-6 shadow-md sticky top-0 z-40">
+    <header class="bg-slate-900 border-b-2 border-slate-800 py-3 px-3 sm:px-6 shadow-md sticky top-0 z-40">
         <div class="max-w-7xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between gap-3">
             <div class="flex items-center justify-between w-full sm:w-auto">
                 <a href="tornei.html" class="flex items-center">
                     <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                 </a>
-                <span class="text-emerald-400 font-extrabold text-[10px] uppercase bg-slate-800 px-3 py-1 rounded-lg border border-slate-700 sm:hidden">
-                    SmoothTech Hub
+                <span class="text-emerald-400 font-extrabold text-[10px] uppercase bg-slate-800 px-3 py-1 border border-slate-700 sm:hidden">
+                    Hub Gestionale Gara
                 </span>
             </div>
             <div class="flex items-center gap-2 w-full sm:w-auto justify-end flex-wrap">
-                <button onclick="apriModalReset()" class="bg-red-600/80 hover:bg-red-600 text-white px-3 py-2 rounded-lg text-[11px] font-bold uppercase transition cursor-pointer flex items-center gap-1.5 shadow-sm">
+                <button onclick="apriModalReset()" class="bg-red-600/80 hover:bg-red-600 text-white px-3 py-2 text-[11px] font-bold uppercase border border-red-700 transition cursor-pointer flex items-center gap-1.5 shadow-sm">
                     <i class="fa-solid fa-trash-can"></i> Reset Test
                 </button>
-                <span class="text-emerald-400 font-extrabold text-xs uppercase bg-slate-800 px-3.5 py-2 rounded-lg border border-slate-700 hidden sm:inline-block">
-                    <i class="fa-solid fa-shield-halved mr-1.5"></i> SmoothTech Pro Hub
+                <span class="text-emerald-400 font-extrabold text-xs uppercase bg-slate-800 px-3.5 py-2 border border-slate-700 hidden sm:inline-block">
+                    <i class="fa-solid fa-shield-halved mr-1.5"></i> Hub Gestionale Gara
                 </span>
-                <a href="tornei.html" class="bg-slate-800 hover:bg-emerald-600 text-white px-3 py-2 rounded-lg text-[11px] font-bold uppercase border border-slate-700 transition">
+                <a href="tornei.html" class="bg-slate-800 hover:bg-emerald-600 text-white px-3 py-2 text-[11px] font-bold uppercase border border-slate-700 transition">
                     <i class="fa-solid fa-arrow-left"></i> Tornei
                 </a>
             </div>
@@ -129,26 +145,26 @@
         <section>
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 gap-2">
                 <div>
-                    <h1 class="text-lg sm:text-2xl font-black uppercase tracking-tight text-slate-900">Dashboard Categorie & Auto-Pooling</h1>
-                    <span id="totalBadge" class="bg-emerald-600 text-white font-extrabold text-[10px] sm:text-xs px-2.5 py-0.5 rounded-full inline-block mt-1">0 Iscritti Totali</span>
+                    <h1 class="text-lg sm:text-2xl font-black uppercase tracking-tight text-slate-900">Hub Gestionale Gara</h1>
+                    <span id="totalBadge" class="bg-emerald-600 text-white font-extrabold text-[10px] sm:text-xs px-2.5 py-1 border border-emerald-800 inline-block mt-1">0 Iscritti Totali</span>
                 </div>
                 <div>
-                    <button onclick="caricaIscrittiCloud(true)" class="w-full sm:w-auto bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs uppercase px-3.5 py-2 rounded-lg shadow cursor-pointer flex items-center justify-center gap-2 transition">
+                    <button onclick="caricaIscrittiCloud(true)" class="w-full sm:w-auto bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs uppercase px-3.5 py-2 border-2 border-slate-900 shadow cursor-pointer flex items-center justify-center gap-2 transition">
                         <i class="fa-solid fa-rotate"></i> Aggiorna Dati
                     </button>
                 </div>
             </div>
 
-            <div class="bg-white p-3 rounded-xl border border-slate-200 mb-4 shadow-sm grid grid-cols-2 sm:grid-cols-5 gap-2">
+            <div class="pro-3d-card bg-white p-3 mb-4 grid grid-cols-2 sm:grid-cols-5 gap-2">
                 <div>
                     <label class="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Torneo</label>
-                    <select id="filterTorneo" onchange="filtraCategorie()" class="w-full bg-slate-50 border border-slate-300 text-[11px] rounded-lg px-2 py-1.5 focus:outline-none focus:border-emerald-500">
+                    <select id="filterTorneo" onchange="filtraCategorie()" class="w-full bg-slate-50 border border-slate-300 text-[11px] px-2 py-1.5 focus:outline-none focus:border-emerald-500">
                         <option value="Tutti">Tutti</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Stile</label>
-                    <select id="filterStile" onchange="filtraCategorie()" class="w-full bg-slate-50 border border-slate-300 text-[11px] rounded-lg px-2 py-1.5 focus:outline-none focus:border-emerald-500">
+                    <select id="filterStile" onchange="filtraCategorie()" class="w-full bg-slate-50 border border-slate-300 text-[11px] px-2 py-1.5 focus:outline-none focus:border-emerald-500">
                         <option value="Tutti">Tutti</option>
                         <option value="Brazilian Jiu-Jitsu (Gi)">BJJ (Gi)</option>
                         <option value="Grappling (No-Gi)">Grappling</option>
@@ -156,7 +172,7 @@
                 </div>
                 <div>
                     <label class="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Cintura</label>
-                    <select id="filterCintura" onchange="filtraCategorie()" class="w-full bg-slate-50 border border-slate-300 text-[11px] rounded-lg px-2 py-1.5 focus:outline-none focus:border-emerald-500">
+                    <select id="filterCintura" onchange="filtraCategorie()" class="w-full bg-slate-50 border border-slate-300 text-[11px] px-2 py-1.5 focus:outline-none focus:border-emerald-500">
                         <option value="Tutte">Tutte</option>
                         <option value="Cintura Bianca">Bianca</option>
                         <option value="Cintura Blu">Blu</option>
@@ -167,7 +183,7 @@
                 </div>
                 <div>
                     <label class="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Peso</label>
-                    <select id="filterPeso" onchange="filtraCategorie()" class="w-full bg-slate-50 border border-slate-300 text-[11px] rounded-lg px-2 py-1.5 focus:outline-none focus:border-emerald-500">
+                    <select id="filterPeso" onchange="filtraCategorie()" class="w-full bg-slate-50 border border-slate-300 text-[11px] px-2 py-1.5 focus:outline-none focus:border-emerald-500">
                         <option value="Tutti">Tutti</option>
                         <option value="-55kg">-55kg</option>
                         <option value="-75kg">-75kg</option>
@@ -177,7 +193,7 @@
                 </div>
                 <div class="col-span-2 sm:col-span-1">
                     <label class="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Cerca</label>
-                    <input type="text" id="searchAtleta" onkeyup="filtraCategorie()" placeholder="Atleta o team..." class="w-full bg-slate-50 border border-slate-300 text-[11px] rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-emerald-500">
+                    <input type="text" id="searchAtleta" onkeyup="filtraCategorie()" placeholder="Atleta o team..." class="w-full bg-slate-50 border border-slate-300 text-[11px] px-2.5 py-1.5 focus:outline-none focus:border-emerald-500">
                 </div>
             </div>
 
@@ -192,7 +208,7 @@
             <span><i class="fa-solid fa-sliders text-emerald-600 mr-1.5"></i> Area Operativa Gara & Tatami Live</span>
         </div>
 
-        <section class="bg-white p-4 sm:p-6 rounded-xl border border-slate-300 shadow-sm space-y-6">
+        <section class="pro-3d-card bg-white p-4 sm:p-6 space-y-6">
             <div>
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
                     <div>
@@ -202,32 +218,32 @@
                         <p class="text-[11px] text-slate-500 mt-0.5">Gestisci i tatami attivi, distribuisci o bilancia le code in attesa.</p>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-2">
-                        <button onclick="bilanciaCodeTatami()" class="bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs uppercase px-3.5 py-2.5 rounded-lg shadow cursor-pointer flex items-center justify-center gap-1.5 transition">
+                        <button onclick="bilanciaCodeTatami()" class="bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs uppercase px-3.5 py-2.5 border-2 border-slate-900 shadow cursor-pointer flex items-center justify-center gap-1.5 transition">
                             <i class="fa-solid fa-scale-balanced"></i> Bilancia Code
                         </button>
-                        <button onclick="distribuisciPoolSuiTatami()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase px-4 py-2.5 rounded-lg shadow cursor-pointer flex items-center justify-center gap-1.5 transition">
+                        <button onclick="distribuisciPoolSuiTatami()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase px-4 py-2.5 border-2 border-slate-900 shadow cursor-pointer flex items-center justify-center gap-1.5 transition">
                             <i class="fa-solid fa-shuffle"></i> Distribuisci (Aggiungi)
                         </button>
                     </div>
                 </div>
 
-                <div class="mb-5 bg-slate-50 border border-slate-200 rounded-xl overflow-hidden shadow-xs">
-                    <button onclick="toggleTatamiSettingsMenu()" class="w-full p-3.5 flex items-center justify-between text-xs font-black uppercase text-slate-800 bg-slate-100/80 hover:bg-slate-200 transition cursor-pointer">
+                <div class="mb-5 pro-3d-card bg-slate-50 overflow-hidden">
+                    <button onclick="toggleTatamiSettingsMenu()" class="w-full p-3.5 flex items-center justify-between text-xs font-black uppercase text-slate-900 bg-slate-100 hover:bg-slate-200 transition cursor-pointer">
                         <span class="flex items-center gap-2">
                             <i class="fa-solid fa-power-off text-emerald-600"></i> Tatami da accendere
                         </span>
                         <i class="fa-solid fa-chevron-down text-xs text-slate-600" id="tatamiSettingsIcon"></i>
                     </button>
-                    <div id="tatamiSettingsDropdown" class="hidden p-3 border-t border-slate-200 space-y-2 max-h-80 overflow-y-auto">
+                    <div id="tatamiSettingsDropdown" class="hidden p-3 border-t-2 border-slate-900 space-y-2 max-h-80 overflow-y-auto bg-white">
                         <div id="tatamiSwitchesContainer" class="space-y-2"></div>
                     </div>
                 </div>
 
-                <div class="block sm:hidden mb-4 bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <div class="block sm:hidden mb-4 bg-slate-50 p-3 border-2 border-slate-900">
                     <label class="block text-[10px] font-black uppercase text-slate-700 mb-1">
                         <i class="fa-solid fa-filter text-emerald-600 mr-1"></i> Seleziona Tatami da Visualizzare
                     </label>
-                    <select id="mobileTatamiDropdown" onchange="renderMobileTatamiView(this.value)" class="w-full bg-white border border-slate-300 text-xs font-bold text-slate-900 rounded-lg p-2.5 shadow-sm focus:outline-none focus:border-emerald-600">
+                    <select id="mobileTatamiDropdown" onchange="renderMobileTatamiView(this.value)" class="w-full bg-white border border-slate-300 text-xs font-bold text-slate-900 p-2.5 shadow-sm focus:outline-none focus:border-emerald-600">
                         <option value="1">Tatami 1</option>
                         <option value="2">Tatami 2</option>
                         <option value="3">Tatami 3</option>
@@ -240,21 +256,21 @@
                 </div>
 
                 <div id="tatamiAssignmentsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div class="col-span-full text-center py-8 text-slate-400 text-xs border border-dashed border-slate-200 rounded-lg">
+                    <div class="col-span-full text-center py-8 text-slate-400 text-xs border-2 border-dashed border-slate-300">
                         Nessun tatami attivo o pool distribuita. Accendi almeno un tatami e distribuisci.
                     </div>
                 </div>
             </div>
 
-            <div class="border-t border-slate-200 pt-6">
+            <div class="border-t-2 border-slate-200 pt-6">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xs sm:text-sm font-black uppercase tracking-tight text-slate-900 flex items-center gap-1.5">
                         <i class="fa-solid fa-medal text-amber-500"></i> Chiamata Podio & Premiazioni
                     </h3>
-                    <span id="podioCounter" class="text-[10px] bg-amber-100 text-amber-800 font-extrabold px-2.5 py-0.5 rounded-full">0 Categorie Ultimate</span>
+                    <span id="podioCounter" class="text-[10px] bg-amber-100 text-amber-800 font-extrabold px-2.5 py-1 border border-amber-300">0 Categorie Ultimate</span>
                 </div>
                 <div id="podioListContainer" class="space-y-3">
-                    <div class="text-center py-6 text-slate-400 text-xs border border-dashed border-slate-200 rounded-lg">
+                    <div class="text-center py-6 text-slate-400 text-xs border-2 border-dashed border-slate-300">
                         I podi appariranno qui automaticamente quando le finali sui tatami saranno concluse.
                     </div>
                 </div>
@@ -263,7 +279,7 @@
 
     </main>
 
-    <footer class="bg-slate-900 text-slate-400 py-3 px-6 text-center text-[11px]">
+    <footer class="bg-slate-900 text-slate-400 py-3 px-6 text-center text-[11px] border-t-2 border-slate-800">
         SmoothTech Platform - CintheC Media & Leoni di San Marco © 2026
     </footer>
 
@@ -272,9 +288,10 @@
         let allIscrizioni = [];
         let generatedPoolsRegistry = {}; 
         let tatamiStates = { 1: false, 2: false, 3: false, 4: false, 5: false, 6: false, 7: false, 8: false };
+        let allTatamisCollapsed = false; // Stato globale sincronizzato per la chiusura di tutti i tatami
         let podioVincitori = [];
         let mobileSelectedTatami = "1";
-        let lastLiveSignature = ""; // Firma per il controllo intelligente dei cambiamenti
+        let lastLiveSignature = ""; 
 
         const mockTestAthletes = [
             ...Array.from({length: 14}, (_, i) => ({ nome: `Atleta${i+1}`, cognome: `Bianca75`, torneo: "CintheC Cup 01", stile: "Brazilian Jiu-Jitsu (Gi)", cintura: "Cintura Bianca", peso: "-75kg", team: i % 2 === 0 ? "Team Chioggia" : "Leoni di San Marco" })),
@@ -296,10 +313,12 @@
         window.addEventListener('focus', () => {
             caricaStatoSalvato();
             caricaStatoTatamiRapido();
+            aggiornaFiltroTornei(allIscrizioni);
         });
 
         function showToast(message) {
             let container = document.getElementById('toast-container');
+            if(!container) return;
             let toast = document.createElement('div');
             toast.className = 'custom-toast';
             toast.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i> <span>${message}</span>`;
@@ -323,6 +342,15 @@
             icon.classList.toggle('fa-chevron-up');
         }
 
+        function toggleTatamiCard(t) {
+            allTatamisCollapsed = !allTatamisCollapsed;
+            localStorage.setItem("smoothtech_all_collapsed", allTatamisCollapsed);
+            let savedDist = localStorage.getItem("smoothtech_active_distribution");
+            if (savedDist) {
+                renderDistribuzioneEsistente(JSON.parse(savedDist));
+            }
+        }
+
         function eseguiResetTotale() {
             localStorage.removeItem("smoothtech_saved_pools");
             localStorage.removeItem("smoothtech_saved_podium");
@@ -330,18 +358,20 @@
             localStorage.removeItem("smoothtech_new_podium");
             localStorage.removeItem("smoothtech_cached_iscrizioni");
             localStorage.removeItem("smoothtech_distribution_timestamp");
+            localStorage.removeItem("smoothtech_all_collapsed");
             for (let i = 1; i <= 8; i++) {
                 localStorage.removeItem(`tatami_${i}_index`);
                 localStorage.removeItem(`tatami_${i}_fixed_queue`);
             }
             generatedPoolsRegistry = {};
             podioVincitori = [];
-            lastLiveSignature = "";
+            allTatamisCollapsed = false;
+            lastLiveSignature = ""; 
             
             chiudiModalReset();
             organizzaECreaCategorie(allIscrizioni);
             document.getElementById('tatamiAssignmentsContainer').innerHTML = `
-                <div class="col-span-full text-center py-8 text-slate-400 text-xs border border-dashed border-slate-200 rounded-lg">
+                <div class="col-span-full text-center py-8 text-slate-400 text-xs border-2 border-dashed border-slate-300">
                     Nessun tatami attivo o pool distribuita. Accendi almeno un tatami e distribuisci.
                 </div>
             `;
@@ -355,6 +385,11 @@
         }
 
         function caricaStatoSalvato() {
+            let savedCollapsed = localStorage.getItem("smoothtech_all_collapsed");
+            if (savedCollapsed !== null) {
+                allTatamisCollapsed = (savedCollapsed === 'true');
+            }
+
             let savedPools = localStorage.getItem("smoothtech_saved_pools");
             if (savedPools) {
                 generatedPoolsRegistry = JSON.parse(savedPools);
@@ -415,11 +450,11 @@
             for (let i = 1; i <= 8; i++) {
                 let isOn = tatamiStates[i];
                 container.innerHTML += `
-                    <div class="flex items-center justify-between p-2.5 bg-white border ${isOn ? 'border-emerald-500 bg-emerald-50/50' : 'border-slate-200'} rounded-xl shadow-xs transition">
+                    <div class="flex items-center justify-between p-2.5 bg-white border-2 ${isOn ? 'border-emerald-600 bg-emerald-50/50' : 'border-slate-900'} shadow-[2px_2px_0px_0px_#0f172a] transition">
                         <span class="font-bold text-xs text-slate-900 flex items-center gap-2">
                             <i class="fa-solid fa-map text-emerald-600"></i> Tatami ${i}
                         </span>
-                        <button onclick="toggleTatami(${i})" class="px-4 py-1.5 rounded-lg text-xs font-bold uppercase transition cursor-pointer ${isOn ? 'bg-emerald-600 text-white shadow-sm' : 'bg-slate-200 text-slate-700 hover:bg-slate-300'}">
+                        <button onclick="toggleTatami(${i})" class="px-4 py-1.5 text-xs font-bold uppercase transition cursor-pointer ${isOn ? 'bg-emerald-600 text-white shadow-[2px_2px_0px_0px_#0f172a]' : 'bg-slate-200 text-slate-700 hover:bg-slate-300 border border-slate-900'}">
                             ${isOn ? '<i class="fa-solid fa-power-off mr-1"></i> ON' : 'OFF'}
                         </button>
                     </div>
@@ -429,6 +464,11 @@
 
         function toggleTatami(id) {
             tatamiStates[id] = !tatamiStates[id];
+
+            if (!tatamiStates[id]) {
+                salvaESpostaMatchTatamiSpento(id);
+            }
+
             localStorage.setItem("smoothtech_tatami_states_cache", JSON.stringify(tatamiStates));
             renderTatamiSwitches();
             fetch(SCRIPT_URL, {
@@ -436,6 +476,65 @@
                 headers: { "Content-Type": "text/plain;charset=utf-8" },
                 body: JSON.stringify({ action: "salvaStatoTatami", tatamiId: id, stato: tatamiStates[id] ? "ON" : "OFF" })
             });
+        }
+
+        function salvaESpostaMatchTatamiSpento(id) {
+            let activeTatamis = Object.keys(tatamiStates).filter(t => tatamiStates[t] && Number(t) !== Number(id));
+            
+            if (activeTatamis.length === 0) {
+                showToast(`Tatami ${id} spento. Nessun altro tatami attivo per ricevere i match.`);
+                return;
+            }
+
+            let savedDist = localStorage.getItem("smoothtech_active_distribution");
+            let distribution = savedDist ? JSON.parse(savedDist) : {};
+            let poolsDaSpostare = distribution[id] || [];
+
+            let liveQueueStr = localStorage.getItem(`tatami_${id}_fixed_queue`);
+            let liveIndex = parseInt(localStorage.getItem(`tatami_${id}_index`) || "0");
+            let matchInSospeso = [];
+
+            if (liveQueueStr) {
+                try {
+                    let liveQueue = JSON.parse(liveQueueStr);
+                    matchInSospeso = liveQueue.filter((item, idx) => idx >= liveIndex && !item.completato);
+                } catch(e) {}
+            }
+
+            distribution[id] = [];
+            localStorage.removeItem(`tatami_${id}_fixed_queue`);
+            localStorage.removeItem(`tatami_${id}_index`);
+            localStorage.setItem("smoothtech_active_distribution", JSON.stringify(distribution));
+
+            if (poolsDaSpostare.length === 0 && matchInSospeso.length === 0) {
+                showToast(`Tatami ${id} spento (era vuoto).`);
+                renderDistribuzioneEsistente(distribution);
+                return;
+            }
+
+            let targetTatami = activeTatamis[0];
+
+            if (matchInSospeso.length > 0) {
+                let targetLiveQueueStr = localStorage.getItem(`tatami_${targetTatami}_fixed_queue`);
+                let targetLiveQueue = targetLiveQueueStr ? JSON.parse(targetLiveQueueStr) : [];
+                targetLiveQueue.push(...matchInSospeso);
+                localStorage.setItem(`tatami_${targetTatami}_fixed_queue`, JSON.stringify(targetLiveQueue));
+            }
+
+            poolsDaSpostare.forEach(poolObj => {
+                let tDest = activeTatamis.reduce((minT, t) => {
+                    let countT = (distribution[t] || []).length;
+                    let countMin = (distribution[minT] || []).length;
+                    return countT < countMin ? t : minT;
+                }, activeTatamis[0]);
+
+                if (!distribution[tDest]) distribution[tDest] = [];
+                distribution[tDest].push(poolObj);
+            });
+
+            localStorage.setItem("smoothtech_active_distribution", JSON.stringify(distribution));
+            renderDistribuzioneEsistente(distribution);
+            showToast(`Tatami ${id} spento: match in sospeso e pool trasferiti in blocco sul Tatami ${targetTatami}!`);
         }
 
         function renderMobileTatamiView(val) {
@@ -482,13 +581,14 @@
             let valoreCorrente = select.value;
 
             let savedTornei = localStorage.getItem('cinthec_tornei');
-            let torneiConclusi = [];
+            let torneiList = [];
             if (savedTornei) {
                 let listaTornei = JSON.parse(savedTornei);
-                torneiConclusi = listaTornei.filter(t => t.status === "Evento Concluso").map(t => t.title);
+                torneiList = listaTornei.filter(t => t.status !== "Evento Concluso").map(t => t.title);
             }
 
-            let torneiSet = [...new Set(iscritti.map(i => i.torneo))].filter(t => !torneiConclusi.includes(t));
+            let torneiIscritti = iscritti.map(i => i.torneo).filter(Boolean);
+            let torneiSet = [...new Set([...torneiList, ...torneiIscritti])];
 
             select.innerHTML = '<option value="Tutti">Tutti</option>';
             torneiSet.forEach(t => {
@@ -498,7 +598,7 @@
                     select.appendChild(opt);
                 }
             });
-            select.value = valoreCorrente;
+            select.value = (torneiSet.includes(valoreCorrente) || valoreCorrente === 'Tutti') ? valoreCorrente : 'Tutti';
         }
 
         function filtraCategorie() {
@@ -509,7 +609,7 @@
             let ricerca = document.getElementById('searchAtleta').value.toLowerCase();
 
             let filtrate = allIscrizioni.filter(i => {
-                let mTorneo = (fTorneo === 'Tutti' || i.torneo === fTorneo);
+                let mTorneo = (fTorneo === 'Tutti' || (i.torneo && i.torneo.trim() === fTorneo.trim()));
                 let mStile = (fStile === 'Tutti' || i.stile === fStile);
                 let mCintura = (fCintura === 'Tutte' || i.cintura === fCintura);
                 let mPeso = (fPeso === 'Tutti' || i.peso === fPeso);
@@ -521,11 +621,12 @@
 
         function organizzaECreaCategorie(iscritti) {
             let container = document.getElementById('categoriesContainer');
+            if(!container) return;
             container.innerHTML = '';
             document.getElementById('totalBadge').innerText = iscritti.length + (iscritti.length === 1 ? ' Iscritto Totale' : ' Iscritti Totali');
 
             if (iscritti.length === 0) {
-                container.innerHTML = `<div class="col-span-full bg-white border border-slate-200 rounded-xl p-10 text-center text-slate-400 text-xs">Nessun atleta trovato.</div>`;
+                container.innerHTML = `<div class="col-span-full pro-3d-card bg-white p-10 text-center text-slate-400 text-xs">Nessun atleta trovato per il filtro selezionato.</div>`;
                 return;
             }
 
@@ -548,7 +649,7 @@
                 let isGenerata = generatedPoolsRegistry[chiave] !== undefined;
 
                 let card = document.createElement('div');
-                card.className = "category-card p-3.5 flex flex-col justify-between snap-center min-w-[260px] max-w-[280px] sm:min-w-0 sm:max-w-none flex-shrink-0 sm:flex-shrink";
+                card.className = "pro-3d-card p-3.5 flex flex-col justify-between snap-center min-w-[260px] max-w-[280px] sm:min-w-0 sm:max-w-none flex-shrink-0 sm:flex-shrink";
 
                 let listaAtletiHtml = atletiCategoria.map((a, idx) => `
                     <div class="flex items-center justify-between py-1.5 border-b border-slate-100 last:border-0 text-[11px]">
@@ -582,29 +683,29 @@
                             <span class="font-black text-[10px] text-emerald-600">${atletiCategoria.length} iscritti</span>
                         </div>
                     </div>
-                    <div class="mt-2 pt-2 border-t border-slate-100 space-y-2">
+                    <div class="mt-2 pt-2 border-t border-slate-200 space-y-2">
                         <div class="grid grid-cols-2 gap-1.5">
                             <button id="${btnPoolId}" onclick='generaPool("${chiave}", ${JSON.stringify(atletiCategoria)}, "${index}")' 
-                                class="${isGenerata ? 'bg-slate-300 text-slate-600 cursor-not-allowed' : 'bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer'} font-bold text-[9px] uppercase py-1.5 px-2 rounded flex items-center justify-center gap-1" ${isGenerata ? 'disabled' : ''}>
+                                class="${isGenerata ? 'bg-slate-300 text-slate-600 cursor-not-allowed' : 'bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer'} font-bold text-[9px] uppercase py-1.5 px-2 border border-slate-900 flex items-center justify-center gap-1" ${isGenerata ? 'disabled' : ''}>
                                 <i class="fa-solid ${isGenerata ? 'fa-check' : 'fa-sitemap'}"></i> ${isGenerata ? 'Pool Generata' : 'Auto-Pool'}
                             </button>
-                            <button onclick="toggleLista('${cardId}')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[9px] uppercase py-1.5 px-2 rounded cursor-pointer flex items-center justify-center gap-1">
+                            <button onclick="toggleLista('${cardId}')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[9px] uppercase py-1.5 px-2 border border-slate-300 cursor-pointer flex items-center justify-center gap-1">
                                 <span>Atleti</span> <i class="fa-solid fa-chevron-down text-[8px]" id="icon-${cardId}"></i>
                             </button>
                         </div>
 
                         <div id="${btnViewPoolId}-wrapper" class="${isGenerata ? '' : 'hidden'}">
-                            <button onclick="togglePoolView('${poolViewId}')" class="w-full bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 font-bold text-[9px] uppercase py-1.5 px-2 rounded cursor-pointer flex items-center justify-center gap-1 mt-1">
-                                <i class="fa-solid fa-list-check"></i> <span>Visualizza Pool / Match</span> <i class="fa-solid fa-chevron-down text-[8px]" id="icon-${poolViewId}"></i>
+                            <button onclick="togglePoolView('${poolViewId}')" class="w-full bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 font-bold text-[9px] uppercase py-1.5 px-2 cursor-pointer flex items-center justify-center gap-1 mt-1">
+                                <i class="fa-solid fa-list-check"></i> <span>Visualizza Pool</span> <i class="fa-solid fa-chevron-down text-[8px]" id="icon-${poolViewId}"></i>
                             </button>
                         </div>
 
-                        <div id="${cardId}" class="hidden mt-2 space-y-1 bg-slate-50 p-2 rounded border border-slate-200 max-h-40 overflow-y-auto">
+                        <div id="${cardId}" class="hidden mt-2 space-y-1 bg-slate-50 p-2 border border-slate-200 max-h-40 overflow-y-auto">
                             ${listaAtletiHtml}
                         </div>
 
-                        <div id="${poolViewId}" class="hidden mt-2 space-y-1 bg-amber-50/50 p-2 rounded border border-amber-200 max-h-48 overflow-y-auto">
-                            <div class="text-[10px] font-black uppercase text-amber-900 border-b border-amber-200 pb-1 mb-1">Tabellone Eliminazione Diretta:</div>
+                        <div id="${poolViewId}" class="hidden mt-2 space-y-1 bg-amber-50/50 p-2 border border-amber-200 max-h-48 overflow-y-auto">
+                            <div class="text-[10px] font-black uppercase text-amber-900 border-b border-amber-200 pb-1 mb-1">Tabellone:</div>
                             <div id="${poolViewId}-content">${poolHtmlContent}</div>
                         </div>
                     </div>
@@ -654,6 +755,14 @@
             let roundNum = 1;
 
             while (currentRoundAthletes.length > 1) {
+                currentRoundAthletes.sort((a, b) => {
+                    let aIsPlaceholder = a.nome.startsWith("[Vincitore");
+                    let bIsPlaceholder = b.nome.startsWith("[Vincitore");
+                    if (aIsPlaceholder && !bIsPlaceholder) return 1;
+                    if (!aIsPlaceholder && bIsPlaceholder) return -1;
+                    return 0;
+                });
+
                 let nextRoundAthletes = [];
                 let roundPairings = [];
                 let matchCountInRound = 1;
@@ -692,7 +801,7 @@
             let btn = document.getElementById('btn-pool-' + index);
             if (btn) {
                 btn.disabled = true;
-                btn.className = "bg-slate-300 text-slate-600 font-bold text-[9px] uppercase py-1.5 px-2 rounded cursor-not-allowed flex items-center justify-center gap-1 opacity-75";
+                btn.className = "bg-slate-300 text-slate-600 font-bold text-[9px] uppercase py-1.5 px-2 border border-slate-400 cursor-not-allowed flex items-center justify-center gap-1 opacity-75";
                 btn.innerHTML = '<i class="fa-solid fa-check"></i> Pool Generata';
             }
 
@@ -714,7 +823,6 @@
 
         function distribuisciPoolSuiTatami() {
             let activeTatamis = Object.keys(tatamiStates).filter(t => tatamiStates[t]);
-            let container = document.getElementById('tatamiAssignmentsContainer');
 
             if (activeTatamis.length === 0) {
                 showToast("Attenzione: Nessun tatami è attivo (ON).");
@@ -735,6 +843,12 @@
             });
 
             let categorieCompletate = podioVincitori.map(p => p.categoria);
+            Object.keys(distribution).forEach(t => {
+                if (distribution[t]) {
+                    distribution[t] = distribution[t].filter(p => !categorieCompletate.includes(p.key));
+                }
+            });
+
             let categorieGiaAssegnate = [];
             Object.keys(distribution).forEach(t => {
                 distribution[t].forEach(p => categorieGiaAssegnate.push(p.key));
@@ -780,7 +894,7 @@
             localStorage.setItem("smoothtech_distribution_timestamp", new Date().getTime());
 
             renderDistribuzioneEsistente(distribution);
-            showToast("Nuove pool distribuite senza toccare quelle in corso!");
+            showToast("Pool distribuite con successo sui tatami attivi!");
         }
 
         function bilanciaCodeTatami() {
@@ -863,36 +977,30 @@
             }
 
             let tatamisToRender = window.innerWidth < 640 ? [mobileSelectedTatami] : Object.keys(distribution).filter(t => tatamiStates[t]);
-            container.innerHTML = '';
+            let htmlChunks = [];
 
             tatamisToRender.forEach(t => {
                 if (tatamiStates[t] || window.innerWidth < 640) {
                     let assignedPools = distribution[t] || [];
                     
                     let liveQueueStr = localStorage.getItem(`tatami_${t}_fixed_queue`);
-                    let liveIndex = parseInt(localStorage.getItem(`tatami_${t}_index`) || "0");
                     
                     let poolsHtml = '';
                     if (liveQueueStr) {
                         try {
                             let liveQueue = JSON.parse(liveQueueStr);
-                            poolsHtml = liveQueue.map((item, idx) => {
-                                let isCurrent = (idx === liveIndex);
-                                let isDone = item.completato === true;
-                                
-                                let badgeStato = isDone 
-                                    ? `<span class="bg-slate-200 text-slate-600 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">FATTO</span>`
-                                    : (isCurrent 
-                                        ? `<span class="bg-emerald-100 text-emerald-800 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">IN CORSO</span>`
-                                        : `<span class="bg-slate-100 text-slate-500 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">IN CODA</span>`
-                                    );
-                                
-                                let styleBg = isCurrent ? 'bg-emerald-50/70 border-emerald-300' : (isDone ? 'bg-slate-50 opacity-75' : 'bg-white');
-                                let textStyle = isDone ? 'line-through text-slate-400' : 'text-slate-800';
-                                
+                            let activeQueue = liveQueue.filter(item => !item.completato);
+                            
+                            poolsHtml = activeQueue.map((item, idx) => {
+                                let isCurrent = (idx === 0);
+                                let badgeStato = isCurrent 
+                                    ? `<span class="bg-emerald-100 text-emerald-800 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">IN CORSO</span>`
+                                    : `<span class="bg-slate-100 text-slate-500 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">IN CODA</span>`;
+                            
+                                let styleBg = isCurrent ? 'bg-emerald-50/70 border-emerald-300' : 'bg-white';
                                 let vincitoreInfo = item.vincitore ? `<span class="text-amber-600 font-bold ml-1 text-[9px]"><i class="fa-solid fa-trophy mr-0.5"></i>${item.vincitore}</span>` : '';
 
-                                return `<div class="text-[11px] font-bold ${textStyle} ${styleBg} p-2.5 rounded-lg mb-1.5 border border-slate-200 shadow-xs">
+                                return `<div class="text-[11px] font-bold text-slate-800 ${styleBg} p-2.5 rounded-none mb-1.5 border border-slate-300 shadow-xs">
                                     <div class="flex items-center justify-between">
                                         <span class="text-slate-900 uppercase"><b>[${item.categoria}]</b> ${item.matchId}</span>
                                         ${badgeStato}
@@ -922,7 +1030,7 @@
                                 ? `<span class="bg-emerald-100 text-emerald-800 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">IN CORSO</span>`
                                 : `<span class="bg-slate-100 text-slate-600 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">IN CODA</span>`;
                             
-                            return `<div class="text-[11px] font-bold text-slate-800 bg-white p-2.5 rounded-lg mb-2 border border-slate-200 shadow-xs">
+                            return `<div class="text-[11px] font-bold text-slate-800 bg-white p-2.5 rounded-none mb-2 border border-slate-300 shadow-xs">
                                 <div class="flex items-center justify-between">
                                     <span class="text-slate-900 uppercase">${p.key}</span>
                                     ${badgeStato}
@@ -932,31 +1040,42 @@
                         }).join('');
                     }
                     
-                    container.innerHTML += `
-                        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 shadow-sm flex flex-col justify-between">
+                    let isClosed = allTatamisCollapsed === true;
+                    let hiddenClass = isClosed ? 'hidden' : '';
+                    let cardPadding = isClosed ? 'p-2.5' : 'p-4'; // Rettangolino compatto quando chiuso
+                    let iconClass = isClosed ? 'fa-chevron-down' : 'fa-chevron-up';
+
+                    htmlChunks.push(`
+                        <div class="pro-3d-card bg-slate-50 ${cardPadding} flex flex-col justify-between">
                             <div>
-                                <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-200">
-                                    <h3 class="text-xs font-black uppercase text-slate-900">Tatami ${t}</h3>
-                                    <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">${assignedPools.length} Categorie</span>
+                                <div class="flex items-center justify-between cursor-pointer select-none" onclick="toggleTatamiCard('${t}')">
+                                    <div class="flex items-center gap-2">
+                                        <h3 class="text-xs font-black uppercase text-slate-900">Tatami ${t}</h3>
+                                        <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 border border-emerald-300">${assignedPools.length} Categorie</span>
+                                    </div>
+                                    <i class="fa-solid ${iconClass} text-xs text-slate-600" id="tatami-icon-${t}"></i>
                                 </div>
-                                <div class="space-y-1 mb-3 max-h-48 overflow-y-auto">
-                                    ${poolsHtml || '<div class="text-xs text-slate-400 py-4 text-center">Nessuna pool in coda per questo tatami.</div>'}
+                                <div id="tatami-collapse-${t}" class="mt-3 pt-3 border-t-2 border-slate-200 space-y-3 ${hiddenClass}">
+                                    <div class="space-y-1 max-h-48 overflow-y-auto">
+                                        ${poolsHtml || '<div class="text-xs text-slate-400 py-4 text-center">Nessuna pool in coda per questo tatami.</div>'}
+                                    </div>
+                                    <a href="tatami-live.html?t=${t}" target="_blank" class="block text-center bg-slate-900 hover:bg-emerald-600 text-white text-[10px] font-bold uppercase py-2 border border-slate-900 transition shadow">
+                                        Apri Tatami ${t} Live <i class="fa-solid fa-external-link-alt ml-1"></i>
+                                    </a>
                                 </div>
                             </div>
-                            <a href="tatami-live.html?t=${t}" target="_blank" class="block text-center bg-slate-900 hover:bg-emerald-600 text-white text-[10px] font-bold uppercase py-2 rounded-lg transition shadow">
-                                Apri Tatami ${t} Live <i class="fa-solid fa-external-link-alt ml-1"></i>
-                            </a>
                         </div>
-                    `;
+                    `);
                 }
             });
 
-            if (container.innerHTML === '') {
-                container.innerHTML = `<div class="col-span-full text-center py-8 text-slate-400 text-xs border border-dashed border-slate-200 rounded-lg">Nessun tatami attivo con pool distribuita. Accendi un tatami e distribuisci.</div>`;
+            if (htmlChunks.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-8 text-slate-400 text-xs border-2 border-dashed border-slate-300">Nessun tatami attivo con pool distribuita. Accendi un tatami e distribuisci.</div>`;
+            } else {
+                container.innerHTML = htmlChunks.join('');
             }
         }
 
-        // CONTROLLO LIVE INTELLIGENTE (Smart Diffing)
         function controllaAggiornamentiLive() {
             let dist = localStorage.getItem("smoothtech_active_distribution") || "";
             let podium = localStorage.getItem("smoothtech_new_podium") || "";
@@ -965,14 +1084,10 @@
                 tatamiData += (localStorage.getItem(`tatami_${i}_fixed_queue`) || "") + (localStorage.getItem(`tatami_${i}_index`) || "");
             }
             
-            // Crea una firma unica di tutti i dati attuali
             let currentSignature = dist + "_" + podium + "_" + tatamiData;
 
-            // Se la firma NON è cambiata rispetto al secondo precedente, NON FA NULLA. 
-            // In questo modo lo scroll non viene mai disturbato e la pagina è fluidissima!
             if (currentSignature === lastLiveSignature) return;
             
-            // Se c'è stato un cambiamento effettivo, aggiorna la firma e ridisegna
             lastLiveSignature = currentSignature;
 
             if (dist) {
@@ -1030,10 +1145,11 @@
 
         function renderPodioList() {
             let container = document.getElementById('podioListContainer');
+            if(!container) return;
             document.getElementById('podioCounter').innerText = `${podioVincitori.length} Categorie Ultimate`;
 
             if (podioVincitori.length === 0) {
-                container.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs border border-dashed border-slate-200 rounded-lg">I podi appariranno qui automaticamente quando le finali sui tatami saranno concluse.</div>`;
+                container.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs border-2 border-dashed border-slate-300">I podi appariranno qui automaticamente quando le finali sui tatami saranno concluse.</div>`;
                 return;
             }
 
@@ -1044,7 +1160,7 @@
                     partecipantiHtml = item.partecipanti.map((p, pIdx) => `
                         <div class="flex items-center justify-between text-[11px] py-1 border-b border-slate-100 last:border-0">
                             <span>${pIdx + 1}. <b>${p.nome} ${p.cognome}</b> <span class="text-slate-500">(${p.team})</span></span>
-                            <span class="text-[9px] bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded">Iscritto</span>
+                            <span class="text-[9px] bg-slate-200 text-slate-700 px-1.5 py-0.5">Iscritto</span>
                         </div>
                     `).join('');
                 } else {
@@ -1055,13 +1171,13 @@
                 let iconaFreccia = item.premiato ? 'fa-chevron-down' : 'fa-chevron-up';
 
                 container.innerHTML += `
-                    <div class="bg-white border ${item.premiato ? 'border-emerald-300 bg-emerald-50/40' : 'border-slate-200'} p-3.5 rounded-xl space-y-3 transition shadow-xs">
+                    <div class="pro-3d-card bg-white border ${item.premiato ? 'border-emerald-500 bg-emerald-50/40' : 'border-slate-900'} p-3.5 space-y-3 transition">
                         <div class="flex items-center justify-between cursor-pointer" onclick="togglePodioMinimale(${idx})">
                             <div class="flex items-center gap-2">
                                 <span class="text-xs font-black uppercase text-slate-900">
                                     <i class="fa-solid ${item.premiato ? 'fa-square-check text-emerald-600' : 'fa-trophy text-amber-500'} mr-1"></i> ${item.categoria}
                                 </span>
-                                <span class="text-[9px] ${item.premiato ? 'bg-emerald-600 text-white' : 'bg-amber-100 text-amber-800'} font-bold px-2 py-0.5 rounded-full">
+                                <span class="text-[9px] ${item.premiato ? 'bg-emerald-600 text-white' : 'bg-amber-100 text-amber-800'} font-bold px-2 py-0.5 border border-amber-300">
                                     ${item.premiato ? 'PREMIATO' : 'DA PREMIARE'}
                                 </span>
                             </div>
@@ -1071,26 +1187,26 @@
                             </div>
                         </div>
 
-                        <div id="podio-body-${idx}" class="${corpoNascosto} space-y-3 pt-2 border-t border-slate-100">
+                        <div id="podio-body-${idx}" class="${corpoNascosto} space-y-3 pt-2 border-t border-slate-200">
                             <div class="flex items-center justify-between">
                                 <span class="text-[10px] font-bold text-slate-500">Dettaglio Pool Conclusa</span>
-                                <button onclick="toggleTendinaPartecipanti(${idx})" class="text-[10px] font-bold text-slate-700 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded cursor-pointer flex items-center gap-1.5 shadow-sm">
+                                <button onclick="toggleTendinaPartecipanti(${idx})" class="text-[10px] font-bold text-slate-700 bg-slate-50 border border-slate-300 px-2.5 py-1 cursor-pointer flex items-center gap-1.5 shadow-xs">
                                     <span>Tutti i Partecipanti</span> <i class="fa-solid fa-chevron-down text-[9px]" id="tendina-icon-${idx}"></i>
                                 </button>
                             </div>
 
-                            <div id="tendina-part-${idx}" class="hidden bg-slate-50 border border-slate-200 p-3 rounded-lg space-y-1 max-h-40 overflow-y-auto">
+                            <div id="tendina-part-${idx}" class="hidden bg-slate-50 border border-slate-300 p-3 space-y-1 max-h-40 overflow-y-auto">
                                 ${partecipantiHtml}
                             </div>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center border-t border-slate-100 pt-3">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center border-t border-slate-200 pt-3">
                                 <div class="text-xs font-bold text-slate-900 space-y-1">
                                     <div><i class="fa-solid fa-trophy text-amber-500 mr-1"></i> 1° (Oro): <span class="font-black">${item.primo}</span></div>
                                     <div><i class="fa-solid fa-medal text-slate-400 mr-1"></i> 2° (Argento): <span class="font-semibold">${item.secondo}</span></div>
                                     <div><i class="fa-solid fa-medal text-amber-700 mr-1"></i> 3° (Bronzi): <span class="font-semibold">${item.terzi ? item.terzi.join(" & ") : "N/D"}</span></div>
                                 </div>
                                 <div class="text-right">
-                                    <button onclick="togglePremiatoCat(${idx})" class="${item.premiato ? 'bg-emerald-600 text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'} w-full sm:w-auto px-4 py-2.5 rounded-lg text-xs font-bold uppercase transition cursor-pointer inline-flex items-center justify-center gap-2 shadow-sm border border-slate-200">
+                                    <button onclick="togglePremiatoCat(${idx})" class="${item.premiato ? 'bg-emerald-600 text-white border-emerald-800' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-400'} w-full sm:w-auto px-4 py-2 text-xs font-bold uppercase transition cursor-pointer inline-flex items-center justify-center gap-2 border-2 shadow-xs">
                                         <i class="fa-solid ${item.premiato ? 'fa-square-check' : 'fa-square'}"></i> ${item.premiato ? 'Premiato (Fatto)' : 'Segna come Premiato'}
                                     </button>
                                 </div>

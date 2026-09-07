@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmoothTech - Registro Iscritti & Dashboard Categorie</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #f8fafc; }
+        
+        .category-card-sq { 
+            background: #ffffff; 
+            border: 2px solid #0f172a; 
+            border-radius: 0px; 
+            box-shadow: 4px 4px 0px 0px #0f172a; 
+            transition: all 0.2s ease; 
+        }
+        .category-card-sq:hover { 
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px 0px #059669;
+            border-color: #059669;
+        }
+
+        .logo-left-cinthec { width: 110px !important; height: 40px !important; object-fit: contain !important; }
+        
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        @media print {
+            body { background: white !important; }
+            header, button, .no-print { display: none !important; }
+            .print-container { box-shadow: none !important; border: none !important; width: 100% !important; max-width: 100% !important; }
+        }
+
+        #toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .custom-toast {
+            background: #0f172a;
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: 0px;
+            font-size: 12px;
+            font-weight: 700;
+            box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #059669;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+        }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-white">
+
+    <div id="toast-container"></div>
+
+    <!-- MODALE CONFERMA RESET TOTALE -->
+    <div id="resetModal" class="fixed inset-0 bg-slate-950/70 z-50 flex items-center justify-center hidden backdrop-blur-xs px-4">
+        <div class="bg-white border-2 border-slate-900 rounded-none p-6 max-w-md w-full shadow-2xl space-y-4 text-center">
+            <div class="w-12 h-12 rounded-none bg-red-100 text-red-600 flex items-center justify-center mx-auto text-lg font-bold border border-red-300">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div>
+                <h3 class="text-base font-black uppercase text-slate-900 mb-1">Reset Totale Pool</h3>
+                <p class="text-xs text-slate-500">Vuoi davvero cancellare tutte le pool generate? Tutte le categorie torneranno allo stato iniziale pronte per essere rigenerate.</p>
+            </div>
+            <div class="grid grid-cols-2 gap-2 pt-2">
+                <button onclick="chiudiModalReset()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs uppercase py-2.5 rounded-none transition cursor-pointer">
+                    Annulla
+                </button>
+                <button onclick="eseguiResetTotale()" class="bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase py-2.5 rounded-none transition cursor-pointer shadow">
+                    Conferma Reset
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE VISUALIZZAZIONE ALBERO / TABELLONE & PDF -->
+    <div id="bracketModal" class="fixed inset-0 bg-slate-950/70 z-50 flex items-center justify-center hidden backdrop-blur-xs px-4">
+        <div class="bg-white border-2 border-slate-900 rounded-none p-5 sm:p-8 max-w-3xl w-full shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto print-container">
+            <div class="flex items-center justify-between border-b-2 border-slate-900 pb-4">
+                <div>
+                    <span class="text-[10px] font-black uppercase bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-none border border-emerald-300" id="modalCategoryBadge">Categoria</span>
+                    <h2 class="text-base sm:text-xl font-black uppercase text-slate-900 mt-1" id="modalCategoryTitle">Tabellone Ufficiale</h2>
+                </div>
+                <div class="flex items-center gap-2 no-print">
+                    <button onclick="stampaOEsportaPDF()" class="bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs uppercase px-3.5 py-2 rounded-none transition cursor-pointer flex items-center gap-1.5 shadow">
+                        <i class="fa-solid fa-file-pdf"></i> Scarica PDF / Stampa
+                    </button>
+                    <button onclick="chiudiModalBracket()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold text-xs uppercase px-3 py-2 rounded-none transition cursor-pointer">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Albero Grafico dei Match -->
+            <div id="bracketTreeContainer" class="space-y-4 py-2">
+                <!-- Generato via JS -->
+            </div>
+
+            <div class="border-t-2 border-slate-200 pt-4 flex justify-between items-center text-xs text-slate-500 no-print">
+                <span>SmoothTech Tournament System &bull; CintheC Media</span>
+                <button onclick="chiudiModalBracket()" class="bg-slate-900 hover:bg-slate-800 text-white font-bold uppercase px-4 py-2 rounded-none transition cursor-pointer">
+                    Chiudi Tabellone
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE POOL MANUALE INTERATTIVO PER CATEGORIA -->
+    <div id="manualPoolModal" class="fixed inset-0 bg-slate-950/70 z-50 flex items-center justify-center hidden backdrop-blur-xs px-4">
+        <div class="bg-white border-2 border-slate-900 rounded-none p-6 max-w-xl w-full shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b-2 border-slate-900 pb-3">
+                <h3 class="text-sm font-black uppercase text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-pen-to-square text-emerald-600"></i> Pool Manuale &bull; <span id="manualModalCatTitle" class="text-emerald-700"></span>
+                </h3>
+                <button onclick="chiudiModalManual()" class="text-slate-500 hover:text-slate-800 font-bold"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <p class="text-xs text-slate-500">Componi i match scegliendo gli atleti reali di questa categoria uno contro l'altro ("Versus").</p>
+            
+            <div class="bg-slate-50 border border-slate-300 p-3 space-y-3">
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-[9px] font-bold uppercase text-slate-700 mb-1">Atleta 1</label>
+                        <select id="selectAtleta1" class="w-full bg-white border border-slate-300 text-xs rounded-none p-2 focus:outline-none focus:border-emerald-600"></select>
+                    </div>
+                    <div>
+                        <label class="block text-[9px] font-bold uppercase text-slate-700 mb-1">Atleta 2</label>
+                        <select id="selectAtleta2" class="w-full bg-white border border-slate-300 text-xs rounded-none p-2 focus:outline-none focus:border-emerald-600"></select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[9px] font-bold uppercase text-slate-700 mb-1">Nome Turno / Match (es. Quarti #1, Semifinale)</label>
+                    <input type="text" id="inputTurnoMatch" value="Match #1" class="w-full bg-white border border-slate-300 text-xs rounded-none p-2 focus:outline-none focus:border-emerald-600">
+                </div>
+                <button onclick="aggiungiMatchManualeAllaLista()" class="w-full bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs uppercase py-2.5 rounded-none transition cursor-pointer shadow-xs">
+                    <i class="fa-solid fa-plus mr-1"></i> Aggiungi Match alla Pool
+                </button>
+            </div>
+
+            <div>
+                <h4 class="text-[10px] font-black uppercase text-slate-700 mb-2">Match Composti (In Coda):</h4>
+                <div id="manualMatchesListPreview" class="space-y-1.5 max-h-40 overflow-y-auto bg-slate-100 p-2.5 border border-slate-300 text-xs">
+                    <div class="text-slate-400 text-center py-3 text-[11px]">Nessun match aggiunto. Componi almeno un match sopra.</div>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-2 pt-3 border-t-2 border-slate-200">
+                <button onclick="chiudiModalManual()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs uppercase px-4 py-2.5 rounded-none transition cursor-pointer">Annulla</button>
+                <button onclick="salvaPoolManualeDefinitiva()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase px-5 py-2.5 rounded-none transition cursor-pointer shadow">Salva e Genera Tabellone</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="bg-slate-900 border-b-2 border-slate-800 py-3 px-3 sm:px-6 shadow-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center justify-between w-full sm:w-auto">
+                <a href="iscritti.html" class="flex items-center">
+                    <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                </a>
+                <span class="text-emerald-400 font-extrabold text-[10px] uppercase bg-slate-800 px-3 py-1 rounded-none border border-slate-700 sm:hidden">
+                    Registro Iscritti Pro
+                </span>
+            </div>
+            <div class="flex items-center gap-2 w-full sm:w-auto justify-end flex-wrap">
+                <button onclick="apriModalReset()" class="bg-red-600 hover:bg-red-700 text-white px-3.5 py-2 rounded-none text-[11px] font-bold uppercase transition cursor-pointer flex items-center gap-1.5 shadow-sm">
+                    <i class="fa-solid fa-trash-can"></i> Cancella e Reset
+                </button>
+                <span class="text-emerald-400 font-extrabold text-xs uppercase bg-slate-800 px-3.5 py-2 rounded-none border border-slate-700 hidden sm:inline-block">
+                    <i class="fa-solid fa-users mr-1.5"></i> Registro Iscritti & Dashboard Categorie
+                </span>
+                <a href="tornei.html" class="bg-slate-800 hover:bg-slate-700 text-white px-3 py-2 rounded-none text-[11px] font-bold uppercase border border-slate-700 transition">
+                    <i class="fa-solid fa-arrow-left"></i> Tornei & Tatami
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-8 w-full flex-grow space-y-6">
+        
+        <section>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 gap-2">
+                <div>
+                    <h1 class="text-lg sm:text-2xl font-black uppercase tracking-tight text-slate-900">Registro Iscritti & Dashboard Categorie</h1>
+                    <span id="totalBadge" class="bg-emerald-600 text-white font-extrabold text-[10px] sm:text-xs px-2.5 py-0.5 rounded-none inline-block mt-1">0 Iscritti Totali</span>
+                </div>
+                <div>
+                    <button onclick="caricaIscrittiCloud(true)" class="w-full sm:w-auto bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs uppercase px-3.5 py-2 rounded-none shadow cursor-pointer flex items-center justify-center gap-2 transition">
+                        <i class="fa-solid fa-rotate"></i> Aggiorna da Sheets
+                    </button>
+                </div>
+            </div>
+
+            <!-- FILTRI -->
+            <div class="bg-white p-3 rounded-none border-2 border-slate-900 mb-4 shadow-sm grid grid-cols-2 sm:grid-cols-5 gap-2">
+                <div>
+                    <label class="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Torneo</label>
+                    <select id="filterTorneo" onchange="filtraCategorie()" class="w-full bg-slate-50 border border-slate-300 text-[11px] rounded-none px-2 py-1.5 focus:outline-none focus:border-emerald-500">
+                        <option value="Tutti">Tutti</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Stile</label>
+                    <select id="filterStile" onchange="filtraCategorie()" class="w-full bg-slate-50 border border-slate-300 text-[11px] rounded-none px-2 py-1.5 focus:outline-none focus:border-emerald-500">
+                        <option value="Tutti">Tutti</option>
+                        <option value="Brazilian Jiu-Jitsu (Gi)">BJJ (Gi)</option>
+                        <option value="Grappling (No-Gi)">Grappling</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Cintura</label>
+                    <select id="filterCintura" onchange="filtraCategorie()" class="w-full bg-slate-50 border border-slate-300 text-[11px] rounded-none px-2 py-1.5 focus:outline-none focus:border-emerald-500">
+                        <option value="Tutte">Tutte</option>
+                        <option value="Cintura Bianca">Bianca</option>
+                        <option value="Cintura Blu">Blu</option>
+                        <option value="Cintura Viola">Viola</option>
+                        <option value="Cintura Marrone">Marrone</option>
+                        <option value="Cintura Nera">Nera</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Peso</label>
+                    <select id="filterPeso" onchange="filtraCategorie()" class="w-full bg-slate-50 border border-slate-300 text-[11px] rounded-none px-2 py-1.5 focus:outline-none focus:border-emerald-500">
+                        <option value="Tutti">Tutti</option>
+                        <option value="-55kg">-55kg</option>
+                        <option value="-75kg">-75kg</option>
+                        <option value="-90kg">-90kg</option>
+                        <option value="OPEN / Assoluto">OPEN</option>
+                    </select>
+                </div>
+                <div class="col-span-2 sm:col-span-1">
+                    <label class="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Cerca</label>
+                    <input type="text" id="searchAtleta" onkeyup="filtraCategorie()" placeholder="Atleta o team..." class="w-full bg-slate-50 border border-slate-300 text-[11px] rounded-none px-2.5 py-1.5 focus:outline-none focus:border-emerald-500">
+                </div>
+            </div>
+
+            <!-- CONTAINER CATEGORIE -->
+            <div id="categoriesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="col-span-full text-center py-12 text-slate-400 text-xs">
+                    <i class="fa-solid fa-spinner fa-spin text-lg mb-2"></i><br>Caricamento iscritti in corso...
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-3 px-6 text-center text-[11px]">
+        SmoothTech Platform - CintheC Media & Leoni di San Marco © 2026
+    </footer>
+
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyJSPDKtM2XMbiGQD1BQmmbafPPqpFTBxMpVwJyPHHFsEuwiBQAplQR6HwPGE5F1TNs/exec";
+        let allIscrizioni = [];
+        let generatedPoolsRegistry = {}; 
+
+        let manualBuilderCategory = "";
+        let manualBuilderAthletes = [];
+        let manualBuilderMatches = [];
+
+        const mockTestAthletes = [
+            ...Array.from({length: 14}, (_, i) => ({ nome: `Atleta${i+1}`, cognome: `Bianca75`, torneo: "CintheC Cup 01", stile: "Brazilian Jiu-Jitsu (Gi)", cintura: "Cintura Bianca", peso: "-75kg", team: i % 2 === 0 ? "Team Chioggia" : "Leoni di San Marco" })),
+            ...Array.from({length: 12}, (_, i) => ({ nome: `Atleta${i+1}`, cognome: `Blu75`, torneo: "CintheC Cup 01", stile: "Brazilian Jiu-Jitsu (Gi)", cintura: "Cintura Blu", peso: "-75kg", team: i % 2 === 0 ? "Academy Venezia" : "Gracie Padova" })),
+            ...Array.from({length: 10}, (_, i) => ({ nome: `Atleta${i+1}`, cognome: `NoGi90`, torneo: "CintheC Cup 01", stile: "Grappling (No-Gi)", cintura: "Cintura Bianca", peso: "-90kg", team: "Fight Club Mestre" })),
+            ...Array.from({length: 8}, (_, i) => ({ nome: `Atleta${i+1}`, cognome: `Porpora75`, torneo: "CintheC Cup 02", stile: "Brazilian Jiu-Jitsu (Gi)", cintura: "Cintura Porpora", peso: "-75kg", team: "Team Chioggia" }))
+        ];
+
+        window.addEventListener('DOMContentLoaded', () => { 
+            caricaStatoSalvato();
+            caricaIscrittiCloud(false);
+        });
+
+        function showToast(message) {
+            let container = document.getElementById('toast-container');
+            let toast = document.createElement('div');
+            toast.className = 'custom-toast';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => { toast.remove(); }, 3000);
+        }
+
+        function salvaStatoLocale() {
+            localStorage.setItem("smoothtech_saved_pools", JSON.stringify(generatedPoolsRegistry));
+        }
+
+        function caricaStatoSalvato() {
+            let savedPools = localStorage.getItem("smoothtech_saved_pools");
+            if (savedPools) {
+                generatedPoolsRegistry = JSON.parse(savedPools);
+            }
+        }
+
+        // RESET TOTALE
+        function apriModalReset() {
+            document.getElementById('resetModal').classList.remove('hidden');
+        }
+
+        function chiudiModalReset() {
+            document.getElementById('resetModal').classList.add('hidden');
+        }
+
+        function eseguiResetTotale() {
+            localStorage.removeItem("smoothtech_saved_pools");
+            generatedPoolsRegistry = {};
+            chiudiModalReset();
+            organizzaECreaCategorie(allIscrizioni);
+            showToast("Reset completato: tutte le pool sono state cancellate.");
+        }
+
+        function caricaIscrittiCloud(forzaAggiornamento = false) {
+            let cachedData = localStorage.getItem("smoothtech_cached_iscrizioni");
+            
+            if (cachedData && !forzaAggiornamento) {
+                allIscrizioni = JSON.parse(cachedData);
+                aggiornaFiltroTornei(allIscrizioni);
+                organizzaECreaCategorie(allIscrizioni);
+            } else if (!cachedData && !forzaAggiornamento) {
+                allIscrizioni = mockTestAthletes;
+                aggiornaFiltroTornei(allIscrizioni);
+                organizzaECreaCategorie(allIscrizioni);
+            }
+
+            fetch(SCRIPT_URL + "?action=getIscrizioniTornei")
+                .then(res => res.json())
+                .then(data => {
+                    let cloudData = (data && data.iscrizioni) ? data.iscrizioni : [];
+                    if (cloudData.length > 0) {
+                        allIscrizioni = cloudData;
+                        localStorage.setItem("smoothtech_cached_iscrizioni", JSON.stringify(allIscrizioni));
+                        aggiornaFiltroTornei(allIscrizioni);
+                        organizzaECreaCategorie(allIscrizioni);
+                        if (forzaAggiornamento) showToast("Dati aggiornati da Google Sheets!");
+                    }
+                })
+                .catch(err => {
+                    if (forzaAggiornamento) showToast("Impossibile contattare il cloud. Usati dati locali.");
+                });
+        }
+
+        function aggiornaFiltroTornei(iscritti) {
+            let select = document.getElementById('filterTorneo');
+            if (!select) return;
+            let valoreCorrente = select.value;
+            let torneiSet = [...new Set(iscritti.map(i => i.torneo))];
+
+            select.innerHTML = '<option value="Tutti">Tutti</option>';
+            torneiSet.forEach(t => {
+                if (t) {
+                    let opt = document.createElement('option');
+                    opt.value = t; opt.innerText = t;
+                    select.appendChild(opt);
+                }
+            });
+            select.value = valoreCorrente;
+        }
+
+        function filtraCategorie() {
+            let fTorneo = document.getElementById('filterTorneo').value;
+            let fStile = document.getElementById('filterStile').value;
+            let fCintura = document.getElementById('filterCintura').value;
+            let fPeso = document.getElementById('filterPeso').value;
+            let ricerca = document.getElementById('searchAtleta').value.toLowerCase();
+
+            let filtrate = allIscrizioni.filter(i => {
+                let mTorneo = (fTorneo === 'Tutti' || i.torneo === fTorneo);
+                let mStile = (fStile === 'Tutti' || i.stile === fStile);
+                let mCintura = (fCintura === 'Tutte' || i.cintura === fCintura);
+                let mPeso = (fPeso === 'Tutti' || i.peso === fPeso);
+                let mTesto = ((i.nome && i.nome.toLowerCase().includes(ricerca)) || (i.cognome && i.cognome.toLowerCase().includes(ricerca)) || (i.team && i.team.toLowerCase().includes(ricerca)));
+                return mTorneo && mStile && mCintura && mPeso && mTesto;
+            });
+            organizzaECreaCategorie(filtrate);
+        }
+
+        function organizzaECreaCategorie(iscritti) {
+            let container = document.getElementById('categoriesContainer');
+            container.innerHTML = '';
+            document.getElementById('totalBadge').innerText = iscritti.length + (iscritti.length === 1 ? ' Iscritto Totale' : ' Iscritti Totali');
+
+            if (iscritti.length === 0) {
+                container.innerHTML = `<div class="col-span-full bg-white border-2 border-slate-900 rounded-none p-10 text-center text-slate-400 text-xs">Nessun atleta trovato.</div>`;
+                return;
+            }
+
+            let categorieMap = {};
+            iscritti.forEach(i => {
+                let chiave = `${i.stile || 'Generale'} | ${i.cintura || 'Unica'} | ${i.peso || 'Unico'}`;
+                if (!categorieMap[chiave]) categorieMap[chiave] = [];
+                categorieMap[chiave].push(i);
+            });
+
+            let fragment = document.createDocumentFragment();
+
+            Object.keys(categorieMap).forEach((chiave, index) => {
+                let atletiCategoria = categorieMap[chiave];
+                let parti = chiave.split(' | ');
+                let cardId = 'cat-' + index;
+                let btnPoolId = 'btn-pool-' + index;
+                let btnViewPoolId = 'btn-view-pool-' + index;
+                let isGenerata = generatedPoolsRegistry[chiave] !== undefined;
+
+                let card = document.createElement('div');
+                card.className = "category-card-sq p-4 flex flex-col justify-between";
+
+                let listaAtletiHtml = atletiCategoria.map((a, idx) => `
+                    <div class="flex items-center justify-between py-1.5 border-b border-slate-100 last:border-0 text-[11px]">
+                        <div>
+                            <span class="font-bold text-slate-400 text-[10px] mr-1">${idx + 1}.</span>
+                            <span class="font-bold text-slate-900">${a.nome} ${a.cognome}</span>
+                            <span class="block text-[9px] text-slate-500">${a.team || 'Indipendente'}</span>
+                        </div>
+                        <span class="text-[9px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-none">${a.torneo}</span>
+                    </div>
+                `).join('');
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-start justify-between mb-2">
+                            <div>
+                                <span class="text-[9px] font-black text-slate-900 block mb-0.5">${parti[0]}</span>
+                                <h3 class="text-xs font-black uppercase text-slate-900">${parti[1]} &bull; ${parti[2]}</h3>
+                            </div>
+                            <span class="font-black text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 border border-emerald-300">${atletiCategoria.length} iscritti</span>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-slate-200 space-y-2">
+                        <div class="grid grid-cols-3 gap-1">
+                            <button id="${btnPoolId}" onclick='generaPoolEDisegna("${chiave}", ${JSON.stringify(atletiCategoria)})' 
+                                class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[9px] uppercase py-2 px-1 rounded-none cursor-pointer flex items-center justify-center gap-1 shadow-xs transition">
+                                <i class="fa-solid fa-sitemap"></i> ${isGenerata ? 'Rigenera' : 'Auto-Pool'}
+                            </button>
+                            <button onclick='apriModalManual(${JSON.stringify(chiave)}, ${JSON.stringify(atletiCategoria)})' 
+                                class="bg-amber-600 hover:bg-amber-700 text-white font-bold text-[9px] uppercase py-2 px-1 rounded-none cursor-pointer flex items-center justify-center gap-1 shadow-xs transition">
+                                <i class="fa-solid fa-pen"></i> Manuale
+                            </button>
+                            <button onclick="toggleLista('${cardId}')" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold text-[9px] uppercase py-2 px-1 rounded-none cursor-pointer flex items-center justify-center gap-1 transition">
+                                <span>Atleti</span> <i class="fa-solid fa-chevron-down text-[8px]" id="icon-${cardId}"></i>
+                            </button>
+                        </div>
+
+                        <div id="${btnViewPoolId}-wrapper" class="${isGenerata ? '' : 'hidden'}">
+                            <button onclick='apriVisualizzatoreBracket("${chiave}")' class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-[9px] uppercase py-2 px-2 rounded-none cursor-pointer flex items-center justify-center gap-1 transition shadow-xs">
+                                <i class="fa-solid fa-eye"></i> <span>Visualizza Tabellone / Albero</span>
+                            </button>
+                        </div>
+
+                        <div id="${cardId}" class="hidden mt-2 space-y-1 bg-slate-50 p-2.5 border border-slate-300 max-h-48 overflow-y-auto">
+                            ${listaAtletiHtml}
+                        </div>
+                    </div>
+                `;
+                fragment.appendChild(card);
+            });
+            container.appendChild(fragment);
+        }
+
+        function toggleLista(id) {
+            let box = document.getElementById(id);
+            let icon = document.getElementById('icon-' + id);
+            box.classList.toggle('hidden');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        }
+
+        // GENERAZIONE AUTOMATICA CON GESTIONE DISPARI (BYE) E SPAZI VUOTI PER I TURNI SUCCESSIVI
+        function generaPoolEDisegna(categoryKey, list) {
+            let shuffled = [...list].sort(() => Math.random() - 0.5);
+            
+            for (let i = 0; i < shuffled.length - 1; i += 2) {
+                let teamA = (shuffled[i].team || "").trim().toLowerCase();
+                let teamB = (shuffled[i+1].team || "").trim().toLowerCase();
+                if (teamA === teamB && teamA !== "") {
+                    for (let j = i + 2; j < shuffled.length; j++) {
+                        let teamJ = (shuffled[j].team || "").trim().toLowerCase();
+                        if (teamJ !== teamA) {
+                            let temp = shuffled[i+1];
+                            shuffled[i+1] = shuffled[j];
+                            shuffled[j] = temp;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            let allRounds = [];
+            let currentRoundAthletes = shuffled.map(a => ({ nome: `${a.nome} ${a.cognome}`, team: a.team || "Team" }));
+            let roundNum = 1;
+
+            while (currentRoundAthletes.length > 1) {
+                let roundPairings = [];
+                let byeAthletesInRound = [];
+                let matchCountInRound = 1;
+
+                let rName = "Ottavi";
+                if (currentRoundAthletes.length <= 2) rName = "Finale";
+                else if (currentRoundAthletes.length <= 4) rName = "Semifinale";
+                else if (currentRoundAthletes.length <= 8) rName = "Quarti";
+
+                let nextRoundAthletes = [];
+
+                for (let i = 0; i < currentRoundAthletes.length; i += 2) {
+                    if (i + 1 < currentRoundAthletes.length) {
+                        let a1 = currentRoundAthletes[i];
+                        let a2 = currentRoundAthletes[i+1];
+                        roundPairings.push({
+                            turno: `${rName} - Match #${matchCountInRound}`,
+                            a1: a1,
+                            a2: a2
+                        });
+                        nextRoundAthletes.push({ nome: `[Vincitore ${rName} #${matchCountInRound}]`, team: "-" });
+                        matchCountInRound++;
+                    } else {
+                        // Atleta dispari che passa automaticamente il turno (BYE)
+                        let byeAtleta = currentRoundAthletes[i];
+                        byeAthletesInRound.push(byeAtleta);
+                        nextRoundAthletes.push(byeAtleta); // Passa direttamente
+                    }
+                }
+
+                allRounds.push({ 
+                    roundName: rName, 
+                    matches: roundPairings, 
+                    byeAthletes: byeAthletesInRound 
+                });
+
+                currentRoundAthletes = nextRoundAthletes;
+                roundNum++;
+                if (roundNum > 5) break;
+            }
+
+            generatedPoolsRegistry[categoryKey] = { rounds: allRounds, partecipanti: list };
+            salvaStatoLocale();
+            organizzaECreaCategorie(allIscrizioni);
+
+            showToast(`Auto-pool generata per ${categoryKey}`);
+            apriVisualizzatoreBracket(categoryKey);
+        }
+
+        // APRI MODALE BRACKET / ALBERO CON SPAZI VUOTI PER I TURNI SUCCESSIVI
+        function apriVisualizzatoreBracket(categoryKey) {
+            let poolData = generatedPoolsRegistry[categoryKey];
+            if (!poolData) return;
+
+            document.getElementById('modalCategoryBadge').innerText = categoryKey;
+            document.getElementById('modalCategoryTitle').innerText = "Tabellone Ufficiale ad Albero";
+
+            let treeContainer = document.getElementById('bracketTreeContainer');
+            treeContainer.innerHTML = '';
+
+            poolData.rounds.forEach((roundObj, rIndex) => {
+                // Se ci sono atleti dispari che passano automaticamente (BYE) nel primo turno
+                let byeHtml = '';
+                if (roundObj.byeAthletes && roundObj.byeAthletes.length > 0) {
+                    let nomiBye = roundObj.byeAthletes.map(b => `<b>${b.nome}</b> (${b.team})`).join(', ');
+                    byeHtml = `
+                        <div class="bg-amber-50 border-2 border-amber-400 p-2.5 text-xs text-amber-900 mb-2">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-600 mr-1"></i> <b>Passaggio automatico (BYE)</b>: ${nomiBye} passano direttamente il turno per numero dispari.
+                        </div>
+                    `;
+                }
+
+                let matchesHtml = roundObj.matches.map((m) => {
+                    // Controlliamo se i nomi contengono segnaposto di vincitore per renderli vuoti da compilare a mano
+                    let isA1Placeholder = m.a1.nome.startsWith("[Vincitore");
+                    let isA2Placeholder = m.a2.nome.startsWith("[Vincitore");
+
+                    let a1Html = isA1Placeholder 
+                        ? `<div class="text-slate-400 italic text-[11px] py-1 border-b border-dashed border-slate-300">_________________________________ <span class="text-[9px]">(Scrivi vincitore)</span></div>`
+                        : `<span class="font-bold text-slate-900">${m.a1.nome} <span class="text-[10px] text-slate-500 font-normal">(${m.a1.team})</span></span>`;
+
+                    let a2Html = isA2Placeholder 
+                        ? `<div class="text-slate-400 italic text-[11px] py-1">_________________________________ <span class="text-[9px]">(Scrivi vincitore)</span></div>`
+                        : `<span class="font-bold text-slate-900">${m.a2.nome} <span class="text-[10px] text-slate-500 font-normal">(${m.a2.team})</span></span>`;
+
+                    return `
+                        <div class="bg-slate-50 border-2 border-slate-900 rounded-none p-3 shadow-xs space-y-2">
+                            <div class="text-[9px] font-black uppercase text-slate-500 border-b border-slate-300 pb-1 flex justify-between">
+                                <span>${m.turno}</span>
+                                <span class="text-emerald-700">Tabellone</span>
+                            </div>
+                            <div class="space-y-1.5 text-xs">
+                                <div class="flex items-center justify-between bg-white p-2 border border-slate-300">
+                                    ${a1Html}
+                                </div>
+                                <div class="text-center font-black text-[10px] text-slate-400 uppercase">VS</div>
+                                <div class="flex items-center justify-between bg-white p-2 border border-slate-300">
+                                    ${a2Html}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                treeContainer.innerHTML += `
+                    <div class="space-y-2">
+                        <h4 class="text-xs font-black uppercase text-slate-900 bg-slate-200 px-3 py-1.5 border border-slate-400 flex items-center justify-between">
+                            <span><i class="fa-solid fa-code-branch text-emerald-600 mr-1.5"></i> ${roundObj.roundName}</span>
+                            <span class="text-[9px] font-bold text-slate-600">Turno #${rIndex + 1}</span>
+                        </h4>
+                        ${byeHtml}
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            ${matchesHtml}
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('bracketModal').classList.remove('hidden');
+        }
+
+        function chiudiModalBracket() {
+            document.getElementById('bracketModal').classList.add('hidden');
+        }
+
+        // GESTIONE POOL MANUALE
+        function apriModalManual(categoryKey, list) {
+            manualBuilderCategory = categoryKey;
+            manualBuilderAthletes = list;
+            manualBuilderMatches = [];
+
+            document.getElementById('manualModalCatTitle').innerText = categoryKey;
+            popolaSelectAtletiManuali();
+            renderManualMatchesPreview();
+
+            document.getElementById('manualPoolModal').classList.remove('hidden');
+        }
+
+        function chiudiModalManual() {
+            document.getElementById('manualPoolModal').classList.add('hidden');
+        }
+
+        function popolaSelectAtletiManuali() {
+            let sel1 = document.getElementById('selectAtleta1');
+            let sel2 = document.getElementById('selectAtleta2');
+            sel1.innerHTML = '';
+            sel2.innerHTML = '';
+
+            manualBuilderAthletes.forEach((a, idx) => {
+                let opt1 = document.createElement('option');
+                opt1.value = idx;
+                opt1.innerText = `${a.nome} ${a.cognome} (${a.team || 'Team'})`;
+                sel1.appendChild(opt1.cloneNode(true));
+
+                let opt2 = document.createElement('option');
+                opt2.value = idx;
+                opt2.innerText = `${a.nome} ${a.cognome} (${a.team || 'Team'})`;
+                sel2.appendChild(opt2);
+            });
+        }
+
+        function aggiungiMatchManualeAllaLista() {
+            let idx1 = document.getElementById('selectAtleta1').value;
+            let idx2 = document.getElementById('selectAtleta2').value;
+            let turnoName = document.getElementById('inputTurnoMatch').value.trim() || "Match";
+
+            if (idx1 === idx2) {
+                showToast("Non puoi fare combattere un atleta contro se stesso!");
+                return;
+            }
+
+            let at1 = manualBuilderAthletes[idx1];
+            let at2 = manualBuilderAthletes[idx2];
+
+            manualBuilderMatches.push({
+                turno: turnoName,
+                a1: { nome: `${at1.nome} ${at1.cognome}`, team: at1.team || "Team" },
+                a2: { nome: `${at2.nome} ${at2.cognome}`, team: at2.team || "Team" }
+            });
+
+            renderManualMatchesPreview();
+            showToast("Match aggiunto alla pool manuale!");
+        }
+
+        function renderManualMatchesPreview() {
+            let container = document.getElementById('manualMatchesListPreview');
+            if (manualBuilderMatches.length === 0) {
+                container.innerHTML = `<div class="text-slate-400 text-center py-3 text-[11px]">Nessun match aggiunto. Componi almeno un match sopra.</div>`;
+                return;
+            }
+
+            container.innerHTML = manualBuilderMatches.map((m, mIdx) => `
+                <div class="flex items-center justify-between bg-white p-2 border border-slate-300">
+                    <div>
+                        <span class="font-black text-emerald-700">${m.turno}:</span>
+                        <span class="font-bold text-slate-900">${m.a1.nome} vs ${m.a2.nome}</span>
+                    </div>
+                    <button onclick="rimuoviMatchManuale(${mIdx})" class="text-red-600 hover:text-red-800 text-xs px-2"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            `).join('');
+        }
+
+        function rimuoviMatchManuale(index) {
+            manualBuilderMatches.splice(index, 1);
+            renderManualMatchesPreview();
+        }
+
+        function salvaPoolManualeDefinitiva() {
+            if (manualBuilderMatches.length === 0) {
+                showToast("Aggiungi almeno un match prima di salvare.");
+                return;
+            }
+
+            let manualRounds = [{
+                roundName: "Pool Manuale Personalizzata",
+                matches: manualBuilderMatches,
+                byeAthletes: []
+            }];
+
+            generatedPoolsRegistry[manualBuilderCategory] = { rounds: manualRounds, partecipanti: manualBuilderAthletes };
+            salvaStatoLocale();
+            organizzaECreaCategorie(allIscrizioni);
+            chiudiModalManual();
+
+            showToast(`Pool manuale creata per ${manualBuilderCategory}`);
+            apriVisualizzatoreBracket(manualBuilderCategory);
+        }
+
+        function stampaOEsportaPDF() {
+            window.print();
+        }
+    </script>
+</body>
+</html>

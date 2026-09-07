@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmoothTech - Chiosco Check-in</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #f0f4f8; color: #0f172a; }
+        
+        .kiosk-card { 
+            background: #ffffff; 
+            border: 2px solid #cbd5e1; 
+            border-radius: 0px !important; 
+            box-shadow: 4px 4px 0px 0px #94a3b8; 
+            transition: all 0.2s ease;
+        }
+        .kiosk-card.verified {
+            border-color: #16a34a;
+            box-shadow: 4px 4px 0px 0px #16a34a;
+            background-color: #f0fdf4;
+        }
+        
+        button, input, select, textarea { border-radius: 0px !important; }
+
+        #toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .custom-toast {
+            background: #1e293b;
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: 0px !important;
+            font-size: 12px;
+            font-weight: 700;
+            box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.2);
+            border-left: 4px solid #2563eb;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Stile per la stampa A4 */
+        @media print {
+            body * { visibility: hidden; }
+            #reportModal, #reportModal * { visibility: visible; }
+            #reportModal { 
+                position: absolute; left: 0; top: 0; width: 100%; height: 100%; 
+                background: white !important; padding: 10mm !important; box-shadow: none !important; border: none !important; display: block !important;
+            }
+            .no-print { display: none !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased p-3 sm:p-6">
+
+    <!-- POP-UP DI CONFERMA SALVATAGGIO CHECK-IN -->
+    <div id="confirmSaveModal" onclick="gestisciClickFuoriModalConferma(event)" class="fixed inset-0 bg-slate-950/80 z-50 flex items-center justify-center hidden backdrop-blur-xs px-4">
+        <div class="kiosk-card bg-white border-2 border-blue-600 p-6 sm:p-8 max-w-sm w-full shadow-2xl space-y-4 text-center">
+            <div class="w-16 h-16 bg-blue-100 text-blue-600 flex items-center justify-center mx-auto text-2xl font-bold border-2 border-blue-300">
+                <i class="fa-solid fa-clipboard-check"></i>
+            </div>
+            <div>
+                <h3 class="text-base sm:text-lg font-black uppercase text-slate-900">Conferma Check-in</h3>
+                <p id="confirmSaveAthleteName" class="text-xs text-blue-600 font-bold mt-1">Nome Atleta</p>
+            </div>
+            <p class="text-[12px] font-bold text-slate-700">Sei sicuro di salvare il check-in?</p>
+            <div class="grid grid-cols-2 gap-2 pt-2">
+                <button onclick="chiudiModalConfermaSalva(false)" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs uppercase py-3 border-2 border-slate-300 cursor-pointer">
+                    Annulla
+                </button>
+                <button onclick="chiudiModalConfermaSalva(true)" class="bg-blue-600 hover:bg-blue-500 text-white font-black text-xs uppercase py-3 border-2 border-blue-700 cursor-pointer shadow">
+                    Sì, Conferma
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ELENCO MASTER A 3 COLONNE (NUMERAZIONE VERTICALE) -->
+    <div id="reportModal" onclick="gestisciClickFuoriModale(event)" class="fixed inset-0 bg-slate-950/80 z-50 flex items-center justify-center hidden backdrop-blur-xs px-4 overflow-y-auto">
+        <div class="kiosk-card bg-white border-2 border-slate-900 p-6 sm:p-8 max-w-5xl w-full shadow-2xl space-y-4 my-8">
+            <div class="flex items-center justify-between border-b-2 border-slate-200 pb-3 no-print">
+                <div>
+                    <span class="text-[9px] bg-blue-600 text-white font-black px-2 py-0.5 uppercase">SmoothTech Master List A4</span>
+                    <h2 id="reportTitle" class="text-base font-black uppercase text-slate-900 mt-1">Elenco Iscritti</h2>
+                </div>
+                <button onclick="chiudiReportModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold text-xs uppercase px-3 py-1.5 border-2 border-slate-300 cursor-pointer">
+                    <i class="fa-solid fa-xmark"></i> Chiudi
+                </button>
+            </div>
+
+            <div id="reportContentContainer" class="max-h-[65vh] overflow-y-auto pr-2">
+                <!-- Verrà popolato dinamicamente -->
+            </div>
+
+            <div class="border-t-2 border-slate-200 pt-3 flex justify-end gap-2 no-print">
+                <button onclick="chiudiReportModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs uppercase px-4 py-2 border-2 border-slate-300 cursor-pointer">
+                    Annulla
+                </button>
+                <button onclick="stampaSalvaMasterList()" class="bg-blue-600 hover:bg-blue-500 text-white font-black text-xs uppercase px-5 py-2 border-2 border-blue-700 cursor-pointer shadow flex items-center gap-2">
+                    <i class="fa-solid fa-print"></i> Stampa / Salva PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <!-- HEADER -->
+    <header class="bg-white border-2 border-blue-200 py-3 px-4 sm:px-6 shadow-sm mb-6">
+        <div class="max-w-7xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <span class="w-3 h-3 bg-blue-600 rounded-full animate-pulse"></span>
+                <div>
+                    <h1 class="text-sm sm:text-base font-black uppercase text-slate-900 tracking-wider">SmoothTech - Chiosco Check-in</h1>
+                    <p class="text-[10px] text-slate-500">Registrazione presenze, documenti e pesatura ufficiale</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="apriReportGenerale()" class="bg-blue-600 hover:bg-blue-500 text-white border-2 border-blue-700 px-3.5 py-2 text-xs font-black uppercase tracking-wider cursor-pointer transition shadow-xs flex items-center gap-1.5">
+                    <i class="fa-solid fa-list-ul"></i> Elenco Iscritti (Master)
+                </button>
+                <button onclick="cancellaDati()" class="bg-slate-100 hover:bg-rose-50 text-rose-600 border border-slate-300 px-3 py-2 text-xs font-black uppercase tracking-wider cursor-pointer transition">
+                    <i class="fa-solid fa-trash-can mr-1"></i> Cancella Dati
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-7xl mx-auto w-full flex-grow space-y-4">
+        
+        <!-- SELETTORE TORNEO & FILTRI -->
+        <div class="kiosk-card bg-white p-4 sm:p-6 space-y-4 border-t-4 border-t-blue-600">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-slate-600 mb-1">Seleziona Torneo / Evento:</label>
+                    <select id="selectTorneo" onchange="cambiaTorneoSelezionato()" class="w-full bg-slate-50 border-2 border-slate-300 text-slate-900 px-3 py-3 text-xs font-bold focus:outline-none focus:border-blue-600 cursor-pointer">
+                        <option value="">Caricamento tornei...</option>
+                    </select>
+                </div>
+                <div class="md:col-span-2 relative">
+                    <label class="block text-[10px] font-black uppercase text-slate-600 mb-1">Ricerca Atleta:</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </span>
+                        <input type="text" id="searchAthleteInput" oninput="filtraAtleti()" placeholder="Cerca per nome, cognome o team (es. Rossi Mario)..." class="w-full bg-slate-50 border-2 border-slate-300 text-slate-900 pl-10 pr-4 py-3 text-xs font-bold focus:outline-none focus:border-blue-600">
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
+                <div class="md:col-span-2">
+                    <label class="block text-[10px] font-black uppercase text-slate-600 mb-1">Filtra per Categoria:</label>
+                    <select id="filterCategorySelect" onchange="filtraAtleti()" class="w-full bg-slate-50 border-2 border-slate-300 text-slate-900 px-3 py-2.5 text-xs font-bold focus:outline-none focus:border-blue-600 cursor-pointer">
+                        <option value="">Tutte le categorie del torneo</option>
+                    </select>
+                </div>
+                <div class="flex items-end">
+                    <button onclick="caricaDatiAtleti()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-black text-xs uppercase px-4 py-2.5 border-2 border-blue-700 transition flex items-center justify-center gap-1.5 cursor-pointer shadow-sm">
+                        <i class="fa-solid fa-arrows-rotate"></i> Aggiorna Lista
+                    </button>
+                </div>
+            </div>
+
+            <!-- STATISTICHE -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t-2 border-slate-100">
+                <div class="bg-blue-50/50 border-2 border-blue-100 p-3 text-center">
+                    <span class="text-[9px] font-black uppercase text-slate-600 block">Totale Iscritti Torneo</span>
+                    <span id="statTotal" class="text-base sm:text-lg font-black text-blue-900">0</span>
+                </div>
+                <div class="bg-emerald-50/50 border-2 border-emerald-100 p-3 text-center">
+                    <span class="text-[9px] font-black uppercase text-slate-600 block">Verificati & Pronti</span>
+                    <span id="statPresent" class="text-base sm:text-lg font-black text-emerald-600">0</span>
+                </div>
+                <div class="bg-amber-50/50 border-2 border-amber-100 p-3 text-center">
+                    <span class="text-[9px] font-black uppercase text-slate-600 block">Atleti Mancanti</span>
+                    <span id="statMissing" class="text-base sm:text-lg font-black text-amber-600">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- LISTA ATLETI -->
+        <div id="athletesListContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div class="col-span-full kiosk-card bg-white p-12 text-center text-slate-500 text-xs">
+                <i class="fa-solid fa-spinner fa-spin text-2xl mb-2 text-blue-600"></i><br>Caricamento iscritti in corso...
+            </div>
+        </div>
+
+        <!-- SEZIONE FINALE: TERMINA CHECK-IN -->
+        <div class="kiosk-card bg-white p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-t-4 border-t-emerald-600">
+            <div>
+                <h3 class="text-sm font-black uppercase text-slate-900">Chiusura Operazioni di Check-in</h3>
+                <p id="termDescription" class="text-xs text-slate-500 mt-0.5">Genera o stampa l'elenco master degli iscritti per sbloccare il ritorno all'hub tornei.</p>
+            </div>
+            <button id="btnTerminaCheckin" onclick="terminaCheckin()" disabled class="bg-slate-300 text-slate-500 font-black text-xs uppercase py-3 px-6 border-2 border-slate-400 cursor-not-allowed transition flex items-center gap-2 shrink-0">
+                <i class="fa-solid fa-circle-check"></i> Termina Check-in & Torna ai Tornei
+            </button>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white text-slate-500 py-3 px-6 text-center text-[11px] border-t-2 border-blue-200 mt-6">
+        SmoothTech Check-in Kiosk Service © 2026 - Tutti i diritti riservati
+    </footer>
+
+    <script>
+        let allTornei = [];
+        let torneoAttivo = "";
+        let allAthletes = [];
+        let checkinState = {};
+        let masterListPrinted = false;
+        let pendingSaveAthleteId = null;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            inizializzaDatiTestSeNecessario();
+            inizializzaChiosco();
+            verificaStatoTerminaButton();
+        });
+
+        function showToast(message) {
+            let container = document.getElementById('toast-container');
+            if(!container) return;
+            let toast = document.createElement('div');
+            toast.className = 'custom-toast';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-blue-400 text-sm"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => { toast.remove(); }, 3000);
+        }
+
+        function inizializzaDatiTestSeNecessario() {
+            let savedIscritti = localStorage.getItem("smoothtech_iscritti");
+            if (!savedIscritti || JSON.parse(savedIscritti).length === 0) {
+                let mockTornei = ["Cintec Cup", "Kioja Cup"];
+                let mockIscritti = [
+                    { id: "c1", nome: "Mario", cognome: "Rossi", team: "Gracie Barra", categoria: "Cintura Bianca - Adulti - 70kg (No-Gi)", torneo: "Cintec Cup" },
+                    { id: "c2", nome: "Luca", cognome: "Bianchi", team: "CheckMat", categoria: "Cintura Bianca - Adulti - 70kg (No-Gi)", torneo: "Cintec Cup" },
+                    { id: "c3", nome: "Simone", cognome: "Neri", team: "Alliance", categoria: "Cintura Bianca - Adulti - 70kg (No-Gi)", torneo: "Cintec Cup" },
+                    { id: "c4", nome: "Giovanni", cognome: "Verdi", team: "Alliance", categoria: "Cintura Blu - Master - 76kg (Gi)", torneo: "Cintec Cup" },
+                    { id: "c5", nome: "Marco", cognome: "Gialli", team: "Zenith", categoria: "Cintura Blu - Master - 76kg (Gi)", torneo: "Cintec Cup" },
+                    { id: "c6", nome: "Andrea", cognome: "Conti", team: "Gracie Barra", categoria: "Cintura Blu - Master - 76kg (Gi)", torneo: "Cintec Cup" },
+                    { id: "c7", nome: "Alessandro", cognome: "Ferrari", team: "BJJ Chioggia", categoria: "Cintura Marrone/Nera - Adulti - 88kg (No-Gi)", torneo: "Cintec Cup" },
+                    { id: "c8", nome: "Nicola", cognome: "Moretti", team: "Tribun", categoria: "Cintura Marrone/Nera - Adulti - 88kg (No-Gi)", torneo: "Cintec Cup" },
+                    { id: "k1", nome: "Matteo", cognome: "Gallo", team: "Gracie Barra", categoria: "Cintura Bianca - Adulti - 65kg (Gi)", torneo: "Kioja Cup" },
+                    { id: "k2", nome: "Davide", cognome: "Costa", team: "Alliance", categoria: "Cintura Bianca - Adulti - 65kg (Gi)", torneo: "Kioja Cup" },
+                    { id: "k3", nome: "Filippo", cognome: "Rossi", team: "CheckMat", categoria: "Cintura Bianca - Adulti - 65kg (Gi)", torneo: "Kioja Cup" },
+                    { id: "k4", nome: "Federico", cognome: "Rizzo", team: "CheckMat", categoria: "Cintura Blu - Adulti - 76kg (No-Gi)", torneo: "Kioja Cup" },
+                    { id: "k5", nome: "Lorenzo", cognome: "Romano", team: "Zenith", categoria: "Cintura Blu - Adulti - 76kg (No-Gi)", torneo: "Kioja Cup" },
+                    { id: "k6", nome: "Stefano", cognome: "Barbieri", team: "Alliance", categoria: "Cintura Nera - Open Weight", torneo: "Kioja Cup" },
+                    { id: "k7", nome: "Mattia", cognome: "Zanetti", team: "Gracie Barra", categoria: "Cintura Nera - Open Weight", torneo: "Kioja Cup" }
+                ];
+                localStorage.setItem("smoothtech_tornei", JSON.stringify(mockTornei));
+                localStorage.setItem("smoothtech_iscritti", JSON.stringify(mockIscritti));
+            }
+        }
+
+        function cancellaDati() {
+            if (confirm("Vuoi cancellare tutti i dati salvati e resettare il chiosco?")) {
+                localStorage.removeItem("smoothtech_iscritti");
+                localStorage.removeItem("smoothtech_tornei");
+                localStorage.removeItem("smoothtech_checkin_state");
+                localStorage.removeItem("smoothtech_master_printed");
+                location.reload();
+            }
+        }
+
+        function inizializzaChiosco() {
+            try {
+                let torneiSet = new Set();
+                let savedTornei = localStorage.getItem("smoothtech_tornei");
+                if (savedTornei) {
+                    JSON.parse(savedTornei).forEach(t => {
+                        let name = typeof t === 'string' ? t : (t.nome || t.id);
+                        if (name) torneiSet.add(name);
+                    });
+                }
+
+                let savedIscritti = localStorage.getItem("smoothtech_iscritti");
+                if (savedIscritti) {
+                    JSON.parse(savedIscritti).forEach(a => {
+                        if (a.torneo) torneiSet.add(a.torneo);
+                    });
+                }
+
+                allTornei = Array.from(torneiSet);
+                popolaSelettoreTornei();
+
+                let savedState = localStorage.getItem("smoothtech_checkin_state");
+                if (savedState) checkinState = JSON.parse(savedState);
+
+                let printedFlag = localStorage.getItem("smoothtech_master_printed");
+                if (printedFlag === "true") masterListPrinted = true;
+
+                caricaDatiAtleti();
+            } catch(e) {
+                console.error("Errore inizializzazione chiosco:", e);
+            }
+        }
+
+        function popolaSelettoreTornei() {
+            let select = document.getElementById('selectTorneo');
+            if (!select) return;
+
+            let html = `<option value="">-- Seleziona Torneo --</option>`;
+            allTornei.forEach(t => {
+                html += `<option value="${t}">${t}</option>`;
+            });
+            select.innerHTML = html;
+
+            let savedActive = localStorage.getItem("smoothtech_active_torneo") || (allTornei.length > 0 ? allTornei[0] : "");
+            if (savedActive) {
+                select.value = savedActive;
+                torneoAttivo = savedActive;
+            }
+        }
+
+        function cambiaTorneoSelezionato() {
+            let select = document.getElementById('selectTorneo');
+            torneoAttivo = select.value;
+            localStorage.setItem("smoothtech_active_torneo", torneoAttivo);
+            caricaDatiAtleti();
+        }
+
+        function caricaDatiAtleti() {
+            try {
+                let savedIscritti = localStorage.getItem("smoothtech_iscritti");
+                if (savedIscritti) {
+                    let parsed = JSON.parse(savedIscritti);
+                    if (torneoAttivo) {
+                        allAthletes = parsed.filter(a => !a.torneo || a.torneo.toLowerCase() === torneoAttivo.toLowerCase());
+                    } else {
+                        allAthletes = parsed;
+                    }
+                } else {
+                    allAthletes = [];
+                }
+
+                popolaFiltroCategorie();
+                filtraAtleti();
+                showToast("Atleti caricati correttamente per " + (torneoAttivo || "tutti i tornei"));
+            } catch(e) {
+                console.error("Errore caricamento iscritti:", e);
+            }
+        }
+
+        function popolaFiltroCategorie() {
+            let select = document.getElementById('filterCategorySelect');
+            if (!select) return;
+            
+            let currentVal = select.value;
+            let categorieSet = new Set();
+            allAthletes.forEach(a => { if (a.categoria) categorieSet.add(a.categoria); });
+
+            let optionsHtml = `<option value="">Tutte le categorie (${allAthletes.length} iscritti)</option>`;
+            Array.from(categorieSet).sort().forEach(cat => {
+                optionsHtml += `<option value="${cat}">${cat}</option>`;
+            });
+            select.innerHTML = optionsHtml;
+            select.value = currentVal;
+        }
+
+        function aggiornaCampoCheckin(athleteId, campo, valore) {
+            if (!checkinState[athleteId]) {
+                checkinState[athleteId] = { presente: false, docOk: false, pesoOk: false, pesoMisurato: "", salvato: false };
+            }
+            checkinState[athleteId][campo] = valore;
+            localStorage.setItem("smoothtech_checkin_state", JSON.stringify(checkinState));
+        }
+
+        function richiediConfermaSalvaCheckin(athleteId, athleteName) {
+            let state = checkinState[athleteId] || {};
+            // Se è già salvato/verificato, permette di sbloccarlo direttamente senza pop-up
+            if (state.salvato) {
+                eseguiSalvaCheckin(athleteId, false);
+            } else {
+                pendingSaveAthleteId = athleteId;
+                document.getElementById('confirmSaveAthleteName').innerText = athleteName;
+                document.getElementById('confirmSaveModal').classList.remove('hidden');
+            }
+        }
+
+        function chiudiModalConfermaSalva(conferma) {
+            document.getElementById('confirmSaveModal').classList.add('hidden');
+            if (conferma && pendingSaveAthleteId !== null) {
+                eseguiSalvaCheckin(pendingSaveAthleteId, true);
+            }
+            pendingSaveAthleteId = null;
+        }
+
+        function gestisciClickFuoriModalConferma(event) {
+            if (event.target.id === 'confirmSaveModal') {
+                chiudiModalConfermaSalva(false);
+            }
+        }
+
+        function eseguiSalvaCheckin(athleteId, nuovoStatoSalvato) {
+            let state = checkinState[athleteId] || { presente: false, docOk: false, pesoOk: false, pesoMisurato: "", salvato: false };
+            
+            state.salvato = nuovoStatoSalvato;
+            if (nuovoStatoSalvato) {
+                state.presente = true;
+            }
+            
+            checkinState[athleteId] = state;
+            localStorage.setItem("smoothtech_checkin_state", JSON.stringify(checkinState));
+            
+            filtraAtleti();
+            showToast(nuovoStatoSalvato ? `Check-in salvato con successo!` : `Check-in sbloccato per modifica.`);
+        }
+
+        function apriReportGenerale() {
+            let container = document.getElementById('reportContentContainer');
+            let titleEl = document.getElementById('reportTitle');
+            let modal = document.getElementById('reportModal');
+            if (!container || !modal) return;
+
+            titleEl.innerText = `Elenco Master Iscritti - ${torneoAttivo || "Tutti i Tornei"} (${allAthletes.length} Atleti)`;
+
+            if (allAthletes.length === 0) {
+                container.innerHTML = `<p class="text-center text-slate-500 text-xs py-8">Nessun atleta disponibile.</p>`;
+                modal.style.display = 'flex';
+                modal.classList.remove('hidden');
+                return;
+            }
+
+            let sorted = [...allAthletes].sort((a, b) => {
+                let nameA = `${a.cognome || ''} ${a.nome || ''}`.toUpperCase();
+                let nameB = `${b.cognome || ''} ${b.nome || ''}`.toUpperCase();
+                return nameA.localeCompare(nameB);
+            });
+
+            let totalItems = sorted.length;
+            let perCol = Math.ceil(totalItems / 3);
+
+            let col1Items = sorted.slice(0, perCol);
+            let col2Items = sorted.slice(perCol, perCol * 2);
+            let col3Items = sorted.slice(perCol * 2);
+
+            function renderColumn(items, startIndex) {
+                return items.map((a, idx) => {
+                    let actualNumber = startIndex + idx + 1;
+                    return `
+                        <div class="flex items-center justify-between py-1 px-1.5 border-b border-slate-100 text-[11px] bg-white">
+                            <div class="flex items-center gap-1.5 truncate">
+                                <span class="font-mono text-slate-400 text-[10px] w-6 shrink-0">${actualNumber}.</span>
+                                <span class="font-black uppercase text-slate-900 truncate">${a.cognome || ''} ${a.nome || ''}</span>
+                            </div>
+                            <span class="text-slate-500 text-[10px] italic pl-1 shrink-0">${a.team || '-'}</span>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            container.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="space-y-1">${renderColumn(col1Items, 0)}</div>
+                    <div class="space-y-1">${renderColumn(col2Items, col1Items.length)}</div>
+                    <div class="space-y-1">${renderColumn(col3Items, col1Items.length + col2Items.length)}</div>
+                </div>
+            `;
+            
+            modal.style.display = 'flex';
+            modal.classList.remove('hidden');
+        }
+
+        function chiudiReportModal() {
+            let modal = document.getElementById('reportModal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.style.display = 'none';
+            }
+        }
+
+        function gestisciClickFuoriModale(event) {
+            if (event.target.id === 'reportModal') {
+                chiudiReportModal();
+            }
+        }
+
+        function stampaSalvaMasterList() {
+            masterListPrinted = true;
+            localStorage.setItem("smoothtech_master_printed", "true");
+            verificaStatoTerminaButton();
+            window.print();
+        }
+
+        function verificaStatoTerminaButton() {
+            let btn = document.getElementById('btnTerminaCheckin');
+            let desc = document.getElementById('termDescription');
+            if (!btn) return;
+
+            if (masterListPrinted) {
+                btn.disabled = false;
+                btn.className = "bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs uppercase py-3 px-6 border-2 border-emerald-700 cursor-pointer shadow flex items-center gap-2 shrink-0 transition";
+                desc.innerText = "Elenco stampato/salvato con successo. Puoi concludere le operazioni.";
+            } else {
+                btn.disabled = true;
+                btn.className = "bg-slate-300 text-slate-500 font-black text-xs uppercase py-3 px-6 border-2 border-slate-400 cursor-not-allowed transition flex items-center gap-2 shrink-0";
+                desc.innerText = "Genera o stampa l'elenco master degli iscritti per sbloccare il ritorno all'hub tornei.";
+            }
+        }
+
+        function terminaCheckin() {
+            if (masterListPrinted) {
+                window.location.href = "tornei.html";
+            }
+        }
+
+        function filtraAtleti() {
+            let query = document.getElementById('searchAthleteInput').value.trim().toLowerCase();
+            let selectedCat = document.getElementById('filterCategorySelect').value;
+            let container = document.getElementById('athletesListContainer');
+            if (!container) return;
+
+            if (allAthletes.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full kiosk-card bg-white p-12 text-center text-slate-500 text-xs space-y-2">
+                        <i class="fa-solid fa-users-slash text-blue-600 text-2xl"></i>
+                        <p class="font-bold uppercase text-slate-900">Nessun atleta trovato per ${torneoAttivo || 'questo torneo'}.</p>
+                    </div>
+                `;
+                aggiornaStatistiche();
+                return;
+            }
+
+            let queryTokens = query.split(/\s+/).filter(Boolean);
+            let filtered = allAthletes.filter(a => {
+                let nomeCompleto = `${a.nome || ''} ${a.cognome || ''} ${a.team || ''}`.toLowerCase();
+                let matchQuery = queryTokens.every(token => nomeCompleto.includes(token));
+                let matchCat = selectedCat === "" || a.categoria === selectedCat;
+                return matchQuery && matchCat;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="col-span-full kiosk-card bg-white p-8 text-center text-slate-500 text-xs">Nessun atleta corrisponde ai criteri di ricerca.</div>`;
+                aggiornaStatistiche();
+                return;
+            }
+
+            let htmlChunks = filtered.map(a => {
+                let uniqueId = a.id || `${a.nome}_${a.cognome}_${a.categoria}`.replace(/\s+/g, '_');
+                let state = checkinState[uniqueId] || { presente: false, docOk: false, pesoOk: false, pesoMisurato: "", salvato: false };
+                let cardClass = state.salvato ? 'kiosk-card verified p-4 space-y-3' : 'kiosk-card bg-white p-4 space-y-3';
+
+                return `
+                    <div class="${cardClass}">
+                        <div class="flex items-start justify-between gap-2 border-b-2 border-slate-100 pb-2">
+                            <div>
+                                <span class="text-[9px] bg-blue-50 text-blue-700 font-mono px-2 py-0.5 border border-blue-200 uppercase font-bold">[${a.categoria || 'Senza Categoria'}]</span>
+                                <h3 class="text-sm font-black uppercase text-slate-900 mt-1">${a.nome || ''} ${a.cognome || ''}</h3>
+                                <p class="text-[11px] text-slate-600 font-medium">Team: <span class="text-blue-600 font-bold">${a.team || '-'}</span></p>
+                            </div>
+                            <div>
+                                ${state.salvato ? '<span class="bg-emerald-600 text-white font-black text-[9px] px-2 py-1 uppercase border border-emerald-700 inline-block">VERIFICATO</span>' : '<span class="bg-amber-100 text-amber-800 font-bold text-[9px] px-2 py-1 uppercase border border-amber-300 inline-block">IN ATTESA</span>'}
+                            </div>
+                        </div>
+
+                        <!-- Ticket di Controllo -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-xs">
+                            <!-- Presenza -->
+                            <div class="bg-slate-50 border border-slate-200 p-2 flex items-center justify-between">
+                                <span class="text-[10px] font-bold text-slate-600 uppercase">Presenza:</span>
+                                <label class="flex items-center gap-1 cursor-pointer text-xs font-black text-emerald-700">
+                                    <input type="checkbox" ${state.presente ? 'checked' : ''} onchange="aggiornaCampoCheckin('${uniqueId}', 'presente', this.checked)" class="w-4 h-4 accent-emerald-600 cursor-pointer">
+                                    <span>OK</span>
+                                </label>
+                            </div>
+
+                            <!-- Documentazione -->
+                            <div class="bg-slate-50 border border-slate-200 p-2 flex items-center justify-between">
+                                <span class="text-[10px] font-bold text-slate-600 uppercase">Documenti:</span>
+                                <label class="flex items-center gap-1 cursor-pointer text-xs font-black text-sky-700">
+                                    <input type="checkbox" ${state.docOk ? 'checked' : ''} onchange="aggiornaCampoCheckin('${uniqueId}', 'docOk', this.checked)" class="w-4 h-4 accent-sky-600 cursor-pointer">
+                                    <span>DOC OK</span>
+                                </label>
+                            </div>
+
+                            <!-- Peso -->
+                            <div class="bg-slate-50 border border-slate-200 p-2 space-y-1">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[10px] font-bold text-slate-600 uppercase">Peso:</span>
+                                    <label class="flex items-center gap-1 cursor-pointer text-[10px] font-black text-amber-700">
+                                        <input type="checkbox" ${state.pesoOk ? 'checked' : ''} onchange="aggiornaCampoCheckin('${uniqueId}', 'pesoOk', this.checked)" class="w-3.5 h-3.5 accent-amber-600 cursor-pointer">
+                                        PESO OK
+                                    </label>
+                                </div>
+                                <input type="text" value="${state.pesoMisurato || ''}" onchange="aggiornaCampoCheckin('${uniqueId}', 'pesoMisurato', this.value)" placeholder="Kg effettivi..." class="w-full bg-white border border-slate-300 text-slate-900 px-2 py-0.5 text-[10px] font-bold focus:outline-none focus:border-blue-600">
+                            </div>
+                        </div>
+
+                        <!-- Pulsante di Salvataggio con Pop-up -->
+                        <div class="pt-2 flex justify-end">
+                            <button onclick="richiediConfermaSalvaCheckin('${uniqueId}', '${a.nome} ${a.cognome}')" class="w-full ${state.salvato ? 'bg-slate-700 hover:bg-slate-600 text-white border-slate-800' : 'bg-blue-600 hover:bg-blue-500 text-white border-blue-700'} font-black text-xs uppercase py-2.5 px-4 border-2 transition cursor-pointer flex items-center justify-center gap-2 shadow-xs">
+                                <i class="fa-solid ${state.salvato ? 'fa-lock-open' : 'fa-floppy-disk'}"></i> 
+                                ${state.salvato ? 'Sblocca / Modifica Check-in' : 'Salva Check-in'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = htmlChunks.join('');
+            aggiornaStatistiche();
+        }
+
+        function aggiornaStatistiche() {
+            let total = allAthletes.length;
+            let verifiedCount = 0;
+
+            allAthletes.forEach(a => {
+                let uniqueId = a.id || `${a.nome}_${a.cognome}_${a.categoria}`.replace(/\s+/g, '_');
+                let st = checkinState[uniqueId];
+                if (st && st.salvato) verifiedCount++;
+            });
+
+            let missing = total - verifiedCount;
+
+            document.getElementById('statTotal').innerText = total;
+            document.getElementById('statPresent').innerText = verifiedCount;
+            document.getElementById('statMissing').innerText = missing;
+        }
+    </script>
+</body>
+</html>
