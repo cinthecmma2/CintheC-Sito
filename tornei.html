@@ -9,6 +9,7 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
     <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="icon" href="Immagini/Logo.png" type="image/png">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -52,7 +53,6 @@
         }
         .admin-pro-btn:hover { background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); border-color: #22c55e; transform: translateY(-2px); }
 
-        /* CARD TORNEI CON EFFETTO 3D SCULPTED & DINAMICHE INTERATTIVE */
         .pro-tournament-card {
             background: linear-gradient(145deg, #ffffff, #f8fafc);
             border: 1.5px solid #cbd5e1;
@@ -72,12 +72,10 @@
             transform: translateY(-2px) scale(0.99);
         }
 
-        /* Pulsanti e modali squadrati */
         button, input, select, textarea, .bg-white, .rounded-2xl, .rounded-xl, .rounded-full {
             border-radius: 0px !important;
         }
 
-        /* Animazioni e stile avanzato per i pulsanti Admin */
         .admin-action-card {
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             border: 1.5px solid #334155;
@@ -108,34 +106,34 @@
             transform: scale(0.97);
         }
 
-        /* Nascondi la scrollbar orizzontale su mobile mantenendo lo scorrimento fluido */
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* LOGHI OTTIMIZZATI A SINISTRA (PIÙ GRANDE IL SINISTRO E PIÙ VICINI) */
+        /* LOGHI SPOSTATI AL MASSIMO A SINISTRA E VICINI CON MARGINI NEGATIVI ESTREMI */
         .logo-left-cinthec { 
-            width: 230px !important; 
-            height: 85px !important; 
-            max-height: 85px !important; 
+            width: 240px !important; 
+            height: 90px !important; 
+            max-height: 90px !important; 
             object-fit: contain !important; 
-            margin-left: -12px !important;
+            margin-left: -32px !important;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6)); 
             position: relative;
             z-index: 60;
         }
         .logo-right-leoni { 
-            width: 38px !important; 
-            height: 38px !important; 
-            max-height: 38px !important; 
+            width: 40px !important; 
+            height: 40px !important; 
+            max-height: 40px !important; 
             object-fit: contain !important; 
+            margin-left: -14px !important;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); 
             position: relative;
             z-index: 60;
         }
 
         @media (min-width: 640px) {
-            .logo-left-cinthec { width: 310px !important; height: 110px !important; max-height: 110px !important; margin-left: -18px !important; }
-            .logo-right-leoni { width: 46px !important; height: 46px !important; max-height: 46px !important; }
+            .logo-left-cinthec { width: 330px !important; height: 115px !important; max-height: 115px !important; margin-left: -65px !important; }
+            .logo-right-leoni { width: 48px !important; height: 48px !important; max-height: 48px !important; margin-left: -20px !important; }
             .pro-header { height: 100px; }
         }
     </style>
@@ -143,15 +141,15 @@
 <body class="tech-diagonal-bg text-slate-800 antialiased min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-white">
 
     <header class="pro-header sticky top-0 z-30 flex items-center">
-        <div class="max-w-7xl mx-auto px-2 sm:px-6 w-full flex items-center justify-between">
+        <div class="max-w-7xl mx-auto px-0.5 sm:px-2 w-full flex items-center justify-between">
             
-            <!-- I 2 LOGHI A SINISTRA (PIÙ VICINI E CON IL SINISTRO PIÙ GRANDE) -->
-            <div class="flex items-center gap-1 sm:gap-1.5">
+            <!-- LOGHI ESTREMAMENTE A SINISTRA E VICINI CON SUPPORTO MULTI-ESTENSIONE SICURO -->
+            <div class="flex items-center gap-0">
                 <a href="index.html" class="flex items-center">
-                    <img src="Immagini/Logo.jpeg" alt="CintheC Media Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
+                    <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="logo-left-cinthec" data-base="Immagini/Logo" data-attempt="0" onerror="tryNextExtension(this)">
                 </a>
                 <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="flex items-center">
-                    <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="logo-right-leoni" onerror="this.style.display='none';">
+                    <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="logo-right-leoni" data-base="Immagini/secondo-logo" data-attempt="0" onerror="tryNextExtension(this)">
                 </a>
             </div>
 
@@ -439,6 +437,23 @@
     </footer>
 
     <script>
+        // Funzione di sicurezza per testare automaticamente estensioni multiple (.png, .jpeg, .jpg) nella cartella Immagini
+        function tryNextExtension(img) {
+            let attempts = parseInt(img.dataset.attempt || '0');
+            let base = img.dataset.base;
+            if (!base) {
+                const lastDot = img.src.lastIndexOf('.');
+                base = lastDot !== -1 ? img.src.substring(0, lastDot) : img.src;
+                img.dataset.base = base;
+            }
+            const extensions = ['.png', '.jpeg', '.jpg'];
+            attempts++;
+            if (attempts < extensions.length) {
+                img.dataset.attempt = attempts;
+                img.src = base + extensions[attempts];
+            }
+        }
+
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyJSPDKtM2XMbiGQD1BQmmbafPPqpFTBxMpVwJyPHHFsEuwiBQAplQR6HwPGE5F1TNs/exec";
         let tournamentToDeleteId = null;
 
@@ -728,7 +743,7 @@
             loadTournaments();
         }
 
-        function showSuccessModal(text) { document.getElementById('successModalText').innerText = text; document.getElementById('successModal').classList.add('hidden'); }
+        function showSuccessModal(text) { document.getElementById('successModalText').innerText = text; document.getElementById('successModal').classList.remove('hidden'); }
         function closeSuccessModal() { document.getElementById('successModal').classList.add('hidden'); }
         function filterTournaments() {
             let input = document.getElementById('searchTournament').value.toLowerCase();

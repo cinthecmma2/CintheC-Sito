@@ -45,19 +45,19 @@
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.7), 0 2px 6px rgba(0, 0, 0, 1);
         }
 
-        /* STILE PULSANTI CENTRALI NELL'HEADER (LEGGERMENTE PIÙ GRANDI) */
+        /* STILE PULSANTI CENTRALI NELL'HEADER (MISURE E STILE COERENTI) */
         .nav-center-btn {
             background-color: rgba(24, 24, 27, 0.85);
             border: 1px solid rgba(0, 255, 102, 0.4);
             color: #ffffff;
-            padding: 7px 16px;
-            font-size: 11px;
+            padding: 5px 12px;
+            font-size: 10px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.03em;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             border-radius: 0px !important;
             cursor: pointer;
@@ -79,11 +79,11 @@
             display: none;
             position: absolute;
             background-color: transparent;
-            min-width: 180px;
+            min-width: 170px;
             z-index: 9999;
             left: 50%;
             transform: translateX(-50%);
-            padding-top: 8px;
+            padding-top: 6px;
         }
 
         header .dropdown-content {
@@ -95,7 +95,7 @@
             bottom: 100%;
             top: auto;
             padding-top: 0;
-            padding-bottom: 8px;
+            padding-bottom: 6px;
         }
 
         .dropdown-inner {
@@ -108,12 +108,12 @@
 
         .dropdown-content a {
             color: white;
-            padding: 10px 14px;
+            padding: 8px 12px;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 11px;
+            gap: 6px;
+            font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
             border-radius: 0px !important;
@@ -150,30 +150,30 @@
             width: 300px;
         }
 
-        /* LOGO SINISTRA DEFINITIVO */
+        /* LOGO SINISTRA (MISURE IDENTICHE E PERFETTE) */
         .logo-left-cinthec {
-            width: 400px !important;
-            height: 112px !important;
-            max-height: 112px !important;
+            width: 315px !important;
+            height: 110px !important;
+            max-height: 110px !important;
             object-fit: contain !important;
-            margin-left: -95px !important;
+            margin-left: -32px !important;
             position: relative;
             z-index: 60;
         }
         @media (min-width: 640px) {
             .logo-left-cinthec {
-                width: 530px !important;
-                height: 135px !important;
-                max-height: 135px !important;
-                margin-left: -145px !important;
+                width: 410px !important;
+                height: 132px !important;
+                max-height: 132px !important;
+                margin-left: -45px !important;
             }
         }
 
         /* LOGO DESTRA */
         .logo-right-leoni {
-            width: 50px !important;
-            height: 50px !important;
-            max-height: 50px !important;
+            width: 44px !important;
+            height: 44px !important;
+            max-height: 44px !important;
             object-fit: contain !important;
             margin-right: 0px !important;
             position: relative;
@@ -184,17 +184,17 @@
 <body class="neon-lightning-bg text-zinc-100 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
 
     <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center">
-        <div class="max-w-7xl mx-auto px-2 sm:px-6 w-full flex items-center justify-between relative z-50">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 w-full grid grid-cols-3 items-center relative z-50">
             
             <!-- LOGO SINISTRA -->
             <div class="flex items-center justify-start">
-                <a href="galleria.html" class="flex items-center">
+                <a href="index.html" class="flex items-center">
                     <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                 </a>
             </div>
 
-            <!-- DUE BOTTONI CENTRALI PERFETTAMENTE AL CENTRO DELL'HEADER -->
-            <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center gap-1.5 sm:gap-2 z-50">
+            <!-- DUE BOTTONI CENTRALI (PERFETTAMENTE CENTRATI) -->
+            <div class="flex items-center justify-center gap-2 relative z-50">
                 <a href="index.html" class="nav-center-btn">
                     <i class="fa-solid fa-house text-[#00ff66]"></i> Home
                 </a>
@@ -388,6 +388,7 @@
         </div>
     </section>
 
+    <!-- GALLERIA LIVE CON FOTO AGGIORNATE DALLA CARTELLA NOI -->
     <section class="relative z-10 py-12 px-4 max-w-7xl mx-auto w-full overflow-hidden">
         <div class="text-center mb-10">
             <span class="bg-[#00ff66]/20 text-[#00ff66] text-xs font-bold uppercase px-3 py-1 rounded-none border border-[#00ff66]/30 inline-block mb-2">Momenti Clou</span>
@@ -403,34 +404,34 @@
             <div id="liveCarousel" class="carousel-container py-4 px-2">
                 <div class="flex gap-6 w-max">
                     <div class="carousel-item relative rounded-none overflow-hidden border border-zinc-800 h-64 shadow-xl group">
-                        <img src="atleti/acri.jpg" alt="Acri" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-1.jpg';">
+                        <img src="Noi/acri.jpg" alt="Acri" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-1.jpg';">
                     </div>
                     <div class="carousel-item relative rounded-none overflow-hidden border border-zinc-800 h-64 shadow-xl group">
-                        <img src="atleti/albu.jpg" alt="Albu" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-2.jpg';">
+                        <img src="Noi/albu.jpg" alt="Albu" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-2.jpg';">
                     </div>
                     <div class="carousel-item relative rounded-none overflow-hidden border border-zinc-800 h-64 shadow-xl group">
-                        <img src="atleti/anuji.jpg" alt="Anuji" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-3.jpg';">
+                        <img src="Noi/anuji.jpg" alt="Anuji" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-3.jpg';">
                     </div>
                     <div class="carousel-item relative rounded-none overflow-hidden border border-zinc-800 h-64 shadow-xl group">
-                        <img src="atleti/b-chio.jpg" alt="B. Chio" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-4.jpg';">
+                        <img src="Noi/b-chio.jpg" alt="B. Chio" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-4.jpg';">
                     </div>
                     <div class="carousel-item relative rounded-none overflow-hidden border border-zinc-800 h-64 shadow-xl group">
-                        <img src="atleti/balducci.jpg" alt="Balducci" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-5.jpg';">
+                        <img src="Noi/balducci.jpg" alt="Balducci" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-5.jpg';">
                     </div>
                     <div class="carousel-item relative rounded-none overflow-hidden border border-zinc-800 h-64 shadow-xl group">
-                        <img src="atleti/cappon.jpg" alt="Cappon" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-1.jpg';">
+                        <img src="Noi/cappon.jpg" alt="Cappon" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-1.jpg';">
                     </div>
                     <div class="carousel-item relative rounded-none overflow-hidden border border-zinc-800 h-64 shadow-xl group">
-                        <img src="atleti/drenica.jpg" alt="Drenica" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-2.jpg';">
+                        <img src="Noi/drenica.jpg" alt="Drenica" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-2.jpg';">
                     </div>
                     <div class="carousel-item relative rounded-none overflow-hidden border border-zinc-800 h-64 shadow-xl group">
-                        <img src="atleti/el-medkour.jpg" alt="El Medkour" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-3.jpg';">
+                        <img src="Noi/el-medkour.jpg" alt="El Medkour" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-3.jpg';">
                     </div>
                     <div class="carousel-item relative rounded-none overflow-hidden border border-zinc-800 h-64 shadow-xl group">
-                        <img src="atleti/gassar.jpg" alt="Gassar" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-4.jpg';">
+                        <img src="Noi/gassar.jpg" alt="Gassar" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-4.jpg';">
                     </div>
                     <div class="carousel-item relative rounded-none overflow-hidden border border-zinc-800 h-64 shadow-xl group">
-                        <img src="atleti/lorenzo-pasqualetto.jpg" alt="Lorenzo Pasqualetto" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-5.jpg';">
+                        <img src="Noi/lorenzo-pasqualetto.jpg" alt="Lorenzo Pasqualetto" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-110 brightness-75" onerror="this.onerror=null; this.src='Immagini/galleria-5.jpg';">
                     </div>
                 </div>
             </div>
@@ -454,7 +455,7 @@
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
-    <!-- FOOTER INFERIORE COMPATTO A 3 COLONNE AGGIORNATO -->
+    <!-- FOOTER INFERIORE COMPATTO A 3 COLONNE -->
     <footer class="relative z-10 py-2 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-8">
         <div class="max-w-7xl mx-auto px-3 sm:px-6 grid grid-cols-3 gap-2 items-center text-left">
             
@@ -496,7 +497,6 @@
 
     <script>
         window.onclick = function(event) {
-            // Chiudi i menu a tendina se si clicca fuori
             if (!event.target.closest('.dropdown')) {
                 document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('show'));
             }
@@ -529,7 +529,6 @@
             dropdown.classList.toggle('show');
         }
 
-        // Chiusura automatica dei menu al click su una voce
         document.querySelectorAll('.dropdown-content a').forEach(link => {
             link.addEventListener('click', () => {
                 let dropdown = link.closest('.dropdown');

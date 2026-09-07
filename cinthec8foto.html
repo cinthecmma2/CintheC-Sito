@@ -50,14 +50,14 @@
             background-color: rgba(24, 24, 27, 0.85);
             border: 1px solid rgba(0, 255, 102, 0.4);
             color: #ffffff;
-            padding: 6px 14px;
-            font-size: 11px;
+            padding: 5px 12px;
+            font-size: 10px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.03em;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             border-radius: 0px !important;
             cursor: pointer;
@@ -79,11 +79,11 @@
             display: none;
             position: absolute;
             background-color: transparent;
-            min-width: 190px;
+            min-width: 170px;
             z-index: 9999;
             left: 50%;
             transform: translateX(-50%);
-            padding-top: 8px;
+            padding-top: 6px;
         }
 
         header .dropdown-content {
@@ -101,12 +101,12 @@
 
         .dropdown-content a {
             color: white;
-            padding: 10px 14px;
+            padding: 8px 12px;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 11px;
+            gap: 6px;
+            font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
             border-radius: 0px !important;
@@ -167,29 +167,29 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* LOGO SINISTRA AGGIORNATO CON LE NUOVE MISURE */
+        /* LOGO SINISTRA: LEGGERMENTE PIÙ GRANDE E SPOSTATO LEGGERMENTE PIÙ A SINISTRA */
         .logo-left-cinthec {
-            width: 400px !important;
-            height: 112px !important;
-            max-height: 112px !important;
+            width: 315px !important;
+            height: 110px !important;
+            max-height: 110px !important;
             object-fit: contain !important;
-            margin-left: -95px !important;
+            margin-left: -32px !important;
             position: relative;
             z-index: 60;
         }
         @media (min-width: 640px) {
             .logo-left-cinthec {
-                width: 530px !important;
-                height: 135px !important;
-                max-height: 135px !important;
-                margin-left: -145px !important;
+                width: 410px !important;
+                height: 132px !important;
+                max-height: 132px !important;
+                margin-left: -45px !important;
             }
         }
 
         .logo-right-leoni {
-            width: 50px !important;
-            height: 50px !important;
-            max-height: 50px !important;
+            width: 44px !important;
+            height: 44px !important;
+            max-height: 44px !important;
             object-fit: contain !important;
             margin-right: 0px !important;
             position: relative;
@@ -204,23 +204,20 @@
     </div>
 
     <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center">
-        <div class="max-w-7xl mx-auto px-1 sm:px-6 w-full grid grid-cols-[auto_1fr_auto] items-center relative z-50">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 w-full grid grid-cols-3 items-center relative z-50">
             
-            <!-- LOGO CINTHEC SINISTRA + SCRITTA -->
-            <div class="flex items-center justify-start gap-1 sm:gap-3">
+            <!-- LOGO CINTHEC SINISTRA (Aggiornato: leggermente più grande e leggermente più a sinistra) -->
+            <div class="flex items-center justify-start">
                 <a href="galleria.html" class="flex items-center">
                     <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                 </a>
-                <span class="hidden md:inline-block text-[#00ff66] font-black text-xs sm:text-sm tracking-wider uppercase bg-zinc-900/90 px-3.5 py-2 rounded-none border border-[#00ff66]/40 shadow-lg">
-                    C I N T H E C &nbsp; 8
-                </span>
             </div>
 
-            <!-- DUE BOTTONI CENTRALI (EVENTI CON MENU A TENDINA + TORNA ALLA HOME) -->
-            <div class="flex items-center justify-center gap-1.5 sm:gap-2 relative z-50 px-1">
+            <!-- DUE BOTTONI CENTRALI (PERFETTAMENTE CENTRATI AL 100%) -->
+            <div class="flex items-center justify-center gap-2 relative z-50">
                 <div class="dropdown">
                     <button class="nav-center-btn">
-                        <i class="fa-solid fa-calendar-days text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[9px] ml-1"></i>
+                        <i class="fa-solid fa-calendar-days text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[8px] ml-0.5"></i>
                     </button>
                     <div class="dropdown-content">
                         <div class="dropdown-inner">
@@ -232,7 +229,7 @@
                 </div>
 
                 <a href="galleria.html" class="nav-center-btn">
-                    <i class="fa-solid fa-house text-[#00ff66]"></i> Torna alla home
+                    <i class="fa-solid fa-house text-[#00ff66]"></i> Home
                 </a>
             </div>
 

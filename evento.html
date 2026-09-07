@@ -23,7 +23,7 @@
             background-color: #020503;
             background-image: 
                 linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(2, 5, 3, 0.85)),
-                url('Noi/fulmini-bg.jpeg');
+                url('Immagini/fulmini-bg.jpeg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -50,14 +50,14 @@
             background-color: rgba(24, 24, 27, 0.85);
             border: 1px solid rgba(0, 255, 102, 0.4);
             color: #ffffff;
-            padding: 6px 14px;
-            font-size: 11px;
+            padding: 5px 12px;
+            font-size: 10px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.03em;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             border-radius: 0px !important;
             cursor: pointer;
@@ -79,11 +79,11 @@
             display: none;
             position: absolute;
             background-color: transparent;
-            min-width: 190px;
+            min-width: 170px;
             z-index: 9999;
             left: 50%;
             transform: translateX(-50%);
-            padding-top: 8px;
+            padding-top: 6px;
         }
 
         header .dropdown-content {
@@ -101,12 +101,12 @@
 
         .dropdown-content a {
             color: white;
-            padding: 10px 14px;
+            padding: 8px 12px;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 11px;
+            gap: 6px;
+            font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
             border-radius: 0px !important;
@@ -167,29 +167,29 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* LOGO SINISTRA AGGIORNATO CON LE STESSE MISURE */
+        /* LOGO SINISTRA: MISURE IDENTICHE E POSIZIONE */
         .logo-left-cinthec {
-            width: 400px !important;
-            height: 112px !important;
-            max-height: 112px !important;
+            width: 315px !important;
+            height: 110px !important;
+            max-height: 110px !important;
             object-fit: contain !important;
-            margin-left: -95px !important;
+            margin-left: -32px !important;
             position: relative;
             z-index: 60;
         }
         @media (min-width: 640px) {
             .logo-left-cinthec {
-                width: 530px !important;
-                height: 135px !important;
-                max-height: 135px !important;
-                margin-left: -145px !important;
+                width: 410px !important;
+                height: 132px !important;
+                max-height: 132px !important;
+                margin-left: -45px !important;
             }
         }
 
         .logo-right-leoni {
-            width: 50px !important;
-            height: 50px !important;
-            max-height: 50px !important;
+            width: 44px !important;
+            height: 44px !important;
+            max-height: 44px !important;
             object-fit: contain !important;
             margin-right: 0px !important;
             position: relative;
@@ -204,21 +204,20 @@
     </div>
 
     <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center">
-        <div class="max-w-7xl mx-auto px-1 sm:px-6 w-full grid grid-cols-[auto_1fr_auto] items-center relative z-50">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 w-full grid grid-cols-3 items-center relative z-50">
             
-            <div class="flex items-center justify-start gap-1 sm:gap-3">
+            <!-- LOGO CINTHEC SINISTRA (Preso da Immagini) -->
+            <div class="flex items-center justify-start">
                 <a href="galleria.html" class="flex items-center">
                     <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                 </a>
-                <span class="hidden md:inline-block text-[#00ff66] font-black text-xs sm:text-sm tracking-wider uppercase bg-zinc-900/90 px-3.5 py-2 rounded-none border border-[#00ff66]/40 shadow-lg">
-                    C I N T H E C &nbsp; 9
-                </span>
             </div>
 
-            <div class="flex items-center justify-center gap-1.5 sm:gap-2 relative z-50 px-1">
-                <div class="dropdown" id="eventsDropdown">
-                    <button type="button" class="nav-center-btn" onclick="toggleDropdown(event)">
-                        <i class="fa-solid fa-calendar-days text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[9px] ml-1"></i>
+            <!-- DUE BOTTONI CENTRALI (PERFETTAMENTE CENTRATI AL 100%) -->
+            <div class="flex items-center justify-center gap-2 relative z-50">
+                <div class="dropdown">
+                    <button class="nav-center-btn" onclick="toggleDropdown(event)">
+                        <i class="fa-solid fa-calendar-days text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[8px] ml-0.5"></i>
                     </button>
                     <div class="dropdown-content" id="dropdownContent">
                         <div class="dropdown-inner">
@@ -230,10 +229,11 @@
                 </div>
 
                 <a href="galleria.html" class="nav-center-btn">
-                    <i class="fa-solid fa-house text-[#00ff66]"></i> Torna alla home
+                    <i class="fa-solid fa-house text-[#00ff66]"></i> Home
                 </a>
             </div>
 
+            <!-- LOGO LEONI DI SAN MARCO DESTRA -->
             <div class="flex items-center justify-end">
                 <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="flex items-center">
                     <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="logo-right-leoni" onerror="this.style.display='none';">
@@ -243,6 +243,7 @@
     </header>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10 w-full flex-grow">
+        <!-- SCRITTA GRANDE CINTHEC 9 (VISIBILE SOLO SU MOBILE SOPRA LA FIGHT CARD) -->
         <div class="mb-6 text-center block md:hidden">
             <span class="text-[#00ff66] font-black text-2xl tracking-wider uppercase bg-zinc-950/90 px-6 py-3 border-2 border-[#00ff66]/65 inline-block shadow-2xl">
                 C I N T H E C &nbsp; 9
@@ -265,11 +266,12 @@
 
         <div id="matchesContainer" class="space-y-12">
             
+            <!-- MAIN CARD & MAIN EVENT -->
             <section class="relative">
                 <div class="flex justify-between items-end mb-4 px-2">
                     <div class="border-l-4 border-[#00ff66] pl-4">
                         <h2 class="text-2xl font-black uppercase tracking-tight text-white">Main Card & Main Event</h2>
-                        <p class="text-xs text-zinc-400">Incontri di cartello della serata.</p>
+                        <p class="text-xs text-zinc-400">Incontri di cartello della serata CintheC 9.</p>
                     </div>
                     <div class="flex gap-2">
                         <button onclick="scrollCarousel('mainEventCarousel', -320)" class="bg-zinc-900 hover:bg-[#00ff66] hover:text-black text-white w-9 h-9 rounded-xl border border-zinc-700 flex items-center justify-center transition shadow cursor-pointer"><i class="fa-solid fa-chevron-left text-xs"></i></button>
@@ -288,14 +290,14 @@
                             <div class="flex items-center justify-between gap-2 mb-4">
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/lorenzo-pasqualetto.jpg" alt="Pasqualetto" class="w-full h-full object-cover">
+                                        <img src="Noi/lorenzo-pasqualetto.jpg" alt="Pasqualetto" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Pasqualetto</h3>
                                 </div>
                                 <span class="text-[#00ff66] font-black text-xs">VS</span>
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/pierluigi-de-prospo.jpg" alt="De Prospo" class="w-full h-full object-cover">
+                                        <img src="Noi/pierluigi-de-prospo.jpg" alt="De Prospo" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">De Prospo</h3>
                                 </div>
@@ -322,14 +324,14 @@
                             <div class="flex items-center justify-between gap-2 mb-4">
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/osama-imaoui.jpg" alt="Imaoui" class="w-full h-full object-cover">
+                                        <img src="Noi/osama-imaoui.jpg" alt="Imaoui" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Imaoui</h3>
                                 </div>
                                 <span class="text-[#00ff66] font-black text-xs">VS</span>
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/kush-badgurjan.jpg" alt="Badgurjan" class="w-full h-full object-cover">
+                                        <img src="Noi/kush-badgurjan.jpg" alt="Badgurjan" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Badgurjan</h3>
                                 </div>
@@ -356,14 +358,14 @@
                             <div class="flex items-center justify-between gap-2 mb-4">
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/massimiliano-bello.jpg" alt="Bello" class="w-full h-full object-cover">
+                                        <img src="Noi/massimiliano-bello.jpg" alt="Bello" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Bello</h3>
                                 </div>
                                 <span class="text-[#00ff66] font-black text-xs">VS</span>
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/andrea-gabura.jpg" alt="Gabura" class="w-full h-full object-cover">
+                                        <img src="Noi/andrea-gabura.jpg" alt="Gabura" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Gabura</h3>
                                 </div>
@@ -390,14 +392,14 @@
                             <div class="flex items-center justify-between gap-2 mb-4">
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/matteo-perini.jpg" alt="Perini" class="w-full h-full object-cover">
+                                        <img src="Noi/matteo-perini.jpg" alt="Perini" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Perini</h3>
                                 </div>
                                 <span class="text-[#00ff66] font-black text-xs">VS</span>
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/ivan-castellano.jpg" alt="Castellano" class="w-full h-full object-cover">
+                                        <img src="Noi/ivan-castellano.jpg" alt="Castellano" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Castellano</h3>
                                 </div>
@@ -418,6 +420,7 @@
                 </div>
             </section>
 
+            <!-- PRELIMS CARD -->
             <section class="relative">
                 <div class="flex justify-between items-end mb-4 px-2">
                     <div class="border-l-4 border-zinc-500 pl-4">
@@ -441,14 +444,14 @@
                             <div class="flex items-center justify-between gap-2 mb-4">
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/acri.jpg" alt="Acri" class="w-full h-full object-cover">
+                                        <img src="Noi/acri.jpg" alt="Acri" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Acri</h3>
                                 </div>
                                 <span class="text-[#00ff66] font-black text-xs">VS</span>
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/vigolo.jpg" alt="Vigolo" class="w-full h-full object-cover">
+                                        <img src="Noi/vigolo.jpg" alt="Vigolo" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Vigolo</h3>
                                 </div>
@@ -475,14 +478,14 @@
                             <div class="flex items-center justify-between gap-2 mb-4">
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/la-barca.jpg" alt="La Barca" class="w-full h-full object-cover">
+                                        <img src="Noi/la-barca.jpg" alt="La Barca" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">La Barca</h3>
                                 </div>
                                 <span class="text-[#00ff66] font-black text-xs">VS</span>
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/kuzel.jpg" alt="Kuzel" class="w-full h-full object-cover">
+                                        <img src="Noi/kuzel.jpg" alt="Kuzel" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Kuzel</h3>
                                 </div>
@@ -509,14 +512,14 @@
                             <div class="flex items-center justify-between gap-2 mb-4">
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/furlani.jpg" alt="Furlani" class="w-full h-full object-cover">
+                                        <img src="Noi/furlani.jpg" alt="Furlani" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Furlani</h3>
                                 </div>
                                 <span class="text-[#00ff66] font-black text-xs">VS</span>
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/barbieri.jpg" alt="Barbieri" class="w-full h-full object-cover">
+                                        <img src="Noi/barbieri.jpg" alt="Barbieri" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Barbieri</h3>
                                 </div>
@@ -543,14 +546,15 @@
                             <div class="flex items-center justify-between gap-2 mb-4">
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/mazzonetto.jpg" alt="Mazzonetto" class="w-full h-full object-cover">
+                                        <!-- Aggiornato a mazzonetto.jpeg -->
+                                        <img src="Noi/mazzonetto.jpeg" alt="Mazzonetto" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Mazzonetto</h3>
                                 </div>
                                 <span class="text-[#00ff66] font-black text-xs">VS</span>
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/billal.jpg" alt="Billal" class="w-full h-full object-cover">
+                                        <img src="Noi/billal.jpg" alt="Billal" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Billal</h3>
                                 </div>
@@ -571,6 +575,7 @@
                 </div>
             </section>
 
+            <!-- CARD PRESERALE -->
             <section class="relative">
                 <div class="flex justify-between items-end mb-4 px-2">
                     <div class="border-l-4 border-amber-500 pl-4">
@@ -594,14 +599,14 @@
                             <div class="flex items-center justify-between gap-2 mb-4">
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/tiozzo.jpg" alt="Tiozzo" class="w-full h-full object-cover">
+                                        <img src="Noi/tiozzo.jpg" alt="Tiozzo" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Tiozzo</h3>
                                 </div>
                                 <span class="text-[#00ff66] font-black text-xs">VS</span>
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/riotti.jpg" alt="Riotti" class="w-full h-full object-cover">
+                                        <img src="Noi/riotti.jpg" alt="Riotti" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Riotti</h3>
                                 </div>
@@ -628,14 +633,14 @@
                             <div class="flex items-center justify-between gap-2 mb-4">
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/guduras.jpg" alt="Guduras" class="w-full h-full object-cover">
+                                        <img src="Noi/guduras.jpg" alt="Guduras" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Guduras</h3>
                                 </div>
                                 <span class="text-[#00ff66] font-black text-xs">VS</span>
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/sterniqi.jpg" alt="Sterniqi" class="w-full h-full object-cover">
+                                        <img src="Noi/sterniqi.jpg" alt="Sterniqi" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Sterniqi</h3>
                                 </div>
@@ -662,14 +667,14 @@
                             <div class="flex items-center justify-between gap-2 mb-4">
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/gassar.jpg" alt="Gassar" class="w-full h-full object-cover">
+                                        <img src="Noi/gassar.jpg" alt="Gassar" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Gassar</h3>
                                 </div>
                                 <span class="text-[#00ff66] font-black text-xs">VS</span>
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/mendo.jpg" alt="Mendo" class="w-full h-full object-cover">
+                                        <img src="Noi/mendo.jpg" alt="Mendo" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Mendo</h3>
                                 </div>
@@ -696,14 +701,14 @@
                             <div class="flex items-center justify-between gap-2 mb-4">
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/mihajlo.jpg" alt="Mihajlo" class="w-full h-full object-cover">
+                                        <img src="Noi/mihajlo.jpg" alt="Mihajlo" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Mihajlo</h3>
                                 </div>
                                 <span class="text-[#00ff66] font-black text-xs">VS</span>
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/bazzara.jpg" alt="Bazzara" class="w-full h-full object-cover">
+                                        <img src="Noi/bazzara.jpg" alt="Bazzara" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Bazzara</h3>
                                 </div>
@@ -730,14 +735,14 @@
                             <div class="flex items-center justify-between gap-2 mb-4">
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/colella.jpg" alt="Colella" class="w-full h-full object-cover">
+                                        <img src="Noi/colella.jpg" alt="Colella" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Colella</h3>
                                 </div>
                                 <span class="text-[#00ff66] font-black text-xs">VS</span>
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/toska.jpg" alt="Toska" class="w-full h-full object-cover">
+                                        <img src="Noi/toska.jpg" alt="Toska" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Toska</h3>
                                 </div>
@@ -764,14 +769,14 @@
                             <div class="flex items-center justify-between gap-2 mb-4">
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/albu.jpg" alt="Albu" class="w-full h-full object-cover">
+                                        <img src="Noi/albu.jpg" alt="Albu" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Albu</h3>
                                 </div>
                                 <span class="text-[#00ff66] font-black text-xs">VS</span>
                                 <div class="text-center w-1/2">
                                     <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 shadow-md mb-1.5 bg-zinc-900">
-                                        <img src="Noi/meneghini.jpg" alt="Meneghini" class="w-full h-full object-cover">
+                                        <img src="Noi/meneghini.jpg" alt="Meneghini" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                                     </div>
                                     <h3 class="text-xs font-black text-white athlete-name">Meneghini</h3>
                                 </div>
@@ -795,15 +800,16 @@
         </div>
     </main>
 
-    <section class="relative z-10 py-5 px-4 max-w-5xl mx-auto w-full border-t border-zinc-800/80 mt-10">
-        <div class="text-center mb-3">
-            <h3 class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">I nostri Partner & Sponsor Ufficiali</h3>
+    <section class="relative z-10 py-6 px-4 max-w-5xl mx-auto w-full border-t border-zinc-800/80 mt-12">
+        <div class="text-center mb-4">
+            <h3 class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest">I nostri Partner & Sponsor Ufficiali</h3>
         </div>
-        <div class="bg-white/95 rounded-xl p-2.5 shadow-xl overflow-hidden flex items-center justify-center max-w-2xl mx-auto border border-zinc-300">
-            <img src="Immagini/sponsor.jpg" alt="Sponsor CintheC Media" class="w-full h-auto object-contain max-h-10 filter brightness-95 hover:brightness-100 transition duration-300" onerror="this.style.display='none';">
+        <div class="bg-white/95 rounded-xl p-3 shadow-xl overflow-hidden flex items-center justify-center max-w-2xl mx-auto border border-zinc-300">
+            <img src="Immagini/sponsor.jpg" alt="Sponsor CintheC Media" class="w-full h-auto object-contain max-h-12 filter brightness-95 hover:brightness-100 transition duration-300" onerror="this.style.display='none';">
         </div>
     </section>
 
+    <!-- FOOTER INFERIORE SUPER COMPATTO A 3 COLONNE AGGIORNATO -->
     <footer class="relative z-10 py-2 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-4">
         <div class="max-w-7xl mx-auto px-3 sm:px-6 grid grid-cols-3 gap-2 items-center text-left">
             
