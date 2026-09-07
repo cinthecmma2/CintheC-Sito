@@ -167,33 +167,33 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* DIMENSIONI E PROPORZIONI LOGHI (INGRANDITI E SPOSTATI A SINISTRA) */
+        /* LOGO SINISTRA AGGIORNATO CON LE STESSE MISURE */
         .logo-left-cinthec {
-            width: 210px !important;
-            height: 85px !important;
-            max-height: 85px !important;
+            width: 400px !important;
+            height: 112px !important;
+            max-height: 112px !important;
             object-fit: contain !important;
-            margin-left: -15px !important;
+            margin-left: -95px !important;
             position: relative;
             z-index: 60;
         }
-        .logo-right-leoni {
-            width: 44px !important;
-            height: 44px !important;
-            max-height: 44px !important;
-            object-fit: contain !important;
-            margin-right: 10px !important;
-            position: relative;
-            z-index: 60;
+        @media (min-width: 640px) {
+            .logo-left-cinthec {
+                width: 530px !important;
+                height: 135px !important;
+                max-height: 135px !important;
+                margin-left: -145px !important;
+            }
         }
 
-        @media (max-width: 768px) {
-            .logo-left-cinthec {
-                width: 195px !important;
-                height: 78px !important;
-                max-height: 78px !important;
-                margin-left: -10px !important;
-            }
+        .logo-right-leoni {
+            width: 50px !important;
+            height: 50px !important;
+            max-height: 50px !important;
+            object-fit: contain !important;
+            margin-right: 0px !important;
+            position: relative;
+            z-index: 60;
         }
     </style>
 </head>
@@ -859,7 +859,6 @@
             }
         }
 
-        // Chiude il menu a tendina se si clicca altrove
         window.addEventListener('click', function() {
             const content = document.getElementById('dropdownContent');
             if (content) {

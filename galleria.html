@@ -45,19 +45,19 @@
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.7), 0 2px 6px rgba(0, 0, 0, 1);
         }
 
-        /* STILE PULSANTI CENTRALI NELL'HEADER */
+        /* STILE PULSANTI CENTRALI NELL'HEADER (LEGGERMENTE PIÙ GRANDI) */
         .nav-center-btn {
             background-color: rgba(24, 24, 27, 0.85);
             border: 1px solid rgba(0, 255, 102, 0.4);
             color: #ffffff;
-            padding: 5px 10px;
-            font-size: 10px;
+            padding: 7px 16px;
+            font-size: 11px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             border-radius: 0px !important;
             cursor: pointer;
@@ -123,10 +123,8 @@
         .dropdown-content a:last-child { border-bottom: none; }
         .dropdown-content a:hover { background-color: #00ff66; color: black; }
         
-        /* Classe di controllo JS per mostrare il menu al click su mobile/desktop */
         .dropdown.show .dropdown-content { display: block; }
 
-        /* Su desktop manteniamo anche il comportamento hover di riserva */
         @media (min-width: 1024px) {
             .dropdown:hover .dropdown-content { display: block; }
         }
@@ -135,7 +133,6 @@
             overflow: visible !important;
         }
 
-        /* STILI PER IL CAROSELLO A SCORRIMENTO INFINITO REALE */
         .carousel-container {
             display: flex;
             gap: 1.5rem;
@@ -153,22 +150,32 @@
             width: 300px;
         }
 
-        /* DIMENSIONI E PROPORZIONI ESATTE DEI LOGHI */
+        /* LOGO SINISTRA DEFINITIVO */
         .logo-left-cinthec {
-            width: 160px !important;
-            height: 70px !important;
-            max-height: 70px !important;
+            width: 400px !important;
+            height: 112px !important;
+            max-height: 112px !important;
             object-fit: contain !important;
-            margin-left: -10px !important;
+            margin-left: -95px !important;
             position: relative;
             z-index: 60;
         }
+        @media (min-width: 640px) {
+            .logo-left-cinthec {
+                width: 530px !important;
+                height: 135px !important;
+                max-height: 135px !important;
+                margin-left: -145px !important;
+            }
+        }
+
+        /* LOGO DESTRA */
         .logo-right-leoni {
-            width: 44px !important;
-            height: 44px !important;
-            max-height: 44px !important;
+            width: 50px !important;
+            height: 50px !important;
+            max-height: 50px !important;
             object-fit: contain !important;
-            margin-right: 10px !important;
+            margin-right: 0px !important;
             position: relative;
             z-index: 60;
         }
@@ -177,16 +184,17 @@
 <body class="neon-lightning-bg text-zinc-100 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
 
     <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center">
-        <div class="max-w-7xl mx-auto px-2 sm:px-6 w-full grid grid-cols-3 items-center relative z-50">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 w-full flex items-center justify-between relative z-50">
             
-            <div class="flex items-center justify-start gap-2 sm:gap-3">
+            <!-- LOGO SINISTRA -->
+            <div class="flex items-center justify-start">
                 <a href="galleria.html" class="flex items-center">
                     <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                 </a>
             </div>
 
-            <!-- DUE BOTTONI CENTRALI NELL'HEADER -->
-            <div class="flex items-center justify-center gap-1.5 sm:gap-2 relative z-50">
+            <!-- DUE BOTTONI CENTRALI PERFETTAMENTE AL CENTRO DELL'HEADER -->
+            <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center gap-1.5 sm:gap-2 z-50">
                 <a href="index.html" class="nav-center-btn">
                     <i class="fa-solid fa-house text-[#00ff66]"></i> Home
                 </a>
@@ -204,6 +212,7 @@
                 </div>
             </div>
 
+            <!-- LOGO DESTRA -->
             <div class="flex items-center justify-end">
                 <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="flex items-center">
                     <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="logo-right-leoni" onerror="this.style.display='none';">

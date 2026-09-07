@@ -113,80 +113,56 @@
         .dropdown-content a:hover { background-color: #00ff66; color: black; }
         .dropdown:hover .dropdown-content { display: block; }
 
+        /* LOGO SINISTRA CON LE STESSE MISURE ESATTE */
         .logo-left-cinthec {
-            width: 160px !important;
-            height: 70px !important;
-            max-height: 70px !important;
+            width: 400px !important;
+            height: 112px !important;
+            max-height: 112px !important;
             object-fit: contain !important;
-            margin-left: -10px !important;
+            margin-left: -95px !important;
             position: relative;
             z-index: 60;
         }
-        .logo-right-leoni {
-            width: 44px !important;
-            height: 44px !important;
-            max-height: 44px !important;
-            object-fit: contain !important;
-            margin-right: 10px !important;
-            position: relative;
-            z-index: 60;
+        @media (min-width: 640px) {
+            .logo-left-cinthec {
+                width: 530px !important;
+                height: 135px !important;
+                max-height: 135px !important;
+                margin-left: -145px !important;
+            }
         }
 
-        @keyframes ticker {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .ticker-wrap {
-            overflow: hidden;
-            white-space: nowrap;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            border-top: 1px solid rgba(0, 255, 102, 0.2);
-            border-bottom: 1px solid rgba(0, 255, 102, 0.2);
-            padding: 3px 0;
-        }
-        .ticker-move {
-            display: inline-block;
-            animation: ticker 25s linear infinite;
-        }
-        .ticker-move:hover {
-            animation-play-state: paused;
+        .logo-right-leoni {
+            width: 50px !important;
+            height: 50px !important;
+            max-height: 50px !important;
+            object-fit: contain !important;
+            margin-right: 0px !important;
+            position: relative;
+            z-index: 60;
         }
     </style>
 </head>
 <body class="neon-lightning-bg text-zinc-100 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
 
-    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md flex flex-col">
-        <div class="ticker-wrap text-[10px] font-mono tracking-wider text-zinc-400">
-            <div class="ticker-move">
-                <span class="text-[#00ff66] mx-3"><i class="fa-solid fa-satellite-dish animate-pulse"></i> CINTHEC MEDIA SECURE STREAM</span> &bull; 
-                <span class="text-white mx-3">SERVER STATUS: <strong class="text-[#00ff66]">ONLINE [SECURE_NODE_10]</strong></span> &bull; 
-                <span class="text-zinc-300 mx-3"><i class="fa-solid fa-microchip text-[#00ff66]"></i> ENCRYPTION: AES-256-GCM ACTIVE</span> &bull; 
-                <span class="text-amber-400 mx-3"><i class="fa-solid fa-clock"></i> EVENT SYNC: CINTHEC 10 PREVIEW MODE</span> &bull; 
-                <span class="text-[#00ff66] mx-3"><i class="fa-solid fa-satellite-dish animate-pulse"></i> CINTHEC MEDIA SECURE STREAM</span> &bull; 
-                <span class="text-white mx-3">SERVERSTATUS: <strong class="text-[#00ff66]">ONLINE [SECURE_NODE_10]</strong></span> &bull; 
-                <span class="text-zinc-300 mx-3"><i class="fa-solid fa-microchip text-[#00ff66]"></i> ENCRYPTION: AES-256-GCM ACTIVE</span> &bull; 
-                <span class="text-amber-400 mx-3"><i class="fa-solid fa-clock"></i> EVENT SYNC: CINTHEC 10 PREVIEW MODE</span>
-            </div>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-2 sm:px-6 w-full grid grid-cols-3 items-center relative z-50 py-2 sm:py-3">
-            <!-- LOGO SINISTRA + SCRITTA CINTHEC 10 (VISIBILE SOLO DA PC/SM, NASCOSTA SU MOBILE STRETTO) -->
-            <div class="flex items-center justify-start gap-2 sm:gap-3">
+    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center">
+        <div class="max-w-7xl mx-auto px-1 sm:px-6 w-full grid grid-cols-[auto_1fr_auto] items-center relative z-50">
+            
+            <div class="flex items-center justify-start gap-1 sm:gap-3">
                 <a href="galleria.html" class="flex items-center">
                     <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                 </a>
                 <span class="hidden md:inline-block text-[#00ff66] font-black text-xs sm:text-sm tracking-wider uppercase bg-zinc-900/90 px-3.5 py-2 rounded-none border border-[#00ff66]/40 shadow-lg">
-                    C I N T H E C  10
+                    C I N T H E C &nbsp; 10
                 </span>
             </div>
 
-            <div class="flex items-center justify-center gap-2 relative z-50">
-                <div class="dropdown">
-                    <button class="nav-center-btn">
+            <div class="flex items-center justify-center gap-1.5 sm:gap-2 relative z-50 px-1">
+                <div class="dropdown" id="eventsDropdown">
+                    <button type="button" class="nav-center-btn" onclick="toggleDropdown(event)">
                         <i class="fa-solid fa-calendar-days text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[9px] ml-1"></i>
                     </button>
-                    <div class="dropdown-content">
+                    <div class="dropdown-content" id="dropdownContent">
                         <div class="dropdown-inner">
                             <a href="cinthec8foto.html"><i class="fa-solid fa-bolt text-[#00ff66]"></i> CintheC 8</a>
                             <a href="evento.html"><i class="fa-solid fa-bolt text-[#00ff66]"></i> CintheC 9</a>
@@ -209,7 +185,6 @@
     </header>
 
     <section class="relative z-10 py-12 px-4 max-w-4xl mx-auto w-full text-center flex-grow">
-        <!-- SCRITTA GRANDE CINTHEC 10 SOPRA LA TABELLA (VISIBILE SOLO SU MOBILE) -->
         <div class="mb-6 block md:hidden">
             <span class="text-[#00ff66] font-black text-2xl tracking-wider uppercase bg-zinc-950/90 px-6 py-3 border-2 border-[#00ff66]/65 inline-block shadow-2xl">
                 C I N T H E C &nbsp; 10
@@ -237,7 +212,6 @@
         </div>
     </section>
 
-    <!-- FOOTER INFERIORE COMPATTO -->
     <footer class="relative z-10 py-2 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-4">
         <div class="max-w-7xl mx-auto px-3 sm:px-6 grid grid-cols-3 gap-2 items-center text-left">
             
@@ -276,5 +250,24 @@
             <p>© 2026 CintheC & Leoni di San Marco. Tutti i diritti riservati.</p>
         </div>
     </footer>
+
+    <script>
+        function toggleDropdown(event) {
+            event.stopPropagation();
+            const content = document.getElementById('dropdownContent');
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+            } else {
+                content.style.display = 'block';
+            }
+        }
+
+        window.addEventListener('click', function() {
+            const content = document.getElementById('dropdownContent');
+            if (content) {
+                content.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>

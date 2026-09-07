@@ -333,32 +333,41 @@
             overflow: hidden;
         }
 
-        /* LOGO INGRANDITO E SPOSTATO A SINISTRA (MOLTO GRANDE SU MOBILE) */
+        /* LOGO SINISTRA (CINTHEC) - LEGGERMENTE PIÙ GRANDE E A SINISTRA */
         .logo-left-cinthec {
-            width: 220px !important;
-            height: 90px !important;
-            max-height: 90px !important;
+            width: 280px !important;
+            height: 112px !important;
+            max-height: 112px !important;
             object-fit: contain !important;
-            margin-left: -18px !important;
+            margin-left: -75px !important;
             position: relative;
             z-index: 60;
         }
-        .logo-right-leoni {
-            width: 46px !important;
-            height: 46px !important;
-            max-height: 46px !important;
-            object-fit: contain !important;
-            margin-right: 14px !important;
-            position: relative;
-            z-index: 60;
+        @media (min-width: 768px) {
+            .logo-left-cinthec {
+                width: 320px !important;
+                height: 128px !important;
+                max-height: 128px !important;
+                margin-left: -68px !important;
+            }
         }
 
-        @media (max-width: 768px) {
-            .logo-left-cinthec {
-                width: 235px !important;
-                height: 95px !important;
-                max-height: 95px !important;
-                margin-left: -22px !important;
+        /* LOGO DESTRA (LEONI DI SAN MARCO) */
+        .logo-right-leoni {
+            width: 42px !important;       
+            height: 42px !important;
+            max-height: 42px !important;
+            object-fit: contain !important;
+            margin-right: 10px !important;
+            position: relative;
+            z-index: 60;
+        }
+        @media (min-width: 768px) {
+            .logo-right-leoni {
+                width: 48px !important;   
+                height: 48px !important;
+                max-height: 48px !important;
+                margin-right: 14px !important;
             }
         }
     </style>
@@ -366,7 +375,7 @@
 <body class="site-bg-cuts text-zinc-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
 
     <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center overflow-visible">
-        <div class="max-w-7xl mx-auto px-2 sm:px-4 w-full grid grid-cols-3 items-center relative z-50">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 w-full grid grid-cols-3 items-center relative z-50">
             
             <div class="flex items-center justify-start">
                 <a href="index.html" class="flex items-center">

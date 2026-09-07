@@ -167,34 +167,33 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* DIMENSIONI E PROPORZIONI LOGHI (INGRANDITI) */
+        /* LOGO SINISTRA AGGIORNATO CON LE NUOVE MISURE */
         .logo-left-cinthec {
-            width: 200px !important;
-            height: 80px !important;
-            max-height: 80px !important;
+            width: 400px !important;
+            height: 112px !important;
+            max-height: 112px !important;
             object-fit: contain !important;
-            margin-left: -5px !important;
+            margin-left: -95px !important;
             position: relative;
             z-index: 60;
         }
-        .logo-right-leoni {
-            width: 46px !important;
-            height: 46px !important;
-            max-height: 46px !important;
-            object-fit: contain !important;
-            margin-right: 10px !important;
-            position: relative;
-            z-index: 60;
+        @media (min-width: 640px) {
+            .logo-left-cinthec {
+                width: 530px !important;
+                height: 135px !important;
+                max-height: 135px !important;
+                margin-left: -145px !important;
+            }
         }
 
-        /* REGOLAZIONE PER MOBILE: INGRANDITO E SPOSTATO PIÙ A DESTRA */
-        @media (max-width: 768px) {
-            .logo-left-cinthec {
-                width: 190px !important;
-                height: 78px !important;
-                max-height: 78px !important;
-                margin-left: 0px !important; /* Spostato più a destra su mobile */
-            }
+        .logo-right-leoni {
+            width: 50px !important;
+            height: 50px !important;
+            max-height: 50px !important;
+            object-fit: contain !important;
+            margin-right: 0px !important;
+            position: relative;
+            z-index: 60;
         }
     </style>
 </head>
@@ -213,7 +212,7 @@
                     <img src="Immagini/Logo.png" alt="CintheC Media Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                 </a>
                 <span class="hidden md:inline-block text-[#00ff66] font-black text-xs sm:text-sm tracking-wider uppercase bg-zinc-900/90 px-3.5 py-2 rounded-none border border-[#00ff66]/40 shadow-lg">
-                    C I N T H E C  8
+                    C I N T H E C &nbsp; 8
                 </span>
             </div>
 

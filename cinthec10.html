@@ -166,11 +166,11 @@
             background-color: rgba(20, 20, 24, 0.9);
             border: 1px solid rgba(255, 255, 255, 0.25);
             color: #ffffff;
-            padding: 5px 10px;
-            font-size: 9px;
+            padding: 6px 12px;
+            font-size: 10px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.03em;
             display: inline-flex;
             align-items: center;
             gap: 4px;
@@ -179,10 +179,12 @@
             cursor: pointer;
             position: relative;
             z-index: 60;
+            text-decoration: none !important;
         }
         .mobile-dropdown-btn:hover {
             border-color: #ffffff;
             background-color: rgba(0, 0, 0, 1);
+            color: #00ff66;
         }
 
         .mobile-dropdown-content {
@@ -216,42 +218,61 @@
         .dropdown-content a:hover { background-color: #00ff66; color: black; }
         .mobile-dropdown-content a:hover { background-color: #ffffff; color: black; }
 
-        /* DIMENSIONI E PROPORZIONI ESATTE DEI LOGHI */
+        /* STANDARD DEFINITIVO LOGHI E MISURE */
         .logo-left-cinthec {
-            width: 180px !important;
-            height: 78px !important;
-            max-height: 78px !important;
+            width: 250px !important;
+            height: 100px !important;
+            max-height: 100px !important;
             object-fit: contain !important;
-            margin-left: -10px !important;
+            margin-left: -55px !important;
             position: relative;
             z-index: 60;
         }
+        @media (min-width: 768px) {
+            .logo-left-cinthec {
+                width: 290px !important;
+                height: 115px !important;
+                max-height: 115px !important;
+                margin-left: -45px !important;
+            }
+        }
+
         .logo-right-leoni {
-            width: 46px !important;
-            height: 46px !important;
-            max-height: 46px !important;
+            width: 42px !important;       
+            height: 42px !important;
+            max-height: 42px !important;
             object-fit: contain !important;
-            margin-right: 14px !important;
+            margin-right: 10px !important;
             position: relative;
             z-index: 60;
+        }
+        @media (min-width: 768px) {
+            .logo-right-leoni {
+                width: 48px !important;   
+                height: 48px !important;
+                max-height: 48px !important;
+                margin-right: 14px !important;
+            }
         }
     </style>
 </head>
 <body class="site-bg-cuts text-zinc-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00ff66] selection:text-black">
 
-    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center">
-        <div class="max-w-7xl mx-auto px-1 sm:px-6 w-full grid grid-cols-3 items-center relative z-50">
+    <header class="border-b border-zinc-800 bar-lightning-bg sticky top-0 z-50 shadow-md h-20 sm:h-24 flex items-center overflow-visible">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 w-full grid grid-cols-3 items-center relative z-50">
             
+            <!-- LOGO CINTHEC SINISTRA -->
             <div class="flex items-center justify-start">
                 <a href="index.html" class="flex items-center">
-                    <img src="Immagini/Logo.png" alt="CintheC Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/logo.png';">
+                    <img src="Immagini/Logo.jpeg" alt="CintheC Logo" class="logo-left-cinthec" onerror="this.onerror=null; this.src='Immagini/Logo.png';">
                 </a>
             </div>
 
-            <div class="flex items-center justify-center gap-1.5 w-full relative z-50">
+            <!-- MENU CENTRALE (PERFETTAMENTE CENTRATO) -->
+            <div class="flex items-center justify-center gap-2 w-full relative z-50">
                 <div class="dropdown md:hidden">
-                    <button class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileEventsDropdown')">
-                        <i class="fa-solid fa-trophy text-white"></i> Eventi <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
+                    <button type="button" class="mobile-dropdown-btn w-full justify-center" onclick="toggleDropdown(event, 'mobileEventsDropdown')">
+                        <i class="fa-solid fa-trophy text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
                     </button>
                     <div id="mobileEventsDropdown" class="mobile-dropdown-content">
                         <div class="dropdown-inner">
@@ -263,8 +284,8 @@
                 </div>
 
                 <div class="dropdown md:hidden">
-                    <button class="mobile-dropdown-btn" onclick="toggleDropdown(event, 'mobileMenuDropdown')">
-                        <i class="fa-solid fa-bars text-white"></i> Menu <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
+                    <button type="button" class="mobile-dropdown-btn w-full justify-center" onclick="toggleDropdown(event, 'mobileMenuDropdown')">
+                        <i class="fa-solid fa-bars text-[#00ff66]"></i> Menu <i class="fa-solid fa-chevron-down text-[8px] ml-1"></i>
                     </button>
                     <div id="mobileMenuDropdown" class="mobile-dropdown-content">
                         <div class="dropdown-inner">
@@ -281,7 +302,7 @@
                 <div class="hidden md:flex items-center gap-2 lg:gap-3">
                     <a href="index.html" class="pc-nav-link"><i class="fa-solid fa-house text-[#00ff66]"></i> Home</a>
                     <div class="dropdown">
-                        <button class="nav-dropdown-btn" onclick="toggleDropdown(event, 'pcEventsDropdown')">
+                        <button type="button" class="nav-dropdown-btn" onclick="toggleDropdown(event, 'pcEventsDropdown')">
                             <i class="fa-solid fa-trophy text-[#00ff66]"></i> Eventi <i class="fa-solid fa-chevron-down text-[9px] ml-1"></i>
                         </button>
                         <div id="pcEventsDropdown" class="dropdown-content">
@@ -300,6 +321,7 @@
                 </div>
             </div>
 
+            <!-- LOGO LEONI DI SAN MARCO DESTRA -->
             <div class="flex items-center justify-end">
                 <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="flex items-center">
                     <img src="Immagini/secondo-logo.png" alt="Leoni di San Marco" class="logo-right-leoni" onerror="this.style.display='none';">
@@ -388,7 +410,7 @@
             </div>
 
             <div class="flex flex-col items-center text-center">
-                <h4 class="text-white font-black text-[10px] mb-0.5 uppercase tracking-wider">Note Legali</h4>
+                <a href="iscrizione.html" class="text-white font-black text-[10px] mb-0.5 uppercase tracking-wider hover:text-[#00ff66] transition block">Matchmaking</a>
                 <ul class="flex flex-col gap-0.5 text-[11px] text-zinc-300">
                     <li><a href="privacy.html" class="hover:text-[#00ff66] transition font-medium">Privacy Policy</a></li>
                     <li><a href="note-legali.html" class="hover:text-[#00ff66] transition font-medium">Note Legali</a></li>
