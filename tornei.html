@@ -16,48 +16,59 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Montserrat', sans-serif; background-color: #f8fafc; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #f1f5f9; }
         button, a, input, select, textarea { transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
-        button:active, a.inline-flex:active { transform: scale(0.97) !important; }
+        button:active, a.inline-flex:active { transform: scale(0.96) !important; }
 
         .tech-diagonal-bg {
             background-image: 
-                linear-gradient(135deg, rgba(15, 23, 42, 0.02) 25%, transparent 25%), 
-                linear-gradient(225deg, rgba(15, 23, 42, 0.02) 25%, transparent 25%), 
-                linear-gradient(45deg, rgba(15, 23, 42, 0.02) 25%, transparent 25%), 
-                linear-gradient(315deg, rgba(15, 23, 42, 0.02) 25%, #f8fafc 25%),
-                radial-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+                linear-gradient(135deg, rgba(15, 23, 42, 0.025) 25%, transparent 25%), 
+                linear-gradient(225deg, rgba(15, 23, 42, 0.025) 25%, transparent 25%), 
+                linear-gradient(45deg, rgba(15, 23, 42, 0.025) 25%, transparent 25%), 
+                linear-gradient(315deg, rgba(15, 23, 42, 0.025) 25%, #f1f5f9 25%),
+                radial-gradient(rgba(34, 197, 94, 0.06) 1px, transparent 1px);
             background-size: 40px 40px, 40px 40px, 40px 40px, 40px 40px, 20px 20px;
         }
 
-        .pro-header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-bottom: 1px solid #334155; box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.2); }
+        .pro-header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-bottom: 2px solid #334155; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); }
         .pro-footer-compact { background-color: #0f172a; color: #94a3b8; border-top: 1px solid #1e293b; font-size: 11px; }
 
         .nav-tech-btn {
             background-color: #334155; border: 1px solid #475569; color: #ffffff;
-            padding: 6px 12px; font-size: 10px; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.05em; display: inline-flex; align-items: center; gap: 4px;
+            padding: 6px 14px; font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.05em; display: inline-flex; align-items: center; gap: 5px;
             border-radius: 0px !important; text-decoration: none; white-space: nowrap;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        .nav-tech-btn:hover { border-color: #22c55e; background-color: #0f172a; color: #22c55e; }
+        .nav-tech-btn:hover { border-color: #22c55e; background-color: #0f172a; color: #22c55e; transform: translateY(-1px); }
 
         .admin-pro-btn {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            color: #ffffff; border: 1px solid #475569; padding: 6px 12px;
+            color: #ffffff; border: 1px solid #475569; padding: 6px 14px;
             font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;
-            display: inline-flex; align-items: center; gap: 4px; border-radius: 0px !important; cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15); white-space: nowrap;
+            display: inline-flex; align-items: center; gap: 5px; border-radius: 0px !important; cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25); white-space: nowrap;
         }
-        .admin-pro-btn:hover { background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); border-color: #22c55e; transform: translateY(-1px); }
+        .admin-pro-btn:hover { background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); border-color: #22c55e; transform: translateY(-2px); }
 
-        /* ANGOLI SQUADRATI PER LE CARD DEI TORNEI */
+        /* CARD TORNEI CON EFFETTO 3D SCULPTED & DINAMICHE INTERATTIVE */
         .pro-tournament-card {
-            background: #ffffff; border: 1.5px solid #1e293b; border-radius: 0px !important;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 10px -1px rgba(0,0,0,0.04);
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            border: 1.5px solid #cbd5e1;
+            border-top: 3.5px solid #0f172a;
+            border-radius: 0px !important;
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 12px 30px -6px rgba(15, 23, 42, 0.09), 0 6px 10px -4px rgba(15, 23, 42, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            position: relative;
         }
         .pro-tournament-card:hover {
-            border-color: #22c55e; transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgba(34, 197, 94, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: #22c55e;
+            border-top-color: #22c55e;
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 25px 40px -10px rgba(34, 197, 94, 0.22), 0 12px 18px -6px rgba(15, 23, 42, 0.12), inset 0 1px 0 rgba(255, 255, 255, 1);
+        }
+        .pro-tournament-card:active {
+            transform: translateY(-2px) scale(0.99);
         }
 
         /* Pulsanti e modali squadrati */
@@ -74,13 +85,14 @@
             position: relative;
             overflow: hidden;
             border-radius: 0px !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         .admin-action-card::before {
             content: '';
             position: absolute;
             top: 0; left: -100%;
             width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.15), transparent);
+            background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.2), transparent);
             transition: 0.5s;
         }
         .admin-action-card:hover::before {
@@ -89,7 +101,7 @@
         .admin-action-card:hover {
             border-color: #22c55e;
             transform: translateY(-2px) scale(1.01);
-            box-shadow: 0 10px 25px -5px rgba(34, 197, 94, 0.25);
+            box-shadow: 0 10px 25px -5px rgba(34, 197, 94, 0.3);
         }
         .admin-action-card:active {
             transform: scale(0.97);
@@ -106,7 +118,7 @@
             max-height: 120px !important; 
             object-fit: contain !important; 
             margin-left: -55px !important;
-            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.5)); 
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6)); 
             position: relative;
             z-index: 60;
         }
@@ -115,7 +127,7 @@
             height: 48px !important; 
             max-height: 48px !important; 
             object-fit: contain !important; 
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); 
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4)); 
         }
 
         @media (min-width: 640px) {
@@ -164,7 +176,7 @@
 
         <!-- Barra di Ricerca attiva sia su PC che su Mobile -->
         <div class="max-w-md mx-auto mb-8 sm:mb-10 px-2">
-            <div class="relative shadow-sm overflow-hidden border border-slate-300 bg-white">
+            <div class="relative shadow-md overflow-hidden border border-slate-300 bg-white">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 text-xs">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </span>
@@ -173,17 +185,17 @@
         </div>
 
         <!-- Contenitore Tornei: Carosello orizzontale su Mobile, Griglia reattiva su PC -->
-        <div id="tournamentsGrid" class="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 px-2 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible sm:pb-0 hide-scrollbar"></div>
+        <div id="tournamentsGrid" class="flex overflow-x-auto snap-x snap-mandatory gap-5 pb-6 px-2 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible sm:pb-0 hide-scrollbar"></div>
     </main>
 
     <!-- MODALE DETTAGLI TORNEO -->
-    <div id="detailsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-sm hidden p-4">
+    <div id="detailsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 backdrop-blur-sm hidden p-4">
         <div class="bg-white border border-slate-200 max-w-lg w-full p-6 sm:p-8 relative shadow-2xl text-slate-800 max-h-[90vh] overflow-y-auto">
-            <button onclick="closeDetailsModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-base font-bold w-8 h-8 bg-slate-100 flex items-center justify-center cursor-pointer">
+            <button onclick="closeDetailsModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-base font-bold w-8 h-8 bg-slate-100 flex items-center justify-center cursor-pointer shadow-sm">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <div class="mb-5">
-                <span id="modalTournamentStatus" class="bg-emerald-600 text-white text-[9px] font-extrabold uppercase px-2.5 py-1 inline-block mb-2"></span>
+                <span id="modalTournamentStatus" class="bg-emerald-600 text-white text-[9px] font-extrabold uppercase px-2.5 py-1 inline-block mb-2 shadow-sm"></span>
                 <h3 id="modalTournamentTitle" class="text-xl font-black text-slate-900 uppercase tracking-tight"></h3>
                 <p id="modalTournamentDate" class="text-xs text-emerald-600 font-bold mt-1.5 flex items-center gap-1.5"><i class="fa-regular fa-calendar"></i> <span></span></p>
                 <p id="modalTournamentLocation" class="text-xs text-slate-500 font-semibold mt-1 flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-rose-500"></i> <span></span></p>
@@ -200,14 +212,14 @@
     </div>
 
     <!-- MODALE ADMIN -->
-    <div id="adminModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-sm hidden p-4 overflow-y-auto">
+    <div id="adminModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 backdrop-blur-sm hidden p-4 overflow-y-auto">
         <div class="bg-white border border-slate-200 max-w-md w-full p-6 sm:p-8 relative shadow-2xl text-slate-800 max-h-[90vh] overflow-y-auto my-auto">
-            <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-base font-bold w-8 h-8 bg-slate-100 flex items-center justify-center cursor-pointer">
+            <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-base font-bold w-8 h-8 bg-slate-100 flex items-center justify-center cursor-pointer shadow-sm">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
             <div id="adminLoginStep">
-                <div class="w-12 h-12 bg-slate-900 text-slate-300 flex items-center justify-center mb-4 text-lg shadow-sm">
+                <div class="w-12 h-12 bg-slate-900 text-slate-300 flex items-center justify-center mb-4 text-lg shadow-md">
                     <i class="fa-solid fa-shield-halved"></i>
                 </div>
                 <h3 class="text-lg font-black text-slate-900 mb-1 uppercase tracking-wide">Pannello Organizzatori</h3>
@@ -216,14 +228,19 @@
                 <form onsubmit="handleAdminLogin(event)" class="space-y-3.5">
                     <div>
                         <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Email Amministratore</label>
-                        <input type="email" id="adminEmail" required placeholder="cinthecmma@gmail.com" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs px-3.5 py-3 focus:outline-none focus:border-emerald-500">
+                        <input type="email" id="adminEmail" required placeholder="cinthecmma@gmail.com" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs px-3.5 py-3 focus:outline-none focus:border-emerald-500 shadow-sm">
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Password</label>
-                        <input type="password" id="adminPassword" required placeholder="••••••••" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs px-3.5 py-3 focus:outline-none focus:border-emerald-500">
+                        <div class="relative">
+                            <input type="password" id="adminPassword" required placeholder="••••••••" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs px-3.5 py-3 pr-10 focus:outline-none focus:border-emerald-500 shadow-sm">
+                            <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 px-3 flex items-center text-slate-400 hover:text-slate-700 cursor-pointer">
+                                <i id="togglePasswordIcon" class="fa-solid fa-eye text-xs"></i>
+                            </button>
+                        </div>
                     </div>
                     <div id="loginError" class="text-[11px] font-bold text-rose-600 hidden">Credenziali non valide. Riprova.</div>
-                    <button type="submit" class="w-full bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs uppercase py-3.5 transition shadow-sm cursor-pointer flex items-center justify-center gap-2 mt-2">
+                    <button type="submit" class="w-full bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs uppercase py-3.5 transition shadow-md cursor-pointer flex items-center justify-center gap-2 mt-2">
                         <i class="fa-solid fa-right-to-bracket text-emerald-400"></i> Accedi al Pannello
                     </button>
                 </form>
@@ -291,34 +308,34 @@
                 <form onsubmit="addNewTournament(event)" class="space-y-3.5">
                     <div>
                         <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Nome del Torneo *</label>
-                        <input type="text" id="newTitle" required placeholder="Es. CintheC Cup 2026" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs px-3.5 py-2.5 focus:outline-none focus:border-emerald-500">
+                        <input type="text" id="newTitle" required placeholder="Es. CintheC Cup 2026" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs px-3.5 py-2.5 focus:outline-none focus:border-emerald-500 shadow-sm">
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                             <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Data Evento *</label>
-                            <input type="date" id="newDate" required class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs px-3.5 py-2.5 focus:outline-none focus:border-emerald-500">
+                            <input type="date" id="newDate" required class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs px-3.5 py-2.5 focus:outline-none focus:border-emerald-500 shadow-sm">
                         </div>
                         <div>
                             <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Città *</label>
-                            <input type="text" id="newCity" required placeholder="Es. Venezia" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs px-3.5 py-2.5 focus:outline-none focus:border-emerald-500">
+                            <input type="text" id="newCity" required placeholder="Es. Venezia" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs px-3.5 py-2.5 focus:outline-none focus:border-emerald-500 shadow-sm">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <div class="sm:col-span-2">
                             <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Indirizzo / Via *</label>
-                            <input type="text" id="newAddress" required placeholder="Es. Via Roma" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs px-3.5 py-2.5 focus:outline-none focus:border-emerald-500">
+                            <input type="text" id="newAddress" required placeholder="Es. Via Roma" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs px-3.5 py-2.5 focus:outline-none focus:border-emerald-500 shadow-sm">
                         </div>
                         <div>
                             <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Civico</label>
-                            <input type="text" id="newCivic" placeholder="Es. 12/A" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs px-3.5 py-2.5 focus:outline-none focus:border-emerald-500">
+                            <input type="text" id="newCivic" placeholder="Es. 12/A" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs px-3.5 py-2.5 focus:outline-none focus:border-emerald-500 shadow-sm">
                         </div>
                     </div>
 
                     <div>
                         <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Stato Iniziale</label>
-                        <select id="newStatus" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs px-3.5 py-2.5 focus:outline-none focus:border-emerald-500">
+                        <select id="newStatus" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs px-3.5 py-2.5 focus:outline-none focus:border-emerald-500 shadow-sm">
                             <option value="Prossimamente">Prossimamente</option>
                             <option value="Iscrizioni Aperte">Iscrizioni Aperte</option>
                         </select>
@@ -326,15 +343,15 @@
 
                     <div>
                         <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Descrizione Dettagliata</label>
-                        <textarea id="newDesc" rows="2" placeholder="Dettagli, regolamento o note sull'evento..." class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs px-3.5 py-2.5 focus:outline-none focus:border-emerald-500"></textarea>
+                        <textarea id="newDesc" rows="2" placeholder="Dettagli, regolamento o note sull'evento..." class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs px-3.5 py-2.5 focus:outline-none focus:border-emerald-500 shadow-sm"></textarea>
                     </div>
 
                     <div>
                         <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Locandina / Immagine Evento</label>
-                        <input type="file" id="newPoster" accept="image/*" class="w-full bg-slate-50 border border-slate-300 text-xs px-3 py-2 file:mr-4 file:py-1 file:px-3 file:border-0 file:text-[10px] file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer">
+                        <input type="file" id="newPoster" accept="image/*" class="w-full bg-slate-50 border border-slate-300 text-xs px-3 py-2 file:mr-4 file:py-1 file:px-3 file:border-0 file:text-[10px] file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer shadow-sm">
                     </div>
 
-                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase py-3 transition shadow-sm mt-2 cursor-pointer">
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase py-3 transition shadow-md mt-2 cursor-pointer">
                         Pubblica Torneo Online
                     </button>
                 </form>
@@ -352,18 +369,18 @@
     </div>
 
     <!-- MODALE CONFERMA ELIMINAZIONE -->
-    <div id="confirmDeleteModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-sm hidden p-4">
+    <div id="confirmDeleteModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 backdrop-blur-sm hidden p-4">
         <div class="bg-white border border-slate-200 max-w-sm w-full p-6 text-center shadow-2xl relative text-slate-800">
-            <div class="w-12 h-12 bg-rose-100 text-rose-600 flex items-center justify-center mx-auto mb-3 text-xl">
+            <div class="w-12 h-12 bg-rose-100 text-rose-600 flex items-center justify-center mx-auto mb-3 text-xl shadow-sm">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
             <h3 class="text-base font-black uppercase tracking-tight text-slate-900 mb-1">Conferma Eliminazione</h3>
             <p class="text-xs text-slate-500 mb-5">Sei sicuro di voler eliminare definitivamente questo torneo?</p>
             <div class="grid grid-cols-2 gap-2">
-                <button onclick="closeConfirmModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs uppercase py-2.5 transition cursor-pointer">
+                <button onclick="closeConfirmModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs uppercase py-2.5 transition cursor-pointer shadow-sm">
                     Annulla
                 </button>
-                <button id="confirmDeleteBtn" class="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs uppercase py-2.5 transition cursor-pointer">
+                <button id="confirmDeleteBtn" class="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs uppercase py-2.5 transition cursor-pointer shadow-sm">
                     Elimina
                 </button>
             </div>
@@ -371,14 +388,14 @@
     </div>
 
     <!-- MODALE SUCCESSO -->
-    <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-sm hidden p-4">
+    <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 backdrop-blur-sm hidden p-4">
         <div class="bg-white border border-slate-200 max-w-sm w-full p-6 text-center shadow-2xl relative text-slate-800">
-            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-3 text-xl">
+            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-3 text-xl shadow-sm">
                 <i class="fa-solid fa-check"></i>
             </div>
             <h3 class="text-base font-black uppercase tracking-tight text-slate-900 mb-1">Operazione Riuscita!</h3>
             <p id="successModalText" class="text-xs text-slate-500 mb-5">Modifiche salvate correttamente nel sistema.</p>
-            <button onclick="closeSuccessModal()" class="w-full bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs uppercase py-3 transition cursor-pointer">
+            <button onclick="closeSuccessModal()" class="w-full bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs uppercase py-3 transition shadow-md cursor-pointer">
                 Ottimo, Procedi
             </button>
         </div>
@@ -442,10 +459,10 @@
             grid.innerHTML = '';
 
             tornei.forEach(t => {
-                let badgeColor = "bg-slate-700";
-                if (t.status === "Iscrizioni Aperte") badgeColor = "bg-emerald-600";
-                else if (t.status === "Iscrizioni Chiuse") badgeColor = "bg-amber-600";
-                else if (t.status === "Evento Concluso") badgeColor = "bg-slate-500";
+                let badgeColor = "bg-slate-700 shadow-sm";
+                if (t.status === "Iscrizioni Aperte") badgeColor = "bg-emerald-600 shadow-sm";
+                else if (t.status === "Iscrizioni Chiuse") badgeColor = "bg-amber-600 shadow-sm";
+                else if (t.status === "Evento Concluso") badgeColor = "bg-slate-500 shadow-sm";
 
                 let searchName = (t.title + " " + t.location).toLowerCase();
                 let card = document.createElement('div');
@@ -459,10 +476,10 @@
                 if (hasDesc) {
                     actionHtml = `
                         <div class="grid grid-cols-2 gap-2">
-                            <button onclick='openDetailsModal(${JSON.stringify(t)})' class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-center font-bold text-[10px] uppercase py-2.5 transition flex items-center justify-center gap-1.5 cursor-pointer">
+                            <button onclick='openDetailsModal(${JSON.stringify(t)})' class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-center font-bold text-[10px] uppercase py-2.5 transition flex items-center justify-center gap-1.5 cursor-pointer shadow-sm">
                                 <span>Dettagli</span> <i class="fa-solid fa-arrow-right text-[8px]"></i>
                             </button>
-                            <a href="tornei1.html" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold text-[10px] uppercase py-2.5 transition flex items-center justify-center gap-1.5 shadow-sm">
+                            <a href="tornei1.html" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold text-[10px] uppercase py-2.5 transition flex items-center justify-center gap-1.5 shadow-md">
                                 <i class="fa-solid fa-user-plus text-[9px]"></i> <span>Iscriviti</span>
                             </a>
                         </div>
@@ -470,7 +487,7 @@
                 } else {
                     actionHtml = `
                         <div>
-                            <a href="tornei1.html" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold text-[10px] uppercase py-2.5 transition flex items-center justify-center gap-1.5 shadow-sm block">
+                            <a href="tornei1.html" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold text-[10px] uppercase py-2.5 transition flex items-center justify-center gap-1.5 shadow-md block">
                                 <i class="fa-solid fa-user-plus text-[9px]"></i> <span>Iscriviti al Torneo</span>
                             </a>
                         </div>
@@ -479,9 +496,9 @@
 
                 card.innerHTML = `
                     <div>
-                        <div class="relative h-20 bg-slate-900 flex items-center justify-center border-b border-slate-800">
-                            <span class="text-white text-[10px] font-black uppercase tracking-widest opacity-80"><i class="fa-solid fa-shield-halved text-emerald-400 mr-1.5"></i> CintheC Official</span>
-                            <div class="absolute top-2.5 right-2.5 ${badgeColor} text-white text-[8px] font-extrabold uppercase px-2 py-0.5 shadow-sm">
+                        <div class="relative h-20 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center border-b border-slate-800 shadow-inner">
+                            <span class="text-white text-[10px] font-black uppercase tracking-widest opacity-90"><i class="fa-solid fa-shield-halved text-emerald-400 mr-1.5"></i> CintheC Official</span>
+                            <div class="absolute top-2.5 right-2.5 ${badgeColor} text-white text-[8px] font-extrabold uppercase px-2.5 py-1">
                                 ${t.status}
                             </div>
                         </div>
@@ -542,7 +559,27 @@
             document.getElementById('adminEditFormStep').classList.add('hidden');
             document.getElementById('adminEmail').value = '';
             document.getElementById('adminPassword').value = '';
+            document.getElementById('adminPassword').type = 'password';
+            let toggleIcon = document.getElementById('togglePasswordIcon');
+            if (toggleIcon) {
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
             document.getElementById('loginError').classList.add('hidden');
+        }
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('adminPassword');
+            const toggleIcon = document.getElementById('togglePasswordIcon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
         }
 
         function handleAdminLogin(e) {
@@ -577,20 +614,20 @@
                 let title = card.querySelector('.tournament-title').innerText;
                 let currentBadge = card.querySelector('.absolute.top-2\\.5').innerText.trim();
                 let item = document.createElement('div');
-                item.className = "bg-slate-50 border border-slate-200 p-3.5 flex flex-col gap-2.5";
+                item.className = "bg-slate-50 border border-slate-200 p-3.5 flex flex-col gap-2.5 shadow-sm";
                 item.innerHTML = `
                     <span class="font-bold text-xs text-slate-900">${title}</span>
                     <div class="flex items-center gap-2">
-                        <select id="status-${id}" class="w-full bg-white border border-slate-300 text-slate-800 text-xs px-3 py-2.5 focus:outline-none focus:border-emerald-500">
+                        <select id="status-${id}" class="w-full bg-white border border-slate-300 text-slate-800 text-xs px-3 py-2.5 focus:outline-none focus:border-emerald-500 shadow-sm">
                             <option value="Iscrizioni Aperte" ${currentBadge === 'Iscrizioni Aperte' ? 'selected' : ''}>Aperte</option>
                             <option value="Iscrizioni Chiuse" ${currentBadge === 'Iscrizioni Chiuse' ? 'selected' : ''}>Chiuse</option>
                             <option value="Prossimamente" ${currentBadge === 'Prossimamente' ? 'selected' : ''}>Prossimamente</option>
                             <option value="Evento Concluso" ${currentBadge === 'Evento Concluso' ? 'selected' : ''}>Concluso</option>
                         </select>
-                        <button onclick="updateTournamentStatus('${id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase px-3.5 py-2.5 cursor-pointer whitespace-nowrap" title="Salva Stato">
+                        <button onclick="updateTournamentStatus('${id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase px-3.5 py-2.5 cursor-pointer whitespace-nowrap shadow-sm" title="Salva Stato">
                             <i class="fa-solid fa-floppy-disk"></i>
                         </button>
-                        <button onclick="confirmDeleteTournament('${id}')" class="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs uppercase px-3.5 py-2.5 cursor-pointer whitespace-nowrap" title="Elimina Torneo">
+                        <button onclick="confirmDeleteTournament('${id}')" class="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs uppercase px-3.5 py-2.5 cursor-pointer whitespace-nowrap shadow-sm" title="Elimina Torneo">
                             <i class="fa-solid fa-trash-can"></i>
                         </button>
                     </div>
