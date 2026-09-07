@@ -378,23 +378,23 @@
             { 
                 title: "Pesi Piuma", 
                 weight: "65,8 kg (145 lbs)", 
-                champion: { name: "Oussama Rachki", img: "ranking/Osama.jpg", record: "4-4-0" },
+                champion: { name: "Oussama Rachki", img: "ranking/Osama.jpg", record: "4-4-0", movement: "" },
                 fighters: [
-                    { name: "Andrea Togni", img: "ranking/togni.jpg", record: "3-0-0" },
-                    { name: "Massimiliano Bello", img: "ranking/bello.jpg", record: "14-3-0" },
-                    { name: "Giovanni Parmentola", img: "ranking/parmentola.jpeg", record: "16-9-0" },
-                    { name: "Federico Frigerio", img: "ranking/frigerio.jpg", record: "4-0-0" },
-                    { name: "Francesco Perini", img: "ranking/perini10.jpg", record: "5-1-0" },
-                    { name: "Matteo Perini", img: "ranking/perini3.jpg", record: "3-1-0" },
-                    { name: "Umberto Bagni", img: "ranking/umberto-bagni.jpg", record: "2-0-0" },
-                    { name: "Davide Pagotto", img: "ranking/pagotto.jpg", record: "7-8-0" },
-                    { name: "Luca D'Acosta", img: "ranking/costa.jpg", record: "1-2-0" },
-                    { name: "Natay Gurnioli", img: "atleti/logo.png", record: "0-2-0" },
-                    { name: "Andrei Gabura", img: "ranking/gabura1.jpg", record: "1-3-0" },
-                    { name: "Andrea Piccinini", img: "ranking/piccini.jpg", record: "0-6-0" },
-                    { name: "Atleta 13", img: "atleti/logo.png", record: "0-0-0" },
-                    { name: "Atleta 14", img: "atleti/logo.png", record: "0-0-0" },
-                    { name: "Atleta 15", img: "atleti/logo.png", record: "0-0-0" }
+                    { name: "Andrea Togni", img: "ranking/togni.jpg", record: "3-0-0", movement: "+1" },
+                    { name: "Massimiliano Bello", img: "ranking/bello.jpg", record: "14-3-0", movement: "-1" },
+                    { name: "Giovanni Parmentola", img: "ranking/parmentola.jpeg", record: "16-9-0", movement: "+2" },
+                    { name: "Federico Frigerio", img: "ranking/frigerio.jpg", record: "4-0-0", movement: "0" },
+                    { name: "Francesco Perini", img: "ranking/perini10.jpg", record: "5-1-0", movement: "-2" },
+                    { name: "Matteo Perini", img: "ranking/perini3.jpg", record: "3-1-0", movement: "+1" },
+                    { name: "Umberto Bagni", img: "ranking/umberto-bagni.jpg", record: "2-0-0", movement: "0" },
+                    { name: "Davide Pagotto", img: "ranking/pagotto.jpg", record: "7-8-0", movement: "-1" },
+                    { name: "Luca D'Acosta", img: "ranking/costa.jpg", record: "1-2-0", movement: "+3" },
+                    { name: "Natay Gurnioli", img: "atleti/logo.png", record: "0-2-0", movement: "NEW" },
+                    { name: "Andrei Gabura", img: "ranking/gabura1.jpg", record: "1-3-0", movement: "-1" },
+                    { name: "Andrea Piccinini", img: "ranking/piccini.jpg", record: "0-6-0", movement: "-2" },
+                    { name: "Atleta 13", img: "atleti/logo.png", record: "0-0-0", movement: "" },
+                    { name: "Atleta 14", img: "atleti/logo.png", record: "0-0-0", movement: "" },
+                    { name: "Atleta 15", img: "atleti/logo.png", record: "0-0-0", movement: "" }
                 ]
             },
             { 
@@ -462,17 +462,34 @@
                     let fighterName = typeof fighter === 'object' ? fighter.name : fighter;
                     let fighterImg = typeof fighter === 'object' ? fighter.img : 'atleti/logo.png';
                     let fighterRecord = typeof fighter === 'object' && fighter.record ? fighter.record : '0-0-0';
+                    let fighterMovement = typeof fighter === 'object' && fighter.movement ? fighter.movement : '';
                     
+                    let movementBadgeHtml = '';
+                    if (fighterMovement) {
+                        if (fighterMovement.startsWith('+')) {
+                            let num = fighterMovement.replace('+', '');
+                            movementBadgeHtml = `<span class="text-[9px] font-extrabold flex items-center gap-0.5 text-emerald-600"><i class="fa-solid fa-caret-up text-[10px]"></i><span class="text-black">${num}</span></span>`;
+                        } else if (fighterMovement.startsWith('-')) {
+                            let num = fighterMovement.replace('-', '');
+                            movementBadgeHtml = `<span class="text-[9px] font-extrabold flex items-center gap-0.5 text-rose-600"><i class="fa-solid fa-caret-down text-[10px]"></i><span class="text-black">${num}</span></span>`;
+                        } else if (fighterMovement === 'NEW') {
+                            movementBadgeHtml = `<span class="text-[9px] font-extrabold text-amber-500">NEW</span>`;
+                        }
+                    }
+
                     fightersListHtml += `
                         <div class="flex items-center justify-between py-2 px-3 border-b border-zinc-100">
-                            <div class="flex items-center gap-2.5 w-full overflow-hidden">
+                            <div class="flex items-center gap-2 w-full overflow-hidden">
                                 <span class="text-xs font-black text-black w-5 text-center shrink-0">${i + 1}</span>
                                 <div class="w-7 h-7 rounded-full overflow-hidden bg-zinc-200 border border-zinc-300 shrink-0 cursor-pointer hover:scale-110 transition shadow-sm" onclick="openImageModal('${fighterImg}', '${fighterName}')" title="Clicca per ingrandire">
                                     <img src="${fighterImg}" class="w-full h-full object-cover" onerror="this.src='Immagini/Logo.png'">
                                 </div>
-                                <div class="flex items-center justify-between w-full min-w-0 pl-1">
-                                    <span class="text-xs font-bold text-zinc-800 truncate pr-2">${fighterName}</span>
-                                    <span class="text-[9px] font-extrabold text-zinc-600 bg-zinc-100 px-1.5 py-0.5 rounded border border-zinc-200 shrink-0 whitespace-nowrap">${fighterRecord}</span>
+                                <div class="flex items-center justify-between w-full min-w-0 pl-1 gap-1">
+                                    <span class="text-xs font-bold text-zinc-800 truncate">${fighterName}</span>
+                                    <div class="flex items-center gap-1.5 shrink-0">
+                                        <span class="text-[9px] font-extrabold text-zinc-600 bg-zinc-100 px-1.5 py-0.5 rounded border border-zinc-200 whitespace-nowrap">${fighterRecord}</span>
+                                        ${movementBadgeHtml}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -506,8 +523,8 @@
                                 <div class="w-full h-32 rounded-lg overflow-hidden border border-amber-400/60 shadow-sm mb-2 bg-zinc-200 cursor-pointer hover:opacity-95 transition" onclick="openImageModal('${cat.champion.img}', '${cat.champion.name} (Champion)')" title="Clicca per ingrandire">
                                     <img src="${cat.champion.img}" class="w-full h-full object-cover" onerror="this.src='Immagini/Logo.png'">
                                 </div>
-                                <div class="bg-white p-2 rounded-lg border border-zinc-200 flex items-center justify-between">
-                                    <h3 class="text-[11px] font-black text-zinc-900 uppercase tracking-tight truncate pr-1">${cat.champion.name}</h3>
+                                <div class="bg-white p-2 rounded-lg border border-zinc-200 flex items-center justify-between gap-1">
+                                    <h3 class="text-[11px] font-black text-zinc-900 uppercase tracking-tight truncate">${cat.champion.name}</h3>
                                     <span class="text-[9px] font-extrabold text-zinc-600 bg-zinc-100 px-1.5 py-0.5 rounded border border-zinc-200 shrink-0">${championRecord}</span>
                                 </div>
                             </div>
