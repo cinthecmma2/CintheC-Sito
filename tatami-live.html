@@ -17,7 +17,6 @@
     <style>
         body { font-family: 'Montserrat', sans-serif; background-color: #0f172a; color: #f8fafc; }
         
-        /* Stile 3D Squadrato Universale */
         .pro-3d-card { 
             background: #1e293b; 
             border: 2px solid #334155; 
@@ -33,6 +32,7 @@
 
         .match-card { background: #1e293b; border: 2px solid #334155; border-radius: 0px !important; box-shadow: 4px 4px 0px 0px #334155; transition: all 0.2s ease; }
         .match-card.active { border-color: #eab308; box-shadow: 4px 4px 0px 0px #eab308; }
+        .match-card.fighting { border-color: #10b981; box-shadow: 4px 4px 0px 0px #10b981; }
         
         button, input, select, textarea { border-radius: 0px !important; }
 
@@ -168,14 +168,14 @@
                 </div>
             </div>
 
-            <div id="activeMatchContainer" class="match-card active p-3 sm:p-4 space-y-2.5">
+            <div id="activeMatchContainer" class="match-card active p-3 sm:p-4 space-y-3">
                 <div class="flex flex-col sm:flex-row items-center justify-between border-b-2 border-slate-700/80 pb-2 gap-2">
                     <div>
                         <span id="matchTurnoBadge" class="bg-yellow-500 text-slate-950 font-black text-[9px] px-2 py-0.5 border border-yellow-600 uppercase tracking-wider inline-block mb-0.5">Turno</span>
                         <h2 id="matchCategoriaTitle" class="text-xs sm:text-sm font-black uppercase text-yellow-400 tracking-wide">Categoria</h2>
                     </div>
                     <div class="flex items-center gap-2 flex-wrap justify-end">
-                        <button onclick="posticipaMatchCorrente()" class="bg-amber-600 hover:bg-amber-500 text-white text-[9px] font-extrabold uppercase px-2.5 py-1 border-2 border-amber-700 shadow transition cursor-pointer flex items-center gap-1">
+                        <button id="btnPosticipaMatch" onclick="posticipaMatchCorrente()" class="bg-amber-600 hover:bg-amber-500 text-white text-[9px] font-extrabold uppercase px-2.5 py-1 border-2 border-amber-700 shadow transition cursor-pointer flex items-center gap-1">
                             <i class="fa-solid fa-clock-rotate-left"></i> Posticipa
                         </button>
 
@@ -194,28 +194,40 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
-                    <div class="bg-slate-900/90 border-2 border-slate-700 p-2.5 flex items-center justify-between gap-2 shadow-inner">
+                <!-- GRIGLIA ATLETI E PULSANTE START CENTRALE -->
+                <div class="grid grid-cols-1 md:grid-cols-7 gap-2.5 items-center">
+                    
+                    <!-- Atleta 1 -->
+                    <div class="md:col-span-3 bg-slate-900/90 border-2 border-slate-700 p-3 flex items-center justify-between gap-2 shadow-inner">
                         <div class="overflow-hidden pr-1">
                             <span class="text-[8px] font-bold text-slate-400 uppercase tracking-widest block">Atleta 1</span>
                             <h3 id="atleta1Nome" class="text-xs font-black text-white truncate">---</h3>
                             <p id="atleta1Team" class="text-[10px] text-yellow-400 font-bold truncate">---</p>
                         </div>
-                        <button onclick="registraVittoriaLive(1)" class="bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-black text-[10px] uppercase px-3 py-2 border-2 border-yellow-600 shadow transition cursor-pointer flex items-center gap-1 shrink-0">
+                        <button id="btnWin1" onclick="registraVittoriaLive(1)" class="bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-black text-[10px] uppercase px-3 py-2 border-2 border-yellow-600 shadow transition cursor-pointer flex items-center gap-1 shrink-0">
                             <i class="fa-solid fa-trophy"></i> <b>VINCE</b>
                         </button>
                     </div>
 
-                    <div class="bg-slate-900/90 border-2 border-slate-700 p-2.5 flex items-center justify-between gap-2 shadow-inner">
+                    <!-- Pulsante START Centrale -->
+                    <div class="md:col-span-1 flex flex-col items-center justify-center">
+                        <button id="btnStartMatch" onclick="avviaIncontroCorrente()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs uppercase py-3 px-2 border-2 border-emerald-700 shadow-md transition cursor-pointer flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-play" id="startIconBtn"></i> <span id="startTextBtn">START</span>
+                        </button>
+                    </div>
+
+                    <!-- Atleta 2 -->
+                    <div class="md:col-span-3 bg-slate-900/90 border-2 border-slate-700 p-3 flex items-center justify-between gap-2 shadow-inner">
                         <div class="overflow-hidden pr-1">
                             <span class="text-[8px] font-bold text-slate-400 uppercase tracking-widest block">Atleta 2</span>
                             <h3 id="atleta2Nome" class="text-xs font-black text-white truncate">---</h3>
                             <p id="atleta2Team" class="text-[10px] text-yellow-400 font-bold truncate">---</p>
                         </div>
-                        <button onclick="registraVittoriaLive(2)" class="bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-black text-[10px] uppercase px-3 py-2 border-2 border-yellow-600 shadow transition cursor-pointer flex items-center gap-1 shrink-0">
+                        <button id="btnWin2" onclick="registraVittoriaLive(2)" class="bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-black text-[10px] uppercase px-3 py-2 border-2 border-yellow-600 shadow transition cursor-pointer flex items-center gap-1 shrink-0">
                             <i class="fa-solid fa-trophy"></i> <b>VINCE</b>
                         </button>
                     </div>
+
                 </div>
             </div>
 
@@ -495,6 +507,7 @@
                                             matchData: sm.matchData,
                                             partecipanti: p.data ? p.data.partecipanti : [],
                                             completato: false,
+                                            avviato: false,
                                             vincitore: null
                                         });
                                     });
@@ -506,6 +519,7 @@
                                             matchData: m,
                                             partecipanti: p.data.partecipanti || [],
                                             completato: false,
+                                            avviato: false,
                                             vincitore: null
                                         });
                                     });
@@ -537,6 +551,7 @@
                                         matchData: sm.matchData,
                                         partecipanti: p.data ? p.data.partecipanti : [],
                                         completato: false,
+                                        avviato: false,
                                         vincitore: null
                                     });
                                 });
@@ -548,6 +563,7 @@
                                         matchData: m,
                                         partecipanti: p.data.partecipanti || [],
                                         completato: false,
+                                        avviato: false,
                                         vincitore: null
                                     });
                                 });
@@ -573,9 +589,69 @@
             renderCodeETabArchivio();
         }
 
+        function verificaImpegnoAtletaAltove(atleta) {
+            if (!atleta || !atleta.nome) return null;
+            let nomeAtletaCercato = atleta.nome.toLowerCase().trim();
+
+            for (let t = 1; t <= 8; t++) {
+                if (Number(t) === Number(currentTatamiId)) continue;
+                let queueStr = localStorage.getItem(`tatami_${t}_fixed_queue`);
+                let idxStr = localStorage.getItem(`tatami_${t}_index`);
+                if (queueStr) {
+                    try {
+                        let queue = JSON.parse(queueStr);
+                        let tIdx = idxStr !== null ? parseInt(idxStr) : 0;
+                        if (tIdx < queue.length) {
+                            let matchInCorsoAltrui = queue[tIdx];
+                            if (!matchInCorsoAltrui.completato) {
+                                let a1Name = (matchInCorsoAltrui.matchData.a1.nome || "").toLowerCase().trim();
+                                let a2Name = (matchInCorsoAltrui.matchData.a2.nome || "").toLowerCase().trim();
+                                if (a1Name === nomeAtletaCercato || a2Name === nomeAtletaCercato) {
+                                    return `Tatami ${t}`;
+                                }
+                            }
+                        }
+                    } catch(e) {}
+                }
+            }
+            return null;
+        }
+
+        function avviaIncontroCorrente() {
+            if (currentIndex >= tatamiAssignedItems.length) return;
+            let item = tatamiAssignedItems[currentIndex];
+
+            let alt1Impegnato = verificaImpegnoAtletaAltove(item.matchData.a1);
+            let alt2Impegnato = verificaImpegnoAtletaAltove(item.matchData.a2);
+
+            if (alt1Impegnato || alt2Impegnato) {
+                let nomeImpegnato = alt1Impegnato ? item.matchData.a1.nome : item.matchData.a2.nome;
+                let tatamiBloccato = alt1Impegnato || alt2Impegnato;
+                showToast(`Attenzione: ${nomeImpegnato} è attualmente impegnato sul ${tatamiBloccato}!`);
+                return;
+            }
+
+            item.avviato = true;
+            localStorage.setItem(`tatami_${currentTatamiId}_fixed_queue`, JSON.stringify(tatamiAssignedItems));
+
+            if (!isTimerRunning) {
+                toggleMatchTimer();
+            }
+
+            renderMatchCorrente();
+            renderCodeETabArchivio();
+            showToast("Match avviato! Incontro in corso sul tatami.");
+        }
+
         function posticipaMatchCorrente() {
             if (currentIndex >= tatamiAssignedItems.length) return;
             
+            let item = tatamiAssignedItems[currentIndex];
+            if (item.avviato) {
+                showToast("Impossibile posticipare: l'incontro è già in corso (avviato)!");
+                return;
+            }
+
             let matchDaPosticipare = tatamiAssignedItems[currentIndex];
             let categoriaCorrente = matchDaPosticipare.categoria;
             let matchIdCorrente = matchDaPosticipare.matchId;
@@ -634,6 +710,8 @@
             let a1Team = document.getElementById('atleta1Team');
             let a2Name = document.getElementById('atleta2Nome');
             let a2Team = document.getElementById('atleta2Team');
+            let activeCardBox = document.getElementById('activeMatchContainer');
+            let btnPosticipa = document.getElementById('btnPosticipaMatch');
 
             if(turnBadge) turnBadge.innerText = item.matchId;
             if(catTitle) catTitle.innerText = item.categoria;
@@ -644,6 +722,38 @@
 
             if(a2Name) a2Name.innerText = item.matchData.a2.nome;
             if(a2Team) a2Team.innerText = item.matchData.a2.team || "-";
+
+            let btnStart = document.getElementById('btnStartMatch');
+            let startIcon = document.getElementById('startIconBtn');
+            let startText = document.getElementById('startTextBtn');
+
+            if (item.avviato) {
+                if(btnStart) {
+                    btnStart.disabled = true;
+                    btnStart.className = "w-full bg-slate-800 text-emerald-400 font-black text-xs uppercase py-3 px-2 border-2 border-slate-700 shadow-inner flex items-center justify-center gap-1.5 opacity-90 cursor-not-allowed";
+                }
+                if(startIcon) startIcon.className = "fa-solid fa-circle-check";
+                if(startText) startText.innerText = "IN CORSO";
+                if(activeCardBox) activeCardBox.className = "match-card fighting p-3 sm:p-4 space-y-3";
+
+                if(btnPosticipa) {
+                    btnPosticipa.disabled = true;
+                    btnPosticipa.className = "bg-slate-700 text-slate-400 text-[9px] font-extrabold uppercase px-2.5 py-1 border-2 border-slate-600 cursor-not-allowed flex items-center gap-1";
+                }
+            } else {
+                if(btnStart) {
+                    btnStart.disabled = false;
+                    btnStart.className = "w-full bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs uppercase py-3 px-2 border-2 border-emerald-700 shadow-md transition cursor-pointer flex items-center justify-center gap-1.5";
+                }
+                if(startIcon) startIcon.className = "fa-solid fa-play";
+                if(startText) startText.innerText = "START";
+                if(activeCardBox) activeCardBox.className = "match-card active p-3 sm:p-4 space-y-3";
+
+                if(btnPosticipa) {
+                    btnPosticipa.disabled = false;
+                    btnPosticipa.className = "bg-amber-600 hover:bg-amber-500 text-white text-[9px] font-extrabold uppercase px-2.5 py-1 border-2 border-amber-700 shadow transition cursor-pointer flex items-center gap-1";
+                }
+            }
         }
 
         function renderCodeETabArchivio() {
@@ -665,7 +775,7 @@
                 let isCurrent = (idx === currentIndex);
                 let isDone = item.completato === true;
 
-                let minutesOffset = (idx - currentIndex) * 8; // Aggiornato a 8 minuti
+                let minutesOffset = (idx - currentIndex) * 8;
                 if (minutesOffset < 0) minutesOffset = 0;
                 let estimatedTime = new Date(baseTime.getTime() + minutesOffset * 60000);
                 let timeString = estimatedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -687,7 +797,16 @@
                     `;
                 } else {
                     let styleCurrent = isCurrent ? 'bg-slate-900 border-yellow-500 text-white font-bold shadow' : 'bg-slate-900/40 border-slate-800 text-slate-300';
-                    let badgeCurrent = isCurrent ? '<span class="text-[9px] bg-emerald-600/30 text-emerald-400 px-1.5 py-0.5 border border-emerald-500/30 font-black shrink-0">In Corso</span>' : `<span class="text-[9px] bg-slate-800 text-yellow-400 border-2 border-slate-700 px-1.5 py-0.5 font-bold shrink-0"><i class="fa-regular fa-clock mr-1"></i>~${timeString}</span>`;
+                    let badgeCurrent = "";
+                    if (isCurrent) {
+                        if (item.avviato) {
+                            badgeCurrent = '<span class="text-[9px] bg-emerald-600/30 text-emerald-400 px-1.5 py-0.5 border border-emerald-500/30 font-black shrink-0">In Corso</span>';
+                        } else {
+                            badgeCurrent = '<span class="text-[9px] bg-amber-500/20 text-amber-400 px-1.5 py-0.5 border border-amber-500/40 font-black shrink-0">In Attesa (Pronto)</span>';
+                        }
+                    } else {
+                        badgeCurrent = `<span class="text-[9px] bg-slate-800 text-yellow-400 border-2 border-slate-700 px-1.5 py-0.5 font-bold shrink-0"><i class="fa-regular fa-clock mr-1"></i>~${timeString}</span>`;
+                    }
 
                     codaContainer.innerHTML += `
                         <div class="flex items-center justify-between p-2 border-2 ${styleCurrent} text-[11px] gap-2">
@@ -715,14 +834,17 @@
         function registraVittoriaLive(atletaNum) {
             if (currentIndex >= tatamiAssignedItems.length) return;
 
+            let item = tatamiAssignedItems[currentIndex];
+            let atletaSelezionato = atletaNum === 1 ? item.matchData.a1 : item.matchData.a2;
+            
             resetMatchTimer();
 
-            let item = tatamiAssignedItems[currentIndex];
-            let vincitoreObj = atletaNum === 1 ? item.matchData.a1 : item.matchData.a2;
+            let vincitoreObj = atletaSelezionato;
             let vincitoreNome = vincitoreObj.nome;
             let vincitoreTeam = vincitoreObj.team;
 
             item.completato = true;
+            item.avviato = false;
             item.vincitore = vincitoreNome;
 
             mostraModalVittoria(vincitoreNome, vincitoreTeam);
@@ -788,16 +910,6 @@
                 `;
             }
             renderCodeETabArchivio();
-        }
-    </script>
-
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                .then(reg => console.log('Service Worker registrato correttamente su Tatami Live!'))
-                .catch(err => console.log('Errore di registrazione Service Worker:', err));
-            });
         }
     </script>
 </body>

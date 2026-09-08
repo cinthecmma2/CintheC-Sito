@@ -31,6 +31,11 @@
             border-radius: 0px !important;
             box-shadow: 4px 4px 0px 0px #eab308;
         }
+
+        .active-match-box.fighting {
+            border-color: #10b981;
+            box-shadow: 4px 4px 0px 0px #10b981;
+        }
         
         button, input, select, textarea { border-radius: 0px !important; }
 
@@ -85,7 +90,7 @@
             aggiornaOrologio();
             setInterval(aggiornaOrologio, 1000);
             renderPalazzettoPanoramica();
-            setInterval(renderPalazzettoPanoramica, 3000); // Sincronizzazione automatica ogni 3 secondi
+            setInterval(renderPalazzettoPanoramica, 1000); // Sincronizzazione al secondo per START e VINCE
         });
 
         function aggiornaOrologio() {
@@ -143,9 +148,7 @@
                         }
                     });
                 }
-            } catch(e) {
-                console.error("Errore recupero distribuzione tatami:", e);
-            }
+            } catch(e) {}
 
             if (queueItems.length === 0) {
                 try {
@@ -156,6 +159,17 @@
                 } catch(e) {}
             } else {
                 try {
+                    let savedQueue = localStorage.getItem(`tatami_${tId}_fixed_queue`);
+                    if (savedQueue) {
+                        let parsedSaved = JSON.parse(savedQueue);
+                        // Mantieni lo stato di completamento e vincitori se già salvato nella coda live
+                        queueItems.forEach((newItem, idx) => {
+                            if (parsedSaved[idx] && parsedSaved[idx].completato) {
+                                newItem.completato = true;
+                                newItem.vincitore = parsedSaved[idx].vincitore;
+                            }
+                        });
+                    }
                     localStorage.setItem(`tatami_${tId}_fixed_queue`, JSON.stringify(queueItems));
                 } catch(e) {}
             }
@@ -187,7 +201,6 @@
                 }
             }
 
-            // Memorizza la posizione di scroll attuale di ogni coda prima del rendering
             let scrollPositions = {};
             tatamisAttivi.forEach(t => {
                 let el = document.getElementById(`queue-container-${t}`);
@@ -218,9 +231,8 @@
                     currentIndex = parseInt(localStorage.getItem(indexKey) || "0");
                 } catch(e) {}
 
-                if (currentIndex >= queueItems.length) {
-                    currentIndex = 0;
-                    try { localStorage.setItem(indexKey, 0); } catch(e) {}
+                if (currentIndex >= queueItems.length && queueItems.length > 0) {
+                    currentIndex = queueItems.length - 1;
                 }
 
                 let matchInCorso = (queueItems.length > 0 && currentIndex < queueItems.length && !queueItems[currentIndex].completato) ? queueItems[currentIndex] : null;
@@ -269,7 +281,10 @@
                             </div>
 
                             <div class="text-xs font-black text-white border-t border-slate-800 pt-2">
-                                <div class="text-[10px] text-slate-400 uppercase">Match Attivo (${matchInCorso.matchId}):</div>
+                                <div class="text-[10px] text-slate-400 uppercase flex items-center justify-between">
+                                    <span>Match Attivo (${matchInCorso.matchId}):</span>
+                                    <span class="text-emerald-400 animate-pulse text-[9px]"><i class="fa-solid fa-play mr-1"></i>COMBATTIMENTO LIVE</span>
+                                </div>
                                 <div class="truncate mt-0.5">🥋 ${matchInCorso.matchData.a1.nome} <span class="text-[9px] text-slate-400">(${matchInCorso.matchData.a1.team || '-'})</span></div>
                                 <div class="text-yellow-400 text-[9px] font-black">VS</div>
                                 <div class="truncate">🥋 ${matchInCorso.matchData.a2.nome} <span class="text-[9px] text-slate-400">(${matchInCorso.matchData.a2.team || '-'})</span></div>
@@ -366,7 +381,6 @@
 
             container.innerHTML = htmlChunks.join('');
 
-            // Ripristina la posizione di scroll esatta per ciascuna coda dopo il rendering
             tatamisAttivi.forEach(t => {
                 let el = document.getElementById(`queue-container-${t}`);
                 if (el && scrollPositions[t] !== undefined) {

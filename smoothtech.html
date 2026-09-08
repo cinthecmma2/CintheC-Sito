@@ -17,7 +17,6 @@
     <style>
         body { font-family: 'Montserrat', sans-serif; background-color: #f8fafc; }
         
-        /* Stile 3D Squadrato Universale */
         .pro-3d-card { 
             background: #ffffff; 
             border: 2px solid #0f172a; 
@@ -288,7 +287,7 @@
         let allIscrizioni = [];
         let generatedPoolsRegistry = {}; 
         let tatamiStates = { 1: false, 2: false, 3: false, 4: false, 5: false, 6: false, 7: false, 8: false };
-        let allTatamisCollapsed = false; // Stato globale sincronizzato per la chiusura di tutti i tatami
+        let allTatamisCollapsed = false; 
         let podioVincitori = [];
         let mobileSelectedTatami = "1";
         let lastLiveSignature = ""; 
@@ -751,7 +750,7 @@
             }
 
             let allPairings = [];
-            let currentRoundAthletes = shuffled.map(a => ({ nome: `${a.nome} ${a.cognome}`, team: a.team }));
+            let currentRoundAthletes = shuffled.map(a => ({ nome: `${a.nome} ${a.cognome}`, team: a.team, idAtleta: `${a.nome}_${a.cognome}`.toLowerCase().trim() }));
             let roundNum = 1;
 
             while (currentRoundAthletes.length > 1) {
@@ -782,7 +781,7 @@
                             a2: a2
                         };
                         roundPairings.push(matchObj);
-                        nextRoundAthletes.push({ nome: `[Vincitore ${rName} #${matchCountInRound}]`, team: "-" });
+                        nextRoundAthletes.push({ nome: `[Vincitore ${rName} #${matchCountInRound}]`, team: "-", idAtleta: null });
                         matchCountInRound++;
                     } else {
                         nextRoundAthletes.push(currentRoundAthletes[i]);
@@ -861,17 +860,72 @@
                 return;
             }
 
-            poolDaAssegnare.forEach(key => {
-                let tatamiVuoto = activeTatamis.find(t => distribution[t].length === 0);
-                let targetTatami;
+            let tatamiTurni = {};
+            activeTatamis.forEach(t => {
+                tatamiTurni[t] = (distribution[t] || []).length;
+            });
 
-                if (tatamiVuoto) {
-                    targetTatami = tatamiVuoto;
-                } else {
-                    targetTatami = activeTatamis.reduce((minT, t) => distribution[t].length < distribution[minT].length ? t : minT, activeTatamis[0]);
+            let atletaTatamiTurno = {}; 
+
+            activeTatamis.forEach(t => {
+                if (distribution[t]) {
+                    distribution[t].forEach((pObj, pIdx) => {
+                        let pKey = pObj.key;
+                        let pData = generatedPoolsRegistry[pKey];
+                        if (pData && pData.partecipanti) {
+                            pData.partecipanti.forEach(p => {
+                                let aId = `${p.nome}_${p.cognome}`.toLowerCase().trim();
+                                if (!atletaTatamiTurno[aId]) atletaTatamiTurno[aId] = [];
+                                let numMatches = pData.pairings ? pData.pairings.length : 1;
+                                atletaTatamiTurno[aId].push({ tatami: t, start: pIdx, end: pIdx + numMatches + 2 });
+                            });
+                        }
+                    });
+                }
+            });
+
+            poolDaAssegnare.forEach(key => {
+                let poolData = generatedPoolsRegistry[key];
+                let numMatches = poolData.pairings ? poolData.pairings.length : 1;
+
+                let bestTatami = activeTatamis[0];
+                let minScore = Infinity;
+
+                activeTatamis.forEach(t => {
+                    let currentTurnoTatami = tatamiTurni[t];
+                    let conflittiCount = 0;
+
+                    if (poolData && poolData.partecipanti) {
+                        poolData.partecipanti.forEach(p => {
+                            let aId = `${p.nome}_${p.cognome}`.toLowerCase().trim();
+                            if (atletaTatamiTurno[aId]) {
+                                atletaTatamiTurno[aId].forEach(impegno => {
+                                    if (Math.abs(impegno.start - currentTurnoTatami) < 3 && impegno.tatami !== t) {
+                                        conflittiCount += 10;
+                                    }
+                                });
+                            }
+                        });
+                    }
+
+                    let score = conflittiCount + (tatamiTurni[t] * 2);
+                    if (score < minScore) {
+                        minScore = score;
+                        bestTatami = t;
+                    }
+                });
+
+                let assignedTurno = tatamiTurni[bestTatami];
+                tatamiTurni[bestTatami]++;
+
+                if (poolData && poolData.partecipanti) {
+                    poolData.partecipanti.forEach(p => {
+                        let aId = `${p.nome}_${p.cognome}`.toLowerCase().trim();
+                        if (!atletaTatamiTurno[aId]) atletaTatamiTurno[aId] = [];
+                        atletaTatamiTurno[aId].push({ tatami: bestTatami, start: assignedTurno, end: assignedTurno + numMatches + 2 });
+                    });
                 }
 
-                let poolData = generatedPoolsRegistry[key];
                 let singoliMatch = [];
                 if (poolData && poolData.pairings) {
                     poolData.pairings.forEach((m) => {
@@ -883,7 +937,7 @@
                     });
                 }
 
-                distribution[targetTatami].push({
+                distribution[bestTatami].push({
                     key: key,
                     data: poolData,
                     singoliMatch: singoliMatch
@@ -894,7 +948,7 @@
             localStorage.setItem("smoothtech_distribution_timestamp", new Date().getTime());
 
             renderDistribuzioneEsistente(distribution);
-            showToast("Pool distribuite con successo sui tatami attivi!");
+            showToast("Pool distribuite con successo (ottimizzate anti-contemporaneità atleti)!");
         }
 
         function bilanciaCodeTatami() {
@@ -993,9 +1047,18 @@
                             
                             poolsHtml = activeQueue.map((item, idx) => {
                                 let isCurrent = (idx === 0);
-                                let badgeStato = isCurrent 
-                                    ? `<span class="bg-emerald-100 text-emerald-800 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">IN CORSO</span>`
-                                    : `<span class="bg-slate-100 text-slate-500 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">IN CODA</span>`;
+                                
+                                // GESTIONE CORRETTA DELLO STATO "IN CORSO" VS "IN ATTESA" SULL'HUB
+                                let badgeStato = "";
+                                if (isCurrent) {
+                                    if (item.avviato) {
+                                        badgeStato = `<span class="bg-emerald-100 text-emerald-800 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">IN CORSO</span>`;
+                                    } else {
+                                        badgeStato = `<span class="bg-amber-100 text-amber-800 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">In attesa di essere avviato</span>`;
+                                    }
+                                } else {
+                                    badgeStato = `<span class="bg-slate-100 text-slate-500 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">IN CODA</span>`;
+                                }
                             
                                 let styleBg = isCurrent ? 'bg-emerald-50/70 border-emerald-300' : 'bg-white';
                                 let vincitoreInfo = item.vincitore ? `<span class="text-amber-600 font-bold ml-1 text-[9px]"><i class="fa-solid fa-trophy mr-0.5"></i>${item.vincitore}</span>` : '';
@@ -1027,7 +1090,7 @@
                             }
 
                             let badgeStato = pIdx === 0 
-                                ? `<span class="bg-emerald-100 text-emerald-800 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">IN CORSO</span>`
+                                ? `<span class="bg-amber-100 text-amber-800 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">In attesa di essere avviato</span>`
                                 : `<span class="bg-slate-100 text-slate-600 text-[8px] font-extrabold px-1.5 py-0.5 rounded ml-1">IN CODA</span>`;
                             
                             return `<div class="text-[11px] font-bold text-slate-800 bg-white p-2.5 rounded-none mb-2 border border-slate-300 shadow-xs">
@@ -1042,7 +1105,7 @@
                     
                     let isClosed = allTatamisCollapsed === true;
                     let hiddenClass = isClosed ? 'hidden' : '';
-                    let cardPadding = isClosed ? 'p-2.5' : 'p-4'; // Rettangolino compatto quando chiuso
+                    let cardPadding = isClosed ? 'p-2.5' : 'p-4';
                     let iconClass = isClosed ? 'fa-chevron-down' : 'fa-chevron-up';
 
                     htmlChunks.push(`
@@ -1214,16 +1277,6 @@
                         </div>
                     </div>
                 `;
-            });
-        }
-    </script>
-
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                .then(reg => console.log('PWA registrata!'))
-                .catch(err => console.log('Errore PWA:', err));
             });
         }
     </script>
