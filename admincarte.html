@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pannello Gestione Carte - CintheC Arena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #09090b; color: white; }
+        .text-cinthec { color: #00ff66; }
+        .bg-cinthec { background-color: #00ff66; color: black; }
+        .border-cinthec { border-color: #00ff66; }
+        .shadow-cinthec { box-shadow: 0 0 12px rgba(0, 255, 102, 0.35); }
+        .input-field {
+            width: 100%; background: #18181b; border: 1px solid #27272a; color: white;
+            padding: 8px 10px; font-weight: 600; font-size: 12px; outline: none; transition: all 0.2s;
+        }
+        .input-field:focus { border-color: #00ff66; box-shadow: 0 0 8px rgba(0,255,102,0.2); }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div class="w-full max-w-2xl bg-zinc-950 border border-zinc-800 p-6 shadow-2xl relative my-6">
+        <div class="absolute top-0 left-0 w-full h-1 bg-cinthec"></div>
+        
+        <div class="flex items-center justify-between border-b border-zinc-800 pb-4 mb-5">
+            <div>
+                <h1 class="text-xl font-black uppercase text-white flex items-center gap-2">
+                    <i class="fa-solid fa-user-plus text-cinthec"></i> Pannello Admin Arena
+                </h1>
+                <p class="text-[11px] text-zinc-400 font-semibold mt-0.5">Aggiungi atleti: scrivi solo il cognome e il sistema pescherà le foto dalla cartella 'carte'</p>
+            </div>
+            <div class="w-8 h-8 bg-cinthec/10 border border-cinthec/30 text-cinthec flex items-center justify-center text-sm font-black shadow-cinthec">C</div>
+        </div>
+
+        <form id="add-fighter-form" onsubmit="saveFighter(event)" class="space-y-4">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-zinc-400 mb-1">ID Univoco (es. rossi_m)</label>
+                    <input type="text" id="id" required placeholder="mario_rossi" class="input-field">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-zinc-400 mb-1">Promotion (Lega)</label>
+                    <select id="promotion" class="input-field">
+                        <option value="cinthec">CintheC</option>
+                        <option value="bellator">Bellator</option>
+                        <option value="ufc">UFC</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-zinc-400 mb-1">Categoria</label>
+                    <input type="text" id="categoria" required placeholder="Pro / Semi-Pro" class="input-field">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-zinc-400 mb-1">Nome e Cognome</label>
+                    <input type="text" id="nome" required placeholder="Mario Rossi" class="input-field">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-zinc-400 mb-1">Nickname</label>
+                    <input type="text" id="nickname" placeholder="The Pitbull" class="input-field">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-zinc-400 mb-1">Record (V-S-P)</label>
+                    <input type="text" id="rec" required placeholder="5-0-0" class="input-field">
+                </div>
+            </div>
+
+            <!-- FOTO AUTOMATICA TRAMITE CARTELLA CARTE -->
+            <div class="bg-zinc-900/60 border border-zinc-800 p-3 space-y-2">
+                <p class="text-[10px] font-black uppercase text-cinthec"><i class="fa-solid fa-folder-open"></i> Gestione Foto Automatica</p>
+                <div>
+                    <label class="block text-[9px] text-zinc-400 uppercase mb-1">Nome Base Foto (es. perini)</label>
+                    <input type="text" id="foto_base" required placeholder="perini" class="input-field">
+                    <p class="text-[8px] text-zinc-500 mt-1">Scrivi solo il nome (es. <b>perini</b>). Il sistema collegherà automaticamente in automatico i file dalla cartella <b>carte/</b> (es. carte/perini_comune.jpg, carte/perini_rara.jpg, ecc.).</p>
+                </div>
+            </div>
+
+            <!-- STATISTICHE PER OGNUNA DELLE 4 RARITÀ -->
+            <div class="border border-zinc-800 bg-zinc-900/30 p-3 space-y-3">
+                <p class="text-[10px] font-black uppercase text-cinthec"><i class="fa-solid fa-chart-simple"></i> Statistiche Combat (Striking, Lotta, Attacco, Difesa)</p>
+                
+                <!-- COMUNE -->
+                <div class="border-b border-zinc-800 pb-2">
+                    <span class="text-[9px] font-bold text-zinc-400 uppercase block mb-1">Comune</span>
+                    <div class="grid grid-cols-4 gap-2">
+                        <input type="number" id="stk_c" value="60" min="0" max="99" class="input-field !p-1 text-center" placeholder="Striking">
+                        <input type="number" id="lot_c" value="60" min="0" max="99" class="input-field !p-1 text-center" placeholder="Lotta">
+                        <input type="number" id="att_c" value="60" min="0" max="99" class="input-field !p-1 text-center" placeholder="Attacco">
+                        <input type="number" id="dfs_c" value="60" min="0" max="99" class="input-field !p-1 text-center" placeholder="Difesa">
+                    </div>
+                </div>
+
+                <!-- RARA -->
+                <div class="border-b border-zinc-800 pb-2">
+                    <span class="text-[9px] font-bold text-amber-400 uppercase block mb-1">Rara</span>
+                    <div class="grid grid-cols-4 gap-2">
+                        <input type="number" id="stk_r" value="70" min="0" max="99" class="input-field !p-1 text-center" placeholder="Striking">
+                        <input type="number" id="lot_r" value="70" min="0" max="99" class="input-field !p-1 text-center" placeholder="Lotta">
+                        <input type="number" id="att_r" value="70" min="0" max="99" class="input-field !p-1 text-center" placeholder="Attacco">
+                        <input type="number" id="dfs_r" value="70" min="0" max="99" class="input-field !p-1 text-center" placeholder="Difesa">
+                    </div>
+                </div>
+
+                <!-- ULTRA -->
+                <div class="border-b border-zinc-800 pb-2">
+                    <span class="text-[9px] font-bold text-purple-400 uppercase block mb-1">Ultra Rara</span>
+                    <div class="grid grid-cols-4 gap-2">
+                        <input type="number" id="stk_u" value="85" min="0" max="99" class="input-field !p-1 text-center" placeholder="Striking">
+                        <input type="number" id="lot_u" value="85" min="0" max="99" class="input-field !p-1 text-center" placeholder="Lotta">
+                        <input type="number" id="att_u" value="85" min="0" max="99" class="input-field !p-1 text-center" placeholder="Attacco">
+                        <input type="number" id="dfs_u" value="85" min="0" max="99" class="input-field !p-1 text-center" placeholder="Difesa">
+                    </div>
+                </div>
+
+                <!-- LEGGENDARIA -->
+                <div>
+                    <span class="text-[9px] font-bold text-yellow-400 uppercase block mb-1">Leggendaria</span>
+                    <div class="grid grid-cols-4 gap-2">
+                        <input type="number" id="stk_l" value="95" min="0" max="99" class="input-field !p-1 text-center" placeholder="Striking">
+                        <input type="number" id="lot_l" value="95" min="0" max="99" class="input-field !p-1 text-center" placeholder="Lotta">
+                        <input type="number" id="att_l" value="95" min="0" max="99" class="input-field !p-1 text-center" placeholder="Attacco">
+                        <input type="number" id="dfs_l" value="95" min="0" max="99" class="input-field !p-1 text-center" placeholder="Difesa">
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" id="btn-submit" class="w-full bg-cinthec py-3.5 font-black text-black uppercase text-xs hover:bg-emerald-400 transition shadow-cinthec flex items-center justify-center gap-2">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                <span>Salva Atleta su Google Sheets</span>
+            </button>
+        </form>
+
+        <div id="status-msg" class="hidden mt-4 p-3 text-center text-xs font-black uppercase"></div>
+    </div>
+
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzYVD8yOwihUveO_q-AEpM0KOmQ2y1N-sexkfWaWn5yywh1qXuf8Mi66VtBVBpelPTC4Q/exec";
+
+        async function saveFighter(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-submit');
+            const msg = document.getElementById('status-msg');
+            
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Salvataggio in corso...`;
+            msg.className = "hidden";
+
+            // Prende il nome base inserito (es. "perini") e compila in automatico i campi foto
+            const fotoBase = document.getElementById('foto_base').value.trim().toLowerCase()
+                .replace(/^carte\//, '')
+                .replace(/\.(jpg|jpeg|png)$/i, '');
+
+            const payload = {
+                action: 'addAtleta',
+                id: document.getElementById('id').value.trim().toLowerCase(),
+                promotion: document.getElementById('promotion').value,
+                nome: document.getElementById('nome').value.trim(),
+                nickname: document.getElementById('nickname').value.trim(),
+                categoria: document.getElementById('categoria').value.trim(),
+                rec: document.getElementById('rec').value.trim(),
+                foto_comune: `carte/${fotoBase}_comune.jpg`,
+                foto_rara: `carte/${fotoBase}_rara.jpg`,
+                foto_ultra: `carte/${fotoBase}_ultra.jpg`,
+                foto_leggendaria: `carte/${fotoBase}_leggendaria.jpg`,
+                stk_c: document.getElementById('stk_c').value, lot_c: document.getElementById('lot_c').value, att_c: document.getElementById('att_c').value, dfs_c: document.getElementById('dfs_c').value,
+                stk_r: document.getElementById('stk_r').value, lot_r: document.getElementById('lot_r').value, att_r: document.getElementById('att_r').value, dfs_r: document.getElementById('dfs_r').value,
+                stk_u: document.getElementById('stk_u').value, lot_u: document.getElementById('lot_u').value, att_u: document.getElementById('att_u').value, dfs_u: document.getElementById('dfs_u').value,
+                stk_l: document.getElementById('stk_l').value, lot_l: document.getElementById('lot_l').value, att_l: document.getElementById('att_l').value, dfs_l: document.getElementById('dfs_l').value
+            };
+
+            try {
+                const res = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+
+                if (data.status === "success") {
+                    msg.textContent = "Atleta salvato con successo nel Cloud!";
+                    msg.className = "mt-4 p-3 bg-emerald-500/20 text-cinthec border border-cinthec/30 block";
+                    document.getElementById('add-fighter-form').reset();
+                } else {
+                    throw new Error(data.message || "Errore durante il salvataggio");
+                }
+            } catch (err) {
+                msg.textContent = "Errore durante il salvataggio: " + err.message;
+                msg.className = "mt-4 p-3 bg-rose-500/20 text-rose-400 border border-rose-500/30 block";
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Salva Atleta su Google Sheets`;
+            }
+        }
+    </script>
+</body>
+</html>

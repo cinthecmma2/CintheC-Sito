@@ -32,91 +32,63 @@
         }
         .input-field:focus { border-color: #00ff66; outline: none; box-shadow: 0 0 8px rgba(0,255,102,0.2); }
 
-        /* CARTE (ANGOLI SMUSSATI) */
-        .card-container { perspective: 1000px; cursor: pointer; }
+        .booster-pack {
+            background: linear-gradient(145deg, #18181b 0%, #09090b 100%);
+            border: 2px solid #27272a; border-radius: 10px; aspect-ratio: 3 / 4;
+            display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+            padding: 16px; position: relative; overflow: hidden; transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+        .booster-pack:hover { transform: translateY(-4px); border-color: #00ff66; box-shadow: 0 0 20px rgba(0,255,102,0.25); }
+        .booster-pack.bellator:hover { border-color: #fbbf24; box-shadow: 0 0 20px rgba(251,191,36,0.25); }
+        .booster-pack.ufc:hover { border-color: #f43f5e; box-shadow: 0 0 20px rgba(244,63,94,0.25); }
+
+        .card-container { perspective: 1000px; cursor: pointer; width: 100%; max-width: 210px; margin: 0 auto; }
         .card-inner {
-            width: 100%; aspect-ratio: 2.5 / 3.5;
-            background: #18181b; border-radius: 8px !important;
-            position: relative; overflow: hidden;
-            transition: transform 0.1s ease-out;
-            transform-style: preserve-3d;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+            width: 100%; aspect-ratio: 2.5 / 3.5; background: #18181b; border-radius: 8px !important;
+            position: relative; overflow: hidden; transition: transform 0.1s ease-out;
+            transform-style: preserve-3d; box-shadow: 0 8px 16px rgba(0,0,0,0.6);
         }
 
-        /* STILI RARITÀ */
+        /* BORDI E STILI DI RARITÀ */
         .rarity-comune { border: 2px solid #71717a; }
-        .rarity-rara { border: 2px solid #fbbf24; box-shadow: 0 0 12px rgba(251, 191, 36, 0.35); }
-        .rarity-ultra { border: 2px solid #c084fc; box-shadow: 0 0 16px rgba(192, 132, 252, 0.5); }
+        .rarity-rara { border: 2px solid #fbbf24; box-shadow: 0 0 14px rgba(251, 191, 36, 0.4); }
+        .rarity-ultra { border: 2px solid #c084fc; box-shadow: 0 0 18px rgba(192, 132, 252, 0.6); }
         
-        /* CORNICE LEGGENDARIA CON CORNICE ANIMATA */
         .rarity-leggendaria {
-            position: relative;
-            border: 3px solid transparent;
-            border-radius: 8px !important;
-            background-clip: padding-box;
-            box-shadow: 0 0 22px rgba(0, 255, 102, 0.3), 0 0 15px rgba(255, 215, 0, 0.4);
+            position: relative; border: 3px solid transparent; border-radius: 8px !important; background-clip: padding-box;
+            box-shadow: 0 0 25px rgba(0, 255, 102, 0.4), 0 0 18px rgba(255, 215, 0, 0.5);
         }
         .rarity-leggendaria::before {
             content: ''; position: absolute; inset: -3px; z-index: 5;
             background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #00ff66, #00afff, #7a00ff, #ff00c8, #ff0000);
-            background-size: 400%; border-radius: 10px;
-            animation: rainbowRotate 6s linear infinite;
+            background-size: 400%; border-radius: 10px; animation: rainbowRotate 5s linear infinite;
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            padding: 3px;
-            pointer-events: none;
+            -webkit-mask-composite: xor; mask-composite: exclude; padding: 3px; pointer-events: none;
         }
         @keyframes rainbowRotate { 0% { background-position: 0 0; } 100% { background-position: 400% 0; } }
 
-        /* FASCIO ARCOBALENO OLOGRAFICO TRASPARENTE ED ELEGANTE */
-        .rarity-leggendaria::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            z-index: 6;
-            pointer-events: none;
-            background: linear-gradient(
-                120deg,
-                transparent 15%,
-                rgba(255, 0, 85, 0.22) 28%,
-                rgba(255, 154, 0, 0.25) 38%,
-                rgba(255, 240, 0, 0.25) 48%,
-                rgba(0, 255, 102, 0.25) 58%,
-                rgba(0, 195, 255, 0.25) 68%,
-                rgba(170, 0, 255, 0.22) 78%,
-                transparent 90%
-            );
-            background-size: 250% 250%;
-            mix-blend-mode: color-dodge;
-            opacity: 0.8;
-            animation: rainbowBeamSweep 4s ease-in-out infinite alternate;
-        }
-
-        @keyframes rainbowBeamSweep {
-            0% { background-position: 0% 0%; opacity: 0.6; }
-            50% { background-position: 100% 100%; opacity: 0.95; }
-            100% { background-position: 0% 0%; opacity: 0.6; }
-        }
-
-        /* RIFLESSO OLOGRAFICO STANDARD SU HOVER */
+        /* FASCIO DI LUCE CONTINUO */
         .holo-overlay {
-            position: absolute; inset: 0; z-index: 7; opacity: 0;
-            background: linear-gradient(125deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%);
-            background-size: 200% 200%; transition: opacity 0.3s ease; mix-blend-mode: overlay; pointer-events: none;
+            position: absolute; inset: 0; z-index: 7; pointer-events: none;
+            background-size: 200% 200%; mix-blend-mode: overlay; opacity: 0.35;
         }
-        .card-inner:hover .holo-overlay, .modal-card-front:hover .holo-overlay { 
-            opacity: 1; animation: holoShine 3s infinite linear; 
+        .rarity-comune .holo-overlay { opacity: 0; }
+        .rarity-rara .holo-overlay {
+            background: linear-gradient(135deg, transparent 20%, rgba(255, 215, 0, 0.5) 50%, transparent 80%);
+            mix-blend-mode: color-dodge; animation: holoShine 4s infinite linear;
         }
+        .rarity-ultra .holo-overlay {
+            background: linear-gradient(135deg, transparent 20%, rgba(192, 132, 252, 0.6) 50%, transparent 80%);
+            mix-blend-mode: color-dodge; animation: holoShine 4s infinite linear;
+        }
+        .rarity-leggendaria .holo-overlay {
+            background: linear-gradient(125deg, rgba(255,0,0,0.4), rgba(255,255,0,0.4), rgba(0,255,0,0.4), rgba(0,255,255,0.4), rgba(122,0,255,0.4), rgba(255,0,200,0.4));
+            background-size: 300% 300%; mix-blend-mode: color-dodge; opacity: 0.6; animation: rainbowHolo 4s infinite linear;
+        }
+        .card-inner:hover .holo-overlay { opacity: 0.95; }
         @keyframes holoShine { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-
-        .sparkles {
-            position: absolute; inset: 0; z-index: 8; opacity: 0; pointer-events: none;
-            background-image: radial-gradient(white, rgba(255,255,255,.4) 1.5px, transparent 3px);
-            background-size: 40px 40px;
-            transition: opacity 0.3s ease;
-        }
-        .card-inner:hover .sparkles, .modal-card-front:hover .sparkles { opacity: 0.6; }
+        @keyframes rainbowHolo { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
         .pack-shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both infinite; }
         @keyframes shake {
@@ -132,54 +104,16 @@
             100% { transform: scale(0); opacity: 0; }
         }
 
-        .binder-page {
-            background: linear-gradient(145deg, #111113 0%, #17171a 100%);
-            border: 2px solid #27272a;
-            position: relative;
-        }
-        .binder-pocket {
-            background: rgba(0, 0, 0, 0.45);
-            border: 1px dashed rgba(255, 255, 255, 0.12);
-            aspect-ratio: 2.5 / 3.5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-        .binder-pocket-empty {
-            color: #52525b;
-            font-size: 8px;
-            font-weight: 800;
-            text-transform: uppercase;
-        }
+        .binder-page { background: linear-gradient(145deg, #111113 0%, #17171a 100%); border: 2px solid #27272a; position: relative; }
+        .binder-pocket { background: rgba(0, 0, 0, 0.45); border: 1px dashed rgba(255, 255, 255, 0.12); aspect-ratio: 2.5 / 3.5; display: flex; align-items: center; justify-content: center; position: relative; }
+        .binder-pocket-empty { color: #52525b; font-size: 8px; font-weight: 800; text-transform: uppercase; }
 
         .mini-card .card-inner { border-radius: 6px !important; }
-        .mini-card h4 { font-size: 8px !important; }
-        .mini-card span { font-size: 6px !important; }
 
-        .modal-card-3d {
-            perspective: 1200px;
-            width: 280px;
-            height: 392px;
-            cursor: pointer;
-        }
-        .modal-card-flipper {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .modal-card-3d.flipped .modal-card-flipper {
-            transform: rotateY(180deg);
-        }
-        .modal-card-front, .modal-card-back {
-            position: absolute; inset: 0;
-            backface-visibility: hidden;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
-        }
+        .modal-card-3d { perspective: 1200px; width: 260px; height: 370px; cursor: pointer; margin: 0 auto; }
+        .modal-card-flipper { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .modal-card-3d.flipped .modal-card-flipper { transform: rotateY(180deg); }
+        .modal-card-front, .modal-card-back { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 12px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.8); }
         .modal-card-front { z-index: 2; transform: rotateY(0deg); }
         .modal-card-back { transform: rotateY(180deg); background: #121215; border: 2px solid #27272a; }
     </style>
@@ -192,118 +126,239 @@
             <span class="font-black tracking-widest uppercase text-xs text-cinthec hidden sm:block"><i class="fa-solid fa-layer-group mr-1"></i> Cards Arena</span>
         </a>
         <div id="user-header-info" class="hidden flex items-center gap-3">
-            <div class="flex items-center gap-1.5 bg-zinc-900 border border-zinc-800 px-2.5 py-0.5">
+            <div class="flex items-center gap-1.5 bg-zinc-900 border border-zinc-800 px-2.5 py-1">
                 <i class="fa-solid fa-bolt text-cinthec text-[10px]"></i>
                 <span id="header-points" class="font-black text-xs text-white">0</span>
             </div>
-            <button onclick="resetUserData()" title="Reset Album" class="text-rose-500 hover:text-rose-400 text-[10px] font-bold uppercase transition flex items-center gap-1 bg-rose-500/10 px-2 py-1 border border-rose-500/20">
-                <i class="fa-solid fa-trash-can"></i> Reset
-            </button>
-            <button onclick="logout()" class="text-zinc-400 hover:text-white text-[10px] font-bold uppercase transition"><i class="fa-solid fa-right-from-bracket"></i> Esci</button>
+            
+            <div class="relative">
+                <button onclick="toggleAccountMenu()" class="flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 px-2.5 py-1 text-xs font-bold transition">
+                    <i class="fa-solid fa-user-gear text-zinc-400"></i>
+                    <span id="header-user-nickname" class="truncate max-w-[100px] sm:max-w-[140px]">Account</span>
+                    <i class="fa-solid fa-chevron-down text-[9px] text-zinc-500"></i>
+                </button>
+                <div id="account-dropdown" class="hidden absolute right-0 mt-2 w-56 bg-zinc-950 border border-zinc-800 shadow-2xl py-1 z-50">
+                    <div class="px-3 py-2 border-b border-zinc-800/85">
+                        <p class="text-[9px] text-zinc-500 font-bold uppercase">Nickname attivo</p>
+                        <p id="dropdown-nickname" class="text-[11px] font-bold text-white truncate"></p>
+                    </div>
+                    <button onclick="openSettingsModal()" class="w-full text-left px-3 py-2 text-[11px] text-zinc-300 hover:bg-zinc-900 font-bold uppercase flex items-center gap-2 transition border-b border-zinc-800/80">
+                        <i class="fa-solid fa-gear text-cinthec"></i> Impostazioni Profilo
+                    </button>
+                    <button onclick="logout()" class="w-full text-left px-3 py-2 text-[11px] text-rose-400 hover:bg-rose-500/10 font-bold uppercase flex items-center gap-2 transition">
+                        <i class="fa-solid fa-right-from-bracket"></i> Esci / Cambia Account
+                    </button>
+                </div>
+            </div>
         </div>
     </header>
 
     <main class="flex-grow flex flex-col relative max-w-5xl mx-auto w-full px-3 py-4" id="main-content">
         
+        <!-- SCHERMATA ACCEDI / REGISTRAZIONE -->
         <div id="auth-screen" class="flex-grow flex items-center justify-center p-2">
-            <div class="w-full max-w-sm bg-zinc-950 border border-zinc-800 p-6 shadow-2xl relative text-center">
+            <div class="w-full max-w-sm bg-zinc-950 border border-zinc-800 p-6 shadow-2xl relative">
                 <div class="absolute top-0 left-0 w-full h-1 bg-cinthec"></div>
                 
-                <div class="inline-flex items-center justify-center w-14 h-14 bg-cinthec/10 border border-cinthec/30 text-cinthec text-2xl mb-4 shadow-cinthec">
-                    <i class="fa-solid fa-gamepad"></i>
+                <div class="text-center mb-5">
+                    <div class="inline-flex items-center justify-center w-12 h-12 bg-cinthec/10 border border-cinthec/30 text-cinthec text-xl mb-2 shadow-cinthec">
+                        <i class="fa-solid fa-gamepad"></i>
+                    </div>
+                    <h1 class="text-xl font-black uppercase tracking-tight text-white mb-1">CintheC Cards Arena</h1>
+                    <p class="text-[11px] text-zinc-400 font-semibold">Accedi con la tua password o registrati per iniziare.</p>
                 </div>
-                
-                <h1 class="text-2xl font-black uppercase tracking-tight text-white mb-1">CintheC Cards Arena</h1>
-                <p class="text-[11px] text-zinc-400 font-semibold mb-6">Colleziona le carte dei fighters, spacchetta i pacchetti e scopri le rarità leggendarie.</p>
 
-                <button onclick="enterArenaDirectly()" class="w-full bg-cinthec py-3.5 font-black text-black uppercase text-xs hover:bg-emerald-400 active:scale-95 transition shadow-cinthec flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-play text-sm"></i>
-                    <span>Entra nella Card Arena</span>
+                <div class="flex border border-zinc-800 bg-zinc-900 p-0.5 mb-4">
+                    <button onclick="switchAuthTab('login')" id="tab-login" class="flex-1 py-1.5 text-[10px] font-black uppercase bg-zinc-800 text-cinthec transition">Accedi</button>
+                    <button onclick="switchAuthTab('register')" id="tab-register" class="flex-1 py-1.5 text-[10px] font-black uppercase text-zinc-400 hover:text-white transition">Registrati</button>
+                </div>
+
+                <div class="space-y-3 mb-4">
+                    <div>
+                        <label class="text-[10px] font-bold text-zinc-400 uppercase block mb-1">Email</label>
+                        <input type="email" id="auth-email" placeholder="iltuo@indirizzo.it" class="input-field">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold text-zinc-400 uppercase block mb-1">Password</label>
+                        <div class="relative">
+                            <input type="password" id="auth-password" placeholder="••••••••" class="input-field pr-9">
+                            <button type="button" onclick="togglePasswordVisibility()" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white transition">
+                                <i id="password-eye-icon" class="fa-solid fa-eye text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <p id="auth-error" class="hidden text-rose-500 text-[10px] font-bold mb-3 bg-rose-500/10 px-2 py-1 border border-rose-500/20 text-center"></p>
+
+                <button id="auth-submit-btn" onclick="handleAuthSubmit()" class="w-full bg-cinthec py-3 font-black text-black uppercase text-xs hover:bg-emerald-400 active:scale-95 transition shadow-cinthec flex items-center justify-center gap-2">
+                    <span id="auth-btn-label">Accedi all'Arena</span>
                 </button>
             </div>
         </div>
 
         <div id="app-screen" class="hidden flex-grow flex flex-col w-full">
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
                 <div class="bg-zinc-950 border border-zinc-800 p-3 flex items-center gap-3">
                     <div class="w-9 h-9 bg-zinc-900 border border-cinthec flex items-center justify-center shrink-0">
                         <i class="fa-solid fa-user-ninja text-cinthec text-sm"></i>
                     </div>
                     <div class="min-w-0">
                         <p class="text-[9px] text-zinc-500 font-bold uppercase tracking-wider">Collezionista</p>
-                        <p id="profile-email" class="font-bold text-xs truncate text-white">Giocatore CintheC</p>
+                        <p id="profile-nickname" class="font-bold text-xs truncate text-white">Giocatore</p>
                     </div>
                 </div>
 
                 <div class="bg-zinc-950 border border-zinc-800 p-3 flex flex-col justify-center relative overflow-hidden">
                     <p class="text-[9px] text-zinc-500 font-bold uppercase tracking-wider mb-0.5">Crediti Disponibili</p>
                     <div class="flex items-end gap-1.5">
-                        <span id="dashboard-points" class="text-2xl font-black text-cinthec leading-none">50</span>
+                        <span id="dashboard-points" class="text-2xl font-black text-cinthec leading-none">20</span>
                         <span class="text-[10px] font-bold text-zinc-500 mb-0.5">PUNTI</span>
-                    </div>
-                </div>
-
-                <div class="bg-zinc-950 border border-zinc-800 p-3 flex flex-col gap-1.5">
-                    <button onclick="claimDaily()" class="w-full py-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[10px] font-bold uppercase flex items-center justify-center gap-1.5 transition text-white">
-                        <i class="fa-solid fa-gift text-cinthec"></i> Bonus Giornaliero (+10)
-                    </button>
-                    <div class="flex gap-1.5">
-                        <input type="text" placeholder="Codice TicketSMS" class="input-field !py-1 !text-[10px]" id="ticket-code">
-                        <button onclick="redeemTicket()" class="px-2.5 bg-white text-black font-black uppercase text-[9px] hover:bg-cinthec transition shrink-0">Riscatta</button>
                     </div>
                 </div>
             </div>
 
-            <div class="flex border-b border-zinc-800 mb-5 justify-between items-center">
-                <div class="flex">
+            <div class="flex border-b border-zinc-800 mb-5 justify-between items-center overflow-x-auto">
+                <div class="flex shrink-0">
                     <button onclick="switchView('shop')" id="nav-shop" class="px-3 py-2 text-[11px] font-black uppercase border-b-2 border-cinthec text-cinthec transition flex items-center gap-1.5">
                         <i class="fa-solid fa-box-open"></i> Spacchetta
                     </button>
                     <button onclick="switchView('album')" id="nav-album" class="px-3 py-2 text-[11px] font-black uppercase border-b-2 border-transparent text-zinc-500 hover:text-white transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-book-bookmark"></i> Album Digitale
+                        <i class="fa-solid fa-book-bookmark"></i> Album
                     </button>
-                    <button onclick="switchView('trade')" id="nav-trade" class="px-3 py-2 text-[11px] font-black uppercase border-b-2 border-transparent text-zinc-500 hover:text-white transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-repeat"></i> Scambi
+                    <button onclick="switchView('burner')" id="nav-burner" class="px-3 py-2 text-[11px] font-black uppercase border-b-2 border-transparent text-zinc-500 hover:text-amber-400 transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-fire text-amber-500"></i> Bruciacarte
+                    </button>
+                    <button onclick="switchView('market')" id="nav-market" class="px-3 py-2 text-[11px] font-black uppercase border-b-2 border-transparent text-zinc-500 hover:text-cinthec transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-store text-cinthec"></i> Mercato
+                    </button>
+                    <button onclick="switchView('players')" id="nav-players" class="px-3 py-2 text-[11px] font-black uppercase border-b-2 border-transparent text-zinc-500 hover:text-cinthec transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-users text-cinthec"></i> Player Hub
+                    </button>
+                    <button onclick="switchView('halloffame')" id="nav-halloffame" class="px-3 py-2 text-[11px] font-black uppercase border-b-2 border-transparent text-zinc-500 hover:text-yellow-400 transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-trophy text-yellow-500"></i> Hall of Fame
                     </button>
                 </div>
             </div>
 
-            <div id="view-shop" class="flex-grow flex flex-col items-center justify-center py-4">
-                <h2 class="text-xl font-black uppercase tracking-tight text-white mb-1">Scegli il tuo Pacchetto</h2>
-                <p class="text-[11px] text-zinc-400 font-semibold mb-6">Usa i tuoi punti per spacchettare nuove carte.</p>
+            <!-- SCHEDA SPACCHETTA -->
+            <div id="view-shop" class="flex-grow flex flex-col items-center py-4">
+                <h2 class="text-xl font-black uppercase tracking-tight text-white mb-1">Negozio Pacchetti</h2>
+                <p class="text-[11px] text-zinc-400 font-semibold mb-6">Scegli l'espansione e spacchetta i pacchetti booster delle tue promotion preferite.</p>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-lg w-full">
-                    <div class="bg-zinc-950 border border-zinc-800 p-4 flex flex-col items-center text-center relative group hover:border-cinthec transition">
-                        <div class="w-28 h-36 bg-zinc-900 border-2 border-zinc-700 flex flex-col items-center justify-center relative overflow-hidden mb-3 shadow-lg group-hover:scale-105 group-hover:border-cinthec transition">
-                            <i class="fa-solid fa-clone text-xl text-cinthec mb-1"></i>
-                            <span class="font-black text-xs uppercase">SINGOLO</span>
-                            <span class="text-[8px] text-zinc-500 font-bold uppercase">1 Carta</span>
+                <!-- 1. CINCHEC SERIES -->
+                <div class="w-full max-w-3xl mb-6">
+                    <h3 class="font-black text-xs uppercase text-cinthec mb-3 border-l-2 border-cinthec pl-2 flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group"></i> CintheC Series (Roster Principale)
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="booster-pack">
+                            <div class="absolute top-2 right-2 bg-zinc-900 border border-zinc-700 text-cinthec text-[8px] font-black px-2 py-0.5 uppercase">1 Carta</div>
+                            <div class="text-center my-auto">
+                                <i class="fa-solid fa-box-open text-cinthec text-3xl mb-2"></i>
+                                <span class="font-black text-xs uppercase block text-white">Base Pack</span>
+                                <span class="text-[9px] text-zinc-400 font-bold">CintheC Series</span>
+                            </div>
+                            <button onclick="buyPack('cinthec', 1, 15)" class="w-full py-2 bg-cinthec text-black font-black uppercase text-[10px] shadow-cinthec hover:bg-emerald-400 transition">15 Punti</button>
                         </div>
-                        <h3 class="font-black text-sm uppercase text-white mb-0.5">Pacchetto Base</h3>
-                        <p class="text-[10px] text-zinc-400 mb-4">1 carta casuale dal roster.</p>
-                        <button onclick="buyPack(1, 10)" class="w-full py-2 bg-cinthec text-black font-black uppercase text-[10px] shadow-cinthec hover:bg-emerald-400 transition">
-                            Apri (10 PUNTI)
-                        </button>
-                    </div>
-
-                    <div class="bg-zinc-950 border border-zinc-800 p-4 flex flex-col items-center text-center relative group hover:border-cinthec transition">
-                        <div class="absolute top-2 right-2 bg-amber-500 text-black font-black text-[8px] px-1.5 py-0.2 uppercase">Offerta</div>
-                        <div class="w-28 h-36 bg-zinc-900 border-2 border-amber-500/50 flex flex-col items-center justify-center relative overflow-hidden mb-3 shadow-lg group-hover:scale-105 group-hover:border-cinthec transition">
-                            <i class="fa-solid fa-layer-group text-xl text-amber-400 mb-1"></i>
-                            <span class="font-black text-xs uppercase text-amber-400">DOPPIO</span>
-                            <span class="text-[8px] text-zinc-400 font-bold uppercase">2 Carte</span>
+                        <div class="booster-pack">
+                            <div class="absolute top-2 right-2 bg-amber-500 text-black text-[8px] font-black px-2 py-0.5 uppercase">2 Carte</div>
+                            <div class="text-center my-auto">
+                                <i class="fa-solid fa-box text-amber-400 text-3xl mb-2"></i>
+                                <span class="font-black text-xs uppercase block text-white">Doppio Pack</span>
+                                <span class="text-[9px] text-amber-400 font-bold">CintheC Series</span>
+                            </div>
+                            <button onclick="buyPack('cinthec', 2, 25)" class="w-full py-2 bg-amber-400 text-black font-black uppercase text-[10px] hover:bg-amber-300 transition">25 Punti</button>
                         </div>
-                        <h3 class="font-black text-sm uppercase text-white mb-0.5">Pacchetto Doppio</h3>
-                        <p class="text-[10px] text-zinc-400 mb-4">2 carte casuali del roster.</p>
-                        <button onclick="buyPack(2, 15)" class="w-full py-2 bg-amber-400 text-black font-black uppercase text-[10px] shadow-lg hover:bg-amber-300 transition">
-                            Apri (15 PUNTI)
-                        </button>
+                        <div class="booster-pack">
+                            <div class="absolute top-2 right-2 bg-purple-500 text-white text-[8px] font-black px-2 py-0.5 uppercase">4 Carte</div>
+                            <div class="text-center my-auto">
+                                <i class="fa-solid fa-cubes text-purple-400 text-3xl mb-2"></i>
+                                <span class="font-black text-xs uppercase block text-white">Quad Pack</span>
+                                <span class="text-[9px] text-purple-400 font-bold">CintheC Series</span>
+                            </div>
+                            <button onclick="buyPack('cinthec', 4, 45)" class="w-full py-2 bg-purple-500 text-white font-black uppercase text-[10px] hover:bg-purple-400 transition">45 Punti</button>
+                        </div>
                     </div>
                 </div>
+
+                <!-- 2. BELLATOR SERIES -->
+                <div class="w-full max-w-3xl mb-6">
+                    <h3 class="font-black text-xs uppercase text-amber-500 mb-3 border-l-2 border-amber-500 pl-2 flex items-center gap-2">
+                        <i class="fa-solid fa-shield-halved"></i> Bellator Series
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="booster-pack bellator">
+                            <div class="absolute top-2 right-2 bg-zinc-900 border border-zinc-700 text-amber-400 text-[8px] font-black px-2 py-0.5 uppercase">1 Carta</div>
+                            <div class="text-center my-auto">
+                                <i class="fa-solid fa-box-open text-amber-500 text-3xl mb-2"></i>
+                                <span class="font-black text-xs uppercase block text-white">Base Pack</span>
+                                <span class="text-[9px] text-zinc-400 font-bold">Bellator Series</span>
+                            </div>
+                            <button onclick="buyPack('bellator', 1, 20)" class="w-full py-2 bg-amber-500 text-black font-black uppercase text-[10px] hover:bg-amber-400 transition">20 Punti</button>
+                        </div>
+                        <div class="booster-pack bellator">
+                            <div class="absolute top-2 right-2 bg-amber-500 text-black text-[8px] font-black px-2 py-0.5 uppercase">2 Carte</div>
+                            <div class="text-center my-auto">
+                                <i class="fa-solid fa-box text-amber-400 text-3xl mb-2"></i>
+                                <span class="font-black text-xs uppercase block text-white">Doppio Pack</span>
+                                <span class="text-[9px] text-amber-400 font-bold">Bellator Series</span>
+                            </div>
+                            <button onclick="buyPack('bellator', 2, 35)" class="w-full py-2 bg-amber-400 text-black font-black uppercase text-[10px] hover:bg-amber-300 transition">35 Punti</button>
+                        </div>
+                        <div class="booster-pack bellator">
+                            <div class="absolute top-2 right-2 bg-purple-500 text-white text-[8px] font-black px-2 py-0.5 uppercase">4 Carte</div>
+                            <div class="text-center my-auto">
+                                <i class="fa-solid fa-cubes text-amber-400 text-3xl mb-2"></i>
+                                <span class="font-black text-xs uppercase block text-white">Quad Pack</span>
+                                <span class="text-[9px] text-amber-400 font-bold">Bellator Series</span>
+                            </div>
+                            <button onclick="buyPack('bellator', 4, 60)" class="w-full py-2 bg-amber-500 text-black font-black uppercase text-[10px] hover:bg-amber-400 transition">60 Punti</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. UFC WORLD SERIES -->
+                <div class="w-full max-w-3xl mb-6">
+                    <h3 class="font-black text-xs uppercase text-rose-500 mb-3 border-l-2 border-rose-500 pl-2 flex items-center gap-2">
+                        <i class="fa-solid fa-fire"></i> UFC World Series
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="booster-pack ufc">
+                            <div class="absolute top-2 right-2 bg-zinc-900 border border-zinc-700 text-rose-500 text-[8px] font-black px-2 py-0.5 uppercase">1 Carta</div>
+                            <div class="text-center my-auto">
+                                <i class="fa-solid fa-box-open text-rose-500 text-3xl mb-2"></i>
+                                <span class="font-black text-xs uppercase block text-white">Base Pack</span>
+                                <span class="text-[9px] text-zinc-400 font-bold">UFC World Series</span>
+                            </div>
+                            <button onclick="buyPack('ufc', 1, 25)" class="w-full py-2 bg-rose-600 text-white font-black uppercase text-[10px] hover:bg-rose-500 transition">25 Punti</button>
+                        </div>
+                        <div class="booster-pack ufc">
+                            <div class="absolute top-2 right-2 bg-rose-500 text-white text-[8px] font-black px-2 py-0.5 uppercase">2 Carte</div>
+                            <div class="text-center my-auto">
+                                <i class="fa-solid fa-box text-rose-400 text-3xl mb-2"></i>
+                                <span class="font-black text-xs uppercase block text-white">Doppio Pack</span>
+                                <span class="text-[9px] text-rose-400 font-bold">UFC World Series</span>
+                            </div>
+                            <button onclick="buyPack('ufc', 2, 45)" class="w-full py-2 bg-rose-600 text-white font-black uppercase text-[10px] hover:bg-rose-500 transition">45 Punti</button>
+                        </div>
+                        <div class="booster-pack ufc">
+                            <div class="absolute top-2 right-2 bg-purple-500 text-white text-[8px] font-black px-2 py-0.5 uppercase">4 Carte</div>
+                            <div class="text-center my-auto">
+                                <i class="fa-solid fa-cubes text-rose-400 text-3xl mb-2"></i>
+                                <span class="font-black text-xs uppercase block text-white">Quad Pack</span>
+                                <span class="text-[9px] text-rose-400 font-bold">UFC World Series</span>
+                            </div>
+                            <button onclick="buyPack('ufc', 4, 80)" class="w-full py-2 bg-rose-600 text-white font-black uppercase text-[10px] hover:bg-rose-500 transition">80 Punti</button>
+                        </div>
+                    </div>
+                </div>
+
                 <p id="pack-error" class="hidden text-rose-500 text-[10px] font-bold mt-4 bg-rose-500/10 px-3 py-1.5 border border-rose-500/20"></p>
             </div>
 
+            <!-- SCHEDA ALBUM -->
             <div id="view-album" class="hidden flex-grow flex flex-col">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2 border-b border-zinc-800 pb-3">
                     <div>
@@ -311,13 +366,20 @@
                         <p class="text-[11px] text-zinc-400 font-semibold" id="album-stats">Clicca su una carta per ingrandirla e girarla!</p>
                     </div>
                     
-                    <div class="flex bg-zinc-950 p-0.5 border border-zinc-800">
-                        <button onclick="setAlbumDisplayMode('grid')" id="btn-mode-grid" class="px-3 py-1 text-[10px] font-black uppercase bg-zinc-800 text-cinthec transition flex items-center gap-1">
-                            <i class="fa-solid fa-border-all"></i> Griglia
-                        </button>
-                        <button onclick="setAlbumDisplayMode('binder')" id="btn-mode-binder" class="px-3 py-1 text-[10px] font-black uppercase text-zinc-400 hover:text-white transition flex items-center gap-1">
-                            <i class="fa-solid fa-book-open"></i> Vedi Raccoglitore
-                        </button>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <select id="binder-series-select" onchange="changeBinderSeries(this.value)" class="input-field !py-1 !text-[10px] !w-auto hidden">
+                            <option value="cinthec">CintheC Series</option>
+                            <option value="bellator">Bellator Series</option>
+                            <option value="ufc">UFC Series</option>
+                        </select>
+                        <div class="flex bg-zinc-950 p-0.5 border border-zinc-800">
+                            <button onclick="setAlbumDisplayMode('grid')" id="btn-mode-grid" class="px-3 py-1 text-[10px] font-black uppercase bg-zinc-800 text-cinthec transition flex items-center gap-1">
+                                <i class="fa-solid fa-border-all"></i> Griglia
+                            </button>
+                            <button onclick="setAlbumDisplayMode('binder')" id="btn-mode-binder" class="px-3 py-1 text-[10px] font-black uppercase text-zinc-400 hover:text-white transition flex items-center gap-1">
+                                <i class="fa-solid fa-book-open"></i> Raccoglitore
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -330,47 +392,180 @@
                         <button onclick="changeBinderPage(-1)" id="btn-prev-page" class="h-16 px-2 sm:px-3 bg-zinc-950 border border-zinc-800 hover:border-cinthec text-white font-black text-xs uppercase transition disabled:opacity-20 shrink-0 z-10 flex items-center justify-center">
                             <i class="fa-solid fa-chevron-left text-sm"></i>
                         </button>
-
                         <div class="binder-page p-3 sm:p-4 flex-grow border border-zinc-800">
                             <div id="binder-pockets-grid" class="grid grid-cols-3 sm:grid-cols-5 gap-2 md:gap-3"></div>
                         </div>
-
                         <button onclick="changeBinderPage(1)" id="btn-next-page" class="h-16 px-2 sm:px-3 bg-zinc-950 border border-zinc-800 hover:border-cinthec text-white font-black text-xs uppercase transition disabled:opacity-20 shrink-0 z-10 flex items-center justify-center">
                             <i class="fa-solid fa-chevron-right text-sm"></i>
                         </button>
                     </div>
-
                     <span id="binder-page-num" class="font-black text-[10px] uppercase text-zinc-500">Pagina 1 di 1</span>
                 </div>
             </div>
 
-            <div id="view-trade" class="hidden flex-grow flex flex-col items-center justify-center py-16 text-center">
-                <i class="fa-solid fa-handshake text-5xl text-zinc-800 mb-3"></i>
-                <h2 class="text-xl font-black uppercase text-zinc-500 mb-1">Mercato Scambi</h2>
-                <p class="text-xs text-zinc-600 max-w-sm">La funzione per scambiare i doppioni sarà disponibile prossimamente!</p>
+            <!-- SCHEDA BRUCIACARTE -->
+            <div id="view-burner" class="hidden flex-grow flex flex-col items-center py-4">
+                <div class="text-center max-w-md mb-6">
+                    <div class="inline-flex items-center justify-center w-12 h-12 bg-amber-500/10 border border-amber-500/30 text-amber-500 text-xl mb-2 shadow-lg rounded-full">
+                        <i class="fa-solid fa-fire"></i>
+                    </div>
+                    <h2 class="text-xl font-black uppercase text-white mb-1">Il Bruciacarte</h2>
+                    <p class="text-xs text-zinc-400">Distruggi le tue carte doppie o indesiderate per recuperare Punti crediti!</p>
+                </div>
+                <div id="burner-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 w-full"></div>
             </div>
+
+            <!-- SCHEDA MERCATO -->
+            <div id="view-market" class="hidden flex-grow flex flex-col items-center py-4">
+                <div class="text-center max-w-md mb-4">
+                    <div class="inline-flex items-center justify-center w-12 h-12 bg-cinthec/10 border border-cinthec/30 text-cinthec text-xl mb-2 shadow-lg rounded-full">
+                        <i class="fa-solid fa-store"></i>
+                    </div>
+                    <h2 class="text-xl font-black uppercase text-white mb-1">Mercato Scambi</h2>
+                    <p class="text-xs text-zinc-400">Acquista le carte messe in vendita dagli altri giocatori o metti in vetrina i tuoi doppioni.</p>
+                </div>
+
+                <div class="flex bg-zinc-950 p-0.5 border border-zinc-800 mb-6">
+                    <button onclick="switchMarketSubTab('buy')" id="btn-sub-buy" class="px-4 py-1.5 text-[10px] font-black uppercase bg-zinc-800 text-cinthec transition">Vetrina Mercato</button>
+                    <button onclick="switchMarketSubTab('sell')" id="btn-sub-sell" class="px-4 py-1.5 text-[10px] font-black uppercase text-zinc-400 hover:text-white transition">Vendi una Carta</button>
+                </div>
+
+                <div id="market-buy-view" class="w-full">
+                    <div id="marketplace-listings" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                        <div class="col-span-full text-center py-8 text-zinc-500 font-bold text-xs">Caricamento inserzioni in corso...</div>
+                    </div>
+                </div>
+
+                <div id="market-sell-view" class="hidden w-full max-w-2xl">
+                    <p class="text-[11px] font-black uppercase text-zinc-400 mb-3 text-center">Seleziona una carta dalla tua collezione da mettere in vendita:</p>
+                    <div id="sellable-cards-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3"></div>
+                </div>
+            </div>
+
+            <!-- SCHEDA PLAYER HUB -->
+            <div id="view-players" class="hidden flex-grow flex flex-col items-center py-4">
+                <div class="text-center max-w-md mb-6">
+                    <div class="inline-flex items-center justify-center w-12 h-12 bg-cinthec/10 border border-cinthec/30 text-cinthec text-xl mb-2 shadow-lg rounded-full">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <h2 class="text-xl font-black uppercase text-white mb-1">Player Hub & Scambi</h2>
+                    <p class="text-xs text-zinc-400">Esplora la lista dei collezionisti registrati e proponi uno scambio diretto.</p>
+                </div>
+                <div id="players-list-container" class="w-full max-w-2xl space-y-3">
+                    <div class="text-center py-8 text-zinc-500 font-bold text-xs animate-pulse">Caricamento giocatori...</div>
+                </div>
+            </div>
+
+            <!-- SCHEDA HALL OF FAME -->
+            <div id="view-halloffame" class="hidden flex-grow flex flex-col items-center py-4">
+                <div class="text-center max-w-md mb-6">
+                    <div class="inline-flex items-center justify-center w-12 h-12 bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-xl mb-2 shadow-lg rounded-full">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h2 class="text-xl font-black uppercase text-white mb-1">Hall of Fame</h2>
+                    <p class="text-xs text-zinc-400">Classifica live dei migliori collezionisti della CintheC Arena.</p>
+                </div>
+                <div id="leaderboard-container" class="w-full max-w-lg bg-zinc-950 border border-zinc-800 divide-y divide-zinc-800/80 shadow-2xl">
+                    <div class="p-4 text-center text-zinc-500 font-black text-xs uppercase animate-pulse">
+                        <i class="fa-solid fa-spinner fa-spin mr-2"></i> Caricamento Classifica...
+                    </div>
+                </div>
+            </div>
+
         </div>
     </main>
 
-    <div id="card-inspect-modal" class="fixed inset-0 bg-black/90 z-[110] hidden flex flex-col items-center justify-center p-4 backdrop-blur-md" onclick="closeCardInspectModal(event)">
-        <p class="text-xs font-black uppercase tracking-widest text-cinthec mb-4 animate-pulse"><i class="fa-solid fa-hand-pointer mr-1"></i> Clicca sulla carta per girarla!</p>
-        <div id="inspect-card-container"></div>
-        <button onclick="closeCardInspectModalDirect()" class="mt-6 px-6 py-2 bg-zinc-900 border border-zinc-700 text-white font-black uppercase text-xs hover:bg-white hover:text-black transition">
-            Chiudi Vista
-        </button>
+    <!-- POP-UP NICKNAME OBBLIGATORIO -->
+    <div id="nickname-modal" class="fixed inset-0 bg-black/95 z-[130] hidden flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-zinc-950 border border-cinthec p-6 max-w-sm w-full relative shadow-[0_0_30px_rgba(0,255,102,0.2)]">
+            <div class="absolute top-0 left-0 w-full h-1 bg-cinthec"></div>
+            <div class="text-center mb-4">
+                <div class="inline-flex items-center justify-center w-12 h-12 bg-cinthec/10 border border-cinthec/30 text-cinthec text-xl mb-2 rounded-full">
+                    <i class="fa-solid fa-id-badge"></i>
+                </div>
+                <h3 class="font-black uppercase text-base text-white mb-1">Scegli il tuo Nickname</h3>
+                <p class="text-[11px] text-zinc-400 font-semibold">Questo sarà il tuo nome ufficiale nella Hall of Fame, nel Player Hub e nel Mercato.</p>
+            </div>
+            <div class="space-y-3 mb-4">
+                <input type="text" id="setup-nickname-input" placeholder="Es. Fighter99 o Mario Rossi" class="input-field text-center !text-sm !font-black">
+                <p id="nickname-error" class="hidden text-rose-500 text-[10px] font-bold text-center"></p>
+            </div>
+            <button onclick="saveUserNickname()" class="w-full py-3 bg-cinthec text-black font-black uppercase text-xs hover:bg-emerald-400 transition shadow-cinthec">
+                Conferma Nickname
+            </button>
+        </div>
     </div>
 
-    <div id="pack-modal" class="fixed inset-0 bg-black/95 z-[100] hidden flex flex-col items-center justify-center p-4 backdrop-blur-md">
-        <div id="opening-animation" class="hidden flex-col items-center justify-center">
+    <!-- MODALE IMPOSTAZIONI PROFILO -->
+    <div id="settings-modal" class="fixed inset-0 bg-black/90 z-[125] hidden flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-zinc-950 border border-zinc-800 p-6 max-w-sm w-full relative shadow-2xl">
+            <h3 class="font-black uppercase text-sm text-white mb-1"><i class="fa-solid fa-gear text-cinthec mr-1"></i> Impostazioni Profilo</h3>
+            <p class="text-[11px] text-zinc-400 mb-4">Puoi modificare il tuo nickname una volta ogni 15 giorni.</p>
+            
+            <div class="space-y-3 mb-5">
+                <div>
+                    <label class="text-[10px] font-bold text-zinc-400 uppercase block mb-1">Nickname Attuale</label>
+                    <input type="text" id="settings-nickname-input" class="input-field">
+                </div>
+                <p id="settings-cooldown-msg" class="text-[10px] font-semibold text-amber-400"></p>
+                <p id="settings-error" class="hidden text-rose-500 text-[10px] font-bold"></p>
+            </div>
+
+            <div class="flex gap-2">
+                <button onclick="updateUserNickname()" id="settings-save-btn" class="flex-grow py-2 bg-cinthec text-black font-black uppercase text-[10px] hover:bg-emerald-400 transition">Salva Modifiche</button>
+                <button onclick="closeSettingsModal()" class="px-4 py-2 bg-zinc-900 border border-zinc-700 text-white font-black uppercase text-[10px] hover:bg-zinc-800 transition">Chiudi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE ISPEZIONE CARTA SINGOLA -->
+    <div id="card-inspect-modal" class="fixed inset-0 bg-black/90 z-[110] hidden flex flex-col items-center justify-center p-4 backdrop-blur-md overflow-y-auto" onclick="closeCardInspectModal(event)">
+        <p class="text-xs font-black uppercase tracking-widest text-cinthec mb-3 animate-pulse"><i class="fa-solid fa-hand-pointer mr-1"></i> Clicca sulla carta per girarla!</p>
+        <div id="inspect-card-container" class="my-2"></div>
+        <div class="flex gap-2 mt-3">
+            <button id="modal-burn-btn" onclick="" class="px-5 py-2 bg-rose-600 hover:bg-rose-500 border border-rose-400 text-white font-black uppercase text-xs transition flex items-center gap-1.5">
+                <i class="fa-solid fa-fire"></i> Brucia Carta
+            </button>
+            <button onclick="closeCardInspectModalDirect()" class="px-5 py-2 bg-zinc-900 border border-zinc-700 text-white font-black uppercase text-xs hover:bg-white hover:text-black transition">
+                Chiudi
+            </button>
+        </div>
+    </div>
+
+    <!-- MODALE SCAMBIO DIRETTO -->
+    <div id="trade-modal" class="fixed inset-0 bg-black/90 z-[115] hidden flex flex-col items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-zinc-950 border border-zinc-800 p-5 max-w-md w-full relative shadow-2xl">
+            <h3 class="font-black uppercase text-sm text-cinthec mb-1 text-center">Proponi Scambio Diretto</h3>
+            <p id="trade-target-label" class="text-[11px] text-zinc-400 font-semibold mb-4 text-center">Seleziona una tua carta da offrire in cambio di una carta dell'avversario.</p>
+            
+            <div class="space-y-3 mb-4">
+                <div>
+                    <label class="text-[10px] font-bold text-zinc-400 uppercase block mb-1">La tua carta da offrire:</label>
+                    <select id="trade-my-card" class="input-field"></select>
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-zinc-400 uppercase block mb-1">Carta desiderata dell'avversario:</label>
+                    <select id="trade-target-card" class="input-field"></select>
+                </div>
+            </div>
+
+            <div class="flex gap-2">
+                <button onclick="sendTradeProposal()" class="flex-grow py-2 bg-cinthec text-black font-black uppercase text-[10px] hover:bg-emerald-400 transition">Invia Proposta</button>
+                <button onclick="closeTradeModal()" class="px-4 py-2 bg-zinc-900 border border-zinc-700 text-white font-black uppercase text-[10px] hover:bg-zinc-800 transition">Annulla</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE RISULTATO PACCHETTO -->
+    <div id="pack-modal" class="fixed inset-0 bg-black/95 z-[100] hidden flex flex-col items-center justify-center p-4 backdrop-blur-md overflow-y-auto">
+        <div id="opening-animation" class="hidden flex-col items-center justify-center my-auto">
             <div id="anim-pack" class="w-40 h-56 bg-zinc-900 border-2 border-cinthec pack-shake shadow-[0_0_35px_rgba(0,255,102,0.4)]"></div>
             <p class="mt-6 text-white font-black uppercase text-xs tracking-widest animate-pulse" id="anim-text">Apertura pacchetto...</p>
         </div>
-        <div id="found-card-view" class="hidden flex-col items-center justify-center text-center max-w-3xl w-full">
+        <div id="found-card-view" class="hidden flex-col items-center justify-center text-center max-w-4xl w-full my-auto py-6">
             <h3 class="text-2xl font-black uppercase mb-1 text-white" id="result-rarity-text">Carte Trovate!</h3>
             <p class="text-xs text-zinc-400 font-bold mb-6">Aggiunte al tuo album personale.</p>
-            
-            <div id="result-card-container" class="flex flex-wrap justify-center gap-4 mb-6 w-full"></div>
-            
+            <div id="result-card-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6 w-full justify-items-center"></div>
             <button onclick="closePackModal()" class="px-6 py-2.5 bg-cinthec text-black font-black uppercase text-xs hover:bg-emerald-400 transition shadow-cinthec">
                 Aggiungi all'Album
             </button>
@@ -391,78 +586,293 @@
     </div>
 
     <script>
-        const FIGHTER_DB = {
-            'bagni': { nome: 'Umberto Bagni', categoria: 'Pesi Piuma', rec: '2-0-0', foto: 'ranking/umberto-bagni.jpg', stats: { stk: 82, grp: 75, pwr: 80, crd: 85 } },
-            'bello': { nome: 'Massimiliano Bello', categoria: 'Pesi Piuma', rec: '14-3-0', foto: 'ranking/bello.jpg', stats: { stk: 92, grp: 88, pwr: 90, crd: 86 } },
-            'costa': { nome: 'Luca D\'Acosta', categoria: 'Pesi Piuma', rec: '1-2-0', foto: 'ranking/costa.jpg', stats: { stk: 76, grp: 70, pwr: 75, crd: 78 } },
-            'frigerio': { nome: 'Federico Frigerio', categoria: 'Pesi Piuma', rec: '4-0-0', foto: 'ranking/frigerio.jpg', stats: { stk: 85, grp: 82, pwr: 84, crd: 88 } },
-            'gabura': { nome: 'Andrei Gabura', categoria: 'Pesi Piuma', rec: '1-3-0', foto: 'ranking/gabura1.jpg', stats: { stk: 74, grp: 72, pwr: 78, crd: 75 } },
-            'gurnioli': { nome: 'Natay Gurnioli', categoria: 'Pesi Piuma', rec: '0-2-0', foto: 'atleti/logo.png', stats: { stk: 70, grp: 68, pwr: 72, crd: 70 } },
-            'pagotto': { nome: 'Davide Pagotto', categoria: 'Pesi Piuma', rec: '7-8-0', foto: 'ranking/pagotto.jpg', stats: { stk: 81, grp: 83, pwr: 79, crd: 82 } },
-            'parmentola': { nome: 'Giovanni Parmentola', categoria: 'Pesi Piuma', rec: '16-9-0', foto: 'ranking/parmentola.jpeg', stats: { stk: 89, grp: 90, pwr: 87, crd: 88 } },
-            'perini_f': { nome: 'Francesco Perini', categoria: 'Pesi Piuma', rec: '5-1-0', foto: 'ranking/perini10.jpg', stats: { stk: 84, grp: 80, pwr: 83, crd: 86 } },
-            'perini_m': { nome: 'Matteo Perini', categoria: 'Pesi Piuma', rec: '3-1-0', foto: 'ranking/perini3.jpg', stats: { stk: 80, grp: 78, pwr: 82, crd: 81 } },
-            'piccinini': { nome: 'Andrea Piccinini', categoria: 'Pesi Piuma', rec: '0-6-0', foto: 'ranking/piccini.jpg', stats: { stk: 68, grp: 65, pwr: 70, crd: 72 } },
-            'rachki': { nome: 'Oussama Rachki', categoria: 'Pesi Piuma', rec: '4-4-0', foto: 'ranking/Osama.jpg', stats: { stk: 95, grp: 91, pwr: 94, crd: 92 } },
-            'togni': { nome: 'Andrea Togni', categoria: 'Pesi Piuma', rec: '3-0-0', foto: 'ranking/togni.jpg', stats: { stk: 86, grp: 80, pwr: 85, crd: 89 } }
-        };
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzYVD8yOwihUveO_q-AEpM0KOmQ2y1N-sexkfWaWn5yywh1qXuf8Mi66VtBVBpelPTC4Q/exec";
+
+        const BURN_VALUES = { 'comune': 2, 'rara': 5, 'ultra': 15, 'leggendaria': 50 };
+
+        // Database pulito (vuoto, pronto per i tuoi nuovi atleti da Google Sheets)
+        let FIGHTER_DB = {};
 
         const RARITIES = ['comune', 'rara', 'ultra', 'leggendaria'];
 
         let currentUser = null;
+        let authMode = 'login';
         let currentAlbumMode = 'grid';
+        let currentBinderSeries = 'cinthec';
         let binderCurrentPage = 1;
-        const POCKETS_PER_PAGE = 10;
+        let currentTradeTarget = '';
+        const POCKETS_PER_PAGE = 15;
 
         window.addEventListener('DOMContentLoaded', () => {
+            loadAtletiFromCloud();
             const savedData = localStorage.getItem('cinthec_arena_data');
             if (savedData) {
                 currentUser = JSON.parse(savedData);
-            } else {
-                currentUser = {
-                    email: 'Giocatore CintheC',
-                    punti: 50,
-                    carte: ['bello_leggendaria', 'togni_comune', 'rachki_rara']
-                };
-                saveUserData();
+                if (!currentUser.nickname) {
+                    document.getElementById('nickname-modal').classList.remove('hidden');
+                } else {
+                    showDashboard();
+                }
             }
         });
+
+        function sanitizeRecord(recStr) {
+            if (!recStr) return '0-0-0';
+            let str = String(recStr);
+            if (str.includes('T') || str.includes('00:00') || str.includes('1970') || str.includes('2000') || str.includes('2026')) {
+                const d = new Date(str);
+                if (!isNaN(d.getTime())) {
+                    const day = d.getDate();
+                    const month = d.getMonth() + 1;
+                    const year = d.getFullYear() % 100;
+                    return `${day}-${month}-${year}`;
+                }
+            }
+            if (str.includes('/')) {
+                const parts = str.split('/');
+                if (parts.length >= 2) return `${parts[1]}-${parts[0]}-0`;
+            }
+            return str;
+        }
+
+        async function loadAtletiFromCloud() {
+            if (!SCRIPT_URL || SCRIPT_URL.includes("INSERISCI_QUI")) return;
+            try {
+                const res = await fetch(`${SCRIPT_URL}?action=getAtleti`);
+                const data = await res.json();
+                if (data && Object.keys(data).length > 0 && !data.fighter) {
+                    FIGHTER_DB = { ...FIGHTER_DB, ...data };
+                }
+            } catch (err) {
+                console.warn("Cloud non disponibile, uso database locale.", err);
+            }
+        }
+
+        async function syncUserWithCloud() {
+            if (!SCRIPT_URL || SCRIPT_URL.includes("INSERISCI_QUI") || !currentUser || !currentUser.email) return;
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'syncUser',
+                        email: currentUser.email,
+                        nickname: currentUser.nickname || '',
+                        lastNickChange: currentUser.lastNickChange || '',
+                        punti: currentUser.punti,
+                        carte: currentUser.carte
+                    })
+                });
+            } catch (err) {
+                console.warn("Sincronizzazione utente cloud non riuscita:", err);
+            }
+        }
+
+        function switchAuthTab(mode) {
+            authMode = mode;
+            const btnLogin = document.getElementById('tab-login');
+            const btnRegister = document.getElementById('tab-register');
+            const btnLabel = document.getElementById('auth-btn-label');
+            const errP = document.getElementById('auth-error');
+            errP.classList.add('hidden');
+
+            if (mode === 'login') {
+                btnLogin.className = 'flex-1 py-1.5 text-[10px] font-black uppercase bg-zinc-800 text-cinthec transition';
+                btnRegister.className = 'flex-1 py-1.5 text-[10px] font-black uppercase text-zinc-400 hover:text-white transition';
+                btnLabel.textContent = "Accedi all'Arena";
+            } else {
+                btnLogin.className = 'flex-1 py-1.5 text-[10px] font-black uppercase text-zinc-400 hover:text-white transition';
+                btnRegister.className = 'flex-1 py-1.5 text-[10px] font-black uppercase bg-zinc-800 text-cinthec transition';
+                btnLabel.textContent = "Registrati e Inizia";
+            }
+        }
+
+        function togglePasswordVisibility() {
+            const pwdInput = document.getElementById('auth-password');
+            const eyeIcon = document.getElementById('password-eye-icon');
+            if (pwdInput.type === 'password') {
+                pwdInput.type = 'text';
+                eyeIcon.className = 'fa-solid fa-eye-slash text-xs';
+            } else {
+                pwdInput.type = 'password';
+                eyeIcon.className = 'fa-solid fa-eye text-xs';
+            }
+        }
+
+        async function handleAuthSubmit() {
+            const email = document.getElementById('auth-email').value.trim();
+            const password = document.getElementById('auth-password').value.trim();
+            const errP = document.getElementById('auth-error');
+            errP.classList.add('hidden');
+
+            if (!email || !email.includes('@') || !password) {
+                errP.textContent = "Inserisci un'email valida e la password.";
+                errP.classList.remove('hidden');
+                return;
+            }
+
+            if (!SCRIPT_URL || SCRIPT_URL.includes("INSERISCI_QUI")) {
+                currentUser = { email: email, password: password, nickname: '', lastNickChange: '', punti: 20, carte: [] };
+                saveUserData();
+                if (!currentUser.nickname) {
+                    document.getElementById('auth-screen').classList.add('hidden');
+                    document.getElementById('nickname-modal').classList.remove('hidden');
+                } else {
+                    showDashboard();
+                }
+                return;
+            }
+
+            const action = authMode === 'register' ? 'register' : 'login';
+
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({ action: action, email: email, password: password })
+                });
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    if (authMode === 'register') {
+                        currentUser = { email: email, password: password, nickname: '', lastNickChange: '', punti: 20, carte: [] };
+                    } else {
+                        currentUser = {
+                            email: data.email,
+                            password: password,
+                            nickname: data.nickname || '',
+                            lastNickChange: data.lastNickChange || '',
+                            punti: Number(data.punti) || 0,
+                            carte: data.carte ? data.carte.split(',').filter(c => c.trim() !== '') : []
+                        };
+                    }
+                    saveUserData();
+
+                    if (!currentUser.nickname) {
+                        document.getElementById('auth-screen').classList.add('hidden');
+                        document.getElementById('nickname-modal').classList.remove('hidden');
+                    } else {
+                        showDashboard();
+                    }
+                } else {
+                    errP.textContent = data.message || "Errore di autenticazione.";
+                    errP.classList.remove('hidden');
+                }
+            } catch (err) {
+                errP.textContent = "Errore di connessione con il server.";
+                errP.classList.add('hidden');
+            }
+        }
+
+        function saveUserNickname() {
+            const nickInput = document.getElementById('setup-nickname-input').value.trim();
+            const nickErr = document.getElementById('nickname-error');
+            nickErr.classList.add('hidden');
+
+            if (!nickInput || nickInput.length < 2) {
+                nickErr.textContent = "Inserisci un nickname di almeno 2 caratteri.";
+                nickErr.classList.remove('hidden');
+                return;
+            }
+
+            currentUser.nickname = nickInput;
+            currentUser.lastNickChange = new Date().toISOString();
+            saveUserData();
+            document.getElementById('nickname-modal').classList.add('hidden');
+            showDashboard();
+        }
+
+        function openSettingsModal() {
+            document.getElementById('account-dropdown').classList.add('hidden');
+            const nickInput = document.getElementById('settings-nickname-input');
+            const cooldownMsg = document.getElementById('settings-cooldown-msg');
+            const saveBtn = document.getElementById('settings-save-btn');
+            const errP = document.getElementById('settings-error');
+            errP.classList.add('hidden');
+
+            nickInput.value = currentUser.nickname;
+
+            if (currentUser.lastNickChange) {
+                const lastDate = new Date(currentUser.lastNickChange);
+                const now = new Date();
+                const diffDays = (now - lastDate) / (1000 * 60 * 60 * 24);
+                const daysRemaining = Math.ceil(15 - diffDays);
+
+                if (daysRemaining > 0) {
+                    cooldownMsg.textContent = `Potrai cambiare nuovamente nickname tra ${daysRemaining} giorni.`;
+                    nickInput.disabled = true;
+                    saveBtn.classList.add('hidden');
+                } else {
+                    cooldownMsg.textContent = "Puoi modificare il tuo nickname adesso.";
+                    nickInput.disabled = false;
+                    saveBtn.classList.remove('hidden');
+                }
+            } else {
+                cooldownMsg.textContent = "Puoi modificare il tuo nickname adesso.";
+                nickInput.disabled = false;
+                saveBtn.classList.remove('hidden');
+            }
+
+            document.getElementById('settings-modal').classList.remove('hidden');
+        }
+
+        function closeSettingsModal() { document.getElementById('settings-modal').classList.add('hidden'); }
+
+        function updateUserNickname() {
+            const newNick = document.getElementById('settings-nickname-input').value.trim();
+            const errP = document.getElementById('settings-error');
+            errP.classList.add('hidden');
+
+            if (!newNick || newNick.length < 2) {
+                errP.textContent = "Il nickname deve avere almeno 2 caratteri.";
+                errP.classList.remove('hidden');
+                return;
+            }
+
+            currentUser.nickname = newNick;
+            currentUser.lastNickChange = new Date().toISOString();
+            saveUserData();
+            showDashboard();
+            closeSettingsModal();
+            showAlert("Profilo Aggiornato", "Il tuo nickname è stato modificato con successo.", "fa-circle-check");
+        }
 
         function saveUserData() {
             if (currentUser) {
                 localStorage.setItem('cinthec_arena_data', JSON.stringify(currentUser));
+                syncUserWithCloud();
             }
-        }
-
-        function enterArenaDirectly() {
-            showDashboard();
-        }
-
-        function resetUserData() {
-            localStorage.removeItem('cinthec_arena_data');
-            localStorage.removeItem('cinthec_last_daily');
-            currentUser = {
-                email: 'Giocatore CintheC',
-                punti: 50,
-                carte: []
-            };
-            saveUserData();
-            updateUI();
-            if (currentAlbumMode === 'binder') renderBinder(); else renderAlbum();
-            showAlert("Album Azzerato", "Il tuo inventario locale è stato ripulito con successo.", "fa-trash-can");
         }
 
         function showDashboard() {
             document.getElementById('auth-screen').classList.add('hidden');
+            document.getElementById('nickname-modal').classList.add('hidden');
             document.getElementById('app-screen').classList.remove('hidden');
             document.getElementById('user-header-info').classList.remove('hidden');
+            document.getElementById('profile-nickname').textContent = currentUser.nickname;
+            document.getElementById('header-user-nickname').textContent = currentUser.nickname;
+            document.getElementById('dropdown-nickname').textContent = currentUser.nickname;
             updateUI();
+            loadAtletiFromCloud();
         }
 
+        function toggleAccountMenu() { document.getElementById('account-dropdown').classList.toggle('hidden'); }
+
+        window.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('account-dropdown');
+            if (dropdown && !e.target.closest('#account-dropdown') && !e.target.closest('button[onclick="toggleAccountMenu()"]')) {
+                dropdown.classList.add('hidden');
+            }
+        });
+
         function logout() {
+            localStorage.removeItem('cinthec_arena_data');
+            currentUser = null;
             document.getElementById('auth-screen').classList.remove('hidden');
             document.getElementById('app-screen').classList.add('hidden');
             document.getElementById('user-header-info').classList.add('hidden');
+            document.getElementById('account-dropdown').classList.add('hidden');
         }
 
         function updateUI() {
@@ -473,30 +883,6 @@
             document.getElementById('album-stats').textContent = `Hai sbloccato ${carteValide.length} carte. Clicca per ingrandire e girare!`;
         }
 
-        function claimDaily() { 
-            const todayStr = new Date().toISOString().split('T')[0];
-            const lastClaim = localStorage.getItem('cinthec_last_daily');
-            if (lastClaim === todayStr) {
-                showAlert("Bonus già preso", "Hai già ritirato i punti bonus oggi. Torna domani!", "fa-circle-xmark");
-                return;
-            }
-            localStorage.setItem('cinthec_last_daily', todayStr);
-            currentUser.punti += 10;
-            saveUserData();
-            updateUI();
-            showAlert("Bonus Accreditato!", "+10 Punti aggiunti al tuo saldo.", "fa-gift");
-        }
-        
-        function redeemTicket() { 
-            const code = document.getElementById('ticket-code').value.trim();
-            if(!code) return;
-            currentUser.punti += 30;
-            saveUserData();
-            document.getElementById('ticket-code').value = '';
-            updateUI();
-            showAlert("Biglietto Convalidato!", "Codice TicketSMS accettato! +30 Punti aggiunti.", "fa-ticket");
-        }
-
         function showAlert(title, msg, iconClass = "fa-circle-check") {
             document.getElementById('alert-title').textContent = title;
             document.getElementById('alert-msg').textContent = msg;
@@ -504,23 +890,53 @@
             document.getElementById('custom-alert-modal').classList.remove('hidden');
         }
 
-        function closeCustomAlert() {
-            document.getElementById('custom-alert-modal').classList.add('hidden');
-        }
+        function closeCustomAlert() { document.getElementById('custom-alert-modal').classList.add('hidden'); }
 
         function switchView(view) {
-            ['shop', 'album', 'trade'].forEach(v => {
+            ['shop', 'album', 'burner', 'market', 'players', 'halloffame'].forEach(v => {
                 document.getElementById(`view-${v}`).classList.add('hidden');
                 document.getElementById(`nav-${v}`).className = 'px-3 py-2 text-[11px] font-black uppercase border-b-2 border-transparent text-zinc-500 hover:text-white transition flex items-center gap-1.5';
             });
             document.getElementById(`view-${view}`).classList.remove('hidden');
             document.getElementById(`nav-${view}`).className = 'px-3 py-2 text-[11px] font-black uppercase border-b-2 border-cinthec text-cinthec transition flex items-center gap-1.5';
+            
             if(view === 'album') renderAlbum();
+            if(view === 'burner') renderBurner();
+            if(view === 'market') loadMarketplace();
+            if(view === 'players') loadPlayers();
+            if(view === 'halloffame') loadLeaderboard();
         }
 
-        function buyPack(cardsCount, cost) {
+        function switchMarketSubTab(subTab) {
+            const buyView = document.getElementById('market-buy-view');
+            const sellView = document.getElementById('market-sell-view');
+            const btnBuy = document.getElementById('btn-sub-buy');
+            const btnSell = document.getElementById('btn-sub-sell');
+
+            if (subTab === 'buy') {
+                buyView.classList.remove('hidden');
+                sellView.classList.add('hidden');
+                btnBuy.className = 'px-4 py-1.5 text-[10px] font-black uppercase bg-zinc-800 text-cinthec transition';
+                btnSell.className = 'px-4 py-1.5 text-[10px] font-black uppercase text-zinc-400 hover:text-white transition';
+                loadMarketplace();
+            } else {
+                buyView.classList.add('hidden');
+                sellView.classList.remove('hidden');
+                btnBuy.className = 'px-4 py-1.5 text-[10px] font-black uppercase text-zinc-400 hover:text-white transition';
+                btnSell.className = 'px-4 py-1.5 text-[10px] font-black uppercase bg-zinc-800 text-cinthec transition';
+                renderSellableCards();
+            }
+        }
+
+        async function buyPack(promotion, cardsCount, cost) {
             const errP = document.getElementById('pack-error');
             errP.classList.add('hidden');
+
+            if (Object.keys(FIGHTER_DB).length === 0) {
+                errP.textContent = "Nessun atleta inserito nel database! Aggiungi prima gli atleti su Google Sheets.";
+                errP.classList.remove('hidden');
+                return;
+            }
 
             if (currentUser.punti < cost) {
                 errP.textContent = `Crediti insufficienti! Servono ${cost} Punti per questo pacchetto.`;
@@ -543,35 +959,54 @@
             packVisual.classList.add('pack-shake');
             animText.textContent = "Estrazione carte in corso...";
 
-            setTimeout(() => {
-                currentUser.punti -= cost;
-                const wonCards = [];
-                const fighters = Object.keys(FIGHTER_DB);
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        action: 'openPack',
+                        email: currentUser.email,
+                        promotion: promotion,
+                        cost: cost,
+                        count: cardsCount
+                    })
+                });
+                const data = await response.json();
 
-                for (let i = 0; i < cardsCount; i++) {
-                    const rand = Math.random() * 100;
-                    let rarityStr = 'comune';
-                    if (rand < 5) rarityStr = 'leggendaria';
-                    else if (rand < 20) rarityStr = 'ultra';
-                    else if (rand < 45) rarityStr = 'rara';
+                if (data.status === 'success') {
+                    currentUser.punti = data.puntiRimanenti;
+                    const wonCards = data.carteVinte.map(c => c.code);
+                    currentUser.carte = currentUser.carte.concat(wonCards);
+                    saveUserData();
 
-                    const randomFighter = fighters[Math.floor(Math.random() * fighters.length)];
-                    const cardCode = randomFighter + '_' + rarityStr;
-                    currentUser.carte.push(cardCode);
-                    wonCards.push(cardCode);
+                    packVisual.classList.remove('pack-shake');
+                    packVisual.classList.add('pack-explode');
+                    
+                    setTimeout(() => {
+                        anim.classList.remove('flex');
+                        anim.classList.add('hidden');
+                        showResult(wonCards);
+                    }, 800);
+                } else {
+                    modal.classList.add('hidden');
+                    errP.textContent = data.message || "Errore durante l'apertura del pacchetto.";
+                    errP.classList.remove('hidden');
                 }
-
+            } catch (err) {
+                currentUser.punti -= cost;
+                const fighterKeys = Object.keys(FIGHTER_DB);
+                const wonCards = [];
+                for(let i=0; i<cardsCount; i++) {
+                    const rFighter = fighterKeys[Math.floor(Math.random() * fighterKeys.length)];
+                    const rRarity = RARITIES[Math.floor(Math.random() * RARITIES.length)];
+                    wonCards.push(`${promotion}_${rFighter}_${rRarity}`);
+                }
+                currentUser.carte = currentUser.carte.concat(wonCards);
                 saveUserData();
 
-                packVisual.classList.remove('pack-shake');
-                packVisual.classList.add('pack-explode');
-                
-                setTimeout(() => {
-                    anim.classList.remove('flex');
-                    anim.classList.add('hidden');
-                    showResult(wonCards);
-                }, 800);
-            }, 800);
+                modal.classList.add('hidden');
+                showResult(wonCards);
+            }
         }
 
         function showResult(wonCards) {
@@ -580,9 +1015,7 @@
             result.classList.add('flex');
             
             const container = document.getElementById('result-card-container');
-            container.innerHTML = wonCards.map(code => `
-                <div class="w-44 sm:w-52">${createCardHTML(code)}</div>
-            `).join('');
+            container.innerHTML = wonCards.map(code => `<div class="w-full flex justify-center">${createCardHTML(code)}</div>`).join('');
 
             attachTiltEffect();
             updateUI();
@@ -592,26 +1025,32 @@
 
         function setAlbumDisplayMode(mode) {
             currentAlbumMode = mode;
+            const seriesSelect = document.getElementById('binder-series-select');
+            
             document.getElementById('btn-mode-grid').className = mode === 'grid' ? 'px-3 py-1 text-[10px] font-black uppercase bg-zinc-800 text-cinthec transition flex items-center gap-1' : 'px-3 py-1 text-[10px] font-black uppercase text-zinc-400 hover:text-white transition flex items-center gap-1';
             document.getElementById('btn-mode-binder').className = mode === 'binder' ? 'px-3 py-1 text-[10px] font-black uppercase bg-zinc-800 text-cinthec transition flex items-center gap-1' : 'px-3 py-1 text-[10px] font-black uppercase text-zinc-400 hover:text-white transition flex items-center gap-1';
 
             if (mode === 'grid') {
+                seriesSelect.classList.add('hidden');
                 document.getElementById('album-grid-view').classList.remove('hidden');
                 document.getElementById('album-binder-view').classList.add('hidden');
                 renderAlbum();
             } else {
+                seriesSelect.classList.remove('hidden');
                 document.getElementById('album-grid-view').classList.add('hidden');
                 document.getElementById('album-binder-view').classList.remove('hidden');
                 renderBinder();
             }
         }
 
-        function renderAlbum() {
-            if (currentAlbumMode === 'binder') {
-                renderBinder();
-                return;
-            }
+        function changeBinderSeries(series) {
+            currentBinderSeries = series;
+            binderCurrentPage = 1;
+            renderBinder();
+        }
 
+        function renderAlbum() {
+            if (currentAlbumMode === 'binder') { renderBinder(); return; }
             const grid = document.getElementById('cards-grid');
             const carteValide = currentUser.carte.filter(c => c && c.trim() !== "");
             
@@ -623,29 +1062,74 @@
             attachTiltEffect();
         }
 
-        function getMasterCatalog() {
+        function renderBurner() {
+            const grid = document.getElementById('burner-grid');
+            const carteValide = currentUser.carte.filter(c => c && c.trim() !== "");
+
+            if (carteValide.length === 0) {
+                grid.innerHTML = '<div class="col-span-full text-center py-8 text-zinc-500 font-bold text-xs">Non possiedi carte da bruciare. Apri nuovi pacchetti!</div>';
+                return;
+            }
+
+            grid.innerHTML = carteValide.map(code => {
+                const parts = code.split('_');
+                const rarity = parts.length > 2 ? parts[2] : (parts[1] || 'comune');
+                const value = BURN_VALUES[rarity] || 2;
+                return `
+                    <div class="flex flex-col gap-1.5">
+                        ${createCardHTML(code)}
+                        <button onclick="burnCard('${code}')" class="w-full py-1.5 bg-rose-600/20 border border-rose-500/40 hover:bg-rose-600 text-rose-300 hover:text-white font-black uppercase text-[9px] transition flex items-center justify-center gap-1">
+                            <i class="fa-solid fa-fire"></i> Brucia (+${value} PT)
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            attachTiltEffect();
+        }
+
+        function burnCard(cardCode) {
+            const index = currentUser.carte.indexOf(cardCode);
+            if (index === -1) return;
+
+            const parts = cardCode.split('_');
+            const rarity = parts.length > 2 ? parts[2] : (parts[1] || 'comune');
+            const pointsGained = BURN_VALUES[rarity] || 2;
+
+            currentUser.carte.splice(index, 1);
+            currentUser.punti += pointsGained;
+
+            saveUserData();
+            updateUI();
+
+            if (currentAlbumMode === 'binder') renderBinder(); else renderAlbum();
+            renderBurner();
+            closeCardInspectModalDirect();
+
+            showAlert("Carta Bruciata! 🔥", `Hai distrutto la carta e recuperato +${pointsGained} Punti!`, "fa-fire text-amber-500");
+        }
+
+        function getMasterCatalogForSeries(series) {
             const catalog = [];
-            const sortedFighterKeys = Object.keys(FIGHTER_DB).sort((a, b) => 
-                FIGHTER_DB[a].nome.localeCompare(FIGHTER_DB[b].nome)
-            );
+            const sortedFighterKeys = Object.keys(FIGHTER_DB).sort((a, b) => FIGHTER_DB[a].nome.localeCompare(FIGHTER_DB[b].nome));
 
             sortedFighterKeys.forEach(fKey => {
                 RARITIES.forEach(rarity => {
-                    catalog.push({
-                        code: `${fKey}_${rarity}`,
-                        fighterKey: fKey,
-                        rarity: rarity,
-                        data: FIGHTER_DB[fKey]
-                    });
+                    catalog.push({ code: `${series}_${fKey}_${rarity}`, fighterKey: fKey, rarity: rarity, data: FIGHTER_DB[fKey] });
                 });
             });
             return catalog;
         }
 
         function renderBinder() {
-            const catalog = getMasterCatalog();
-            const totalPages = Math.ceil(catalog.length / POCKETS_PER_PAGE);
+            const catalog = getMasterCatalogForSeries(currentBinderSeries);
+            if (catalog.length === 0) {
+                document.getElementById('binder-pockets-grid').innerHTML = '<div class="col-span-full text-center py-8 text-zinc-500 font-bold text-xs">Nessun atleta caricato nel database.</div>';
+                document.getElementById('binder-page-num').textContent = "Pagina 0 di 0";
+                return;
+            }
 
+            const totalPages = Math.ceil(catalog.length / POCKETS_PER_PAGE);
             if (binderCurrentPage > totalPages) binderCurrentPage = totalPages;
             if (binderCurrentPage < 1) binderCurrentPage = 1;
 
@@ -675,57 +1159,335 @@
             attachTiltEffect();
         }
 
-        function changeBinderPage(delta) {
-            binderCurrentPage += delta;
-            renderBinder();
+        function changeBinderPage(delta) { binderCurrentPage += delta; renderBinder(); }
+
+        async function loadMarketplace() {
+            const container = document.getElementById('marketplace-listings');
+            container.innerHTML = `<div class="col-span-full text-center py-8 text-zinc-500 font-black text-xs uppercase animate-pulse"><i class="fa-solid fa-spinner fa-spin mr-2"></i> Caricamento mercato...</div>`;
+
+            if (!SCRIPT_URL || SCRIPT_URL.includes("INSERISCI_QUI")) {
+                container.innerHTML = `<div class="col-span-full text-center py-8 text-zinc-500 font-bold text-xs">Mercato non disponibile senza Google Sheets.</div>`;
+                return;
+            }
+
+            try {
+                const res = await fetch(`${SCRIPT_URL}?action=getMarketplace`);
+                const listings = await res.json();
+
+                if (!Array.isArray(listings) || listings.length === 0) {
+                    container.innerHTML = `<div class="col-span-full text-center py-8 text-zinc-500 font-bold text-xs">Nessuna carta in vendita.</div>`;
+                    return;
+                }
+
+                container.innerHTML = listings.map(item => `
+                    <div class="flex flex-col gap-1.5 bg-zinc-950 p-2 border border-zinc-800">
+                        ${createCardHTML(item.cartaCode)}
+                        <div class="text-[9px] text-zinc-400 font-bold truncate">Venditore: ${item.venditoreNickname || item.venditore}</div>
+                        <button onclick="buyMarketCard('${item.id}', ${item.prezzo})" class="w-full py-1.5 bg-cinthec text-black font-black uppercase text-[9px] hover:bg-emerald-400 transition shadow-cinthec flex items-center justify-center gap-1">
+                            <i class="fa-solid fa-cart-shopping"></i> Acquista (${item.prezzo} PT)
+                        </button>
+                    </div>
+                `).join('');
+
+                attachTiltEffect();
+            } catch (err) {
+                container.innerHTML = `<div class="col-span-full text-center py-8 text-rose-400 font-bold text-xs">Errore nel caricamento del mercato.</div>`;
+            }
+        }
+
+        async function buyMarketCard(listingId, prezzo) {
+            if (currentUser.punti < prezzo) {
+                showAlert("Punti Insufficienti", "Non hai abbastanza crediti.", "fa-circle-xmark");
+                return;
+            }
+
+            try {
+                const res = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        action: 'buyMarketCard',
+                        listingId: listingId,
+                        compratoreEmail: currentUser.email
+                    })
+                });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    currentUser.punti = data.puntiRimanenti;
+                    currentUser.carte = data.carteAggiornate.split(',');
+                    saveUserData();
+                    updateUI();
+                    loadMarketplace();
+                    showAlert("Acquisto Riuscito!", "La carta è stata aggiunta al tuo album!", "fa-circle-check");
+                } else {
+                    showAlert("Errore", data.message, "fa-circle-xmark");
+                }
+            } catch (err) {
+                showAlert("Errore di Rete", "Impossibile completare l'acquisto.", "fa-circle-xmark");
+            }
+        }
+
+        async function loadPlayers() {
+            const container = document.getElementById('players-list-container');
+            container.innerHTML = `<div class="text-center py-8 text-zinc-500 font-bold text-xs animate-pulse">Caricamento giocatori...</div>`;
+
+            if (!SCRIPT_URL || SCRIPT_URL.includes("INSERISCI_QUI")) {
+                container.innerHTML = `<div class="text-center py-8 text-zinc-500 font-bold text-xs">Funzione disponibile con Google Sheets attivo.</div>`;
+                return;
+            }
+
+            try {
+                const res = await fetch(`${SCRIPT_URL}?action=getPlayers`);
+                const players = await res.json();
+                const otherPlayers = players.filter(p => p.email !== currentUser.email);
+
+                if (otherPlayers.length === 0) {
+                    container.innerHTML = `<div class="text-center py-8 text-zinc-500 font-bold text-xs">Nessun altro giocatore registrato.</div>`;
+                    return;
+                }
+
+                container.innerHTML = otherPlayers.map(player => `
+                    <div class="bg-zinc-950 border border-zinc-800 p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                        <div>
+                            <h3 class="font-bold text-xs text-white flex items-center gap-2">
+                                <i class="fa-solid fa-user-ninja text-cinthec"></i> ${player.nickname || player.email}
+                            </h3>
+                            <p class="text-[10px] text-zinc-400 mt-0.5">Possiede ${player.carte.length} carte nel suo album.</p>
+                        </div>
+                        <button onclick="openTradeModal('${player.email}', '${player.nickname || player.email}', '${player.carte.join(',')}')" class="px-3.5 py-2 bg-zinc-900 border border-zinc-700 hover:border-cinthec text-white font-black uppercase text-[10px] transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-repeat text-cinthec"></i> Proponi Scambio
+                        </button>
+                    </div>
+                `).join('');
+            } catch (err) {
+                container.innerHTML = `<div class="text-center py-8 text-rose-400 font-bold text-xs">Errore nel caricamento dei giocatori.</div>`;
+            }
+        }
+
+        function openTradeModal(targetEmail, targetNickname, targetCardsStr) {
+            currentTradeTarget = targetEmail;
+            const targetCards = targetCardsStr ? targetCardsStr.split(',').filter(c => c.trim() !== '') : [];
+            const myCards = currentUser.carte.filter(c => c && c.trim() !== '');
+
+            if (myCards.length === 0 || targetCards.length === 0) {
+                showAlert("Impossibile procedere", "Uno dei due giocatori non ha carte disponibili.", "fa-circle-xmark");
+                return;
+            }
+
+            document.getElementById('trade-target-label').textContent = `Proponi uno scambio con ${targetNickname}`;
+
+            const mySelect = document.getElementById('trade-my-card');
+            mySelect.innerHTML = myCards.map(c => `<option value="${c}">${c.replace(/_/g, ' - ').toUpperCase()}</option>`).join('');
+
+            const targetSelect = document.getElementById('trade-target-card');
+            targetSelect.innerHTML = targetCards.map(c => `<option value="${c}">${c.replace(/_/g, ' - ').toUpperCase()}</option>`).join('');
+
+            document.getElementById('trade-modal').classList.remove('hidden');
+        }
+
+        function closeTradeModal() { document.getElementById('trade-modal').classList.add('hidden'); }
+
+        async function sendTradeProposal() {
+            const myCard = document.getElementById('trade-my-card').value;
+            const targetCard = document.getElementById('trade-target-card').value;
+
+            if (!myCard || !targetCard) return;
+
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        action: 'proposeTrade',
+                        mittente: currentUser.email,
+                        destinatario: currentTradeTarget,
+                        cartaOfferta: myCard,
+                        cartaRichiesta: targetCard
+                    })
+                });
+                closeTradeModal();
+                showAlert("Proposta Inviata!", "La tua richiesta di scambio è stata inoltrata.", "fa-circle-check");
+            } catch (err) {
+                showAlert("Errore", "Impossibile inviare la proposta.", "fa-circle-xmark");
+            }
+        }
+
+        function renderSellableCards() {
+            const container = document.getElementById('sellable-cards-grid');
+            const carteValide = currentUser.carte.filter(c => c && c.trim() !== "");
+
+            if (carteValide.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-8 text-zinc-500 font-bold text-xs">Non possiedi carte da vendere.</div>`;
+                return;
+            }
+
+            container.innerHTML = carteValide.map((code, idx) => `
+                <div class="flex flex-col gap-1.5 bg-zinc-950 p-2 border border-zinc-800">
+                    ${createCardHTML(code)}
+                    <div class="flex gap-1 mt-1">
+                        <input type="number" id="price_${idx}" value="20" min="5" max="1000" class="input-field !py-1 !text-[10px] text-center">
+                        <button onclick="listCardForSale('${code}', 'price_${idx}')" class="px-2 bg-amber-400 text-black font-black uppercase text-[9px] hover:bg-amber-300 transition shrink-0">Vendi</button>
+                    </div>
+                </div>
+            `).join('');
+
+            attachTiltEffect();
+        }
+
+        async function listCardForSale(cardCode, inputId) {
+            const price = Number(document.getElementById(inputId).value);
+            if (!price || price <= 0) {
+                showAlert("Prezzo non valido", "Inserisci un importo valido.", "fa-circle-xmark");
+                return;
+            }
+
+            const index = currentUser.carte.indexOf(cardCode);
+            if (index === -1) return;
+
+            currentUser.carte.splice(index, 1);
+            saveUserData();
+
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        action: 'listCardForSale',
+                        email: currentUser.email,
+                        nickname: currentUser.nickname,
+                        cartaCode: cardCode,
+                        prezzo: price
+                    })
+                });
+
+                if (currentAlbumMode === 'binder') renderBinder(); else renderAlbum();
+                renderSellableCards();
+                showAlert("Inserzione Pubblicata!", "La tua carta è ora nel Mercato Scambi.", "fa-store");
+            } catch (err) {
+                currentUser.carte.push(cardCode);
+                saveUserData();
+                showAlert("Errore", "Impossibile pubblicare l'annuncio.", "fa-circle-xmark");
+            }
+        }
+
+        async function loadLeaderboard() {
+            const container = document.getElementById('leaderboard-container');
+            container.innerHTML = `<div class="p-4 text-center text-zinc-500 font-black text-xs uppercase animate-pulse"><i class="fa-solid fa-spinner fa-spin mr-2"></i> Caricamento Classifica...</div>`;
+            
+            if (!SCRIPT_URL || SCRIPT_URL.includes("INSERISCI_QUI")) {
+                container.innerHTML = `<div class="p-4 text-center text-zinc-500 font-bold text-xs">Classifica non disponibile.</div>`;
+                return;
+            }
+
+            try {
+                const res = await fetch(`${SCRIPT_URL}?action=getLeaderboard`);
+                const leaderboard = await res.json();
+
+                if (!Array.isArray(leaderboard) || leaderboard.length === 0) {
+                    container.innerHTML = `<div class="p-4 text-center text-zinc-500 font-bold text-xs">Nessun collezionista in classifica.</div>`;
+                    return;
+                }
+
+                container.innerHTML = leaderboard.map((user, idx) => {
+                    let medalColor = 'text-zinc-600';
+                    let rankBg = 'bg-zinc-900 border-zinc-800';
+                    if (idx === 0) { medalColor = 'text-yellow-400'; rankBg = 'bg-yellow-500/10 border-yellow-500/30'; }
+                    else if (idx === 1) { medalColor = 'text-zinc-300'; rankBg = 'bg-zinc-400/10 border-zinc-400/30'; }
+                    else if (idx === 2) { medalColor = 'text-amber-600'; rankBg = 'bg-amber-600/10 border-amber-600/30'; }
+
+                    return `
+                        <div class="p-3.5 flex items-center justify-between gap-3 ${rankBg} border-b last:border-0 transition">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <span class="font-black text-sm w-6 text-center shrink-0 ${medalColor}">#${idx + 1}</span>
+                                <div class="min-w-0">
+                                    <p class="font-bold text-xs truncate text-white">${user.nickname || user.email}</p>
+                                    <span class="text-[9px] text-zinc-500 font-extrabold uppercase block">${user.punti} PUNTI CREDITO</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-1.5 shrink-0 bg-zinc-900 border border-zinc-800 px-2.5 py-1 rounded">
+                                <i class="fa-solid fa-layer-group text-cinthec text-[10px]"></i>
+                                <span class="font-black text-xs text-cinthec">${user.totalCards}</span>
+                                <span class="text-[8px] text-zinc-500 font-bold uppercase">Carte</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (err) {
+                container.innerHTML = `<div class="p-4 text-center text-rose-400 font-bold text-xs">Errore caricamento classifica.</div>`;
+            }
         }
 
         function openCardInspectModal(cardCode) {
             const modal = document.getElementById('card-inspect-modal');
             const container = document.getElementById('inspect-card-container');
+            const burnBtn = document.getElementById('modal-burn-btn');
+            
+            const parts = cardCode.split('_');
+            const rarity = parts.length > 2 ? parts[2] : (parts[1] || 'comune');
+            const value = BURN_VALUES[rarity] || 2;
+            
+            burnBtn.onclick = () => burnCard(cardCode);
+            burnBtn.innerHTML = `<i class="fa-solid fa-fire"></i> Brucia (+${value} PT)`;
+
             container.innerHTML = createGiant3DCardHTML(cardCode);
             modal.classList.remove('hidden');
         }
 
         function closeCardInspectModal(e) {
-            if (e.target.id === 'card-inspect-modal') {
-                document.getElementById('card-inspect-modal').classList.add('hidden');
-            }
+            if (e.target.id === 'card-inspect-modal') { document.getElementById('card-inspect-modal').classList.add('hidden'); }
         }
 
-        function closeCardInspectModalDirect() {
-            document.getElementById('card-inspect-modal').classList.add('hidden');
-        }
+        function closeCardInspectModalDirect() { document.getElementById('card-inspect-modal').classList.add('hidden'); }
 
         function createCardHTML(cardCode, isMini = false) {
             if (!cardCode || cardCode.trim() === '') return '';
             const parts = cardCode.split('_');
-            const id = parts[0];
-            const rarity = parts[1] || 'comune';
             
-            const fData = FIGHTER_DB[id] || { nome: 'Fighter CintheC', categoria: 'MMA', rec: '0-0-0', foto: `ranking/${id}.jpg` };
+            let id = '';
+            let rarity = 'comune';
+
+            if (parts.length >= 3) {
+                id = parts[1];
+                rarity = parts[2];
+            } else if (parts.length === 2) {
+                id = parts[0];
+                rarity = parts[1];
+            } else {
+                id = cardCode;
+            }
             
+            const fKey = id.toLowerCase().trim();
+            const fData = FIGHTER_DB[fKey] || { 
+                nome: 'Atleta Sconosciuto', nickname: '', categoria: 'Pro', rec: '0-0-0',
+                foto_comune: 'atleti/logo.png', foto_rara: 'atleti/logo.png', 
+                foto_ultra: 'atleti/logo.png', foto_leggendaria: 'atleti/logo.png'
+            };
+
+            let imgUrl = 'atleti/logo.png';
+            if (rarity === 'comune' && fData.foto_comune) imgUrl = fData.foto_comune;
+            else if (rarity === 'rara' && fData.foto_rara) imgUrl = fData.foto_rara;
+            else if (rarity === 'ultra' && fData.foto_ultra) imgUrl = fData.foto_ultra;
+            else if (rarity === 'leggendaria' && fData.foto_leggendaria) imgUrl = fData.foto_leggendaria;
+
             let rarityLabel = rarity.toUpperCase();
-            let rarityColor = 'bg-zinc-600';
+            let rarityColor = 'bg-zinc-600 text-white';
             if(rarity === 'rara') rarityColor = 'bg-amber-500 text-black';
             if(rarity === 'ultra') rarityColor = 'bg-purple-500 text-white';
             if(rarity === 'leggendaria') rarityColor = 'bg-gradient-to-r from-yellow-300 via-pink-500 to-cyan-400 text-black font-black';
 
-            const imgUrl = fData.foto || `ranking/${id}.jpg`;
+            const displayName = fData.nickname ? `${fData.nome} "${fData.nickname}"` : fData.nome;
+            const cleanRec = sanitizeRecord(fData.rec);
 
             return `
                 <div class="card-container ${isMini ? 'mini-card' : ''}" onclick="openCardInspectModal('${cardCode}')">
-                    <div class="card-inner rarity-${rarity} flex flex-col justify-end p-2" style="background-image: url('${imgUrl}'); background-size: cover; background-position: center;">
+                    <div class="card-inner rarity-${rarity} flex flex-col justify-end p-2" style="background-image: url('${imgUrl}'); background-size: cover; background-position: center;" onerror="this.style.backgroundImage='url(\'atleti/logo.png\')'">
                         <div class="holo-overlay"></div>
-                        <div class="sparkles"></div>
-                        
-                        <div class="absolute top-1.5 right-1.5 ${rarityColor} px-1.5 py-0.2 rounded-[2px] text-[7px] font-black uppercase z-20 shadow">${rarityLabel}</div>
-                        
-                        <div class="relative z-20 bg-black/85 backdrop-blur-sm p-1.5 border border-zinc-700/50">
-                            <h4 class="font-black text-[10px] uppercase text-white truncate leading-tight">${fData.nome}</h4>
-                            <div class="flex justify-between items-center mt-0.5">
-                                <span class="text-[7px] text-cinthec font-bold uppercase truncate">${fData.categoria}</span>
-                                <span class="text-[7px] bg-white text-black px-1 font-black shrink-0">${fData.rec}</span>
+                        <div class="absolute top-2 right-2 ${rarityColor} px-2 py-0.5 rounded-[3px] text-[8px] font-black uppercase z-20 shadow">${rarityLabel}</div>
+                        <div class="relative z-20 bg-black/90 backdrop-blur-sm p-2 border border-zinc-700/50">
+                            <h4 class="font-black text-[10px] uppercase text-white truncate leading-tight">${displayName}</h4>
+                            <div class="flex justify-between items-center mt-1">
+                                <span class="text-[8px] text-cinthec font-bold uppercase truncate">${fData.categoria}</span>
+                                <span class="text-[8px] bg-white text-black px-1.5 py-0.2 rounded font-black shrink-0">${cleanRec}</span>
                             </div>
                         </div>
                     </div>
@@ -735,89 +1497,91 @@
 
         function createGiant3DCardHTML(cardCode) {
             const parts = cardCode.split('_');
-            const id = parts[0];
-            const rarity = parts[1] || 'comune';
+            let id = '';
+            let rarity = 'comune';
+
+            if (parts.length >= 3) {
+                id = parts[1];
+                rarity = parts[2];
+            } else if (parts.length === 2) {
+                id = parts[0];
+                rarity = parts[1];
+            } else {
+                id = cardCode;
+            }
             
-            const fData = FIGHTER_DB[id] || { 
-                nome: 'Fighter CintheC', categoria: 'MMA', rec: '0-0-0', foto: `ranking/${id}.jpg`,
-                stats: { stk: 80, grp: 80, pwr: 80, crd: 80 }
+            const fKey = id.toLowerCase().trim();
+            const fData = FIGHTER_DB[fKey] || { 
+                nome: 'Atleta Sconosciuto', nickname: '', categoria: 'Pro', rec: '0-0-0',
+                stats: { comune: {stk:70, lot:70, att:70, dfs:70}, rara: {stk:75, lot:75, att:75, dfs:75}, ultra: {stk:85, lot:85, att:85, dfs:85}, leggendaria: {stk:95, lot:95, att:95, dfs:95} }
             };
             
+            let imgUrl = 'atleti/logo.png';
+            if (rarity === 'comune' && fData.foto_comune) imgUrl = fData.foto_comune;
+            else if (rarity === 'rara' && fData.foto_rara) imgUrl = fData.foto_rara;
+            else if (rarity === 'ultra' && fData.foto_ultra) imgUrl = fData.foto_ultra;
+            else if (rarity === 'leggendaria' && fData.foto_leggendaria) imgUrl = fData.foto_leggendaria;
+
             let rarityLabel = rarity.toUpperCase();
-            let rarityColor = 'bg-zinc-600';
+            let rarityColor = 'bg-zinc-600 text-white';
             if(rarity === 'rara') rarityColor = 'bg-amber-500 text-black';
             if(rarity === 'ultra') rarityColor = 'bg-purple-500 text-white';
             if(rarity === 'leggendaria') rarityColor = 'bg-gradient-to-r from-yellow-300 via-pink-500 to-cyan-400 text-black font-black';
 
-            const imgUrl = fData.foto || `ranking/${id}.jpg`;
-            const stats = fData.stats || { stk: 80, grp: 80, pwr: 80, crd: 80 };
+            const stats = (fData.stats && fData.stats[rarity]) ? fData.stats[rarity] : { stk: 70, lot: 70, att: 70, dfs: 70 };
+            const displayName = fData.nickname ? `${fData.nome} "${fData.nickname}"` : fData.nome;
+            const cleanRec = sanitizeRecord(fData.rec);
 
             return `
                 <div class="modal-card-3d" onclick="this.classList.toggle('flipped')">
                     <div class="modal-card-flipper">
-                        
-                        <!-- FRONTE GIGANTE -->
                         <div class="modal-card-front rarity-${rarity} flex flex-col justify-end p-4" style="background-image: url('${imgUrl}'); background-size: cover; background-position: center;">
-                            <div class="holo-overlay" style="opacity: 0.8;"></div>
-                            <div class="sparkles" style="opacity: 1;"></div>
-                            
+                            <div class="holo-overlay"></div>
                             <div class="absolute top-3 right-3 ${rarityColor} px-3 py-1 rounded text-xs font-black uppercase z-20 shadow-xl tracking-wider">${rarityLabel}</div>
-                            
                             <div class="relative z-20 bg-black/90 backdrop-blur-md p-3 rounded border border-zinc-700">
-                                <h4 class="font-black text-base uppercase text-white truncate leading-tight mb-1">${fData.nome}</h4>
+                                <h4 class="font-black text-sm uppercase text-white truncate leading-tight mb-1">${displayName}</h4>
                                 <div class="flex justify-between items-center">
                                     <span class="text-xs text-cinthec font-bold uppercase tracking-wider">${fData.categoria}</span>
-                                    <span class="text-xs bg-white text-black px-2 py-0.5 rounded font-black">${fData.rec}</span>
+                                    <span class="text-xs bg-white text-black px-2 py-0.5 rounded font-black">${cleanRec}</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- RETRO GIGANTE (SCHEDA TECNICA) -->
-                        <div class="modal-card-back rarity-${rarity} flex flex-col justify-between p-5 text-center">
-                            <div class="border-b border-zinc-800 pb-2">
-                                <span class="text-xs text-cinthec font-black uppercase tracking-widest block">Scheda Tecnica Ufficiale</span>
-                                <h5 class="font-black text-lg uppercase text-white truncate">${fData.nome}</h5>
+                        <div class="modal-card-back rarity-${rarity} flex flex-col justify-between p-4 text-center">
+                            <div class="border-b border-zinc-800 pb-1.5">
+                                <span class="text-[10px] text-cinthec font-black uppercase tracking-widest block">Scheda Tecnica Ufficiale</span>
+                                <h5 class="font-black text-sm uppercase text-white truncate">${displayName}</h5>
                             </div>
-
-                            <div class="space-y-3 my-auto text-left">
+                            <div class="space-y-2.5 my-auto text-left">
                                 <div>
-                                    <div class="flex justify-between items-center text-xs font-black mb-1">
-                                        <span class="text-zinc-400">STRIKING</span>
-                                        <span class="text-cinthec text-sm">${stats.stk}</span>
+                                    <div class="flex justify-between items-center text-[10px] font-black mb-0.5">
+                                        <span class="text-zinc-400">STRIKING</span><span class="text-cinthec">${stats.stk}</span>
                                     </div>
-                                    <div class="w-full bg-zinc-800 h-2 rounded"><div class="bg-cinthec h-2 rounded" style="width: ${stats.stk}%"></div></div>
+                                    <div class="w-full bg-zinc-800 h-1.5 rounded"><div class="bg-cinthec h-1.5 rounded" style="width: ${stats.stk}%"></div></div>
                                 </div>
-
                                 <div>
-                                    <div class="flex justify-between items-center text-xs font-black mb-1">
-                                        <span class="text-zinc-400">GRAPPLING</span>
-                                        <span class="text-amber-400 text-sm">${stats.grp}</span>
+                                    <div class="flex justify-between items-center text-[10px] font-black mb-0.5">
+                                        <span class="text-zinc-400">LOTTA</span><span class="text-amber-400">${stats.lot}</span>
                                     </div>
-                                    <div class="w-full bg-zinc-800 h-2 rounded"><div class="bg-amber-400 h-2 rounded" style="width: ${stats.grp}%"></div></div>
+                                    <div class="w-full bg-zinc-800 h-1.5 rounded"><div class="bg-amber-400 h-1.5 rounded" style="width: ${stats.lot}%"></div></div>
                                 </div>
-
                                 <div>
-                                    <div class="flex justify-between items-center text-xs font-black mb-1">
-                                        <span class="text-zinc-400">POTENZA</span>
-                                        <span class="text-purple-400 text-sm">${stats.pwr}</span>
+                                    <div class="flex justify-between items-center text-[10px] font-black mb-0.5">
+                                        <span class="text-zinc-400">ATTACCO</span><span class="text-rose-400">${stats.att}</span>
                                     </div>
-                                    <div class="w-full bg-zinc-800 h-2 rounded"><div class="bg-purple-400 h-2 rounded" style="width: ${stats.pwr}%"></div></div>
+                                    <div class="w-full bg-zinc-800 h-1.5 rounded"><div class="bg-rose-500 h-1.5 rounded" style="width: ${stats.att}%"></div></div>
                                 </div>
-
                                 <div>
-                                    <div class="flex justify-between items-center text-xs font-black mb-1">
-                                        <span class="text-zinc-400">CARDIO</span>
-                                        <span class="text-sky-400 text-sm">${stats.crd}</span>
+                                    <div class="flex justify-between items-center text-[10px] font-black mb-0.5">
+                                        <span class="text-zinc-400">DIFESA</span><span class="text-blue-400">${stats.dfs}</span>
                                     </div>
-                                    <div class="w-full bg-zinc-800 h-2 rounded"><div class="bg-sky-400 h-2 rounded" style="width: ${stats.crd}%"></div></div>
+                                    <div class="w-full bg-zinc-800 h-1.5 rounded"><div class="bg-blue-500 h-1.5 rounded" style="width: ${stats.dfs}%"></div></div>
                                 </div>
                             </div>
-
-                            <div class="border-t border-zinc-800 pt-2 text-[9px] text-zinc-500 font-extrabold uppercase tracking-widest">
+                            <div class="border-t border-zinc-800 pt-1.5 text-[8px] text-zinc-500 font-extrabold uppercase tracking-widest">
                                 CintheC Digital Collectibles • 2026
                             </div>
                         </div>
-
                     </div>
                 </div>
             `;
@@ -829,12 +1593,9 @@
                 const inner = container.querySelector('.card-inner');
                 container.addEventListener('mousemove', (e) => {
                     const rect = container.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    const rotateX = ((y - centerY) / centerY) * -12;
-                    const rotateY = ((x - centerX) / centerX) * 12;
+                    const x = e.clientX - rect.left, y = e.clientY - rect.top;
+                    const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -12;
+                    const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 12;
                     inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
                 });
                 container.addEventListener('mouseleave', () => {
