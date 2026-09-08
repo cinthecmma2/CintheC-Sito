@@ -65,11 +65,19 @@
             background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.4) 50%, transparent 60%);
             transform: rotate(35deg) translateY(-100%); transition: transform 0.6s ease; pointer-events: none; z-index: 10;
         }
-        .card-container:hover .card-inner .card-shine-hover {
-            transform: rotate(35deg) translateY(100%);
-        }
+        .card-container:hover .card-inner .card-shine-hover { transform: rotate(35deg) translateY(100%); }
 
-        .rarity-comune { border: 2px solid #a1a1aa; box-shadow: 0 0 10px rgba(161, 161, 170, 0.3); }
+        .rarity-comune { 
+            border: 2px solid #a1a1aa; 
+            box-shadow: 0 0 15px rgba(161, 161, 170, 0.4), inset 0 0 10px rgba(161, 161, 170, 0.3);
+            background: linear-gradient(135deg, #27272a 0%, #18181b 100%);
+        }
+        .rarity-comune .holo-overlay {
+            background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%);
+            mix-blend-mode: screen; animation: shineComune 4s infinite alternate;
+        }
+        @keyframes shineComune { 0% { opacity: 0.2; } 100% { opacity: 0.8; } }
+
         .rarity-rara { border: 2px solid #fbbf24; box-shadow: 0 0 20px rgba(251, 191, 36, 0.6); }
         .rarity-ultra { border: 2px solid #c084fc; box-shadow: 0 0 30px rgba(192, 132, 252, 0.8); }
         
@@ -85,32 +93,25 @@
             -webkit-mask-composite: xor; mask-composite: exclude; padding: 3px; pointer-events: none;
         }
 
-        /* SPECIAL MASTERPIECE STYLE */
+        /* SPECIAL CON PLATINATURA LIEVE VERDE E BORDO NERO/VERDE */
         .rarity-special {
-            position: relative; border: 3px solid #ffffff; border-radius: 8px !important;
-            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 40%, #94a3b8 70%, #f1f5f9 100%);
-            box-shadow: 0 0 45px rgba(255, 255, 255, 0.95), inset 0 0 25px rgba(255, 255, 255, 0.8);
+            position: relative;
+            border: 6px solid #09090b !important;
+            outline: 3px solid #00ff66;
+            border-radius: 4px !important;
+            background: #18181b;
+            box-shadow: 0 0 35px rgba(0, 255, 102, 0.5), inset 0 0 15px rgba(0, 255, 102, 0.1);
         }
         .rarity-special img {
-            filter: contrast(1.25) brightness(1.1) drop-shadow(0 0 10px rgba(255,255,255,0.8));
-            mix-blend-mode: luminosity;
-            opacity: 0.92;
+            border: 1px solid #00ff66;
+            filter: contrast(1.05) brightness(1.02);
+            opacity: 1;
         }
-        .rarity-special::before {
-            content: ''; position: absolute; inset: -3px; z-index: 5;
-            background: linear-gradient(45deg, #ffffff, #38bdf8, #c084fc, #facc15, #ffffff);
-            background-size: 300%; border-radius: 10px; animation: specialRotate 3s linear infinite;
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor; mask-composite: exclude; padding: 3px; pointer-events: none;
-        }
-        @keyframes specialRotate { 0% { background-position: 0 0; } 100% { background-position: 300% 0; } }
-
         .rarity-special .holo-overlay {
-            background: linear-gradient(125deg, rgba(255,255,255,0.9) 0%, rgba(56,189,248,0.5) 40%, rgba(192,132,252,0.5) 70%, rgba(255,255,255,0.9) 100%);
-            mix-blend-mode: overlay; animation: specialShimmer 2.5s infinite alternate;
+            background: linear-gradient(135deg, transparent 20%, rgba(0,255,102,0.12) 45%, rgba(0,255,102,0.28) 50%, rgba(0,255,102,0.12) 55%, transparent 80%);
+            mix-blend-mode: screen; animation: platinumGreenShine 4s infinite linear; opacity: 0.8;
         }
-        @keyframes specialShimmer { 0% { opacity: 0.6; filter: brightness(1); } 100% { opacity: 0.95; filter: brightness(1.4); } }
-
+        @keyframes platinumGreenShine { 0% { background-position: -200% -200%; } 100% { background-position: 200% 200%; } }
         @keyframes rainbowRotate { 0% { background-position: 0 0; } 100% { background-position: 400% 0; } }
 
         .holo-overlay {
@@ -120,7 +121,6 @@
         .rarity-rara .holo-overlay { background: linear-gradient(135deg, transparent 20%, rgba(251, 191, 36, 0.7) 50%, transparent 80%); }
         .rarity-ultra .holo-overlay { background: linear-gradient(135deg, transparent 20%, rgba(192, 132, 252, 0.8) 50%, transparent 80%); }
         .rarity-leggendaria .holo-overlay { background: linear-gradient(125deg, rgba(255,0,0,0.5), rgba(255,255,0,0.5), rgba(0,255,0,0.5), rgba(0,255,255,0.5), rgba(122,0,255,0.5), rgba(255,0,200,0.5)); animation: rainbowHolo 3s infinite linear; }
-
         @keyframes rainbowHolo { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
         .pack-shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both infinite; }
@@ -137,84 +137,32 @@
             100% { transform: scale(0); opacity: 0; }
         }
 
-        /* ALBUM SPREAD: 4 COLONNE VERTICALI x 3 RIGHE ORIZZONTALI PER LATO */
-        .binder-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            width: 100%;
-        }
+        .binder-wrapper { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; }
         .binder-arrow {
-            background: #18181b;
-            border: 2px solid #27272a;
-            color: #00ff66;
-            font-size: 18px;
-            padding: 16px 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-            border-radius: 6px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-            z-index: 10;
+            background: #18181b; border: 2px solid #27272a; color: #00ff66; font-size: 16px;
+            padding: 14px 10px; cursor: pointer; transition: all 0.2s; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); z-index: 10;
         }
         .binder-arrow:hover { background: #27272a; border-color: #00ff66; transform: scale(1.05); }
 
         .binder-spread {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            width: 100%;
-            max-width: 900px;
-            background: linear-gradient(145deg, #0d0d0f 0%, #161619 100%);
-            border: 3px solid #27272a;
-            border-radius: 10px;
-            padding: 12px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.9), inset 0 0 30px rgba(0,0,0,0.8);
-            position: relative;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; max-width: 880px;
+            background: linear-gradient(145deg, #0d0d0f 0%, #161619 100%); border: 3px solid #27272a;
+            border-radius: 10px; padding: 10px; box-shadow: 0 20px 40px rgba(0,0,0,0.9), inset 0 0 30px rgba(0,0,0,0.8); position: relative;
         }
         .binder-spread::after {
-            content: '';
-            position: absolute;
-            top: 8px;
-            bottom: 8px;
-            left: 50%;
-            width: 4px;
-            background: #000000;
-            transform: translateX(-50%);
-            box-shadow: inset 0 0 4px rgba(0,0,0,0.9);
-            border-radius: 2px;
+            content: ''; position: absolute; top: 8px; bottom: 8px; left: 50%; width: 4px;
+            background: #000000; transform: translateX(-50%); box-shadow: inset 0 0 4px rgba(0,0,0,0.9); border-radius: 2px;
         }
-        .binder-page-col {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 4 colonne verticali */
-            grid-template-rows: repeat(3, 1fr);    /* 3 righe orizzontali */
-            gap: 5px;
-        }
+        .binder-page-col { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 1fr); gap: 4px; }
         .binder-pocket {
-            background: rgba(0, 0, 0, 0.85);
-            border: 1px dashed rgba(255, 255, 255, 0.12);
-            aspect-ratio: 2.5 / 3.5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            border-radius: 4px;
-            overflow: hidden;
+            background: rgba(0, 0, 0, 0.85); border: 1px dashed rgba(255, 255, 255, 0.12);
+            aspect-ratio: 2.5 / 3.5; display: flex; align-items: center; justify-content: center; position: relative; border-radius: 4px; overflow: hidden;
         }
-        .binder-pocket-empty {
-            color: #52525b;
-            font-size: 6px;
-            font-weight: 800;
-            text-transform: uppercase;
-            text-align: center;
-            padding: 2px;
-            line-height: 1.2;
-        }
+        .binder-pocket-empty { color: #52525b; font-size: 5.5px; font-weight: 800; text-transform: uppercase; text-align: center; padding: 2px; line-height: 1.2; }
 
-        .modal-card-3d { perspective: 1200px; width: 260px; height: 364px; flex-shrink: 0 !important; cursor: pointer; margin: 0 auto; }
-        .modal-card-flipper { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.25s ease-out; }
+        .modal-card-3d { perspective: 1200px; width: 250px; height: 350px; flex-shrink: 0 !important; cursor: pointer; margin: 0 auto; }
+        .modal-card-flipper { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .modal-card-3d.flipped .modal-card-flipper { transform: rotateY(180deg); }
-        
         .modal-card-front, .modal-card-back { position: absolute; inset: 0; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 10px; overflow: hidden; box-shadow: 0 15px 30px rgba(0,0,0,0.9); }
         .modal-card-front { z-index: 2; transform: rotateY(0deg); }
         .modal-card-back { transform: rotateY(180deg); background: #121215; border: 2px solid #27272a; }
@@ -222,7 +170,7 @@
 </head>
 <body class="site-bg-cuts min-h-screen flex flex-col">
 
-    <!-- ACCEDI / REGISTRAZIONE -->
+    <!-- LOGIN / REGISTRAZIONE -->
     <div id="auth-screen" class="fixed inset-0 bg-[#09090b] z-[140] flex items-center justify-center p-2">
         <div class="w-full max-w-sm bg-zinc-950 border border-zinc-800 p-5 shadow-2xl relative">
             <div class="absolute top-0 left-0 w-full h-1 bg-cinthec"></div>
@@ -231,7 +179,7 @@
                     <i class="fa-solid fa-gamepad"></i>
                 </div>
                 <h1 class="text-lg font-black uppercase tracking-tight text-white mb-1">CintheC Cards Arena</h1>
-                <p class="text-[11px] text-zinc-400 font-semibold">Accedi con la tua password o registrati per iniziare.</p>
+                <p class="text-[11px] text-zinc-400 font-semibold">Accedi o registrati per entrare nell'Arena.</p>
             </div>
             <div class="flex border border-zinc-800 bg-zinc-900 p-0.5 mb-3">
                 <button onclick="switchAuthTab('login')" id="tab-login" class="flex-1 py-1.5 text-[10px] font-black uppercase bg-zinc-800 text-cinthec transition">Accedi</button>
@@ -253,7 +201,7 @@
                 </div>
             </div>
             <p id="auth-error" class="hidden text-rose-500 text-[10px] font-bold mb-3 bg-rose-500/10 px-2 py-1 border border-rose-500/20 text-center"></p>
-            <button id="auth-submit-btn" onclick="handleAuthSubmit()" class="w-full bg-cinthec py-2.5 font-black text-black uppercase text-xs hover:bg-emerald-400 active:scale-95 transition shadow-cinthec flex items-center justify-center gap-2">
+            <button id="auth-submit-btn" onclick="handleAuthSubmit()" class="w-full bg-cinthec py-2.5 font-black text-black uppercase text-xs hover:bg-emerald-400 transition shadow-cinthec flex items-center justify-center gap-2">
                 <span id="auth-btn-label">Accedi all'Arena</span>
             </button>
         </div>
@@ -267,13 +215,14 @@
         </a>
 
         <div id="user-header-info" class="flex items-center gap-1.5 sm:gap-2">
-            <button onclick="claimDailyBonus()" title="Riscatta +10 Punti Giornalieri" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 px-2 py-1 text-[9px] font-black text-cinthec flex items-center gap-1 transition shadow">
-                <i class="fa-solid fa-gift text-[9px]"></i> <span class="hidden xs:inline">+10PT</span>
+            <button onclick="claimDailyBonus()" id="daily-bonus-btn" title="Bonus Giornaliero" class="bg-cinthec/20 hover:bg-cinthec/30 border border-cinthec/40 px-2 py-1 text-[9px] font-black text-cinthec flex items-center gap-1 transition shadow animate-pulse">
+                <i class="fa-solid fa-gift"></i> <span id="daily-btn-text">GIORNALIERO</span>
             </button>
 
+            <!-- INPUT QR CODE / PROMO CODE -->
             <div class="flex items-center bg-zinc-900 border border-zinc-800 px-1 py-0.5">
-                <input type="text" id="header-sms-input" placeholder="TICKET" class="w-14 sm:w-18 bg-black text-white text-[9px] uppercase px-1 py-0.5 border border-zinc-800 outline-none font-black">
-                <button onclick="redeemHeaderSmsCode()" title="Riscatta Ticket" class="text-[9px] bg-amber-400 text-black font-black px-1.5 py-0.5 hover:bg-amber-300 transition">OK</button>
+                <input type="text" id="header-sms-input" placeholder="CODICE QR" class="w-16 sm:w-20 bg-black text-white text-[9px] uppercase px-1 py-0.5 border border-zinc-800 outline-none font-black">
+                <button onclick="redeemPromoCode()" title="Riscatta" class="text-[9px] bg-cinthec text-black font-black px-1.5 py-0.5 hover:bg-emerald-400 transition">OK</button>
             </div>
 
             <div class="flex items-center gap-1 bg-zinc-900 border border-zinc-800 px-2 py-1">
@@ -287,7 +236,7 @@
             <div class="relative">
                 <button onclick="toggleAccountMenu()" class="flex items-center gap-1 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 px-2 py-1 text-[10px] font-bold transition">
                     <i class="fa-solid fa-user-gear text-zinc-400 text-[9px]"></i>
-                    <span id="header-user-nickname" class="truncate max-w-[60px] sm:max-w-[90px]">Account</span>
+                    <span id="header-user-nickname" class="truncate max-w-[60px] sm:max-w-[80px]">Account</span>
                     <i class="fa-solid fa-chevron-down text-[7px] text-zinc-500"></i>
                 </button>
                 <div id="account-dropdown" class="hidden absolute right-0 mt-2 w-52 bg-zinc-950 border border-zinc-800 shadow-2xl py-1 z-50">
@@ -311,15 +260,18 @@
 
     <main class="flex-grow flex flex-col relative max-w-5xl mx-auto w-full px-3 py-3" id="main-content">
         <div id="app-screen" class="flex-grow flex flex-col w-full">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 mb-4">
-                <div class="bg-zinc-950 border border-zinc-800 p-2.5 flex items-center gap-2.5">
-                    <div class="w-8 h-8 bg-zinc-900 border border-cinthec flex items-center justify-center shrink-0">
-                        <i class="fa-solid fa-user-ninja text-cinthec text-xs"></i>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 mb-3">
+                <div class="bg-zinc-950 border border-zinc-800 p-2.5 flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 bg-zinc-900 border border-cinthec flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-user-ninja text-cinthec text-xs"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <p class="text-[8px] text-zinc-500 font-bold uppercase tracking-wider">Collezionista</p>
+                            <p id="profile-nickname" class="font-bold text-[11px] truncate text-white">Giocatore</p>
+                        </div>
                     </div>
-                    <div class="min-w-0">
-                        <p class="text-[8px] text-zinc-500 font-bold uppercase tracking-wider">Collezionista</p>
-                        <p id="profile-nickname" class="font-bold text-[11px] truncate text-white">Giocatore</p>
-                    </div>
+                    <button onclick="switchView('profile')" class="text-[9px] font-black text-cinthec bg-cinthec/10 border border-cinthec/30 px-2 py-1 uppercase hover:bg-cinthec/20 transition">Statistiche</button>
                 </div>
                 <div class="bg-zinc-950 border border-zinc-800 p-2.5 flex items-center justify-between">
                     <div>
@@ -339,8 +291,8 @@
                 </div>
             </div>
 
-            <!-- NAVBAR PRINCIPALE COMPATTA -->
-            <div class="flex border-b border-zinc-800 mb-4 justify-between items-center overflow-x-auto">
+            <!-- NAVBAR PRINCIPALE (SENZA FUCINA E ARENA) -->
+            <div class="flex border-b border-zinc-800 mb-3 justify-between items-center overflow-x-auto">
                 <div class="flex shrink-0">
                     <button onclick="switchView('shop')" id="nav-shop" class="px-2.5 py-1.5 text-[10px] font-black uppercase border-b-2 border-cinthec text-cinthec transition flex items-center gap-1.5">
                         <i class="fa-solid fa-box-open"></i> Spacchetta
@@ -348,11 +300,8 @@
                     <button onclick="switchView('grid')" id="nav-grid" class="px-2.5 py-1.5 text-[10px] font-black uppercase border-b-2 border-transparent text-zinc-500 hover:text-white transition flex items-center gap-1.5">
                         <i class="fa-solid fa-layer-group"></i> Carte
                     </button>
-                    <button onclick="switchView('challenges')" id="nav-challenges" class="px-2.5 py-1.5 text-[10px] font-black uppercase border-b-2 border-transparent text-zinc-500 hover:text-rose-400 transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-hand-fist text-rose-500"></i> Sfide
-                    </button>
-                    <button onclick="switchView('burner')" id="nav-burner" class="px-2.5 py-1.5 text-[10px] font-black uppercase border-b-2 border-transparent text-zinc-500 hover:text-amber-400 transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-fire text-amber-500"></i> Bruciacarte
+                    <button onclick="switchView('burner')" id="nav-burner" class="px-2.5 py-1.5 text-[10px] font-black uppercase border-b-2 border-transparent text-zinc-500 hover:text-rose-500 transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-fire text-rose-500"></i> Bruciacarte
                     </button>
                     <button onclick="switchView('market')" id="nav-market" class="px-2.5 py-1.5 text-[10px] font-black uppercase border-b-2 border-transparent text-zinc-500 hover:text-cinthec transition flex items-center gap-1.5">
                         <i class="fa-solid fa-store text-cinthec"></i> Mercato
@@ -361,16 +310,16 @@
                         <i class="fa-solid fa-users text-cinthec"></i> Hub
                     </button>
                     <button onclick="switchView('halloffame')" id="nav-halloffame" class="px-2.5 py-1.5 text-[10px] font-black uppercase border-b-2 border-transparent text-zinc-500 hover:text-yellow-400 transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-trophy text-yellow-500"></i> Hall of Fame
+                        <i class="fa-solid fa-trophy text-yellow-500"></i> Classifica
                     </button>
                 </div>
             </div>
 
-            <!-- SCHEDA SPACCHETTA (COMPATTA) -->
+            <!-- SCHEDA SPACCHETTA -->
             <div id="view-shop" class="flex-grow flex flex-col items-center py-1">
-                <h2 class="text-lg font-black uppercase tracking-tight text-white mb-0.5">Negozio Pacchetti</h2>
-                <p class="text-[10px] text-zinc-400 font-semibold mb-4">Rari (20%), Ultra (8%), Leggendarie (5%), Speciali Masterpiece (2%).</p>
-                <div class="w-full max-w-2xl mb-4">
+                <h2 class="text-base font-black uppercase tracking-tight text-white mb-0.5">Negozio Pacchetti</h2>
+                <p class="text-[10px] text-zinc-400 font-semibold mb-3">Rari, Ultra, Leggendarie (1%) e Speciali (0.2%).</p>
+                <div class="w-full max-w-2xl mb-3">
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <div class="booster-pack pack-cinthec" onclick="buyPack('cinthec', 1, 15)">
                             <div class="pack-shine"></div>
@@ -401,29 +350,27 @@
                         </div>
                     </div>
                 </div>
-                <p id="pack-error" class="hidden text-rose-500 text-[10px] font-bold mt-2 bg-rose-500/10 px-3 py-1 border border-rose-500/25"></p>
+                <p id="pack-error" class="hidden text-rose-500 text-[10px] font-bold mt-1 bg-rose-500/10 px-3 py-1 border border-rose-500/25"></p>
             </div>
 
-            <!-- SCHEDA CARTE (GRIGLIA, ALBUM STANDARD, ALBUM SPECIALI) -->
+            <!-- SCHEDA CARTE -->
             <div id="view-grid" class="hidden flex-grow flex flex-col">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 gap-2 border-b border-zinc-800 pb-2.5">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2.5 gap-2 border-b border-zinc-800 pb-2">
                     <div>
-                        <h2 class="text-lg font-black uppercase tracking-tight">Collezione Ufficiale</h2>
-                        <p class="text-[10px] text-zinc-400 font-semibold" id="grid-stats">Visualizza le tue carte sbloccate in griglia o negli album.</p>
+                        <h2 class="text-base font-black uppercase tracking-tight">Collezione Ufficiale</h2>
+                        <p class="text-[10px] text-zinc-400 font-semibold" id="grid-stats">Visualizza le tue carte in griglia o negli album.</p>
                     </div>
                     <div class="flex border border-zinc-800 bg-zinc-900 p-0.5 overflow-x-auto">
-                        <button onclick="switchSubView('standard')" id="subnav-standard" class="px-2.5 py-1 text-[9px] font-black uppercase bg-zinc-800 text-cinthec transition whitespace-nowrap">Griglia Standard</button>
-                        <button onclick="switchSubView('binder')" id="subnav-binder" class="px-2.5 py-1 text-[9px] font-black uppercase text-zinc-400 hover:text-white transition whitespace-nowrap">Album Raccoglitore</button>
-                        <button onclick="switchSubView('special')" id="subnav-special" class="px-2.5 py-1 text-[9px] font-black uppercase text-zinc-400 hover:text-white transition whitespace-nowrap">Album Speciali</button>
+                        <button onclick="switchSubView('standard')" id="subnav-standard" class="px-2 py-1 text-[9px] font-black uppercase bg-zinc-800 text-cinthec transition whitespace-nowrap">Griglia Standard</button>
+                        <button onclick="switchSubView('binder')" id="subnav-binder" class="px-2 py-1 text-[9px] font-black uppercase text-zinc-400 hover:text-white transition whitespace-nowrap">Album Raccoglitore</button>
+                        <button onclick="switchSubView('special')" id="subnav-special" class="px-2 py-1 text-[9px] font-black uppercase text-zinc-400 hover:text-white transition whitespace-nowrap">Album Speciali</button>
                     </div>
                 </div>
 
-                <!-- Griglia Standard -->
                 <div id="subview-standard" class="flex-grow flex flex-col">
                     <div id="cards-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5"></div>
                 </div>
 
-                <!-- Album Raccoglitore Standard (Solo 4 Rarità Standard per Fighter) -->
                 <div id="subview-binder" class="hidden flex-grow flex flex-col items-center py-1">
                     <div class="binder-wrapper">
                         <button onclick="changeBinderPage(-1)" class="binder-arrow"><i class="fa-solid fa-chevron-left"></i></button>
@@ -432,7 +379,6 @@
                     </div>
                 </div>
 
-                <!-- Album Speciali (Solo Carte Speciali/Coach) -->
                 <div id="subview-special" class="hidden flex-grow flex flex-col items-center py-1">
                     <div class="binder-wrapper">
                         <button onclick="changeSpecialBinderPage(-1)" class="binder-arrow"><i class="fa-solid fa-chevron-left"></i></button>
@@ -442,32 +388,22 @@
                 </div>
             </div>
 
-            <!-- SCHEDA SFIDE ARENA -->
-            <div id="view-challenges" class="hidden flex-grow flex flex-col items-center py-3">
-                <div class="text-center max-w-md mb-4">
-                    <div class="inline-flex items-center justify-center w-10 h-10 bg-rose-500/10 border border-rose-500/30 text-rose-500 text-lg mb-1.5 shadow-lg rounded-full"><i class="fa-solid fa-hand-fist"></i></div>
-                    <h2 class="text-lg font-black uppercase text-white mb-0.5">Sfide Arena</h2>
-                    <p class="text-[11px] text-zinc-400">Affronta i combattenti in 5 livelli di difficoltà per vincere Punti e Oro.</p>
-                </div>
-                <div id="challenges-container" class="w-full max-w-2xl space-y-2.5"></div>
-            </div>
-
             <!-- SCHEDA BRUCIACARTE -->
-            <div id="view-burner" class="hidden flex-grow flex flex-col items-center py-3">
-                <div class="text-center max-w-md mb-4">
-                    <div class="inline-flex items-center justify-center w-10 h-10 bg-amber-500/10 border border-amber-500/30 text-amber-500 text-lg mb-1.5 shadow-lg rounded-full"><i class="fa-solid fa-fire"></i></div>
-                    <h2 class="text-lg font-black uppercase text-white mb-0.5">Il Bruciacarte</h2>
-                    <p class="text-[11px] text-zinc-400">Distruggi le carte doppie per recuperare Punti crediti.</p>
+            <div id="view-burner" class="hidden flex-grow flex flex-col items-center py-2">
+                <div class="text-center max-w-md mb-3">
+                    <div class="inline-flex items-center justify-center w-9 h-9 bg-rose-500/10 border border-rose-500/30 text-rose-500 text-base mb-1 shadow-lg rounded-full"><i class="fa-solid fa-fire"></i></div>
+                    <h2 class="text-base font-black uppercase text-white mb-0.5">Il Bruciacarte</h2>
+                    <p class="text-[10px] text-zinc-400">Distruggi le carte doppie per recuperare crediti Punti.</p>
                 </div>
                 <div id="burner-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5 w-full"></div>
             </div>
 
             <!-- SCHEDA MERCATO -->
-            <div id="view-market" class="hidden flex-grow flex flex-col items-center py-3">
+            <div id="view-market" class="hidden flex-grow flex flex-col items-center py-2">
                 <div class="text-center max-w-md mb-3">
-                    <div class="inline-flex items-center justify-center w-10 h-10 bg-cinthec/10 border border-cinthec/30 text-cinthec text-lg mb-1.5 shadow-lg rounded-full"><i class="fa-solid fa-store"></i></div>
-                    <h2 class="text-lg font-black uppercase text-white mb-0.5">Mercato Scambi</h2>
-                    <p class="text-[11px] text-zinc-400">Acquista carte o metti in vetrina i tuoi doppioni.</p>
+                    <div class="inline-flex items-center justify-center w-9 h-9 bg-cinthec/10 border border-cinthec/30 text-cinthec text-base mb-1 shadow-lg rounded-full"><i class="fa-solid fa-store"></i></div>
+                    <h2 class="text-base font-black uppercase text-white mb-0.5">Mercato Scambi</h2>
+                    <p class="text-[10px] text-zinc-400">Acquista carte o metti in vetrina i tuoi doppioni.</p>
                 </div>
                 <div id="marketplace-listings" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5 w-full">
                     <div class="col-span-full text-center py-6 text-zinc-500 font-bold text-xs">Caricamento mercato in corso...</div>
@@ -475,25 +411,62 @@
             </div>
 
             <!-- SCHEDA PLAYER HUB -->
-            <div id="view-players" class="hidden flex-grow flex flex-col items-center py-3">
-                <div class="text-center max-w-md mb-4">
-                    <div class="inline-flex items-center justify-center w-10 h-10 bg-cinthec/10 border border-cinthec/30 text-cinthec text-lg mb-1.5 shadow-lg rounded-full"><i class="fa-solid fa-users"></i></div>
-                    <h2 class="text-lg font-black uppercase text-white mb-0.5">Player Hub & Scambi</h2>
-                    <p class="text-[11px] text-zinc-400">Esplora la lista dei collezionisti registrati.</p>
+            <div id="view-players" class="hidden flex-grow flex flex-col items-center py-2">
+                <div class="text-center max-w-md mb-3">
+                    <div class="inline-flex items-center justify-center w-9 h-9 bg-cinthec/10 border border-cinthec/30 text-cinthec text-base mb-1 shadow-lg rounded-full"><i class="fa-solid fa-users"></i></div>
+                    <h2 class="text-base font-black uppercase text-white mb-0.5">Player Hub & Scambi</h2>
+                    <p class="text-[10px] text-zinc-400">Esplora la lista dei collezionisti registrati.</p>
                 </div>
-                <div id="players-list-container" class="w-full max-w-2xl space-y-2.5">
+                <div id="players-list-container" class="w-full max-w-2xl space-y-2">
                     <div class="text-center py-6 text-zinc-500 font-bold text-xs">Caricamento giocatori...</div>
                 </div>
             </div>
 
             <!-- SCHEDA HALL OF FAME -->
-            <div id="view-halloffame" class="hidden flex-grow flex flex-col items-center py-3">
-                <div class="text-center max-w-md mb-4">
-                    <div class="inline-flex items-center justify-center w-10 h-10 bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-lg mb-1.5 shadow-lg rounded-full"><i class="fa-solid fa-trophy"></i></div>
-                    <h2 class="text-lg font-black uppercase text-white mb-0.5">Hall of Fame</h2>
-                    <p class="text-[11px] text-zinc-400">Classifica live dei migliori collezionisti.</p>
+            <div id="view-halloffame" class="hidden flex-grow flex flex-col items-center py-2">
+                <div class="text-center max-w-md mb-3">
+                    <div class="inline-flex items-center justify-center w-9 h-9 bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-base mb-1 shadow-lg rounded-full"><i class="fa-solid fa-trophy"></i></div>
+                    <h2 class="text-base font-black uppercase text-white mb-0.5">Hall of Fame</h2>
+                    <p class="text-[10px] text-zinc-400">Classifica live dei migliori collezionisti.</p>
                 </div>
                 <div id="leaderboard-container" class="w-full max-w-lg bg-zinc-950 border border-zinc-800 divide-y divide-zinc-800/80 shadow-2xl"></div>
+            </div>
+
+            <!-- SCHEDA PROFILO & STATISTICHE PERSONALI -->
+            <div id="view-profile" class="hidden flex-grow flex flex-col items-center py-2">
+                <div class="text-center max-w-md mb-3">
+                    <div class="inline-flex items-center justify-center w-9 h-9 bg-cinthec/10 border border-cinthec/30 text-cinthec text-base mb-1 shadow-lg rounded-full"><i class="fa-solid fa-id-card"></i></div>
+                    <h2 class="text-base font-black uppercase text-white mb-0.5">Profilo & Statistiche</h2>
+                    <p class="text-[10px] text-zinc-400">I tuoi record personali e gli obiettivi giornalieri.</p>
+                </div>
+                <div class="w-full max-w-lg space-y-3">
+                    <div class="bg-zinc-950 border border-zinc-800 p-3.5">
+                        <h3 class="text-[11px] font-black uppercase text-cinthec mb-2.5 flex items-center gap-1.5"><i class="fa-solid fa-chart-line"></i> Contatori Personali</h3>
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            <div class="bg-zinc-900 p-2 border border-zinc-800">
+                                <span class="text-[9px] text-zinc-400 block uppercase font-bold">Pacchetti Aperti</span>
+                                <span id="stat-packs" class="text-sm font-black text-white">0</span>
+                            </div>
+                            <div class="bg-zinc-900 p-2 border border-zinc-800">
+                                <span class="text-[9px] text-zinc-400 block uppercase font-bold">Carte Bruciate</span>
+                                <span id="stat-burned" class="text-sm font-black text-white">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-zinc-950 border border-zinc-800 p-3.5">
+                        <h3 class="text-[11px] font-black uppercase text-amber-400 mb-2.5 flex items-center gap-1.5"><i class="fa-solid fa-bullseye"></i> Obiettivi & Missioni Giornaliere</h3>
+                        <div class="space-y-2 text-xs" id="missions-container">
+                            <div class="bg-zinc-900 p-2.5 border border-zinc-800 flex justify-between items-center">
+                                <div>
+                                    <p class="font-bold text-[10px] text-white">Apri 3 Pacchetti</p>
+                                    <p class="text-[8px] text-zinc-400">Ricompensa: +30 Punti & +10 Oro</p>
+                                </div>
+                                <span id="mission-1-status" class="text-[9px] font-black text-amber-400 uppercase">In Corso</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -551,17 +524,29 @@
         </div>
     </div>
 
-    <!-- MODALE RISULTATO PACCHETTO -->
+    <!-- MODALE POPUP STATISTICHE POTENZIATE -->
+    <div id="upgrade-popup-modal" class="fixed inset-0 bg-black/90 z-[150] hidden flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-zinc-950 border border-amber-500 p-5 max-w-sm w-full text-center relative shadow-[0_0_30px_rgba(251,191,36,0.4)]">
+            <div class="absolute top-0 left-0 w-full h-1 bg-amber-400"></div>
+            <div class="inline-flex items-center justify-center w-12 h-12 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xl mb-2 rounded-full"><i class="fa-solid fa-arrow-trend-up"></i></div>
+            <h3 class="font-black uppercase text-sm text-white mb-1">Potenziamento Riuscito!</h3>
+            <p id="upgrade-level-label" class="text-xs font-black text-amber-400 mb-3 uppercase">Livello Successivo</p>
+            <div id="upgrade-stats-list" class="space-y-2 text-left bg-zinc-900 p-3 border border-zinc-800 mb-4 text-xs font-bold"></div>
+            <button onclick="closeUpgradePopup()" class="w-full py-2.5 bg-amber-500 text-black font-black uppercase text-xs hover:bg-amber-400 transition">Ottimo!</button>
+        </div>
+    </div>
+
+    <!-- MODALE RISULTATO PACCHETTO / RISCATTO QR -->
     <div id="pack-modal" class="fixed inset-0 bg-black/95 z-[100] hidden flex flex-col items-center justify-center p-4 backdrop-blur-md overflow-y-auto">
         <div id="opening-animation" class="hidden flex-col items-center justify-center my-auto">
             <div id="anim-pack" class="w-36 h-48 bg-zinc-900 border-2 border-cinthec pack-shake shadow-[0_0_30px_rgba(0,255,102,0.4)]"></div>
             <p class="mt-5 text-white font-black uppercase text-xs tracking-widest animate-pulse" id="anim-text">Apertura pacchetto...</p>
         </div>
         <div id="found-card-view" class="hidden flex-col items-center justify-center text-center max-w-3xl w-full my-auto py-5">
-            <h3 class="text-xl font-black uppercase mb-1 text-white">Carte Trovate!</h3>
-            <p class="text-[11px] text-zinc-400 font-bold mb-4">Aggiunte al tuo album personale.</p>
+            <h3 class="text-xl font-black uppercase mb-1 text-white" id="pack-result-title">Carte Trovate!</h3>
+            <p class="text-[11px] text-zinc-400 font-bold mb-4" id="pack-result-sub">Aggiunte al tuo album personale.</p>
             <div id="result-card-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-5 w-full justify-items-center"></div>
-            <button onclick="closePackModal()" class="px-5 py-2 bg-cinthec text-black font-black uppercase text-xs hover:bg-emerald-400 transition shadow-cinthec">Aggiungi all'Album</button>
+            <button onclick="closePackModal()" class="px-5 py-2 bg-cinthec text-black font-black uppercase text-xs hover:bg-emerald-400 transition shadow-cinthec">Conferma</button>
         </div>
     </div>
 
@@ -589,6 +574,34 @@
         let currentSpecialBinderPage = 0;
         let activeSubView = 'standard';
 
+        // DATABASE DI CODICI PROMO / QR VALIDABILI
+        const QR_CODES_DB = {
+            'SPECIALPERINI': 'cinthec_perini_special_lvl1',
+            'SPECIALTIOZZO': 'cinthec_tiozzo_special_lvl1',
+            'SPECIALPALA': 'cinthec_pala_special_lvl1',
+            'REGALO50': 'points_50' // Esempio per regalare punti
+        };
+
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playSound(type) {
+            if (!audioCtx) return;
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            const now = audioCtx.currentTime;
+
+            if (type === 'click') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(400, now);
+                osc.frequency.exponentialRampToValueAtTime(800, now + 0.05);
+                gain.gain.setValueAtTime(0.05, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.05);
+                osc.start(now); osc.stop(now + 0.05);
+            }
+        }
+
         (function() {
             const savedData = localStorage.getItem('cinthec_arena_data');
             if (savedData) {
@@ -611,6 +624,7 @@
                     if (!Array.isArray(currentUser.carte)) currentUser.carte = [];
                     currentUser.punti = currentUser.punti !== undefined ? Number(currentUser.punti) : 99999;
                     currentUser.oro = currentUser.oro !== undefined ? Number(currentUser.oro) : 10000;
+                    if (!currentUser.stats) currentUser.stats = { packsOpened: 0, burnedCards: 0 };
                 } catch(e) {
                     localStorage.removeItem('cinthec_arena_data');
                     currentUser = null;
@@ -624,6 +638,7 @@
                         document.getElementById('nickname-modal').classList.remove('hidden');
                     } else {
                         showDashboard();
+                        checkUrlPromoCode(); // Controlla se si apre tramite QR Code con URL param
                     }
                 } else {
                     document.getElementById('auth-screen').style.display = 'flex';
@@ -631,12 +646,61 @@
             });
         });
 
+        // GESTIONE AUTOMATICA QR CODE TRAMITE PARAMETRO URL (es. tuosito.com/?promo=SPECIALPERINI)
+        function checkUrlPromoCode() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const promo = urlParams.get('promo') || urlParams.get('code');
+            if (promo) {
+                processRedeemCode(promo.toUpperCase());
+                // Pulisce l'URL senza ricaricare la pagina
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        }
+
+        function redeemPromoCode() {
+            playSound('click');
+            const input = document.getElementById('header-sms-input');
+            const code = input.value.trim().toUpperCase();
+            if (!code) return;
+            input.value = '';
+            processRedeemCode(code);
+        }
+
+        function processRedeemCode(code) {
+            if (!currentUser) return;
+            const reward = QR_CODES_DB[code];
+            if (!reward) {
+                showAlert("Codice Non Valido", "Il codice QR inserito non esiste o è scaduto.", "fa-circle-xmark text-rose-500");
+                return;
+            }
+
+            if (reward.startsWith('points_')) {
+                const pts = parseInt(reward.split('_')[1]);
+                currentUser.punti = Number(currentUser.punti) + pts;
+                saveUserData();
+                updateUI();
+                showAlert("Codice Riscattato! 🎉", `Hai ottenuto +${pts} Punti Crediti!`, "fa-bolt text-cinthec");
+            } else {
+                // È una carta (es. carta speciale)
+                if (currentUser.carte.includes(reward)) {
+                    showAlert("Carta Già Posseduta", "Hai già riscattato questo QR code e possiedi questa carta speciale!", "fa-triangle-exclamation text-amber-400");
+                    return;
+                }
+                currentUser.carte.push(reward);
+                saveUserData();
+                updateUI();
+                showResult([reward], "Carta Speciale da QR Code! 🎁", "Aggiunta direttamente alla tua collezione.");
+            }
+        }
+
         function hardResetData() {
+            playSound('click');
             if (confirm("Vuoi resettare il profilo ai dati di fabbrica?")) {
                 if (currentUser) {
                     currentUser.punti = 99999;
                     currentUser.oro = 10000;
                     currentUser.carte = [];
+                    currentUser.stats = { packsOpened: 0, burnedCards: 0 };
                     saveUserData();
                 } else {
                     localStorage.removeItem('cinthec_arena_data');
@@ -683,6 +747,7 @@
         }
 
         function switchAuthTab(mode) {
+            playSound('click');
             authMode = mode;
             const btnLogin = document.getElementById('tab-login');
             const btnRegister = document.getElementById('tab-register');
@@ -699,6 +764,7 @@
         }
 
         function togglePasswordVisibility() {
+            playSound('click');
             const pwdInput = document.getElementById('auth-password');
             const eyeIcon = document.getElementById('password-eye-icon');
             if (pwdInput.type === 'password') {
@@ -711,6 +777,7 @@
         }
 
         async function handleAuthSubmit() {
+            playSound('click');
             const email = document.getElementById('auth-email').value.trim();
             const password = document.getElementById('auth-password').value.trim();
             const errP = document.getElementById('auth-error');
@@ -733,7 +800,7 @@
 
                 if (data.status === 'success') {
                     if (authMode === 'register') {
-                        currentUser = { email: email, password: password, nickname: '', punti: 99999, oro: 10000, carte: [] };
+                        currentUser = { email: email, password: password, nickname: '', punti: 99999, oro: 10000, carte: [], stats: { packsOpened: 0, burnedCards: 0 }, lastDailyClaim: 0 };
                     } else {
                         currentUser = {
                             email: data.email,
@@ -741,7 +808,9 @@
                             nickname: data.nickname || '',
                             punti: data.punti !== undefined ? Number(data.punti) : 99999,
                             oro: data.oro !== undefined ? Number(data.oro) : 10000,
-                            carte: data.carte ? data.carte.split(',').filter(c => c && c.trim() !== '') : []
+                            carte: data.carte ? data.carte.split(',').filter(c => c && c.trim() !== '') : [],
+                            stats: { packsOpened: 0, burnedCards: 0 },
+                            lastDailyClaim: data.lastDailyClaim ? Number(data.lastDailyClaim) : 0
                         };
                     }
                     saveUserData();
@@ -750,13 +819,14 @@
                         document.getElementById('nickname-modal').classList.remove('hidden');
                     } else {
                         showDashboard();
+                        checkUrlPromoCode();
                     }
                 } else {
                     errP.textContent = data.message || "Errore di autenticazione.";
                     errP.classList.remove('hidden');
                 }
             } catch (err) {
-                currentUser = { email: email, password: password, nickname: '', punti: 99999, oro: 10000, carte: [] };
+                currentUser = { email: email, password: password, nickname: '', punti: 99999, oro: 10000, carte: [], stats: { packsOpened: 0, burnedCards: 0 }, lastDailyClaim: 0 };
                 saveUserData();
                 document.getElementById('auth-screen').style.display = 'flex';
                 document.getElementById('nickname-modal').classList.remove('hidden');
@@ -764,6 +834,7 @@
         }
 
         function saveUserNickname() {
+            playSound('click');
             const nickInput = document.getElementById('setup-nickname-input').value.trim();
             const nickErr = document.getElementById('nickname-error');
             nickErr.classList.add('hidden');
@@ -778,17 +849,20 @@
             saveUserData();
             document.getElementById('nickname-modal').classList.add('hidden');
             showDashboard();
+            checkUrlPromoCode();
         }
 
         function openSettingsModal() {
+            playSound('click');
             document.getElementById('account-dropdown').classList.add('hidden');
             document.getElementById('settings-nickname-input').value = currentUser.nickname;
             document.getElementById('settings-modal').classList.remove('hidden');
         }
 
-        function closeSettingsModal() { document.getElementById('settings-modal').classList.add('hidden'); }
+        function closeSettingsModal() { playSound('click'); document.getElementById('settings-modal').classList.add('hidden'); }
 
         function updateUserNickname() {
+            playSound('click');
             const newNick = document.getElementById('settings-nickname-input').value.trim();
             if (!newNick || newNick.length < 2) return;
             currentUser.nickname = newNick;
@@ -800,6 +874,7 @@
 
         function saveUserData() {
             if (currentUser) {
+                if(!currentUser.stats) currentUser.stats = { packsOpened: 0, burnedCards: 0 };
                 localStorage.setItem('cinthec_arena_data', JSON.stringify(currentUser));
                 syncUserWithCloud();
             }
@@ -812,9 +887,10 @@
             document.getElementById('header-user-nickname').textContent = currentUser.nickname;
             document.getElementById('dropdown-nickname').textContent = currentUser.nickname;
             updateUI();
+            checkDailyButtonStatus();
         }
 
-        function toggleAccountMenu() { document.getElementById('account-dropdown').classList.toggle('hidden'); }
+        function toggleAccountMenu() { playSound('click'); document.getElementById('account-dropdown').classList.toggle('hidden'); }
 
         window.addEventListener('click', (e) => {
             const dropdown = document.getElementById('account-dropdown');
@@ -824,6 +900,7 @@
         });
 
         function logout() {
+            playSound('click');
             localStorage.removeItem('cinthec_arena_data');
             currentUser = null;
             document.getElementById('auth-screen').style.display = 'flex';
@@ -832,6 +909,7 @@
 
         function updateUI() {
             if(!currentUser) return;
+            if(!currentUser.stats) currentUser.stats = { packsOpened: 0, burnedCards: 0 };
             document.getElementById('header-points').textContent = currentUser.punti;
             document.getElementById('dashboard-points').textContent = currentUser.punti;
             document.getElementById('header-gold').textContent = currentUser.oro;
@@ -839,31 +917,77 @@
             
             const carteValide = currentUser.carte.filter(c => c && c.trim() !== "");
             document.getElementById('grid-stats').textContent = `Hai sbloccato ${carteValide.length} carte nella collezione.`;
+
+            document.getElementById('stat-packs').textContent = currentUser.stats.packsOpened;
+            document.getElementById('stat-burned').textContent = currentUser.stats.burnedCards;
+
+            document.getElementById('mission-1-status').textContent = currentUser.stats.packsOpened >= 3 ? "Completato 🎉" : `${currentUser.stats.packsOpened} / 3`;
+            checkDailyButtonStatus();
+        }
+
+        function checkDailyButtonStatus() {
+            if (!currentUser) return;
+            const now = Date.now();
+            const lastClaim = currentUser.lastDailyClaim || 0;
+            const twentyFourHours = 24 * 60 * 60 * 1000;
+            const btn = document.getElementById('daily-bonus-btn');
+            const btnText = document.getElementById('daily-btn-text');
+
+            if (now - lastClaim >= twentyFourHours) {
+                btn.disabled = false;
+                btn.className = "bg-cinthec/20 hover:bg-cinthec/30 border border-cinthec/40 px-2 py-1 text-[9px] font-black text-cinthec flex items-center gap-1 transition shadow animate-pulse cursor-pointer";
+                btnText.textContent = "GIORNALIERO (+10)";
+            } else {
+                btn.disabled = true;
+                const timeLeft = twentyFourHours - (now - lastClaim);
+                const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+                const mins = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                btn.className = "bg-zinc-900 border border-zinc-800 px-2 py-1 text-[9px] font-black text-zinc-500 flex items-center gap-1 opacity-60 cursor-not-allowed";
+                btnText.textContent = `PRONTO TRA ${hours}h ${mins}m`;
+            }
+        }
+
+        function claimDailyBonus() {
+            playSound('click');
+            const now = Date.now();
+            const lastClaim = currentUser.lastDailyClaim || 0;
+            const twentyFourHours = 24 * 60 * 60 * 1000;
+
+            if (now - lastClaim < twentyFourHours) {
+                showAlert("Non Ancora Pronto", "Puoi ritirare il bonus giornaliero solo una volta ogni 24 ore.", "fa-clock text-amber-400");
+                return;
+            }
+
+            currentUser.lastDailyClaim = now;
+            currentUser.punti = Number(currentUser.punti) + 10;
+            saveUserData();
+            updateUI();
+            showAlert("Bonus Giornaliero Riscattato! 🎁", "Hai ricevuto +10 Punti Crediti!", "fa-gift text-cinthec");
         }
 
         function showAlert(title, msg, iconClass = "fa-circle-check") {
+            playSound('click');
             document.getElementById('alert-title').textContent = title;
             document.getElementById('alert-msg').textContent = msg;
             document.getElementById('alert-icon').innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
             document.getElementById('custom-alert-modal').classList.remove('hidden');
         }
 
-        function closeCustomAlert() { document.getElementById('custom-alert-modal').classList.add('hidden'); }
+        function closeCustomAlert() { playSound('click'); document.getElementById('custom-alert-modal').classList.add('hidden'); }
 
         function switchView(view) {
-            ['shop', 'grid', 'challenges', 'burner', 'market', 'players', 'halloffame'].forEach(v => {
+            playSound('click');
+            ['shop', 'grid', 'burner', 'market', 'players', 'halloffame', 'profile'].forEach(v => {
                 const el = document.getElementById(`view-${v}`);
                 if(el) el.classList.add('hidden');
                 const nav = document.getElementById(`nav-${v}`);
                 if(nav) nav.className = 'px-2.5 py-1.5 text-[10px] font-black uppercase border-b-2 border-transparent text-zinc-500 hover:text-white transition flex items-center gap-1.5';
             });
             document.getElementById(`view-${view}`).classList.remove('hidden');
-            document.getElementById(`nav-${view}`).className = 'px-2.5 py-1.5 text-[10px] font-black uppercase border-b-2 border-cinthec text-cinthec transition flex items-center gap-1.5';
+            const navBtn = document.getElementById(`nav-${view}`);
+            if(navBtn) navBtn.className = 'px-2.5 py-1.5 text-[10px] font-black uppercase border-b-2 border-cinthec text-cinthec transition flex items-center gap-1.5';
             
-            if(view === 'grid') {
-                switchSubView(activeSubView);
-            }
-            if(view === 'challenges') renderChallenges();
+            if(view === 'grid') switchSubView(activeSubView);
             if(view === 'burner') renderBurner();
             if(view === 'market') loadMarketplace();
             if(view === 'players') loadPlayers();
@@ -871,6 +995,7 @@
         }
 
         function switchSubView(subView) {
+            playSound('click');
             activeSubView = subView;
             const subStd = document.getElementById('subview-standard');
             const subBin = document.getElementById('subview-binder');
@@ -882,9 +1007,9 @@
             subStd.classList.add('hidden');
             subBin.classList.add('hidden');
             subSpc.classList.add('hidden');
-            btnStd.className = 'px-2.5 py-1 text-[9px] font-black uppercase text-zinc-400 hover:text-white transition whitespace-nowrap';
-            btnBin.className = 'px-2.5 py-1 text-[9px] font-black uppercase text-zinc-400 hover:text-white transition whitespace-nowrap';
-            btnSpc.className = 'px-2.5 py-1 text-[9px] font-black uppercase text-zinc-400 hover:text-white transition whitespace-nowrap';
+            btnStd.className = 'px-2 py-1 text-[9px] font-black uppercase text-zinc-400 hover:text-white transition whitespace-nowrap';
+            btnBin.className = 'px-2 py-1 text-[9px] font-black uppercase text-zinc-400 hover:text-white transition whitespace-nowrap';
+            btnSpc.className = 'px-2 py-1 text-[9px] font-black uppercase text-zinc-400 hover:text-white transition whitespace-nowrap';
 
             if (subView === 'standard') {
                 subStd.classList.remove('hidden');
@@ -901,75 +1026,8 @@
             }
         }
 
-        function claimDailyBonus() {
-            currentUser.punti = Number(currentUser.punti) + 10;
-            saveUserData();
-            updateUI();
-            showAlert("Bonus Riscattato! 🎉", "Hai ottenuto +10 Punti per il tuo accesso giornaliero!", "fa-circle-check");
-        }
-
-        function redeemHeaderSmsCode() {
-            const input = document.getElementById('header-sms-input');
-            const code = input.value.trim().toUpperCase();
-            if (!code) {
-                showAlert("Codice Non Valido", "Inserisci un codice SMS o ticket valido.", "fa-circle-xmark");
-                return;
-            }
-            currentUser.punti = Number(currentUser.punti) + 100;
-            currentUser.oro = Number(currentUser.oro) + 25;
-            saveUserData();
-            updateUI();
-            input.value = '';
-            showAlert("Ticket Riscattato! 🎟️", "Codice evento verificato! +100 Punti e +25 Oro aggiunti al tuo account.", "fa-ticket text-amber-400");
-        }
-
-        function renderChallenges() {
-            const container = document.getElementById('challenges-container');
-            if(!currentUser.challengeLevels) currentUser.challengeLevels = { 1: 1, 2: 1, 3: 1 };
-
-            const bosses = [
-                { id: 1, name: "Scontro Base: Striker Locale", desc: "Un avversario tosto per iniziare.", rewardPts: 25, rewardGold: 10 },
-                { id: 2, name: "Torneo Interregionale", desc: "La tensione sale nella gabbia.", rewardPts: 50, rewardGold: 25 },
-                { id: 3, name: "Campione d'Assalto", desc: "La sfida definitiva per veri fighter.", rewardPts: 100, rewardGold: 50 }
-            ];
-
-            container.innerHTML = bosses.map(boss => {
-                const currentLvl = currentUser.challengeLevels[boss.id] || 1;
-                const isMax = currentLvl > 5;
-                return `
-                    <div class="bg-zinc-950 border border-zinc-800 p-3.5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2.5">
-                        <div>
-                            <div class="flex items-center gap-2 mb-1">
-                                <h3 class="font-bold text-xs text-white">${boss.name}</h3>
-                                <span class="bg-rose-500/20 text-rose-400 px-2 py-0.5 rounded text-[8px] font-black uppercase">Livello ${isMax ? 'MAX (5)' : currentLvl} / 5</span>
-                            </div>
-                            <p class="text-[10px] text-zinc-400">${boss.desc}</p>
-                        </div>
-                        <button onclick="fightBoss(${boss.id})" ${isMax ? 'disabled' : ''} class="px-3.5 py-2 bg-rose-600 hover:bg-rose-500 disabled:opacity-30 text-white font-black uppercase text-[10px] transition flex items-center gap-1.5 shrink-0 shadow">
-                            <i class="fa-solid fa-hand-fist"></i> ${isMax ? 'Completato' : `Combatti (+${boss.rewardPts * currentLvl} PT)`}
-                        </button>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function fightBoss(bossId) {
-            if(!currentUser.challengeLevels) currentUser.challengeLevels = { 1: 1, 2: 1, 3: 1 };
-            let lvl = currentUser.challengeLevels[bossId] || 1;
-            const ptGained = 25 * lvl;
-            const goldGained = 10 * lvl;
-
-            currentUser.punti = Number(currentUser.punti) + ptGained;
-            currentUser.oro = Number(currentUser.oro) + goldGained;
-            if(lvl < 5) currentUser.challengeLevels[bossId] = lvl + 1;
-
-            saveUserData();
-            updateUI();
-            renderChallenges();
-            showAlert("Vittoria nell'Arena! 🏆", `Hai sconfitto il boss a livello ${lvl}! Guadagnati +${ptGained} Punti e +${goldGained} Oro!`, "fa-trophy text-amber-400");
-        }
-
         async function buyPack(promotion, cardsCount, cost) {
+            playSound('click');
             const errP = document.getElementById('pack-error');
             errP.classList.add('hidden');
 
@@ -1005,6 +1063,8 @@
                     currentUser.punti = data.puntiRimanenti !== undefined ? Number(data.puntiRimanenti) : currentPts - cost;
                     const wonCards = data.carteVinte.map(c => c.code);
                     currentUser.carte = currentUser.carte.concat(wonCards);
+                    if(!currentUser.stats) currentUser.stats = { packsOpened: 0, burnedCards: 0 };
+                    currentUser.stats.packsOpened++;
                     saveUserData();
 
                     packVisual.classList.remove('pack-shake');
@@ -1019,6 +1079,8 @@
                     currentUser.punti = currentPts - cost;
                     const mockCards = simulatePackOpening(promotion, cardsCount);
                     currentUser.carte = currentUser.carte.concat(mockCards);
+                    if(!currentUser.stats) currentUser.stats = { packsOpened: 0, burnedCards: 0 };
+                    currentUser.stats.packsOpened++;
                     saveUserData();
                     showResult(mockCards);
                 }
@@ -1027,6 +1089,8 @@
                 currentUser.punti = currentPts - cost;
                 const mockCards = simulatePackOpening(promotion, cardsCount);
                 currentUser.carte = currentUser.carte.concat(mockCards);
+                if(!currentUser.stats) currentUser.stats = { packsOpened: 0, burnedCards: 0 };
+                currentUser.stats.packsOpened++;
                 saveUserData();
                 showResult(mockCards);
             }
@@ -1038,10 +1102,10 @@
             for(let i=0; i<count; i++) {
                 const rand = Math.random() * 100;
                 let rarity = 'comune';
-                if (rand < 2) rarity = 'special';
-                else if (rand < 7) rarity = 'leggendaria';
-                else if (rand < 15) rarity = 'ultra';
-                else if (rand < 35) rarity = 'rara';
+                if (rand < 0.2) rarity = 'special';
+                else if (rand < 1.2) rarity = 'leggendaria';
+                else if (rand < 10) rarity = 'ultra';
+                else if (rand < 30) rarity = 'rara';
 
                 const randomId = fighterIds[Math.floor(Math.random() * fighterIds.length)];
                 if (rarity === 'special') {
@@ -1053,17 +1117,22 @@
             return won;
         }
 
-        function showResult(wonCards) {
+        function showResult(wonCards, title = "Carte Trovate!", subtitle = "Aggiunte al tuo album personale.") {
             const result = document.getElementById('found-card-view');
+            const modal = document.getElementById('pack-modal');
+            modal.classList.remove('hidden');
+            document.getElementById('opening-animation').classList.add('hidden');
             result.classList.remove('hidden');
             result.classList.add('flex');
+            document.getElementById('pack-result-title').textContent = title;
+            document.getElementById('pack-result-sub').textContent = subtitle;
             const container = document.getElementById('result-card-container');
             container.innerHTML = wonCards.map(code => `<div class="w-full flex justify-center">${createCardHTML(code)}</div>`).join('');
             attachTiltEffect();
             updateUI();
         }
 
-        function closePackModal() { document.getElementById('pack-modal').classList.add('hidden'); }
+        function closePackModal() { playSound('click'); document.getElementById('pack-modal').classList.add('hidden'); }
 
         function renderGrid() {
             const grid = document.getElementById('cards-grid');
@@ -1078,8 +1147,6 @@
 
         function renderBinder() {
             const container = document.getElementById('binder-container');
-            
-            // Master slots per standard album (comune, rara, ultra, leggendaria per ogni fighter)
             let masterSlots = [];
             Object.keys(FIGHTER_DB).forEach(id => {
                 masterSlots.push({ id, rarity: 'comune' });
@@ -1088,122 +1155,82 @@
                 masterSlots.push({ id, rarity: 'leggendaria' });
             });
 
-            // 24 slot per vista doppia pagina (12 a sinistra, 12 a destra con griglia 4x3)
             const spreadSize = 24;
             const totalSpreads = Math.max(1, Math.ceil(masterSlots.length / spreadSize));
-            
             if (currentBinderPage >= totalSpreads) currentBinderPage = totalSpreads - 1;
             if (currentBinderPage < 0) currentBinderPage = 0;
 
             const startIdx = currentBinderPage * spreadSize;
             const pageSlots = masterSlots.slice(startIdx, startIdx + spreadSize);
 
-            let leftPageHTML = '';
-            let rightPageHTML = '';
-
+            let leftPageHTML = '', rightPageHTML = '';
             for(let i = 0; i < 12; i++) {
                 const slot = pageSlots[i];
                 if(slot) {
                     const ownedCard = findOwnedCard(slot.id, slot.rarity, false);
-                    if(ownedCard) {
-                        leftPageHTML += `<div class="binder-pocket">${createMiniCardHTML(ownedCard)}</div>`;
-                    } else {
+                    if(ownedCard) leftPageHTML += `<div class="binder-pocket">${createMiniCardHTML(ownedCard)}</div>`;
+                    else {
                         const fData = getFighterData(slot.id);
                         leftPageHTML += `<div class="binder-pocket"><span class="binder-pocket-empty">Manca<br>${fData.nome}<br>(${slot.rarity})</span></div>`;
                     }
-                } else {
-                    leftPageHTML += `<div class="binder-pocket"><span class="binder-pocket-empty">Vuota</span></div>`;
-                }
+                } else leftPageHTML += `<div class="binder-pocket"><span class="binder-pocket-empty">Vuota</span></div>`;
             }
 
             for(let i = 12; i < 24; i++) {
                 const slot = pageSlots[i];
                 if(slot) {
                     const ownedCard = findOwnedCard(slot.id, slot.rarity, false);
-                    if(ownedCard) {
-                        rightPageHTML += `<div class="binder-pocket">${createMiniCardHTML(ownedCard)}</div>`;
-                    } else {
+                    if(ownedCard) rightPageHTML += `<div class="binder-pocket">${createMiniCardHTML(ownedCard)}</div>`;
+                    else {
                         const fData = getFighterData(slot.id);
                         rightPageHTML += `<div class="binder-pocket"><span class="binder-pocket-empty">Manca<br>${fData.nome}<br>(${slot.rarity})</span></div>`;
                     }
-                } else {
-                    rightPageHTML += `<div class="binder-pocket"><span class="binder-pocket-empty">Vuota</span></div>`;
-                }
+                } else rightPageHTML += `<div class="binder-pocket"><span class="binder-pocket-empty">Vuota</span></div>`;
             }
 
-            container.innerHTML = `
-                <div class="binder-spread">
-                    <div class="binder-page-col">
-                        ${leftPageHTML}
-                    </div>
-                    <div class="binder-page-col">
-                        ${rightPageHTML}
-                    </div>
-                </div>
-            `;
+            container.innerHTML = `<div class="binder-spread"><div class="binder-page-col">${leftPageHTML}</div><div class="binder-page-col">${rightPageHTML}</div></div>`;
             attachTiltEffect();
         }
 
         function renderSpecialBinder() {
             const container = document.getElementById('special-binder-container');
-            
             let masterSlots = [];
-            Object.keys(FIGHTER_DB).forEach(id => {
-                masterSlots.push({ id, rarity: 'special' });
-            });
+            Object.keys(FIGHTER_DB).forEach(id => { masterSlots.push({ id, rarity: 'special' }); });
 
             const spreadSize = 24;
             const totalSpreads = Math.max(1, Math.ceil(masterSlots.length / spreadSize));
-            
             if (currentSpecialBinderPage >= totalSpreads) currentSpecialBinderPage = totalSpreads - 1;
             if (currentSpecialBinderPage < 0) currentSpecialBinderPage = 0;
 
             const startIdx = currentSpecialBinderPage * spreadSize;
             const pageSlots = masterSlots.slice(startIdx, startIdx + spreadSize);
 
-            let leftPageHTML = '';
-            let rightPageHTML = '';
-
+            let leftPageHTML = '', rightPageHTML = '';
             for(let i = 0; i < 12; i++) {
                 const slot = pageSlots[i];
                 if(slot) {
                     const ownedCard = findOwnedCard(slot.id, 'special', true);
-                    if(ownedCard) {
-                        leftPageHTML += `<div class="binder-pocket">${createMiniCardHTML(ownedCard)}</div>`;
-                    } else {
+                    if(ownedCard) leftPageHTML += `<div class="binder-pocket">${createMiniCardHTML(ownedCard)}</div>`;
+                    else {
                         const fData = getFighterData(slot.id);
                         leftPageHTML += `<div class="binder-pocket"><span class="binder-pocket-empty">Manca Speciale<br>${fData.nome}</span></div>`;
                     }
-                } else {
-                    leftPageHTML += `<div class="binder-pocket"><span class="binder-pocket-empty">Vuota</span></div>`;
-                }
+                } else leftPageHTML += `<div class="binder-pocket"><span class="binder-pocket-empty">Vuota</span></div>`;
             }
 
             for(let i = 12; i < 24; i++) {
                 const slot = pageSlots[i];
                 if(slot) {
                     const ownedCard = findOwnedCard(slot.id, 'special', true);
-                    if(ownedCard) {
-                        rightPageHTML += `<div class="binder-pocket">${createMiniCardHTML(ownedCard)}</div>`;
-                    } else {
+                    if(ownedCard) rightPageHTML += `<div class="binder-pocket">${createMiniCardHTML(ownedCard)}</div>`;
+                    else {
                         const fData = getFighterData(slot.id);
                         rightPageHTML += `<div class="binder-pocket"><span class="binder-pocket-empty">Manca Speciale<br>${fData.nome}</span></div>`;
                     }
-                } else {
-                    rightPageHTML += `<div class="binder-pocket"><span class="binder-pocket-empty">Vuota</span></div>`;
-                }
+                } else rightPageHTML += `<div class="binder-pocket"><span class="binder-pocket-empty">Vuota</span></div>`;
             }
 
-            container.innerHTML = `
-                <div class="binder-spread">
-                    <div class="binder-page-col">
-                        ${leftPageHTML}
-                    </div>
-                    <div class="binder-page-col">
-                        ${rightPageHTML}
-                    </div>
-                </div>
-            `;
+            container.innerHTML = `<div class="binder-spread"><div class="binder-page-col">${leftPageHTML}</div><div class="binder-page-col">${rightPageHTML}</div></div>`;
             attachTiltEffect();
         }
 
@@ -1212,15 +1239,13 @@
             return currentUser.carte.find(c => {
                 if (!c) return false;
                 const parsed = parseCardCode(c);
-                if (isSpecial) {
-                    return parsed.id === fighterId && parsed.isSpecial;
-                } else {
-                    return parsed.id === fighterId && !parsed.isSpecial && parsed.rarity === targetRarity;
-                }
+                if (isSpecial) return parsed.id === fighterId && parsed.isSpecial;
+                else return parsed.id === fighterId && !parsed.isSpecial && parsed.rarity === targetRarity;
             });
         }
 
         function changeBinderPage(direction) {
+            playSound('click');
             let masterSlotsCount = Object.keys(FIGHTER_DB).length * 4;
             const totalSpreads = Math.max(1, Math.ceil(masterSlotsCount / 24));
             currentBinderPage += direction;
@@ -1230,6 +1255,7 @@
         }
 
         function changeSpecialBinderPage(direction) {
+            playSound('click');
             let masterSlotsCount = Object.keys(FIGHTER_DB).length;
             const totalSpreads = Math.max(1, Math.ceil(masterSlotsCount / 24));
             currentSpecialBinderPage += direction;
@@ -1250,7 +1276,7 @@
                 const value = BURN_VALUES[parsed.rarity] || 2;
                 return `
                     <div class="flex flex-col gap-1.5">
-                        ${createCardHTML(code)}
+                        ${createCardHTML(code, true)}
                         <button onclick="burnCard('${code}')" class="w-full py-1.5 bg-rose-600/20 border border-rose-500/40 hover:bg-rose-600 text-rose-300 hover:text-white font-black uppercase text-[9px] transition flex items-center justify-center gap-1">
                             <i class="fa-solid fa-fire"></i> Brucia (+${value} PT)
                         </button>
@@ -1261,12 +1287,17 @@
         }
 
         function burnCard(cardCode) {
+            playSound('click');
             const index = currentUser.carte.indexOf(cardCode);
             if (index === -1) return;
             const parsed = parseCardCode(cardCode);
             const pointsGained = BURN_VALUES[parsed.rarity] || 2;
             currentUser.carte.splice(index, 1);
             currentUser.punti = Number(currentUser.punti) + pointsGained;
+
+            if(!currentUser.stats) currentUser.stats = { packsOpened: 0, burnedCards: 0 };
+            currentUser.stats.burnedCards++;
+
             saveUserData();
             updateUI();
             renderGrid();
@@ -1288,7 +1319,7 @@
                 }
                 container.innerHTML = listings.map(item => `
                     <div class="flex flex-col gap-1.5 bg-zinc-950 p-2 border border-zinc-800">
-                        ${createCardHTML(item.cartaCode)}
+                        ${createCardHTML(item.cartaCode, true)}
                         <button onclick="buyMarketCard('${item.id}', ${item.prezzo})" class="w-full py-1.5 bg-cinthec text-black font-black uppercase text-[9px] hover:bg-emerald-400 transition shadow-cinthec">Acquista (${item.prezzo} PT)</button>
                     </div>
                 `).join('');
@@ -1299,6 +1330,7 @@
         }
 
         async function buyMarketCard(listingId, prezzo) {
+            playSound('click');
             if (currentUser.punti < prezzo) { showAlert("Punti Insufficienti", "Non hai abbastanza crediti.", "fa-circle-xmark"); return; }
             try {
                 const res = await fetch(SCRIPT_URL, {
@@ -1366,7 +1398,8 @@
                             <span class="text-zinc-400 font-semibold">${currentUser.carte.length} Carte</span>
                             <span class="text-cinthec font-black">${currentUser.punti} PT</span>
                         </div>
-                    </div>`;
+                    </div>
+                `;
             }
         }
 
@@ -1379,9 +1412,8 @@
 
             let isSpecial = lower.includes('special') || lower.includes('coach') || lower.includes('staff');
             let rarity = 'comune';
-            if (isSpecial) {
-                rarity = 'special';
-            } else if (lower.includes('rara')) rarity = 'rara';
+            if (isSpecial) rarity = 'special';
+            else if (lower.includes('rara')) rarity = 'rara';
             else if (lower.includes('ultra')) rarity = 'ultra';
             else if (lower.includes('leggendaria')) rarity = 'leggendaria';
 
@@ -1404,36 +1436,24 @@
         }
 
         function getCardImageUrl(parsed) {
-            if (parsed.isSpecial || parsed.rarity === 'special') {
-                return `carte/${parsed.id}.jpg`;
-            }
+            if (parsed.isSpecial || parsed.rarity === 'special') return `carte/${parsed.id}.jpg`;
             return `carte/${parsed.id}_${parsed.rarity}.jpg`;
         }
 
         function handleImageError(imgElem, parsedId, rarClean, isSpecial) {
             const currentSrc = imgElem.src;
             if (isSpecial) {
-                if (currentSrc.endsWith('.jpg')) {
-                    imgElem.src = `carte/${parsedId}.jpeg`;
-                } else if (currentSrc.endsWith('.jpeg')) {
-                    imgElem.src = `carte/${parsedId}_special.jpg`;
-                } else {
-                    imgElem.onerror = null;
-                    imgElem.src = 'carte/logo.png';
-                }
+                if (currentSrc.endsWith('.jpg')) imgElem.src = `carte/${parsedId}.jpeg`;
+                else if (currentSrc.endsWith('.jpeg')) imgElem.src = `carte/${parsedId}_special.jpg`;
+                else { imgElem.onerror = null; imgElem.src = 'carte/logo.png'; }
             } else {
-                if (currentSrc.endsWith('.jpg')) {
-                    imgElem.src = `carte/${parsedId}_${rarClean}.jpeg`;
-                } else if (currentSrc.endsWith('.jpeg')) {
-                    imgElem.src = `carte/${parsedId}_${rarClean}.png`;
-                } else {
-                    imgElem.onerror = null;
-                    imgElem.src = 'carte/logo.png';
-                }
+                if (currentSrc.endsWith('.jpg')) imgElem.src = `carte/${parsedId}_${rarClean}.jpeg`;
+                else if (currentSrc.endsWith('.jpeg')) imgElem.src = `carte/${parsedId}_${rarClean}.png`;
+                else { imgElem.onerror = null; imgElem.src = 'carte/logo.png'; }
             }
         }
 
-        function createCardHTML(cardCode) {
+        function createCardHTML(cardCode, disableClick = false) {
             if (!cardCode || cardCode.trim() === '') return '';
             const parsed = parseCardCode(cardCode);
             const fData = getFighterData(parsed.id);
@@ -1444,13 +1464,15 @@
             if(parsed.rarity === 'rara') rarityColor = 'bg-amber-400 text-black font-black';
             if(parsed.rarity === 'ultra') rarityColor = 'bg-purple-600 text-white font-black';
             if(parsed.rarity === 'leggendaria') rarityColor = 'bg-gradient-to-r from-yellow-300 via-pink-500 to-cyan-400 text-black font-black';
-            if(parsed.isSpecial) rarityColor = 'bg-white text-black font-black shadow-[0_0_20px_rgba(255,255,255,0.95)]';
+            if(parsed.isSpecial) rarityColor = 'bg-[#00ff66] text-black font-black shadow-[0_0_15px_rgba(0,255,102,0.8)]';
 
             let fullName = fData.nome || "MATTEO PERINI";
             if (fData.nickname) fullName += ` "${fData.nickname}"`;
 
+            const clickAction = disableClick ? '' : `onclick="openCardInspectModal('${cardCode}')"`;
+
             return `
-                <div class="card-container" onclick="openCardInspectModal('${cardCode}')">
+                <div class="card-container" ${clickAction}>
                     <div class="card-inner ${parsed.isSpecial ? 'rarity-special' : 'rarity-' + parsed.rarity} flex flex-col justify-between p-2 relative overflow-hidden">
                         <div class="card-shine-hover"></div>
                         <img src="${imgUrl}" class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none" onerror="handleImageError(this, '${parsed.id}', '${parsed.rarity}', ${parsed.isSpecial})">
@@ -1491,11 +1513,11 @@
         }
 
         function openCardInspectModal(code) {
+            playSound('click');
             document.getElementById('inspect-card-container').innerHTML = createGiant3DCardHTML(code);
             document.getElementById('modal-burn-btn').setAttribute('onclick', `burnCard('${code}')`);
             document.getElementById('modal-upgrade-btn').setAttribute('onclick', `upgradeCard('${code}')`);
             document.getElementById('card-inspect-modal').classList.remove('hidden');
-            attachInspectTilt();
         }
 
         function closeCardInspectModal(e) {
@@ -1504,11 +1526,10 @@
             }
         }
 
-        function closeCardInspectModalDirect() {
-            document.getElementById('card-inspect-modal').classList.add('hidden');
-        }
+        function closeCardInspectModalDirect() { playSound('click'); document.getElementById('card-inspect-modal').classList.add('hidden'); }
 
         function upgradeCard(code) {
+            playSound('click');
             const currentGold = Number(currentUser.oro);
             if (currentGold < 50) {
                 showAlert("Oro Insufficiente", "Ti servono 50 Monete d'Oro per potenziare questa carta!", "fa-circle-xmark");
@@ -1516,6 +1537,7 @@
             }
             currentUser.oro = currentGold - 50;
             const parsed = parseCardCode(code);
+            const oldStats = calculateStatsForLevel(parsed.rarity, parsed.lvl, parsed.isSpecial);
             const nextLvl = parsed.lvl + 1;
             const newCode = `${parsed.series}_${parsed.id}_${parsed.rarity}_lvl${nextLvl}`;
 
@@ -1524,8 +1546,33 @@
 
             saveUserData();
             updateUI();
+            
+            const newStats = calculateStatsForLevel(parsed.rarity, nextLvl, parsed.isSpecial);
+            showUpgradePopup(parsed.lvl, nextLvl, oldStats, newStats);
             openCardInspectModal(newCode);
-            showAlert("Potenziamento Riuscito!", `La carta è salita al Livello ${nextLvl}! Le statistiche sono aumentate.`, "fa-circle-check");
+        }
+
+        function showUpgradePopup(oldLvl, newLvl, oldS, newS) {
+            document.getElementById('upgrade-level-label').textContent = `Livello ${oldLvl} ➔ ${newLvl}`;
+            const list = document.getElementById('upgrade-stats-list');
+            
+            const diffStk = newS.stk - oldS.stk;
+            const diffLot = newS.lot - oldS.lot;
+            const diffAtt = newS.att - oldS.att;
+            const diffDfs = newS.dfs - oldS.dfs;
+
+            list.innerHTML = `
+                <div class="flex justify-between items-center text-zinc-300"><span>Striking:</span><span>${oldS.stk} ➔ <strong class="text-cinthec">${newS.stk}</strong> <span class="text-[10px] text-emerald-400">(+${diffStk})</span></span></div>
+                <div class="flex justify-between items-center text-zinc-300"><span>Lotta:</span><span>${oldS.lot} ➔ <strong class="text-amber-400">${newS.lot}</strong> <span class="text-[10px] text-emerald-400">(+${diffLot})</span></span></div>
+                <div class="flex justify-between items-center text-zinc-300"><span>Attacco:</span><span>${oldS.att} ➔ <strong class="text-rose-400">${newS.att}</strong> <span class="text-[10px] text-emerald-400">(+${diffAtt})</span></span></div>
+                <div class="flex justify-between items-center text-zinc-300"><span>Difesa:</span><span>${oldS.dfs} ➔ <strong class="text-blue-400">${newS.dfs}</strong> <span class="text-[10px] text-emerald-400">(+${diffDfs})</span></span></div>
+            `;
+            document.getElementById('upgrade-popup-modal').classList.remove('hidden');
+        }
+
+        function closeUpgradePopup() {
+            playSound('click');
+            document.getElementById('upgrade-popup-modal').classList.add('hidden');
         }
 
         function calculateStatsForLevel(rarity, lvl, isSpecial) {
@@ -1544,10 +1591,10 @@
             }
 
             return {
-                stk: Math.min(100, base.stk + bonus),
-                lot: Math.min(100, base.lot + bonus),
-                att: Math.min(100, base.att + bonus),
-                dfs: Math.min(100, base.dfs + bonus)
+                stk: base.stk + bonus,
+                lot: base.lot + bonus,
+                att: base.att + bonus,
+                dfs: base.dfs + bonus
             };
         }
 
@@ -1556,19 +1603,19 @@
             const fData = getFighterData(parsed.id);
             const imgUrl = getCardImageUrl(parsed);
 
-            let rarityLabel = parsed.isSpecial ? 'SPECIAL MASTERPIECE' : parsed.rarity.toUpperCase();
+            let rarityLabel = parsed.isSpecial ? 'SPECIAL' : parsed.rarity.toUpperCase();
             let rarityColor = 'bg-zinc-600 text-white';
             if(parsed.rarity === 'rara') rarityColor = 'bg-amber-400 text-black font-black';
             if(parsed.rarity === 'ultra') rarityColor = 'bg-purple-600 text-white font-black';
             if(parsed.rarity === 'leggendaria') rarityColor = 'bg-gradient-to-r from-yellow-300 via-pink-500 to-cyan-400 text-black font-black';
-            if(parsed.isSpecial) rarityColor = 'bg-white text-black font-black shadow-[0_0_20px_rgba(255,255,255,0.95)]';
+            if(parsed.isSpecial) rarityColor = 'bg-[#00ff66] text-black font-black shadow-[0_0_15px_rgba(0,255,102,0.8)]';
 
             const stats = calculateStatsForLevel(parsed.rarity, parsed.lvl, parsed.isSpecial);
             let fullName = fData.nome || "MATTEO PERINI";
             if (fData.nickname) fullName += ` "${fData.nickname}"`;
 
             return `
-                <div class="modal-card-3d" onclick="this.classList.toggle('flipped')">
+                <div class="modal-card-3d" onclick="this.classList.toggle('flipped'); playSound('click');">
                     <div class="modal-card-flipper">
                         <div class="modal-card-front ${parsed.isSpecial ? 'rarity-special' : 'rarity-' + parsed.rarity} flex flex-col justify-between p-3.5 relative overflow-hidden">
                             <div class="card-shine-hover"></div>
@@ -1588,38 +1635,39 @@
                         </div>
 
                         <div class="modal-card-back ${parsed.isSpecial ? 'rarity-special' : 'rarity-' + parsed.rarity} flex flex-col justify-between p-3.5 text-center">
-                            <div class="border-b border-zinc-800 pb-1.5 flex justify-between items-center">
-                                <span class="text-[9px] text-cinthec font-black uppercase tracking-widest">Stats (Livello ${parsed.lvl})</span>
+                            <div class="border-b border-zinc-800 pb-1.5 flex justify-between items-center relative z-20">
+                                <span class="text-[9px] text-cinthec font-black uppercase tracking-widest bg-black/80 px-1 rounded">Stats (Livello ${parsed.lvl})</span>
                             </div>
-                            <div class="space-y-2 my-auto text-left">
+                            <div class="space-y-2 my-auto text-left relative z-20 bg-black/90 p-2 rounded">
                                 <div>
                                     <div class="flex justify-between items-center text-[10px] font-black mb-0.5">
                                         <span class="text-zinc-400">STRIKING</span><span class="text-cinthec">${stats.stk}</span>
                                     </div>
-                                    <div class="w-full bg-zinc-800 h-1.5 rounded"><div class="bg-cinthec h-1.5 rounded" style="width: ${stats.stk}%"></div></div>
+                                    <div class="w-full bg-zinc-800 h-1.5 rounded"><div class="bg-cinthec h-1.5 rounded" style="width: ${Math.min(100, stats.stk)}%"></div></div>
                                 </div>
                                 <div>
                                     <div class="flex justify-between items-center text-[10px] font-black mb-0.5">
                                         <span class="text-zinc-400">LOTTA</span><span class="text-amber-400">${stats.lot}</span>
                                     </div>
-                                    <div class="w-full bg-zinc-800 h-1.5 rounded"><div class="bg-amber-400 h-1.5 rounded" style="width: ${stats.lot}%"></div></div>
+                                    <div class="w-full bg-zinc-800 h-1.5 rounded"><div class="bg-amber-400 h-1.5 rounded" style="width: ${Math.min(100, stats.lot)}%"></div></div>
                                 </div>
                                 <div>
                                     <div class="flex justify-between items-center text-[10px] font-black mb-0.5">
                                         <span class="text-zinc-400">ATTACCO</span><span class="text-rose-400">${stats.att}</span>
                                     </div>
-                                    <div class="w-full bg-zinc-800 h-1.5 rounded"><div class="bg-rose-500 h-1.5 rounded" style="width: ${stats.att}%"></div></div>
+                                    <div class="w-full bg-zinc-800 h-1.5 rounded"><div class="bg-rose-500 h-1.5 rounded" style="width: ${Math.min(100, stats.att)}%"></div></div>
                                 </div>
                                 <div>
                                     <div class="flex justify-between items-center text-[10px] font-black mb-0.5">
                                         <span class="text-zinc-400">DIFESA</span><span class="text-blue-400">${stats.dfs}</span>
                                     </div>
-                                    <div class="w-full bg-zinc-800 h-1.5 rounded"><div class="bg-blue-500 h-1.5 rounded" style="width: ${stats.dfs}%"></div></div>
+                                    <div class="w-full bg-zinc-800 h-1.5 rounded"><div class="bg-blue-500 h-1.5 rounded" style="width: ${Math.min(100, stats.dfs)}%"></div></div>
                                 </div>
                             </div>
-                            <div class="border-t border-zinc-800 pt-1 text-[8px] text-zinc-500 font-extrabold uppercase tracking-widest">
+                            <div class="border-t border-zinc-800 pt-1 text-[8px] text-zinc-500 font-extrabold uppercase tracking-widest relative z-20 bg-black/80 rounded mt-1">
                                 CintheC Digital Collectibles • 2026
                             </div>
+                            <div class="absolute inset-0 bg-zinc-900 z-0 border-2 ${parsed.isSpecial ? 'border-[#00ff66]' : 'border-zinc-700'}"></div>
                         </div>
                     </div>
                 </div>
@@ -1640,24 +1688,6 @@
                 container.addEventListener('mouseleave', () => {
                     inner.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
                 });
-            });
-        }
-
-        function attachInspectTilt() {
-            const card3d = document.querySelector('.modal-card-3d');
-            if (!card3d) return;
-            const flipper = card3d.querySelector('.modal-card-flipper');
-            card3d.addEventListener('mousemove', (e) => {
-                const rect = card3d.getBoundingClientRect();
-                const x = e.clientX - rect.left, y = e.clientY - rect.top;
-                const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -12;
-                const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 12;
-                const isFlipped = card3d.classList.contains('flipped');
-                flipper.style.transform = isFlipped ? `rotateY(180deg) rotateX(${rotateX}deg) rotateY(${rotateY}deg)` : `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            });
-            card3d.addEventListener('mouseleave', () => {
-                const isFlipped = card3d.classList.contains('flipped');
-                flipper.style.transform = isFlipped ? `rotateY(180deg)` : `rotateX(0deg) rotateY(0deg)`;
             });
         }
     </script>

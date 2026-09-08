@@ -59,9 +59,7 @@
             position: relative;
             z-index: 60;
         }
-        .pc-nav-link:hover {
-            color: #00ff66 !important;
-        }
+        .pc-nav-link:hover { color: #00ff66 !important; }
 
         .nav-dropdown-btn {
             background-color: rgba(18, 18, 20, 0.85);
@@ -87,11 +85,7 @@
             color: #00ff66;
         }
 
-        .dropdown { 
-            position: relative; 
-            display: inline-block; 
-            z-index: 100; 
-        }
+        .dropdown { position: relative; display: inline-block; z-index: 100; }
         
         .dropdown-content {
             display: none;
@@ -106,17 +100,10 @@
             top: 100%;
             left: 0;
             padding-top: 8px;
-            margin-top: 0px;
         }
         
-        .dropdown-inner {
-            background-color: #121214;
-            border-top: 1px solid rgba(0, 255, 102, 0.2);
-        }
-
-        .dropdown-content.show, .mobile-dropdown-content.show {
-            display: block !important;
-        }
+        .dropdown-inner { background-color: #121214; border-top: 1px solid rgba(0, 255, 102, 0.2); }
+        .dropdown-content.show, .mobile-dropdown-content.show { display: block !important; }
 
         .mobile-dropdown-btn {
             background-color: rgba(20, 20, 24, 0.9);
@@ -156,7 +143,6 @@
             top: 100%;
             left: 0;
             padding-top: 8px;
-            margin-top: 0px;
         }
 
         .dropdown-content a, .mobile-dropdown-content a {
@@ -317,35 +303,39 @@
         </div>
     </div>
 
-    <footer class="relative z-10 py-1.5 text-zinc-400 text-xs border-t border-zinc-800 bar-lightning-bg mt-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-2 text-left items-center">
+    <!-- FOOTER COMPATTO UNICA FILA CON NOMI PER ESTESO -->
+    <footer class="relative z-10 py-2 px-2 text-zinc-400 text-[10px] border-t border-zinc-800 bar-lightning-bg mt-16">
+        <div class="max-w-7xl mx-auto grid grid-cols-3 gap-1 sm:gap-4 items-start w-full">
             
-            <div class="flex flex-col items-start gap-0.5">
-                <h4 class="text-white font-black text-[10px] uppercase tracking-wider mb-0.5">Seguici</h4>
-                <div class="flex flex-col gap-0.5 text-[11px]">
+            <!-- Sinistra: Seguici -->
+            <div class="flex flex-col items-start gap-0.5 text-left">
+                <h4 class="text-white font-black text-[9px] sm:text-[10px] uppercase tracking-wider mb-0.5">Seguici</h4>
+                <div class="flex flex-col gap-0.5 text-[8px] sm:text-[9px]">
                     <a href="https://www.instagram.com/cinthec_mma?igsi=dDl1bjBxcDB2bHl2" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] font-semibold transition cursor-pointer">
-                        <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> CintheC MMA
+                        <i class="fa-brands fa-instagram text-pink-500 text-[9px]"></i> CintheC MMA
                     </a>
                     <a href="https://www.instagram.com/leoni_di_san_marco?igsi=b2ZpOGgxcjY3NWYz" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] font-semibold transition cursor-pointer">
-                        <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> Leoni di San Marco
+                        <i class="fa-brands fa-instagram text-pink-500 text-[9px]"></i> Leoni di San Marco
                     </a>
                     <a href="https://www.instagram.com/labirinthknockout?igsi=dGlwMGZ1amwyMjJr" target="_blank" class="inline-flex items-center gap-1 text-zinc-300 hover:text-[#00ff66] font-semibold transition cursor-pointer">
-                        <i class="fa-brands fa-instagram text-pink-500 text-xs"></i> Labirinth Knockout
+                        <i class="fa-brands fa-instagram text-pink-500 text-[9px]"></i> Labirinth Knockout
                     </a>
                 </div>
             </div>
 
-            <div class="flex flex-col items-center text-center">
-                <h4 class="text-white font-black text-[10px] mb-0.5 uppercase tracking-wider">Note Legali</h4>
-                <ul class="flex flex-col gap-0.5 text-[11px] text-zinc-300">
+            <!-- Centro: Note Legali -->
+            <div class="flex flex-col items-center text-center gap-0.5">
+                <h4 class="text-white font-black text-[9px] sm:text-[10px] mb-0.5 uppercase tracking-wider">Note Legali</h4>
+                <ul class="flex flex-col gap-0.5 text-[9px] sm:text-[10px] text-zinc-300">
                     <li><a href="privacy.html" class="hover:text-[#00ff66] transition font-medium cursor-pointer">Privacy Policy</a></li>
                     <li><a href="note-legali.html" class="hover:text-[#00ff66] transition font-medium cursor-pointer">Note Legali</a></li>
                 </ul>
             </div>
 
-            <div class="flex flex-col items-end text-right">
-                <h4 class="text-white font-black text-[10px] mb-0.5 uppercase tracking-wider">Pagamenti Sicuri</h4>
-                <div class="flex gap-1.5 text-base sm:text-lg text-zinc-300 justify-end flex-wrap">
+            <!-- Destra: Pagamenti Sicuri -->
+            <div class="flex flex-col items-end text-right gap-0.5">
+                <h4 class="text-white font-black text-[9px] sm:text-[10px] mb-0.5 uppercase tracking-wider">Pagamenti</h4>
+                <div class="flex gap-1 text-xs sm:text-base text-zinc-300 justify-end flex-wrap">
                     <i class="fa-brands fa-cc-visa" title="Visa"></i>
                     <i class="fa-brands fa-cc-mastercard" title="Mastercard"></i>
                     <i class="fa-brands fa-cc-amex" title="American Express"></i>
@@ -356,7 +346,7 @@
             </div>
 
         </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-1 border-t border-zinc-900/80 text-center text-[9px] text-zinc-500 mt-1.5">
+        <div class="max-w-7xl mx-auto px-2 pt-1 border-t border-zinc-900/80 text-center text-[8px] text-zinc-500 mt-1.5">
             <p>© 2026 CintheC & Leoni di San Marco. Tutti i diritti riservati.</p>
         </div>
     </footer>
@@ -366,13 +356,13 @@
             { 
                 title: "Pesi Mosca", 
                 weight: "56,7 kg (125 lbs)", 
-                champion: { name: "Joshua Van", img: "atleti/anuji.jpg" },
+                champion: { name: "Joshua Van", img: "ranking/anuji.jpg" },
                 fighters: Array(15).fill("Mario Rossi")
             },
             { 
                 title: "Pesi Gallo", 
                 weight: "61,2 kg (135 lbs)", 
-                champion: { name: "Petr Yan", img: "atleti/balducci.jpg" },
+                champion: { name: "Petr Yan", img: "ranking/balducci.jpg" },
                 fighters: Array(15).fill("Mario Rossi")
             },
             { 
@@ -389,60 +379,60 @@
                     { name: "Umberto Bagni", img: "ranking/umberto-bagni.jpg", record: "2-0-0", movement: "0" },
                     { name: "Davide Pagotto", img: "ranking/pagotto.jpg", record: "7-8-0", movement: "-1" },
                     { name: "Luca D'Acosta", img: "ranking/costa.jpg", record: "1-2-0", movement: "+3" },
-                    { name: "Natay Gurnioli", img: "atleti/logo.png", record: "0-2-0", movement: "NEW" },
+                    { name: "Natay Gurnioli", img: "Immagini/Logo.png", record: "0-2-0", movement: "NEW" },
                     { name: "Andrei Gabura", img: "ranking/gabura1.jpg", record: "1-3-0", movement: "-1" },
                     { name: "Andrea Piccinini", img: "ranking/piccini.jpg", record: "0-6-0", movement: "-2" },
-                    { name: "Atleta 13", img: "atleti/logo.png", record: "0-0-0", movement: "" },
-                    { name: "Atleta 14", img: "atleti/logo.png", record: "0-0-0", movement: "" },
-                    { name: "Atleta 15", img: "atleti/logo.png", record: "0-0-0", movement: "" }
+                    { name: "Atleta 13", img: "Immagini/Logo.png", record: "0-0-0", movement: "" },
+                    { name: "Atleta 14", img: "Immagini/Logo.png", record: "0-0-0", movement: "" },
+                    { name: "Atleta 15", img: "Immagini/Logo.png", record: "0-0-0", movement: "" }
                 ]
             },
             { 
                 title: "Pesi Leggeri", 
                 weight: "70,3 kg (155 lbs)", 
-                champion: { name: "Justin Gaethje", img: "atleti/pagotto.jpg" },
+                champion: { name: "Justin Gaethje", img: "ranking/pagotto.jpg" },
                 fighters: Array(15).fill("Mario Rossi")
             },
             { 
                 title: "Pesi Welter", 
                 weight: "77,1 kg (170 lbs)", 
-                champion: { name: "Mario Rossi", img: "atleti/el-medkour.jpg" },
+                champion: { name: "Mario Rossi", img: "ranking/el-medkour.jpg" },
                 fighters: Array(15).fill("Mario Rossi")
             },
             { 
                 title: "Pesi Medi", 
                 weight: "83,9 kg (185 lbs)", 
-                champion: { name: "Sean Strickland", img: "atleti/pitaveric.jpg" },
+                champion: { name: "Sean Strickland", img: "ranking/pitaveric.jpg" },
                 fighters: Array(15).fill("Mario Rossi")
             },
             { 
                 title: "Pesi Massimi Leggeri", 
                 weight: "93 kg (205 lbs)", 
-                champion: { name: "Carlos Ulberg", img: "atleti/perini.jpg" },
+                champion: { name: "Carlos Ulberg", img: "ranking/perini.jpg" },
                 fighters: Array(15).fill("Mario Rossi")
             },
             { 
                 title: "Pesi Massimi", 
                 weight: "120,2 kg (265 lbs)", 
-                champion: { name: "Tom Aspinall", img: "atleti/piccini.jpg" },
+                champion: { name: "Tom Aspinall", img: "ranking/piccini.jpg" },
                 fighters: Array(15).fill("Mario Rossi")
             },
             { 
                 title: "Women's Strawweight", 
                 weight: "52,2 kg (115 lbs)", 
-                champion: { name: "Mario Rossi", img: "atleti/anuji.jpg" },
+                champion: { name: "Mario Rossi", img: "ranking/anuji.jpg" },
                 fighters: Array(15).fill("Mario Rossi")
             },
             { 
                 title: "Women's Flyweight", 
                 weight: "56,7 kg (125 lbs)", 
-                champion: { name: "Mario Rossi", img: "atleti/balducci.jpg" },
+                champion: { name: "Mario Rossi", img: "ranking/balducci.jpg" },
                 fighters: Array(15).fill("Mario Rossi")
             },
             { 
                 title: "Women's Bantamweight", 
                 weight: "61,2 kg (135 lbs)", 
-                champion: { name: "Mario Rossi", img: "atleti/drenica.jpg" },
+                champion: { name: "Mario Rossi", img: "ranking/drenica.jpg" },
                 fighters: Array(15).fill("Mario Rossi")
             }
         ];
@@ -460,7 +450,7 @@
                 for (let i = 0; i < cat.fighters.length; i++) {
                     let fighter = cat.fighters[i];
                     let fighterName = typeof fighter === 'object' ? fighter.name : fighter;
-                    let fighterImg = typeof fighter === 'object' ? fighter.img : 'atleti/logo.png';
+                    let fighterImg = typeof fighter === 'object' ? fighter.img : 'Immagini/Logo.png';
                     let fighterRecord = typeof fighter === 'object' && fighter.record ? fighter.record : '0-0-0';
                     let fighterMovement = typeof fighter === 'object' && fighter.movement ? fighter.movement : '';
                     
@@ -482,7 +472,7 @@
                             <div class="flex items-center gap-2 w-full overflow-hidden">
                                 <span class="text-xs font-black text-black w-5 text-center shrink-0">${i + 1}</span>
                                 <div class="w-7 h-7 rounded-full overflow-hidden bg-zinc-200 border border-zinc-300 shrink-0 cursor-pointer hover:scale-110 transition shadow-sm" onclick="openImageModal('${fighterImg}', '${fighterName}')" title="Clicca per ingrandire">
-                                    <img src="${fighterImg}" class="w-full h-full object-cover" onerror="this.src='Immagini/Logo.png'">
+                                    <img src="${fighterImg}" loading="lazy" class="w-full h-full object-cover" onerror="this.src='Immagini/Logo.png'">
                                 </div>
                                 <div class="flex items-center justify-between w-full min-w-0 pl-1 gap-1">
                                     <span class="text-xs font-bold text-zinc-800 truncate">${fighterName}</span>
@@ -515,13 +505,12 @@
                                 <span class="text-[9px] font-extrabold text-zinc-600">${cat.weight}</span>
                             </div>
                             
-                            <!-- BOX CHAMPION QUADRATO CON CORNICE SOTTO -->
                             <div class="text-center mb-4 bg-zinc-50 p-2.5 rounded-xl border border-zinc-200">
                                 <div class="flex items-center justify-between mb-2">
                                     <span class="text-[8px] font-extrabold uppercase text-amber-600 bg-amber-100 px-2 py-0.5 rounded border border-amber-200">Champion</span>
                                 </div>
                                 <div class="w-full h-32 rounded-lg overflow-hidden border border-amber-400/60 shadow-sm mb-2 bg-zinc-200 cursor-pointer hover:opacity-95 transition" onclick="openImageModal('${cat.champion.img}', '${cat.champion.name} (Champion)')" title="Clicca per ingrandire">
-                                    <img src="${cat.champion.img}" class="w-full h-full object-cover" onerror="this.src='Immagini/Logo.png'">
+                                    <img src="${cat.champion.img}" loading="lazy" class="w-full h-full object-cover" onerror="this.src='Immagini/Logo.png'">
                                 </div>
                                 <div class="bg-white p-2 rounded-lg border border-zinc-200 flex items-center justify-between gap-1">
                                     <h3 class="text-[11px] font-black text-zinc-900 uppercase tracking-tight truncate">${cat.champion.name}</h3>
@@ -573,9 +562,9 @@
                                     <p class="text-xs font-black text-zinc-900">${cat.champion.name}</p>
                                 </div>
                                 <div class="w-12 h-12 rounded-lg overflow-hidden border border-amber-400 shrink-0 bg-zinc-200" onclick="event.stopPropagation(); openImageModal('${cat.champion.img}', '${cat.champion.name} (Champion)')">
-                                    <img src="${cat.champion.img}" class="w-full h-full object-cover" onerror="this.src='Immagini/Logo.png'">
+                                    <img src="${cat.champion.img}" loading="lazy" class="w-full h-full object-cover" onerror="this.src='Immagini/Logo.png'">
                                 </div>
-                                ${isUnlocked ? `<i id="arrow-${index}" class="fa-solid fa-chevron-down text-zinc-400 text-xs transition-transform duration-300"></i>` : ''}
+                                ${isUnlocked ? `<i id="arrow-${index}" class="fa-solid fa-chevron-down text-zinc-400 text-xs transition-transform duration-200"></i>` : ''}
                             </div>
                         </div>
 
